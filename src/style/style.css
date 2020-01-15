@@ -1,0 +1,1062 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+html{
+    /* overflow-y: hidden; */
+    overflow-x: hidden !important;
+}
+
+body {
+    z-index: 1000;
+    overflow-y: scroll;
+    height: 100% !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+body.modal-open {
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+}
+
+.p {
+    margin-bottom: 7px;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+.index_logo {
+    width: 100%;
+}
+
+.login, .error {
+    background: url('../assets/img/background_login.jpeg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.register {
+    background: url('../assets/img/background_register.jpeg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.logo {
+    height: 20%;
+    min-height: 180px;
+    margin-bottom: 10%;
+}
+
+.logo_error {
+    height: 40%;
+    min-height: 200px;
+    margin-bottom: 20%;
+}
+
+.btn-nav {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.btn-info {
+    background-color: #1ED760 !important;
+}
+
+.offset_login, .offset_error {
+    height: 20%;
+}
+
+.offset_register {
+    height: 10%;
+}
+
+.centered_login, .centered_error {
+    height: auto;
+    background: rgba(221,221,221,0.8);
+    border-radius: 2%;
+}
+
+.centered_register {
+    height: auto;
+    background: rgba(221,221,221,0.8);
+    border-radius: 2%;
+}
+
+.category_title {
+    margin: 2% 0;
+}
+
+.text-green {
+    color: #1ED760;
+}
+
+.badge-ingredients{
+    background-color: rgb(30, 215, 96) !important;
+    font-weight: normal !important;
+    margin-top: 5px;
+    margin-right: 10px;
+    font-size: 17px;
+}
+
+.ingredients-recipe-no-border{
+    clear: both;
+}
+
+.ingredients-recipe{
+    clear: both;
+    margin-top: 5px;
+    border-top: 1px solid grey;
+}
+
+.invisible{
+    width: 0;
+    height: 0;
+    margin: 0;
+}
+
+.browse {
+    float: left;
+    width: calc(100% - 320px) ;
+}
+
+.main_container{
+    margin-left: calc(15% + 10px);
+    float: left;
+    width: 85%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.text-muted{
+    text-align: left;
+    color: #ff0219 !important;
+}
+
+
+a.custom-card:hover{
+    color: rgb(30, 215, 96);
+}
+
+a.custom-card{
+    color: inherit;
+    text-decoration: none;
+}
+
+.text-filter{
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+.side-card-container{
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 300px;
+    position: fixed;
+    right: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: calc(100% - 10px);
+}
+
+.log-out-sidebar{
+    position: absolute;
+    bottom: 0;
+}
+
+.filter-ingredients-item{
+    margin-bottom: 20px;
+}
+
+.filter-items{
+    margin-left: 20px;
+}
+
+.card-body{
+    text-align: left;
+}
+
+.empty-warning{
+    text-align: center;
+}
+
+.new-ingredient-btn{
+    float: left;
+}
+
+.new-recipe-ingredient-amount{
+    float: left;
+    width: 20%;
+    margin:0 0 0 2%;
+}
+
+
+.delete-ingredient-button{
+    float: left;
+}
+
+.new-recipe-image{
+    margin-top: 20px;
+}
+
+.new-recipe-ingredient-select{
+    float:left;
+    width: 55%;
+}
+
+.modal-dialog {
+    width: 50% !important;
+    max-width: 50% !important;
+}
+
+.btnDel_1, .btnDel_2 {
+    float:left;
+    margin: 2% 0 0 3%;
+    max-height: 3%;
+    height: 3%;
+    max-width: 3%;
+    width: 3% !important;
+}
+
+.ingredient-user-title{
+    font-size: 19px;
+    margin: 0;
+}
+
+.ingredients-title{
+    clear: both;
+    font-weight: bold;
+    text-align: left;
+    font-size: large;
+}
+
+.ingredients-item{
+    margin-right: 10px;
+    margin-left: 3px;
+    font-size: medium;
+    float: left;
+    margin-top: 10px;
+}
+
+.ingredients-amount {
+    float: right;
+    margin-top: 10px;
+    font-size: medium;
+    text-align: right;
+}
+
+.ingredients-serving {
+    float: right;
+    margin-top: 10px;
+    font-size: medium;
+    text-align: right;
+}
+
+.register-btn{
+    color: #007bff !important;
+}
+
+.alert-mail{
+    margin: 10px;
+}
+
+.alert-cooked{
+    margin-right: 10px;
+}
+
+.side-bar-title{
+    font-size: 30px;
+}
+
+.recipe-title{
+    font-weight: bolder;
+    font-size: xx-large;
+}
+
+.recipe-tags{
+    margin-left: 30px;
+}
+
+.recipe-description {
+    font-size: 22px;
+    margin-left: 8px;
+}
+
+.recipe-instructions {
+    float: left;
+    clear: both;
+    width: 100%;
+    word-break: break-all;
+    font-size: medium;
+    padding-left: 8px;
+    font-weight: 300;
+    margin-bottom: 60px;
+}
+
+.ingredients-tags-div {
+    float: left;
+    width: 100%;
+}
+
+.categories-names {
+    margin-right: 20px;
+    float: left;
+    color: #e91e63;
+    text-align: left;
+}
+
+.recipe-body-bottom{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 2%;
+}
+
+.btn-cook{
+    border-radius: 50%;
+    width: 96px;
+    height: 96px;
+    position: fixed;
+    z-index: 1;
+    bottom: 5%;
+    right: 5%;
+}
+
+.flex-recipe{
+    display: flex;
+}
+
+.recipe-image{
+    width: 100%;
+    height: auto;
+}
+
+.user-card-info {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    clear: both;
+}
+
+.user-date-comment {
+    margin-top: 12px;
+    margin-left: 18px;
+    float:left;
+}
+
+.user-title-commentary{
+    float:left;
+    color: black;
+}
+
+.user-image-commentary{
+    width: 40px;
+    float: left;
+}
+
+.circle-button-user-cards{
+    font-size: 0.9em;
+}
+
+.circle-button-user-bar{
+    width: 100%;
+    font-size: 0.8em;
+}
+
+.card-body-user-bar{
+    padding: 1.25rem 1.25rem 0 1.25rem;
+}
+
+.form-user-bar{
+    margin-bottom: 15px !important;
+}
+
+.fa-arrow-down{
+    margin-left: 15px;
+}
+
+.arrow-down-enabled {
+    color: deepskyblue;
+}
+
+.arrow-up-enabled{
+    color: lawngreen;
+}
+
+.comment-add-label{
+    font-size: x-large;
+}
+
+.comment-textarea{
+    height: 140px;
+    width: 100%;
+    min-height: 70px;
+}
+
+.comment-vote{
+    margin-right: 15px;
+    float: left;
+}
+
+.navigation-delete{
+    margin-top: 4px;
+    margin-left: 40px;
+}
+
+.navigation-title {
+    font-size: xx-large;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+.navigation-subtitle{
+    margin-left: 30px;
+    margin-top: 40px;
+    font-size: x-large;
+}
+
+.navigation-help-button {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.delete-from-cooklist{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 30px;
+    margin-left: 20px;
+}
+
+.cookListRecipes-group-item{
+    padding: 20px 10px 20px 20px;
+}
+
+
+.card-img-top{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.card-body-comment{
+    margin-top: 20px;
+    border-top: 2px solid lightgray;
+}
+
+.card-body-inside{
+    margin-top: 20px;
+}
+
+.card-comments-date{
+    float:left;
+    font-size: 14px;
+    margin-left: 25px;
+    color: darkgrey;
+}
+
+.card-comments-text{
+    clear:left;
+    padding-top: 15px;
+    margin-left: 15px;
+}
+
+.card-new-recipe {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.card-comments{
+    border-bottom: grey;
+    margin-top: 20px;
+}
+
+.columns-cards-recipe{
+    padding-right: 0px;
+    padding-left: 0px;
+    min-width: 220px;
+}
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg, .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.recipe-image-container-sub{
+    margin-left: 20px;
+}
+
+.recipe-image-container{
+    border-right: 1px solid grey;
+    display: inline-block;
+    margin: 2% 0 2% 1%;
+    padding-right: 15px;
+    width: 30%;
+    min-width: 225px;
+}
+
+.recipe-bottom-icon{
+    float: right;
+}
+
+.recipe-body{
+    text-align: left;
+    margin: 2%;
+    width: 100%;
+    min-width: 0;
+    position: relative;
+}
+
+.recipe-card-description{
+    clear: both;
+}
+
+.recipe-card-title{
+    clear: both;
+}
+
+.delete-btn:active,
+.delete-btn:focus{
+    outline: none;
+}
+
+.delete-recipe-btn:active,
+.delete-recipe-btn:focus {
+    outline:none;
+}
+
+.delete-recipe-btn{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 20px 20px 30px 20px;
+}
+
+.rating-container{
+    height: 50px;
+    clear: both;
+}
+
+.rating-card {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+}
+
+.main-item-sidebar{
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.sub-item-sidebar{
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+.pink-text-tag{
+    color: deeppink;
+    float: left;
+    margin-right: 10px;
+}
+
+.user_image {
+    float: left;
+    width: 20%;
+}
+
+.user-title-big{
+    font-size: 1.75em;
+}
+
+.user-title {
+    color: black;
+    width: 70%;
+    float:left;
+    margin-top: 24px;
+    margin-left: 20px;
+}
+
+
+.float_left{
+    float: left;
+}
+
+.bar_arrow{
+    visibility: visible;
+    float: left;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.btn-apply-filters{
+    float: right;
+    margin-top: 30px;
+    clear: both;
+}
+
+.row {
+    margin-bottom: 3.5%;
+}
+
+.recipe-detail-card {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    border: 0;
+    font-weight: 400;
+}
+
+.navigation__list__header {
+    cursor: pointer;
+}
+
+.collapse-sidebar{
+    visibility: visible;
+}
+
+.navigation_list_modal{
+    visibility: hidden;
+}
+
+.navigation{
+    overflow-y: hidden !important;
+    height: 100% !important;
+    overflow-x: hidden;
+}
+
+.btn-modal-sidebar{
+    visibility: hidden;
+    float: right;
+}
+
+.card-recipe {
+    margin: 0 !important;
+}
+
+.card-deck {
+    margin: 0 !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 10px;
+}
+
+.recipe-nutritional-div{
+    float: left;
+    clear: both;
+    width: 100%;
+    margin: 0;
+}
+
+.recipe-nutritional-title{
+    clear: both;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.recipe-nutritional-no-border{
+    clear: both;
+}
+
+.recipe-nutritional-item{
+    margin-top: 5px;
+    border-top: 1px solid grey;
+    clear: both;
+}
+
+.recipe-nutritional-type{
+    float: left;
+    margin-top: 10px;
+}
+
+.recipe-nutritional-amount{
+    float: right;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.recipe-ingredient-div{
+    margin-bottom: 20px;
+    width: 100%;
+    padding-left: 8px;
+    clear: both;
+    float: left;
+}
+
+.statistics-nav-tabs-title.active{
+    color: black;
+    font-weight: bold;
+}
+
+.statistics-chart-title{
+    font-size: x-large;
+    font-weight: bold;
+    color: darkgreen;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.statistics-nav-tabs{
+    margin: 20px 0 0 10px;
+}
+
+.statistics-tab{
+    margin: 2%
+}
+
+.statistics-chart-description{
+    margin-left: 30px;
+    font-size: medium;
+}
+
+.statistics-bar-wrapper{
+    height: 600px !important;
+    margin-bottom: 65px;
+}
+
+.statistics-donut-wrapper{
+    height: 500px !important;
+}
+
+.wrapper-all-width{
+    width: 100%;
+}
+
+.date-form-item{
+    float: left;
+    margin-right: 10px;
+}
+
+.date-form{
+    margin: 2% 2% 0 2%;
+}
+
+@media (max-width: 790px) {
+
+
+    .card-deck{
+        grid-gap:10px;
+    }
+
+    .log-out-sidebar{
+        position: relative;
+    }
+
+    .btn-modal-sidebar{
+        margin-right: 20px;
+        visibility: visible;
+        float: right;
+    }
+
+    .bar_arrow{
+        visibility: hidden;
+    }
+
+    .navigation{
+        box-sizing: content-box !important;
+        height: 32px !important;
+        overflow-y: hidden !important;
+    }
+
+    .sub-item-sidebar{
+        visibility: hidden;
+    }
+
+    .navigation_list_modal{
+        visibility: visible;
+    }
+
+    .collapse-sidebar{
+        visibility: hidden;
+    }
+
+    .browse {
+        float: left;
+        width: 98.5%;
+        margin: 0 1% 1% 1%;
+    }
+
+    .main_container{
+        margin-left: 0;
+        margin-top: calc(64px + 1%);
+        width: 100%;
+    }
+
+
+    .main-item-sidebar{
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .side-card-container{
+        visibility: hidden;
+    }
+
+    .custom-select {
+        width: 40% !important;
+    }
+
+    .w-10 {
+        width: 20% !important;
+    }
+
+    .modal {
+        width: 100% !important;
+        left: 0 !important;
+    }
+
+    .centered_login, .centered_error {
+        width: 100% !important;
+    }
+
+    .centered_register {
+        width: 100% !important;
+    }
+
+    body {
+        height: 100% !important;
+        width: 100% !important;
+    }
+
+    .p-5 {
+        padding: 0 !important;
+    }
+
+    .offset_login, .offset_error {
+        height: 12%;
+    }
+
+    .offset_register {
+        height: 7%;
+    }
+
+    .form-row {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .modal-dialog {
+        max-width: 98% !important;
+        width: 98% !important;
+    }
+
+    .add {
+        right: 5% !important;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .flex-recipe{
+        display: block;
+    }
+
+    .recipe-image-container{
+        width: 100%;
+        border-right: none;
+    }
+
+    .recipe-body{
+        position: static;
+        margin: 2%;
+        width: 96%;
+    }
+
+    .recipe-nutritional-div {
+        margin-bottom: 60px;
+    }
+}
+
+.add {
+    border-radius: 50%;
+    font-size: 3rem;
+    position: fixed;
+    z-index: 1;
+    bottom: 5%;
+    right: 350px;
+}
+
+.label-name {
+    padding-top: 1%;
+    margin-right: 2%;
+}
+
+.custom-select {
+    width: 15%;
+}
+
+.left {
+    float: left;
+}
+
+.input-form {
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.line {
+    clear: both;
+    display: block;
+    position: relative;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.autocomplete {
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+    left: 0;
+    background-color: #111;
+}
+
+/* Control the right side */
+.right {
+    right: 0;
+    background-color: red;
+}
+
+.ratings-recipe{
+    width: 100%;
+    float: left;
+    text-align: center;
+}
+
+.rating-recipe{
+    display: inline-block;
+}
+
+.rating {
+    border: none;
+}
+
+.spinner-container {
+    text-align: center;
+}
+
+.rating > input { display: none; }
+.rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating > .half:before {
+    content: "\f089";
+    position: absolute;
+}
+
+.rating > label {
+    color: #ddd;
+    float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
+/* create a new arrow, because we are going to mess up the native one
+see "List of symbols" below if you want another, you could also try to add a font-awesome icon.. */
+input[type="date"] {
+    position: relative;
+}
+
+input[type="date"]:after {
+    content: "\25BC";
+    color: #555;
+    padding: 0 5px;
+}
+
+/* make the native arrow invisible and stretch it over the whole field so you can click anywhere in the input field to trigger the native datepicker*/
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    color: transparent;
+    background: transparent;
+}
+
+input[type="date"]::-webkit-clear-button { display: none; }
+
+/* adjust increase/decrease button */
+input[type="date"]::-webkit-inner-spin-button {
+    z-index: 1;
+}
+
+/* adjust clear button */
+input[type="date"]::-webkit-clear-button {
+    z-index: 1;
+}
