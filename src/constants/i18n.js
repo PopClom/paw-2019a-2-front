@@ -293,10 +293,10 @@ i18n
                     "percentagesVariation": "Your daily values ​​may be higher or lower depending on your energy needs.",
                     "Strings.not.match": "The strings do not match",
 
-                    "Fat": "Fats",
-                    "Carbohydrate": "Carbohydrates",
-                    "Protein": "Proteins",
-                    "Calorie": "Calories",
+                    "fat": "Fats",
+                    "carbohydrate": "Carbohydrates",
+                    "protein": "Proteins",
+                    "calorie": "Calories",
                 }
             },
             es: {
@@ -584,10 +584,10 @@ i18n
 
                     "Strings.not.match": "Las cadenas de caracteres no coinciden",
 
-                    "Fat": "Grasas",
-                    "Carbohydrate": "Carbohidratos",
-                    "Protein": "Proteínas",
-                    "Calorie": "Calorías",
+                    "fat": "Grasas",
+                    "carbohydrate": "Carbohidratos",
+                    "protein": "Proteínas",
+                    "calorie": "Calorías",
                 }
             }
         },

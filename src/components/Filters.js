@@ -8,7 +8,9 @@ class Filters extends React.Component {
         super(props);
         this.state = {
             tags: {},
-            tagsCheckboxes: {}
+            tagsCheckboxes: {},
+            orderSelected: {},
+            orders: {}
         }
     }
 
@@ -19,19 +21,31 @@ class Filters extends React.Component {
             Object.keys(this.state.tags).map(idx => tagsCheckboxes[this.state.tags[idx]] = false);
             this.setState({tagsCheckboxes});
         });
+
+        axios.get(`${SERVER_ADDR}/recipes/get_orders`).then(response => {
+            this.setState({
+                orders: response.data.orders,
+                orderSelected: response.data.orders[0]
+            });
+        });
+    }
+
+    onOrdersChange(event) {
+        const id = event.target.id;
+
+        this.setState({orderSelected: id});
     }
 
     onTagsChange(event) {
         const val = event.target.checked;
         const id = event.target.id;
 
-
         let tagsCheckboxes = Object.assign({}, this.state.tagsCheckboxes, {[id]: val});
         this.setState({tagsCheckboxes});
     }
 
     render() {
-        const {tags} = this.state;
+        const {tags, orders} = this.state;
 
         return (
             <div id="filters-card">
@@ -47,6 +61,18 @@ class Filters extends React.Component {
                     <label className="text-filter">
                         <Trans>sortBy</Trans>
                     </label>
+                    <div className="filter-items">
+                        {Object.keys(orders).map(idx =>
+                            <div className="custom-control custom-radio">
+                                <input type="radio" path="order" value={orders[idx]} className="custom-control-input"
+                                       id={orders[idx]} name="groupOrderFilter" checked={this.state.orderSelected === orders[idx]}
+                                       onChange={this.onOrdersChange.bind(this)}/>
+                                <label className="custom-control-label" path="order" htmlFor={orders[idx]}>
+                                    <Trans i18nKey={orders[idx]} />
+                                </label>
+                            </div>
+                        )}
+                    </div>
 
                     <label className="text-filter">
                         <Trans i18nKey="cuisineType"/>
@@ -60,7 +86,8 @@ class Filters extends React.Component {
                                 <label className="custom-control-label" path="tags" htmlFor={tags[idx]}>
                                     <Trans i18nKey={tags[idx]}/>
                                 </label>
-                            </div>)}
+                            </div>
+                        )}
                     </div>
 
                     <button className="btn btn-green btn-apply-filters" type="submit">

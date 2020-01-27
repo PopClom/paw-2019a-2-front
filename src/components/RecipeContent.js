@@ -23,13 +23,13 @@ class RecipeContent extends React.Component {
 
                                 <div className="ratings-recipe">
                                     <p className="ingredients-title">
-                                        <Trans>General rating</Trans>
+                                        <Trans>rating.general</Trans>
                                     </p>
                                     <RatingRecipe rating={recipe.rating}/>
                                     <br/>
                                     {!isGuest && <div>
                                         <p className="ingredients-title">
-                                            <Trans>Your rating</Trans>
+                                            <Trans>rating.user</Trans>
                                         </p>
                                         <RatingRecipe />
                                     </div>}
@@ -39,7 +39,7 @@ class RecipeContent extends React.Component {
                                 {recipe.tags.length > 0 &&
                                 <div className="recipe-categories">
                                     <p className="ingredients-title">
-                                        <Trans>Categories</Trans>
+                                        <Trans>categories</Trans>
                                     </p>
                                     {recipe.tags.map(tag =>
                                         <p key={tag} className="categories-names">
@@ -49,7 +49,7 @@ class RecipeContent extends React.Component {
 
                                 <div className="recipe-nutritional-div">
                                     <p className="ingredients-title">
-                                        <Trans>Approximated nutritional value</Trans>
+                                        <Trans>nutritionalValueAprox</Trans>
                                     </p>
                                     {Object.keys(recipe.nutritionalInfo).map(idx =>
                                         <div key={idx} className={parseInt(idx) === 0 ?
@@ -78,7 +78,7 @@ class RecipeContent extends React.Component {
                         <br/>
                         <div className="recipe-ingredient-div ">
                             <p className="ingredients-title">
-                                <Trans>Ingredients</Trans>
+                                <Trans>ingredients</Trans>
                             </p>
                             {Object.keys(recipe.ingredients).map(idx =>
                                 <div key={idx} className={parseInt(idx) === 0 ?
@@ -93,7 +93,7 @@ class RecipeContent extends React.Component {
                         </div>
 
                         <p className="ingredients-title">
-                            <Trans>Instructions</Trans>
+                            <Trans>instructions</Trans>
                         </p>
                         <p className="recipe-instructions">{recipe.instructions}</p>
                     </div>

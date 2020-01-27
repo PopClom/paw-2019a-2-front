@@ -5,14 +5,14 @@ import foodifyInlineImg from '../assets/img/foodify_inline.png';
 
 const options = [{id: 'home', label: 'Home', path: '/'},
                  {id: 'users', label: 'Users', path: '/users'},
-                 {id: 'myAccount', label: 'My account', path: '/my_account', subitems:
+                 {id: 'myAccount', label: 'myAccount', path: '/my_account', subitems:
                          [
-                             {id: 'recipes', label: 'Recipes', path: '/my_recipes'},
-                             {id: 'cooklists', label: 'Cooklists', path: '/my_cooklists'},
-                             {id: 'ingredients', label: 'Ingredientes', path: '/my_ingredients'},
-                             {id: 'recentlyCooked', label: 'Recently cooked', path: '/recently_cooked'},
-                             {id: 'favouriteRecipes', label: 'Favourite recipes', path: '/favourite_recipes'},
-                             {id: 'statistics', label: 'Statistics', path: '/statistics'}
+                             {id: 'recipes', label: 'recipes', path: '/my_recipes'},
+                             {id: 'cooklists', label: 'myCooklists', path: '/my_cooklists'},
+                             {id: 'ingredients', label: 'myIngredients', path: '/my_ingredients'},
+                             {id: 'recentlyCooked', label: 'recentlyCooked', path: '/recently_cooked'},
+                             {id: 'favouriteRecipes', label: 'yourFavourites', path: '/favourite_recipes'},
+                             {id: 'statistics', label: 'myStatistics', path: '/statistics'}
                          ]
                  }];
 const loggedIn = false;
@@ -29,7 +29,7 @@ class Sidebar extends React.Component {
                     <div key={option.id} className="navigation__list">
                         <div className={"main-item-sidebar" + (path === option.path ? " item_active" : "")}>
                             <Link className={'float_left'} to={option.path}>
-                                <Trans>{option.label}</Trans>
+                                <Trans i18nKey={option.label}/>
                             </Link>
                         </div>
                         {option.subitems &&
@@ -37,7 +37,7 @@ class Sidebar extends React.Component {
                                 {option.subitems.map(item =>
                                     <Link key={item.id} to={item.path}
                                           className={"navigation__list__item" + (path === item.path ? " item_active" : "")}>
-                                        <Trans>{item.label}</Trans>
+                                        <Trans i18nKey={item.label}/>
                                     </Link>
                                 )}
                             </div>
@@ -49,10 +49,10 @@ class Sidebar extends React.Component {
                     <div className="main-item-sidebar log-out-sidebar">
                         {loggedIn ?
                             <a className="float-left" href="/logout">
-                                <Trans>Log Out</Trans>
+                                <Trans i18nKey="logOut"/>
                             </a> :
                             <a className="float-left" href="/login">
-                                <Trans>Log In</Trans>
+                                <Trans i18nKey="logIn"/>
                             </a>
                         }
                     </div>
