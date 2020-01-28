@@ -1,6 +1,7 @@
 import React from 'react';
 import { withTranslation, Trans } from 'react-i18next';
 import foodifyImage from '../assets/img/foodify.png';
+import {Link} from "react-router-dom";
 
 
 class Login extends React.Component {
@@ -58,14 +59,14 @@ class Login extends React.Component {
                             </div>
                         </div>
                     </div>
-
-                    <button className="btn btn-info btn-block my-4" type="submit">
-                        <Trans i18nKey="signIn"/>
-                    </button>
-
+                    <Link to={`/`}>
+                        <button className="btn btn-info btn-block my-4" type="submit">
+                            <Trans i18nKey="signIn"/>
+                        </button>
+                    </Link>
                     <p>
                         <Trans i18nKey="notAmember"/>
-                        <a className="register-btn">
+                        <a href={'$'} className="register-btn">
                             <Trans i18nKey="register"/>
                         </a>
                     </p>
