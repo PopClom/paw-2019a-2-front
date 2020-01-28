@@ -20,6 +20,7 @@ const loggedIn = false;
 class Sidebar extends React.Component {
     render() {
         const path = this.props.match.params.id ? '/' + this.props.match.params.id : '/';
+
         return (
             <section className="navigation">
                 <Link className="bg-transparent" to="/">
@@ -49,10 +50,14 @@ class Sidebar extends React.Component {
                     <div className="main-item-sidebar log-out-sidebar">
                         {loggedIn ?
                             <a className="float-left" href="/logout">
-                                <Trans i18nKey="logOut"/>
+                                <Link to={`/login`}>
+                                    <Trans i18nKey="logOut"/>
+                                </Link>
                             </a> :
                             <a className="float-left" href="/login">
-                                <Trans i18nKey="logIn"/>
+                                <Link to={`/login`}>
+                                    <Trans i18nKey="logIn"/>
+                                </Link>
                             </a>
                         }
                     </div>
