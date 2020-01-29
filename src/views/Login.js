@@ -31,7 +31,7 @@ class Login extends React.Component {
 
         return (
             <div className="login">
-                <div className="offset_login"/>
+                <div className="offset_login"></div>
                 <form encType="application/x-www-form-urlencoded"
                       className="centered_login text-center border border-light p-5 col-xl-4 col-lg-6 col-md-6 col-sm-8 col-xs-10 container"
                         onSubmit={this.onLoginPress}>
@@ -71,7 +71,7 @@ class Login extends React.Component {
                         </a>
                     </p>
                 </form>
-                <div className="offset_login"/>
+                <div className="offset_login"></div>
             </div>
         );
     }

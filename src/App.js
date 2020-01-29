@@ -21,7 +21,7 @@ function App({t}) {
 }
 
 const LoginContainer = () => (
-    <div>
+    <div className="fullHeight">
         <Route exact path="/" render={() => <Redirect to="/login"/>}/>
         <Route path="/login" component={Login}/>
     </div>
