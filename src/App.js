@@ -7,6 +7,7 @@ import {
 import Home from './views/Home';
 import Recipe from './views/Recipe';
 import Login from './views/Login';
+import Register from './views/Register'
 import Sidebar from './components/Sidebar';
 
 function App({t}) {
@@ -14,6 +15,7 @@ function App({t}) {
         <Router>
             <Switch>
                 <Route exact path="/(login)" component={LoginContainer}/>
+                <Route exact path="/(register)" component={LoginContainer}/>
                 <Route component={DefaultContainer}/>
             </Switch>
         </Router>
@@ -24,6 +26,7 @@ const LoginContainer = () => (
     <div className="fullHeight">
         <Route exact path="/" render={() => <Redirect to="/login"/>}/>
         <Route path="/login" component={Login}/>
+        <Route path="/register" component={Register}/>
     </div>
 );
 

@@ -43,7 +43,11 @@ body.modal-open {
 }
 
 .login, .error {
-    height: 100%;
+    z-index: 1000;
+    overflow-y: scroll;
+    height: 100% !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
     background: url('../assets/img/background_login.jpeg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -52,6 +56,11 @@ body.modal-open {
 }
 
 .register {
+    z-index: 1000;
+    overflow-y: scroll;
+    height: 100% !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
     background: url('../assets/img/background_register.jpeg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -60,7 +69,7 @@ body.modal-open {
 }
 
 .logo {
-    height: 20%;
+    height: 200px;
     min-height: 180px;
     margin-bottom: 10%;
 }
@@ -81,7 +90,7 @@ body.modal-open {
 }
 
 .offset_login, .offset_error {
-    height: 20%;
+    height: 10%;
 }
 
 .offset_register {
@@ -89,13 +98,11 @@ body.modal-open {
 }
 
 .centered_login, .centered_error {
-    height: 60%;
     background: rgba(221,221,221,0.8);
     border-radius: 2%;
 }
 
 .centered_register {
-    height: auto;
     background: rgba(221,221,221,0.8);
     border-radius: 2%;
 }
@@ -272,7 +279,18 @@ a.custom-card{
     text-align: right;
 }
 
+.error-text{
+    text-align: left;
+    color: #ff0219 !important;
+}
+
+.register-login-input{
+    margin-bottom: 0 !important;
+    margin-top: 1.5rem !important;
+}
+
 .register-btn{
+    margin-left: 10px;
     color: #007bff !important;
 }
 
@@ -417,6 +435,10 @@ a.custom-card{
 .comment-vote{
     margin-right: 15px;
     float: left;
+}
+
+.no-margin{
+    margin: 0 !important;
 }
 
 .navigation-delete{
@@ -842,14 +864,6 @@ a.custom-card{
 
     .p-5 {
         padding: 0 !important;
-    }
-
-    .offset_login, .offset_error {
-        height: 12%;
-    }
-
-    .offset_register {
-        height: 7%;
     }
 
     .form-row {

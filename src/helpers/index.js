@@ -1,3 +1,12 @@
 export const formatNumber = (value, decimals = 0) => {
     return value.toFixed(decimals);
 };
+
+export function handleInputChange(event, validate = null) {
+    let name = event.target.name;
+    let value = event.target.value;
+    this.setState({[name]: value}, () => {
+        if(validate != null)
+            validate(name, value)
+    });
+};

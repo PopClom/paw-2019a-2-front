@@ -2,7 +2,7 @@ import React from 'react';
 import {withTranslation, Trans} from 'react-i18next';
 import foodifyImage from '../assets/img/foodify.png';
 import {Link} from "react-router-dom";
-
+import {handleInputChange} from "../helpers";
 
 class Login extends React.Component {
 
@@ -10,26 +10,28 @@ class Login extends React.Component {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            loginError: false
         };
-        this.handleChange = this.handleChange.bind(this);
+
+        this.handleInputChange = handleInputChange.bind(this);
         this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     }
 
     componentDidMount() {
+
+    }
+
+    validateField(name, value) {
     }
 
     handleLoginSubmit(event) {
-        console.log('submit');
-    }
-
-    handleChange(event) {
-        this.setState({username: event.target.username});
-        this.setState({password: event.target.password});
+        event.preventDefault();
+        /*validar si las credenciales son correctas, si no loginError = true*/
+        this.setState({loginError: true});
     }
 
     render() {
-        const {username, password} = this.state;
         const {t} = this.props;
 
         return (
@@ -38,18 +40,16 @@ class Login extends React.Component {
                 <form encType="application/x-www-form-urlencoded"
                       className="centered_login text-center border border-light p-5 col-xl-4 col-lg-6 col-md-6 col-sm-8 col-xs-10 container"
                       onSubmit={this.handleLoginSubmit}>
-
                     <img className="logo" src={foodifyImage} alt="LOGO"/>
 
-                    <input type="text" id="username" name="j_username" className="form-control mb-4"
-                           placeholder={t('User.username')} value={username} onChange={this.handleChange}/>
+                    <input type="text" name="username" className="form-control mb-4"
+                           placeholder={t('User.username')} onChange={this.handleInputChange}/>
 
-                    <input type="password" id="password" name="j_password" className="form-control mb-4"
-                           placeholder={t('User.password')} value={password} onChange={this.handleChange}/>
+                    <input type="password" name="password" className="form-control mb-4"
+                           placeholder={t('User.password')} onChange={this.handleInputChange}/>
 
-                    <div className="form-text text-muted mb-4">
-                        <Trans i18nKey="confirmationError"/>
-                    </div>
+                    {this.state.loginError === true &&
+                    <errors className="form-text text-muted mb-4" element="small"><Trans>TRADUCIR ERROR LOGUEO</Trans></errors>}
 
                     <div className="d-flex justify-content-around">
                         <div>
@@ -67,9 +67,9 @@ class Login extends React.Component {
                     </button>
                     <p>
                         <Trans i18nKey="notAmember"/>
-                        <a href={'$'} className="register-btn">
+                        <Link to={`/register`} className="register-btn">
                             <Trans i18nKey="register"/>
-                        </a>
+                        </Link>
                     </p>
                 </form>
                 <div className="offset_login"/>
