@@ -45,7 +45,7 @@ class Filters extends React.Component {
     }
 
     render() {
-        const {tags, orders} = this.state;
+        const {tags, orders, tagsCheckboxes, orderSelected} = this.state;
 
         return (
             <div id="filters-card">
@@ -53,8 +53,7 @@ class Filters extends React.Component {
                     <Trans>Filters</Trans>
                 </h4>
 
-                <form autoComplete="off" action="/" method="get"
-                           encType="multipart/form-data">
+                <div>
 
                     <input className="form-control" path="searchBar" placeholder="Search"/>
 
@@ -63,7 +62,7 @@ class Filters extends React.Component {
                     </label>
                     <div className="filter-items">
                         {Object.keys(orders).map(idx =>
-                            <div className="custom-control custom-radio">
+                            <div className="custom-control custom-radio" key={idx}>
                                 <input type="radio" path="order" value={orders[idx]} className="custom-control-input"
                                        id={orders[idx]} name="groupOrderFilter" checked={this.state.orderSelected === orders[idx]}
                                        onChange={this.onOrdersChange.bind(this)}/>
@@ -79,7 +78,7 @@ class Filters extends React.Component {
                     </label>
                     <div className="filter-items">
                         {Object.keys(tags).map(idx =>
-                            <div className="custom-control custom-checkbox">
+                            <div className="custom-control custom-checkbox" key={idx}>
                                 <input path="tags" value={tags[idx]} className="custom-control-input" id={tags[idx]}
                                           name="groupTagFilter" type='checkbox' checked={this.state.tagsCheckboxes[tags[idx]]}
                                           onChange={this.onTagsChange.bind(this)}/>
@@ -90,10 +89,11 @@ class Filters extends React.Component {
                         )}
                     </div>
 
-                    <button className="btn btn-green btn-apply-filters" type="submit">
+                    <button className="btn btn-green btn-apply-filters"
+                            onClick={() => this.props.onSearch(tagsCheckboxes, orderSelected)}>
                         <Trans>confirm</Trans>
                     </button>
-                </form>
+                </div>
             </div>
         )
     }

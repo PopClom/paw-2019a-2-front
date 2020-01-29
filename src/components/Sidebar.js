@@ -49,16 +49,13 @@ class Sidebar extends React.Component {
                 <div className="navigation__list">
                     <div className="main-item-sidebar log-out-sidebar">
                         {loggedIn ?
-                            <a className="float-left" href="/logout">
-                                <Link to={`/login`}>
-                                    <Trans i18nKey="logOut"/>
-                                </Link>
-                            </a> :
-                            <a className="float-left" href="/login">
-                                <Link to={`/login`}>
-                                    <Trans i18nKey="logIn"/>
-                                </Link>
-                            </a>
+                            <Link className="float-left" to={`/login`}>
+                                <Trans i18nKey="logOut"/>
+                            </Link>
+                             :
+                            <Link className="float-left" to={`/login`}>
+                                <Trans i18nKey="logIn"/>
+                            </Link>
                         }
                     </div>
                 </div>

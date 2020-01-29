@@ -10,14 +10,28 @@ class Home extends React.Component {
         super(props);
         this.state = {
             fetching: true,
-            recipes: {}
+            recipes: {},
+            filters: {}
         }
     }
 
     componentDidMount() {
-        axios.get(`${SERVER_ADDR}/recipes/`).then(response =>
-            this.setState({recipes: response.data.recipes, fetching: false}));
+        this.applyFilters();
     }
+
+    applyFilters() {
+        axios.post(`${SERVER_ADDR}/recipes/search`, this.state.filters).then(response =>
+            this.setState({recipes: response.data.recipes, fetching: false}));
+    };
+
+    onSearch = (tags, order) => {
+        let searchTags = [];
+        Object.keys(tags).forEach(tag => {
+            if (tags[tag])
+                searchTags.push(tag);
+        });
+        this.setState({filters: {tags: searchTags, order: order}}, this.applyFilters);
+    };
 
     render() {
         const {fetching, recipes} = this.state;
@@ -33,7 +47,7 @@ class Home extends React.Component {
                 <section className="side-card-container">
                     <div className="card">
                         <div className="card-body" id="filters-big-card">
-                            <Filters />
+                            <Filters onSearch={this.onSearch}/>
                         </div>
                     </div>
                 </section>
