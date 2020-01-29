@@ -1,5 +1,5 @@
 import React from 'react';
-import { withTranslation, Trans } from 'react-i18next';
+import {withTranslation, Trans} from 'react-i18next';
 import foodifyImage from '../assets/img/foodify.png';
 import {Link} from "react-router-dom";
 
@@ -11,30 +11,33 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: ''
-        }
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     }
 
     componentDidMount() {
     }
 
-    onLoginPress(event) {
-
+    handleLoginSubmit(event) {
+        console.log('submit');
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({username: event.target.username});
+        this.setState({password: event.target.password});
     }
 
     render() {
         const {username, password} = this.state;
-        const { t } = this.props;
+        const {t} = this.props;
 
         return (
             <div className="login">
-                <div className="offset_login"></div>
+                <div className="offset_login"/>
                 <form encType="application/x-www-form-urlencoded"
                       className="centered_login text-center border border-light p-5 col-xl-4 col-lg-6 col-md-6 col-sm-8 col-xs-10 container"
-                        onSubmit={this.onLoginPress}>
+                      onSubmit={this.handleLoginSubmit}>
 
                     <img className="logo" src={foodifyImage} alt="LOGO"/>
 
@@ -59,11 +62,9 @@ class Login extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <Link to={`/`}>
-                        <button className="btn btn-info btn-block my-4" type="submit">
-                            <Trans i18nKey="signIn"/>
-                        </button>
-                    </Link>
+                    <button className="btn btn-info btn-block my-4" type="submit">
+                        <Trans i18nKey="signIn"/>
+                    </button>
                     <p>
                         <Trans i18nKey="notAmember"/>
                         <a href={'$'} className="register-btn">
@@ -71,7 +72,7 @@ class Login extends React.Component {
                         </a>
                     </p>
                 </form>
-                <div className="offset_login"></div>
+                <div className="offset_login"/>
             </div>
         );
     }
