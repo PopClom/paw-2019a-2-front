@@ -236,6 +236,10 @@ a.custom-card{
     max-width: 50% !important;
 }
 
+.btn-green{
+    background-color: rgb(30, 215, 96) !important;
+}
+
 .btnDel_1, .btnDel_2 {
     float:left;
     margin: 2% 0 0 3%;
@@ -439,6 +443,15 @@ a.custom-card{
 
 .no-margin{
     margin: 0 !important;
+}
+
+.tooltip-test{
+    margin-left: 5px;
+}
+
+.bottom-new-recipe-btn{
+    float: right;
+    margin-top: 2.5rem;
 }
 
 .navigation-delete{

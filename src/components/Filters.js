@@ -23,6 +23,7 @@ class Filters extends React.Component {
             let tagsCheckboxes = {};
             Object.keys(this.state.tags).map(idx => tagsCheckboxes[this.state.tags[idx]] = false);
             this.setState({tagsCheckboxes});
+            console.log(tagsCheckboxes);
         });
 
         axios.get(`${SERVER_ADDR}/recipes/get_orders`).then(response => {
@@ -126,7 +127,7 @@ class Filters extends React.Component {
                                 getOptionValue = {(ingredient) => ingredient.id}
                                 isMulti = "true"
                                 menuPlacement = "top"
-                                placeholder = {t('ingredient.select')}/>
+                                placeholder = {t('ingredient.selectMulti')}/>
                         </div>
                     </div>
 

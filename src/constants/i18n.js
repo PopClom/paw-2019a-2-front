@@ -144,7 +144,8 @@ i18n
                     "ingredient.deleteWarning": "Are you sure you want to delete {{0}}?",
                     "ingredient.minimum.amount": "The amount must be equal or greater than 0.01",
                     "ingredient.maximum.amount": "The amount can't be greater than 1,000,000,000",
-                    "ingredient.select": "Select ingredients",
+                    "ingredient.select": "Select ingredient",
+                    "ingredient.selectMulti": "Select ingredients",
 
                     "expiration.error": "The confirmation mail has expired",
 
@@ -443,7 +444,8 @@ i18n
                     "ingredient.deleteWarning": "Estas seguro que quieres eliminar {{{0}}}?",
                     "ingredient.minimum.amount": "La cantidad debe ser mayor o igual a 0.01",
                     "ingredient.maximum.amount": "La cantidad no puede ser mayor a 1,000,000,000",
-                    "ingredient.select": "Seleccionar ingredientes",
+                    "ingredient.select": "Seleccionar ingrediente",
+                    "ingredient.selecMulti": "Seleccionar ingredientes",
 
                     "expiration.error": "El mail de confirmacion ha expirado",
 

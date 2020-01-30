@@ -4,6 +4,7 @@ import {SERVER_ADDR} from '../constants';
 import RecipeCard from '../components/RecipeCard';
 import Filters from '../components/Filters';
 import Spinner from '../components/Spinner';
+import {Link} from "react-router-dom";
 
 class Home extends React.Component {
     constructor(props) {
@@ -37,20 +38,23 @@ class Home extends React.Component {
         const {fetching, recipes} = this.state;
 
         return (
-            <section className="main_container">
-                <section className="browse">
-                    {fetching ? <Spinner /> :
-                        <div className="card-deck">
-                            {Object.keys(recipes).map(idx => <RecipeCard key={idx} recipe={recipes[idx]}/>)}
-                        </div>}
-                </section>
-                <section className="side-card-container">
-                    <div className="card">
-                        <div className="card-body" id="filters-big-card">
-                            <Filters onSearch={this.onSearch}/>
+            <section>
+                <section className="main_container">
+                    <section className="browse">
+                        {fetching ? <Spinner/> :
+                            <div className="card-deck">
+                                {Object.keys(recipes).map(idx => <RecipeCard key={idx} recipe={recipes[idx]}/>)}
+                            </div>}
+                    </section>
+                    <section className="side-card-container">
+                        <div className="card">
+                            <div className="card-body" id="filters-big-card">
+                                <Filters onSearch={this.onSearch}/>
+                            </div>
                         </div>
-                    </div>
+                    </section>
                 </section>
+                <Link to={`/create_recipe`} className="btn btn-green add">+</Link>
             </section>
         );
     }

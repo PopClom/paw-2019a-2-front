@@ -127,16 +127,17 @@ class Register extends React.Component {
                     {/*First name*/}
                     <input placeholder={t('User.name')}
                            onChange={e => this.handleInputChange(e, this.validateField)}
-                           type="text" name="firstName"
-                           className="form-control mb-4 register-login-input"/>
+                           type="text" name="firstName" maxLength="100"
+                           className="form-control mb-4 register-login-input" />
                     <errors className="form-text text-muted mb-4 error-text" element="small">
-                        <Trans>{this.state.formErrors.firstName}</Trans></errors>
+                        <Trans>{this.state.formErrors.firstName}</Trans>
+                    </errors>
 
 
                     {/*Last name*/}
                     <input placeholder={t('User.surname')}
                            onChange={e => this.handleInputChange(e, this.validateField)}
-                           type="text" name="lastName"
+                           type="text" name="lastName" maxLength="100"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
                         <Trans>{this.state.formErrors.lastName}</Trans></errors>
@@ -145,7 +146,7 @@ class Register extends React.Component {
                     {/*E-mail*/}
                     <input placeholder={t('User.email')}
                            onChange={e => this.handleInputChange(e, this.validateField)}
-                           type="text" name="email"
+                           type="text" name="email" maxLength="100"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
                         <Trans>{this.state.formErrors.email}</Trans></errors>
@@ -154,7 +155,7 @@ class Register extends React.Component {
                     {/*username*/}
                     <input placeholder={t('User.username')}
                            onChange={e => this.handleInputChange(e, this.validateField)}
-                           type="text" name="username"
+                           type="text" name="username" maxLength="40"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
                         <Trans>{this.state.formErrors.username}</Trans></errors>
@@ -163,7 +164,7 @@ class Register extends React.Component {
                     {/*Password*/}
                     <input placeholder={t('User.password')}
                            onChange={e => this.handleInputChange(e, this.validateField)}
-                           type="password" name="password"
+                           type="password" name="password" maxLength="100"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
                         <Trans>{this.state.formErrors.password}</Trans></errors>
@@ -172,7 +173,7 @@ class Register extends React.Component {
                     {/*Repeat password*/}
                     <input placeholder={t('User.repeatPassword')}
                            onChange={e => this.handleInputChange(e, this.validateField)}
-                           type="password" name="repeatPassword"
+                           type="password" name="repeatPassword" maxLength="100"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
                         <Trans>{this.state.formErrors.repeatPassword}</Trans></errors>

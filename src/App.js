@@ -9,6 +9,7 @@ import Recipe from './views/Recipe';
 import Login from './views/Login';
 import Register from './views/Register'
 import Sidebar from './components/Sidebar';
+import AddRecipe from "./views/AddRecipe";
 
 function App({t}) {
     return (
@@ -36,6 +37,7 @@ const DefaultContainer = () => (
         <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/recipe/:id" component={Recipe}/>
+            <Route exact path="/create_recipe" component={AddRecipe}/>
         </Switch>
     </div>
 );
