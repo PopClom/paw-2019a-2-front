@@ -55,14 +55,12 @@ class AddRecipe extends React.Component {
             this.setState(({rows}) => ({rows: rows - 1}));
 
             let amounts = this.state.amounts;
-            delete amounts[index];
-            amounts = amounts.filter(value => JSON.stringify(value) !== '{}');
+            amounts.splice(index,1);
             this.setState({amounts});
 
             let ingredients = this.state.ingredients;
-            delete ingredients[index];
-            ingredients = ingredients.filter(value => JSON.stringify(value) !== '{}');
-            this.setState({ingredients}, () => {
+            ingredients.splice(index,1);
+            this.setState({ingredients: ingredients}, () => {
 
                 console.log(this.state.ingredients);
                 console.log(this.state.amounts);
@@ -84,8 +82,9 @@ class AddRecipe extends React.Component {
         });
 
         axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
-            this.setState({allIngredients: response.data.ingredients});
-        })
+            this.setState({allIngredients: response.data.ingredients}, );
+        });
+
     };
 
     render() {
@@ -149,12 +148,12 @@ class AddRecipe extends React.Component {
                             {Array.from({ length: this.state.rows }, (_, index) => (
                                 <div id="clonedInput1" className="to_clone clonedInput_1 form-row" key={index}>
                                     <div className="new-recipe-ingredient-select">
-                                        <label path="ingredients" className="ingredientLabel">
+                                        <label className="ingredientLabel">
                                             <Trans i18nKey="addIngredient.select"/>
                                         </label>
 
                                         <Select
-                                            value={ingredients[index]}
+                                            value={ingredients[index] === undefined ? '' : ingredients[index]}
                                             onChange={value => this.onSelectChange(value, index)}
                                             options={allIngredients}
                                             getOptionLabel={(ingredient) => t(ingredient.name)}
@@ -176,7 +175,7 @@ class AddRecipe extends React.Component {
                             ))}
                             </div>
 
-                            <errors path="ingredients" className="form-text text-muted" element="small"/>
+                            <errors className="form-text text-muted" element="small"/>
 
                             <div className="form-row mb-4">
                                 <button type="button" name="btnAdd" className="btn btn-green new-ingredient-btn" onClick={this.addSelect}>
@@ -185,7 +184,7 @@ class AddRecipe extends React.Component {
                             </div>
 
                             <div className="form-row">
-                                <label path="image">
+                                <label>
                                     <Trans i18nKey="Recipe.image"/>
                                 </label>
                             </div>
@@ -194,10 +193,10 @@ class AddRecipe extends React.Component {
                                 <button type="button" id="btnFile" name="btnAdd" className="btn btn-green">
                                     <Trans i18nKey="Recipe.addImage"/>
                                 </button>
-                                <input path="image" id="fileInput" className="d-none" type="file"/>
+                                <input id="fileInput" className="d-none" type="file"/>
                             </div>
                             <div className="form-row mb-4">
-                                <errors path="image" className="form-text text-muted" element="small"/>
+                                <errors className="form-text text-muted" element="small"/>
                             </div>
 
                             <div className="form-row">
