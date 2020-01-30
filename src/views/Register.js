@@ -15,69 +15,83 @@ class Register extends React.Component {
             username: '',
             password: '',
             repeatPassword: '',
-            formErrors: {firstName: 'requerido (traducir)', lastName: 'requerido (traducir)', email: 'requerido (traducir)', username: 'requerido (traducir)', password: 'requerido (traducir)', repeatPassword: 'requerido (traducir)'},
+            formErrors: {firstName: '', lastName: '', email: '', username: '', password: '', repeatPassword: ''},
             formValid: false
         };
 
         this.handleInputChange = handleInputChange.bind(this);
-        this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
     }
 
     componentDidMount() {
     }
 
-    handleRegisterSubmit(event) {
+    handleRegisterSubmit = (event) => {
 
     }
 
-    validateField(name, value) {
+    validateField = (name, value) => {
         let fieldValidationErrors = this.state.formErrors;
 
         switch (name) {
             case 'firstName': {
                 if (value.length < 2 || value.length > 100)
-                    fieldValidationErrors.firstName = 'logIn';
+                    fieldValidationErrors.firstName = 'name.lengthError';
                 else
                     fieldValidationErrors.firstName = '';
                 break;
             }
             case 'lastName': {
                 if (value.length < 2 || value.length > 100)
-                    fieldValidationErrors.lastName = 'logIn';
+                    fieldValidationErrors.lastName = 'name.lengthError';
                 else
                     fieldValidationErrors.lastName = '';
                 break;
             }
             case 'email': {
                 if (value.length < 6 || value.length > 100)
-                    fieldValidationErrors.email = 'logIn';
+                    fieldValidationErrors.email = 'email.lengthError';
 
                 // preguntar a la api si esta disponible
+                else if(false)
+                    fieldValidationErrors.email = 'email.notAvailable';
+
                 else
                     fieldValidationErrors.email = '';
                 break;
             }
             case 'username': {
                 if (value.length < 1 || value.length > 40)
-                    fieldValidationErrors.username = 'logIn';
+                    fieldValidationErrors.username = 'username.lengthError';
 
                 // preguntar a la api si esta disponible
+                else if(false)
+                    fieldValidationErrors.username = 'username.notAvailable';
+
                 else
                     fieldValidationErrors.username = '';
                 break;
             }
-            case 'password': {
-                if (value.length < 6 || value.length > 100)
-                    fieldValidationErrors.password = 'logIn';
-                else
+            case 'password' : {
+                let error = false;
+                if (value.length < 6 || value.length > 100){
+                    fieldValidationErrors.password = 'password.lengthError';
+                    error = true;
+                }
+                if(value !== this.state.repeatPassword) {
+                    fieldValidationErrors.repeatPassword = 'password.notMatch';
+                    error = true;
+                }
+                else {
+                    fieldValidationErrors.repeatPassword = '';
+                }
+
+                if(!error)
                     fieldValidationErrors.password = '';
                 break;
             }
             case 'repeatPassword': {
-                if (value.length < 6 || value.length > 100)
-                    fieldValidationErrors.repeatPassword = 'logIn';
-                else if (value !== this.state.password)
-                    fieldValidationErrors.repeatPassword = 'logIn';
+                if (value !== this.state.password)
+                    fieldValidationErrors.repeatPassword = 'password.notMatch';
                 else
                     fieldValidationErrors.repeatPassword = '';
                 break;
@@ -112,7 +126,7 @@ class Register extends React.Component {
 
                     {/*First name*/}
                     <input placeholder={t('User.name')}
-                           onChange={e => this.handleInputChange(e, this.validateField.bind(this))}
+                           onChange={e => this.handleInputChange(e, this.validateField)}
                            type="text" name="firstName"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
@@ -121,7 +135,7 @@ class Register extends React.Component {
 
                     {/*Last name*/}
                     <input placeholder={t('User.surname')}
-                           onChange={e => this.handleInputChange(e, this.validateField.bind(this))}
+                           onChange={e => this.handleInputChange(e, this.validateField)}
                            type="text" name="lastName"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
@@ -130,7 +144,7 @@ class Register extends React.Component {
 
                     {/*E-mail*/}
                     <input placeholder={t('User.email')}
-                           onChange={e => this.handleInputChange(e, this.validateField.bind(this))}
+                           onChange={e => this.handleInputChange(e, this.validateField)}
                            type="text" name="email"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
@@ -139,7 +153,7 @@ class Register extends React.Component {
 
                     {/*username*/}
                     <input placeholder={t('User.username')}
-                           onChange={e => this.handleInputChange(e, this.validateField.bind(this))}
+                           onChange={e => this.handleInputChange(e, this.validateField)}
                            type="text" name="username"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
@@ -148,7 +162,7 @@ class Register extends React.Component {
 
                     {/*Password*/}
                     <input placeholder={t('User.password')}
-                           onChange={e => this.handleInputChange(e, this.validateField.bind(this))}
+                           onChange={e => this.handleInputChange(e, this.validateField)}
                            type="password" name="password"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">
@@ -157,7 +171,7 @@ class Register extends React.Component {
 
                     {/*Repeat password*/}
                     <input placeholder={t('User.repeatPassword')}
-                           onChange={e => this.handleInputChange(e, this.validateField.bind(this))}
+                           onChange={e => this.handleInputChange(e, this.validateField)}
                            type="password" name="repeatPassword"
                            className="form-control mb-4 register-login-input"/>
                     <errors className="form-text text-muted mb-4 error-text" element="small">

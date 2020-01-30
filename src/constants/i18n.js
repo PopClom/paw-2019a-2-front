@@ -144,6 +144,7 @@ i18n
                     "ingredient.deleteWarning": "Are you sure you want to delete {{0}}?",
                     "ingredient.minimum.amount": "The amount must be equal or greater than 0.01",
                     "ingredient.maximum.amount": "The amount can't be greater than 1,000,000,000",
+                    "ingredient.select": "Select ingredients",
 
                     "expiration.error": "The confirmation mail has expired",
 
@@ -297,6 +298,14 @@ i18n
                     "carbohydrate": "Carbohydrates",
                     "protein": "Proteins",
                     "calorie": "Calories",
+
+                    "password.notMatch": "Passwords do not match",
+                    "password.lengthError": "The field must have between 6 and 100 characters",
+                    "username.notAvailable": "The username is not available",
+                    "username.lengthError": "The field must have between 1 and 40 characters",
+                    "email.notAvailable": "The email is not available",
+                    "email.lengthError": "The field must have between 6 and 100 characters",
+                    "name.lengthError": "The field must have between 2 and 100 characters"
                 }
             },
             es: {
@@ -434,6 +443,7 @@ i18n
                     "ingredient.deleteWarning": "Estas seguro que quieres eliminar {{{0}}}?",
                     "ingredient.minimum.amount": "La cantidad debe ser mayor o igual a 0.01",
                     "ingredient.maximum.amount": "La cantidad no puede ser mayor a 1,000,000,000",
+                    "ingredient.select": "Seleccionar ingredientes",
 
                     "expiration.error": "El mail de confirmacion ha expirado",
 
@@ -588,6 +598,14 @@ i18n
                     "carbohydrate": "Carbohidratos",
                     "protein": "Proteínas",
                     "calorie": "Calorías",
+
+                    "password.notMatch": "Las contraseñas no coinciden",
+                    "password.lengthError": "El campo debe tener entre 6 y 100 caracteres",
+                    "username.notAvailable": "El usuario no esta disponible",
+                    "username.lengthError": "El campo debe tener entre 1 y 40 caracteres",
+                    "email.notAvailable": "El email no esta disponible",
+                    "email.lengthError": "El campo debe tener entre 6 y 100 caracteres",
+                    "name.lengthError": "El campo debe tener entre 2 y 100 caracteres"
                 }
             }
         },

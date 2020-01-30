@@ -15,21 +15,18 @@ class Login extends React.Component {
         };
 
         this.handleInputChange = handleInputChange.bind(this);
-        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+
     }
 
     componentDidMount() {
 
     }
 
-    validateField(name, value) {
-    }
-
-    handleLoginSubmit(event) {
+    handleLoginSubmit = (event) => {
         event.preventDefault();
         /*validar si las credenciales son correctas, si no loginError = true*/
         this.setState({loginError: true});
-    }
+    };
 
     render() {
         const {t} = this.props;
@@ -49,7 +46,7 @@ class Login extends React.Component {
                            placeholder={t('User.password')} onChange={this.handleInputChange}/>
 
                     {this.state.loginError === true &&
-                    <errors className="form-text text-muted mb-4" element="small"><Trans>TRADUCIR ERROR LOGUEO</Trans></errors>}
+                    <errors className="form-text text-muted mb-4" element="small"><Trans>signInError</Trans></errors>}
 
                     <div className="d-flex justify-content-around">
                         <div>
