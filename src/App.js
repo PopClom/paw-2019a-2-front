@@ -9,9 +9,10 @@ import Recipe from './views/Recipe';
 import Login from './views/Login';
 import Register from './views/Register'
 import Sidebar from './components/Sidebar';
-import AddRecipe from "./views/AddRecipe";
+import RecipeEditor from "./views/RecipeEditor";
+import Account from "./views/Account";
 
-function App({t}) {
+function App() {
     return (
         <Router>
             <Switch>
@@ -26,8 +27,8 @@ function App({t}) {
 const LoginContainer = () => (
     <div className="fullHeight">
         <Route exact path="/" render={() => <Redirect to="/login"/>}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/register" component={Register}/>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/register" component={Register}/>
     </div>
 );
 
@@ -37,7 +38,10 @@ const DefaultContainer = () => (
         <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/recipe/:id" component={Recipe}/>
-            <Route exact path="/create_recipe" component={AddRecipe}/>
+            <Route exact path="/create_recipe" component={RecipeEditor}/>
+            <Route exact path="/edit_recipe" component={RecipeEditor}/>
+            <Route exact path="/account/:userId" component={Account}/>
+            <Route exact path="/my_account" component={Account}/>
         </Switch>
     </div>
 );

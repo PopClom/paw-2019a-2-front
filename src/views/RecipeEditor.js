@@ -7,25 +7,23 @@ import {SERVER_ADDR} from "../constants";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
 
-class AddRecipe extends React.Component {
+class RecipeEditor extends React.Component {
 
     constructor(props) {
         super(props);
-        this.lastCloned = React.createRef();
         this.state = {
-            title: '',
+            name: '',
             description: '',
             instructions: '',
             ingredients: [],
             amounts: [0],
-            tags: {},
+            tags: [],
             image: '',
-            formErrors: {title: '', description: '', instructions: '', ingredients: '', tags: '', image: ''},
-            allIngredients: {},
-            allTags: {},
+            formErrors: {name: '', description: '', instructions: '', ingredients: '', tags: '', image: ''},
+            allIngredients: [],
+            allTags: [],
             rows: 1
         };
-
     }
 
     handleAmountChange = (event, index) => {
@@ -82,13 +80,37 @@ class AddRecipe extends React.Component {
         });
 
         axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
-            this.setState({allIngredients: response.data.ingredients}, );
+            this.setState({allIngredients: response.data.ingredients});
         });
+    };
 
+    /*seguro hay una forma mas linda*/
+    assignParams = () =>{
+        let {name, description, instructions, ingredients, tags, image, formErrors, allIngredients, allTags, amounts} = this.state;
+
+        let params = this.props.location.state;
+        if(params !== undefined){
+            if(params.name !== undefined)
+                name = params.name;
+            if(params.description !== undefined)
+                description = params.description;
+            if(params.instructions !== undefined)
+                instructions = params.instructions;
+            if(params.ingredients !== undefined)
+                ingredients = params.ingredients;
+            if(params.tags !== undefined)
+                tags = params.tags;
+            if(params.image !== undefined)
+                image = params.image;
+            if(params.amounts !== undefined)
+                amounts = params.amounts;
+        }
+        return {name, description, instructions, ingredients, tags, image, formErrors, allIngredients, allTags, amounts};
     };
 
     render() {
-        const {title, description, instructions, ingredients, tags, image, formErrors, allIngredients, allTags, amounts} = this.state;
+        const {name, description, instructions, ingredients, tags, image, formErrors, allIngredients, allTags, amounts} = this.assignParams();
+
         const {t} = this.props;
 
         return (
@@ -108,10 +130,10 @@ class AddRecipe extends React.Component {
                                         <FontAwesomeIcon icon={faInfoCircle}/>
                                     </span>
                                 </label>
-                                <input value={title} type="text" id="recipe_title" className="form-control"
+                                <input value={name} type="text" id="recipe_title" className="form-control"
                                        placeholder={t('recipeName.placeholder')}/>
-                                <errors className="form-text text-muted" element="small">
-                                    <Trans>{formErrors.title}</Trans>
+                                <errors className="form-text text-muted error-text" element="small">
+                                    <Trans>{formErrors.name}</Trans>
                                 </errors>
                             </div>
 
@@ -124,7 +146,7 @@ class AddRecipe extends React.Component {
                                 </label>
                                 <input value={description} type="text" id="recipe_description"
                                        className="form-control" placeholder={t('description.placeholder')}/>
-                                <errors className="form-text text-muted" element="small">
+                                <errors className="form-text text-muted error-text" element="small">
                                     <Trans>{formErrors.description}</Trans>
                                 </errors>
                             </div>
@@ -139,7 +161,7 @@ class AddRecipe extends React.Component {
                                 <textarea value={instructions} className="comment-textarea form-control mb-4"
                                           id="recipe_description_textarea"
                                           placeholder={t('instructions.placeholder')}/>
-                                <errors className="form-text text-muted" element="small">
+                                <errors className="form-text text-muted error-text" element="small">
                                     <Trans>{formErrors.instructions}</Trans>
                                 </errors>
                             </div>
@@ -175,7 +197,7 @@ class AddRecipe extends React.Component {
                             ))}
                             </div>
 
-                            <errors className="form-text text-muted" element="small"/>
+                            <errors className="form-text text-muted error-text" element="small"/>
 
                             <div className="form-row mb-4">
                                 <button type="button" name="btnAdd" className="btn btn-green new-ingredient-btn" onClick={this.addSelect}>
@@ -196,7 +218,7 @@ class AddRecipe extends React.Component {
                                 <input id="fileInput" className="d-none" type="file"/>
                             </div>
                             <div className="form-row mb-4">
-                                <errors className="form-text text-muted" element="small"/>
+                                <errors className="form-text text-muted error-text" element="small"/>
                             </div>
 
                             <div className="form-row">
@@ -208,6 +230,7 @@ class AddRecipe extends React.Component {
                             <Select
                                 onChange={this.onSelectTagsChange}
                                 options={allTags}
+                                value={tags}
                                 isMulti="true"
                                 getOptionLabel={(tag) => t(tag)}
                                 getOptionValue={(tag) => t(tag)}
@@ -229,7 +252,7 @@ class AddRecipe extends React.Component {
     }
 }
 
-const Extended = withTranslation()(AddRecipe);
-Extended.static = AddRecipe.static;
+const Extended = withTranslation()(RecipeEditor);
+Extended.static = RecipeEditor.static;
 
 export default Extended;

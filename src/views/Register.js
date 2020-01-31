@@ -129,9 +129,9 @@ class Register extends React.Component {
                            onChange={e => this.handleInputChange(e, this.validateField)}
                            type="text" name="firstName" maxLength="100"
                            className="form-control mb-4 register-login-input" />
-                    <errors className="form-text text-muted mb-4 error-text" element="small">
+                    <p className="form-text text-muted mb-4 error-text" element="small">
                         <Trans>{this.state.formErrors.firstName}</Trans>
-                    </errors>
+                    </p>
 
 
                     {/*Last name*/}
@@ -139,8 +139,8 @@ class Register extends React.Component {
                            onChange={e => this.handleInputChange(e, this.validateField)}
                            type="text" name="lastName" maxLength="100"
                            className="form-control mb-4 register-login-input"/>
-                    <errors className="form-text text-muted mb-4 error-text" element="small">
-                        <Trans>{this.state.formErrors.lastName}</Trans></errors>
+                    <p className="form-text text-muted mb-4 error-text" element="small">
+                        <Trans>{this.state.formErrors.lastName}</Trans></p>
 
 
                     {/*E-mail*/}
@@ -148,8 +148,8 @@ class Register extends React.Component {
                            onChange={e => this.handleInputChange(e, this.validateField)}
                            type="text" name="email" maxLength="100"
                            className="form-control mb-4 register-login-input"/>
-                    <errors className="form-text text-muted mb-4 error-text" element="small">
-                        <Trans>{this.state.formErrors.email}</Trans></errors>
+                    <p className="form-text text-muted mb-4 error-text" element="small">
+                        <Trans>{this.state.formErrors.email}</Trans></p>
 
 
                     {/*username*/}
@@ -157,8 +157,8 @@ class Register extends React.Component {
                            onChange={e => this.handleInputChange(e, this.validateField)}
                            type="text" name="username" maxLength="40"
                            className="form-control mb-4 register-login-input"/>
-                    <errors className="form-text text-muted mb-4 error-text" element="small">
-                        <Trans>{this.state.formErrors.username}</Trans></errors>
+                    <p className="form-text text-muted mb-4 error-text" element="small">
+                        <Trans>{this.state.formErrors.username}</Trans></p>
 
 
                     {/*Password*/}
@@ -166,8 +166,8 @@ class Register extends React.Component {
                            onChange={e => this.handleInputChange(e, this.validateField)}
                            type="password" name="password" maxLength="100"
                            className="form-control mb-4 register-login-input"/>
-                    <errors className="form-text text-muted mb-4 error-text" element="small">
-                        <Trans>{this.state.formErrors.password}</Trans></errors>
+                    <p className="form-text text-muted mb-4 error-text" element="small">
+                        <Trans>{this.state.formErrors.password}</Trans></p>
 
 
                     {/*Repeat password*/}
@@ -175,8 +175,8 @@ class Register extends React.Component {
                            onChange={e => this.handleInputChange(e, this.validateField)}
                            type="password" name="repeatPassword" maxLength="100"
                            className="form-control mb-4 register-login-input"/>
-                    <errors className="form-text text-muted mb-4 error-text" element="small">
-                        <Trans>{this.state.formErrors.repeatPassword}</Trans></errors>
+                    <p className="form-text text-muted mb-4 error-text" element="small">
+                        <Trans>{this.state.formErrors.repeatPassword}</Trans></p>
 
 
                     {/*Sign up button*/}
