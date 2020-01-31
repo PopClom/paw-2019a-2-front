@@ -76,7 +76,7 @@ i18n
                     "Home": "Home",
                     "Users": "Users",
                     "sortBy": "Sort by",
-                    "otherUserAccount": "{{0}}''s account",
+                    "otherUserAccount": "{{0}}'s account",
                     "myAccount": "My Account",
                     "recipes": "Recipes",
                     "myRecipes": "Recipes",

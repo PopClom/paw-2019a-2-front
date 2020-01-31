@@ -11,14 +11,6 @@ import {withTranslation} from "react-i18next";
 import AccountCard from "../components/AccountCard";
 
 class Account extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetching: true,
-            recipes: {},
-            filters: {}
-        }
-    }
 
     componentDidMount() {
         // axios.get(`${SERVER_ADDR}/recipes/${id}`).then(response =>
