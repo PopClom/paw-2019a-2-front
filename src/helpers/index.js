@@ -5,8 +5,14 @@ export const formatNumber = (value, decimals = 0) => {
 export function handleInputChange(event, validate = null) {
     let name = event.target.name;
     let value = event.target.value;
+
+    console.log(name);
     this.setState({[name]: value}, () => {
-        if(validate != null)
+        if(validate !== null)
             validate(name, value)
     });
-};
+}
+
+export function onChange(change) {
+    this.setState({change});
+}

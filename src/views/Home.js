@@ -5,6 +5,7 @@ import RecipeCard from '../components/RecipeCard';
 import Filters from '../components/Filters';
 import Spinner from '../components/Spinner';
 import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 class Home extends React.Component {
     constructor(props) {
@@ -54,7 +55,9 @@ class Home extends React.Component {
                         </div>
                     </section>
                 </section>
-                <Link to={`/create_recipe`} className="btn btn-green add">+</Link>
+                <Link to={`/create_recipe`}>
+                    <Button className="btn-green add">+</Button>
+                </Link>
             </section>
         );
     }

@@ -5,6 +5,7 @@ import {SERVER_ADDR} from "../constants";
 import Select from 'react-select';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {Form} from "react-bootstrap";
 
 class IngredientSelector extends React.Component {
     constructor(props) {
@@ -17,33 +18,24 @@ class IngredientSelector extends React.Component {
 
     addSelect = (event) => {
         this.setState(({rows}) => ({rows: rows + 1}));
-        let amounts = this.props.amounts;
-        amounts[this.state.rows] = "0";
-        this.props.onChange({amounts});
     };
 
     removeSelect = (event, index) => {
         if (this.state.rows > 1) {
             this.setState(({rows}) => ({rows: rows - 1}));
 
-            let amounts = this.props.amounts;
-            amounts.splice(index, 1);
-
             let ingredients = this.props.ingredients;
             this.addIngredientToOptions(ingredients[index]);
             ingredients.splice(index, 1);
 
-            this.props.onChange({
-                ingredients,
-                amounts
-            });
+            this.props.onChange({ingredients});
         }
     };
 
     handleAmountChange = (event, index) => {
-        let amounts = this.props.amounts;
-        amounts[index] = event.target.value;
-        this.props.onChange({amounts});
+        let ingredients = this.props.ingredients;
+        ingredients[index].amount = event.target.value;
+        this.props.onChange({ingredients});
     };
 
     addIngredientToOptions = (ingredient) => {
@@ -62,11 +54,14 @@ class IngredientSelector extends React.Component {
 
         this.addIngredientToOptions(ingredients[index]);
         this.removeIngredientFromOptions(value);
-        ingredients[index] = value;
 
-        let amounts = this.props.amounts;
-        amounts[index] = "0";
-        this.props.onChange({amounts, ingredients});
+        if(ingredients[index] !== undefined && ingredients[index].amount !== undefined)
+            value.amount = ingredients[index].amount;
+        else
+            value.amount = "0";
+
+        ingredients[index] = value;
+        this.props.onChange({ ingredients});
     };
 
     componentDidMount() {
@@ -83,7 +78,7 @@ class IngredientSelector extends React.Component {
         return (
             <div>
                 {Array.from({length: this.state.rows}, (_, index) => (
-                    <div id="clonedInput1" className="to_clone clonedInput_1 form-row" key={index}>
+                    <div className="form-row" key={index}>
                         <div className="new-recipe-ingredient-select">
                             <label>
                                 <Trans i18nKey="addIngredient.select"/>
@@ -99,13 +94,14 @@ class IngredientSelector extends React.Component {
                                 placeholder={t('ingredient.select')}/>
                         </div>
                         <div className="new-recipe-ingredient-amount">
-                            <div className={this.props.ingredients[index] === undefined ? "hidden" : "float-left"}>
+                            <div className={this.props.ingredients[index] === undefined ? "hidden" : "ingredient-amount-div"}>
                                 <label>
                                     <Trans i18nKey="addIngredient.amount"/>
                                     {this.props.ingredients[index] === undefined ? '' : (" (" + t(this.props.ingredients[index].typeOfServing) + ")")}
                                 </label>
-                                <input type="number" value={this.props.amounts[index]} step="0.01" name="amount"
-                                       className="form-control mb-4 ingredientAmountInput"
+                                <input type="number" value={this.props.ingredients[index] === undefined ? "" : (
+                                    this.props.ingredients[index].amount === undefined ? "" : this.props.ingredients[index].amount)} step="0.01" name="amount"
+                                       className="form-control mb-4"
                                        onChange={e => this.handleAmountChange(e, index)}/>
                             </div>
                             <button type="button" id={index} onClick={e => this.removeSelect(e, index)}
@@ -115,7 +111,9 @@ class IngredientSelector extends React.Component {
                         </div>
                     </div>
                 ))}
-                <errors className="form-text text-muted error-text" element="small"/>
+                <Form.Control.Feedback type="invalid">
+                    {this.props.error}
+                </Form.Control.Feedback>
 
                 <div className="form-row mb-4">
                     <button type="button" name="btnAdd" className="btn btn-green new-ingredient-btn"
@@ -130,7 +128,7 @@ class IngredientSelector extends React.Component {
 
 IngredientSelector.defaultProps = {
     ingredients: [],
-    amounts: ["0"],
+    error: ""
 };
 
 const Extended = withTranslation()(IngredientSelector);

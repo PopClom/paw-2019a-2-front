@@ -7,6 +7,9 @@ import {SERVER_ADDR} from "../constants";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle, faTrash} from '@fortawesome/free-solid-svg-icons'
 import IngredientSelector from "../components/IngredientSelector";
+import {handleInputChange, onChange} from "../helpers";
+import {Form, OverlayTrigger, Button, Tooltip} from "react-bootstrap";
+import TooltipHover from "../components/TooltipHover";
 
 class RecipeEditor extends React.Component {
 
@@ -24,14 +27,9 @@ class RecipeEditor extends React.Component {
             allTags: [],
             rows: 1
         };
-    }
 
-    onChange = (change) => {
-        this.setState({change}, ()=> {
-            console.log(this.state.amounts);
-            console.log(this.state.ingredients);
-        });
-    };
+        this.handleInputChange = handleInputChange.bind(this);
+    }
 
     onSelectTagsChange = (values) => {
         this.setState({tags: values});
@@ -67,9 +65,20 @@ class RecipeEditor extends React.Component {
         return {name, description, instructions, ingredients, tags, image, formErrors, allTags, amounts};
     };
 
-    render() {
-        const {name, description, instructions, ingredients, tags, image, formErrors, allTags, amounts} = this.assignParams();
+    onFormSubmit = (event) =>{
+        event.preventDefault();
 
+        let formErrors = this.state.formErrors;
+
+        console.log(this.state.name.length);
+        formErrors.name = (this.state.name.length < 5 || this.state.name.length > 100) ? "userNotExist" : '';
+        formErrors.description = (this.state.description.length < 10 || this.state.description.length > 100) ? "userNotExist" : '';
+        formErrors.instructions = (this.state.description.length < 20 || this.state.description.length > 4000) ? "userNotExist" : '';
+
+    };
+
+    render() {
+        const {name, description, instructions, ingredients, tags, image, formErrors, allTags} = this.assignParams();
         const {t} = this.props;
 
         return (
@@ -80,52 +89,61 @@ class RecipeEditor extends React.Component {
                         <h3>
                             <Trans i18nKey="addNewRecipe"/>
                         </h3>
-                        <form method="post" encType="multipart/form-data">
 
-                            <div className="form-row mb-4">
-                                <label htmlFor="recipe_title">
+                        <Form onSubmit={this.onFormSubmit}>
+                            <Form.Row className="mb-4">
+                                <Form.Label>
                                     <Trans i18nKey="Recipe.name"/>
-                                    <span className="tooltip-test" title={t('recipeName.title')}>
-                                        <FontAwesomeIcon icon={faInfoCircle}/>
-                                    </span>
-                                </label>
-                                <input value={name} type="text" id="recipe_title" className="form-control"
-                                       placeholder={t('recipeName.placeholder')}/>
-                                <errors className="form-text text-muted error-text" element="small">
+                                </Form.Label>
+                                <TooltipHover placement="right" message={t('recipeName.title')}
+                                              icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
+
+                                <Form.Control value={name} type="text"
+                                              placeholder={t('recipeName.placeholder')} name="name"
+                                              onChange={this.handleInputChange} isInvalid={formErrors.name.length > 0}/>
+                                <Form.Control.Feedback type="invalid">
                                     <Trans>{formErrors.name}</Trans>
-                                </errors>
-                            </div>
+                                </Form.Control.Feedback>
+                            </Form.Row>
 
-                            <div className="form-row mb-4">
-                                <label htmlFor="recipe_description">
+
+                            <Form.Row className="mb-4">
+                                <Form.Label>
                                     <Trans i18nKey="Recipe.description"/>
-                                    <span className="tooltip-test" title={t('description.title')}>
-                                        <FontAwesomeIcon icon={faInfoCircle}/>
-                                    </span>
-                                </label>
-                                <input value={description} type="text" id="recipe_description"
-                                       className="form-control" placeholder={t('description.placeholder')}/>
-                                <errors className="form-text text-muted error-text" element="small">
+                                </Form.Label>
+                                <TooltipHover placement="right" message={t('description.title')}
+                                              icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
+                                <Form.Control value={description} type="text"
+                                              placeholder={t('description.placeholder')} name="description"
+                                              onChange={this.handleInputChange}
+                                              isInvalid={formErrors.description.length > 0}/>
+
+                                <Form.Control.Feedback type="invalid">
                                     <Trans>{formErrors.description}</Trans>
-                                </errors>
-                            </div>
+                                </Form.Control.Feedback>
+                            </Form.Row>
 
-                            <div className="form-row mb-4">
-                                <label htmlFor="recipe_description">
+                            <Form.Row className="mb-4">
+                                <Form.Label>
                                     <Trans i18nKey="Recipe.instructions"/>
-                                    <span className="tooltip-test" title={t('instructions.title')}>
-                                        <FontAwesomeIcon icon={faInfoCircle}/>
-                                    </span>
-                                </label>
-                                <textarea value={instructions} className="comment-textarea form-control mb-4"
-                                          id="recipe_description_textarea"
-                                          placeholder={t('instructions.placeholder')}/>
-                                <errors className="form-text text-muted error-text" element="small">
-                                    <Trans>{formErrors.instructions}</Trans>
-                                </errors>
-                            </div>
+                                </Form.Label>
+                                <TooltipHover placement="right" message={t('instructions.title')}
+                                              icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
 
-                            <IngredientSelector ingredients={this.state.ingredients} amounts={this.state.amounts} onChange={this.onChange}/>
+                                <Form.Control as="textarea" name="instructions" className="comment-textarea"
+                                              value={instructions}
+                                              placeholder={t('instructions.placeholder')}
+                                              isInvalid={formErrors.instructions.length > 0}
+                                              onChange={this.handleInputChange}/>
+
+                                <Form.Control.Feedback type="invalid">
+                                    <Trans>{formErrors.instructions}</Trans>
+                                </Form.Control.Feedback>
+                            </Form.Row>
+
+                            <IngredientSelector ingredients={this.state.ingredients}
+                                                error={this.state.formErrors.ingredients}
+                                                onChange={onChange.bind(this)}/>
 
                             <div className="form-row">
                                 <label>
@@ -139,9 +157,11 @@ class RecipeEditor extends React.Component {
                                 </button>
                                 <input id="fileInput" className="d-none" type="file"/>
                             </div>
-                            <div className="form-row mb-4">
-                                <errors className="form-text text-muted error-text" element="small"/>
-                            </div>
+
+                            <Form.Control.Feedback type="invalid">
+                                <Trans>{formErrors.image}</Trans>
+                            </Form.Control.Feedback>
+
 
                             <div className="form-row">
                                 <label>
@@ -158,15 +178,21 @@ class RecipeEditor extends React.Component {
                                 getOptionValue={(tag) => t(tag)}
                                 placeholder={t('tags.select')}/>
 
+                            <Form.Control.Feedback type="invalid">
+                                <Trans>{formErrors.tags}</Trans>
+                            </Form.Control.Feedback>
+
                             <div className="bottom-new-recipe-btn">
-                                <Link to={`/`} className="btn btn-blue-grey">
-                                    <Trans i18nKey="close"/>
+                                <Link to={`/`}>
+                                    <Button type="submit" className="btn-blue-grey">
+                                        <Trans i18nKey="close"/>
+                                    </Button>
                                 </Link>
-                                <button type="submit" className="btn btn-green">
+                                <Button type="submit" className="btn-green">
                                     <Trans i18nKey="saveChangesButton"/>
-                                </button>
+                                </Button>
                             </div>
-                        </form>
+                        </Form>
                     </div>
                 </div>
             </section>

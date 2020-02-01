@@ -9,12 +9,22 @@ html{
     height: 100%;
 }
 
+.tooltip-inner {
+    max-width: 450px;
+    /* If max-width does not work, try using width instead */
+    width: 450px;
+}
+
 html, body, #app, #app>div {
     height: 100%
 }
 
 .fullHeight{
     height: 100% !important;
+}
+
+.show{
+    display: block !important;
 }
 
 body {
@@ -156,6 +166,9 @@ body.modal-open {
     visibility: hidden;
     width: 0;
     height: 0;
+    padding: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 
 .text-muted{
@@ -223,6 +236,10 @@ a.custom-card{
     margin:0 0 0 2%;
 }
 
+.ingredient-amount-div{
+    width: 65%;
+    float: left;
+}
 
 .delete-ingredient-button{
     float: left;
@@ -474,8 +491,10 @@ a.custom-card{
     margin: 0 !important;
 }
 
-.tooltip-test{
-    margin-left: 5px;
+.tooltip-recipe{
+    margin-left: 10px;
+    float: left;
+    margin-top: 5px;
 }
 
 .bottom-new-recipe-btn{
@@ -819,6 +838,11 @@ a.custom-card{
 
 @media (max-width: 790px) {
 
+    .new-recipe-ingredient-amount{
+        float: left;
+        width: 100%;
+        margin:0;
+    }
 
     .card-deck{
         grid-gap:10px;

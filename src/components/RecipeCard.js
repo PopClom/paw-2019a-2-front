@@ -2,24 +2,19 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import noRecipeImg from '../assets/img/no_recipe_image.png';
 import RatingCard from "./RatingCard";
+import {Card} from "react-bootstrap";
 
 class RecipeCard extends React.Component {
     render() {
         const {recipe} = this.props;
 
         return (
-            <div className="card card-cascade card-recipe">
+            <Card className="card-recipe">
                 <Link className="custom-card" to={`/recipe/${recipe.id}`}>
-                    {/*Card image*/}
-                    <div className="bg-dark">
-                        <img className="card-img-top"
-                             src={recipe.encodedImage ? `data:image/png;base64,${recipe.encodedImage}` :
-                                 noRecipeImg}
-                             alt={recipe.name}/>
-                    </div>
-
-                    {/*Card content*/}
-                    <div className="card-body card-body-cascade">
+                    <Card.Img variant="top"
+                              src={recipe.encodedImage ? `data:image/png;base64,${recipe.encodedImage}` : noRecipeImg}
+                              alt={recipe.name}/>
+                    <Card.Body>
                         <h4 className="card-title recipe-card-title"><strong>
                             {recipe.name}
                         </strong></h4>
@@ -33,11 +28,11 @@ class RecipeCard extends React.Component {
                         )}
 
                         <div className="rating-container">
-                            <RatingCard rating={recipe.rating} />
+                            <RatingCard rating={recipe.rating}/>
                         </div>
-                    </div>
+                    </Card.Body>
                 </Link>
-            </div>
+            </Card>
         );
     }
 }

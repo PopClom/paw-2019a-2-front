@@ -8,7 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import "./constants/i18n";
 
 /* CSS */
-import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import './style/index.css';
 
