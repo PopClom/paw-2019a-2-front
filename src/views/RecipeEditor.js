@@ -4,8 +4,9 @@ import {Link} from "react-router-dom";
 import Select from 'react-select';
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faInfoCircle, faTrash} from '@fortawesome/free-solid-svg-icons'
+import IngredientSelector from "../components/IngredientSelector";
 
 class RecipeEditor extends React.Component {
 
@@ -16,100 +17,58 @@ class RecipeEditor extends React.Component {
             description: '',
             instructions: '',
             ingredients: [],
-            amounts: [0],
+            amounts: ["0"],
             tags: [],
             image: '',
             formErrors: {name: '', description: '', instructions: '', ingredients: '', tags: '', image: ''},
-            allIngredients: [],
             allTags: [],
             rows: 1
         };
     }
 
-    handleAmountChange = (event, index) => {
-        let amounts = this.state.amounts;
-        amounts[index] = event.target.value;
-        this.setState({amounts: amounts});
-    };
-
-    onSelectChange = (value, index) => {
-        let ingredients = this.state.ingredients;
-        ingredients[index] = value;
-
-        this.setState({ingredients: ingredients});
-
-        console.log(this.state.ingredients);
-    };
-
-    addSelect = (event) => {
-        this.setState(({ rows }) => ({ rows: rows + 1 }));
-        let amounts = this.state.amounts;
-        amounts[this.state.rows] = 0;
-        this.setState({amounts});
-    };
-
-    removeSelect = (event, index) => {
-        if(this.state.rows > 1) {
-            this.setState(({rows}) => ({rows: rows - 1}));
-
-            let amounts = this.state.amounts;
-            amounts.splice(index,1);
-            this.setState({amounts});
-
-            let ingredients = this.state.ingredients;
-            ingredients.splice(index,1);
-            this.setState({ingredients: ingredients}, () => {
-
-                console.log(this.state.ingredients);
-                console.log(this.state.amounts);
-            });
-
-        }
+    onChange = (change) => {
+        this.setState({change}, ()=> {
+            console.log(this.state.amounts);
+            console.log(this.state.ingredients);
+        });
     };
 
     onSelectTagsChange = (values) => {
-        this.setState({tags: values}, () => {
-            console.log(this.state.tags);
-        });
+        this.setState({tags: values});
     };
 
     componentDidMount() {
         axios.get(`${SERVER_ADDR}/recipes/get_tags`).then(response => {
             this.setState({allTags: response.data.tags});
-            console.log(this.state.allTags);
-        });
-
-        axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
-            this.setState({allIngredients: response.data.ingredients});
         });
     };
 
     /*seguro hay una forma mas linda*/
-    assignParams = () =>{
-        let {name, description, instructions, ingredients, tags, image, formErrors, allIngredients, allTags, amounts} = this.state;
+    assignParams = () => {
+        let {name, description, instructions, ingredients, tags, image, formErrors, allTags, amounts} = this.state;
 
         let params = this.props.location.state;
-        if(params !== undefined){
-            if(params.name !== undefined)
+        if (params !== undefined) {
+            if (params.name !== undefined)
                 name = params.name;
-            if(params.description !== undefined)
+            if (params.description !== undefined)
                 description = params.description;
-            if(params.instructions !== undefined)
+            if (params.instructions !== undefined)
                 instructions = params.instructions;
-            if(params.ingredients !== undefined)
+            if (params.ingredients !== undefined)
                 ingredients = params.ingredients;
-            if(params.tags !== undefined)
+            if (params.tags !== undefined)
                 tags = params.tags;
-            if(params.image !== undefined)
+            if (params.image !== undefined)
                 image = params.image;
-            if(params.amounts !== undefined)
+            if (params.amounts !== undefined)
                 amounts = params.amounts;
         }
-        return {name, description, instructions, ingredients, tags, image, formErrors, allIngredients, allTags, amounts};
+        return {name, description, instructions, ingredients, tags, image, formErrors, allTags, amounts};
     };
 
     render() {
-        const {name, description, instructions, ingredients, tags, image, formErrors, allIngredients, allTags, amounts} = this.assignParams();
+        const {name, description, instructions, ingredients, tags, image, formErrors, allTags, amounts} = this.assignParams();
 
         const {t} = this.props;
 
@@ -165,45 +124,8 @@ class RecipeEditor extends React.Component {
                                     <Trans>{formErrors.instructions}</Trans>
                                 </errors>
                             </div>
-                            <div>
 
-                            {Array.from({ length: this.state.rows }, (_, index) => (
-                                <div id="clonedInput1" className="to_clone clonedInput_1 form-row" key={index}>
-                                    <div className="new-recipe-ingredient-select">
-                                        <label className="ingredientLabel">
-                                            <Trans i18nKey="addIngredient.select"/>
-                                        </label>
-
-                                        <Select
-                                            value={ingredients[index] === undefined ? '' : ingredients[index]}
-                                            onChange={value => this.onSelectChange(value, index)}
-                                            options={allIngredients}
-                                            getOptionLabel={(ingredient) => t(ingredient.name)}
-                                            getOptionValue={(ingredient) => ingredient.name}
-                                            placeholder = {t('ingredient.select')}/>
-                                    </div>
-                                    <div className="new-recipe-ingredient-amount">
-                                        <label className="ingredientAmountLabel">
-                                            <Trans i18nKey="addIngredient.amount"/>
-                                        </label>
-                                        <input type="number" value={amounts[index]} step="0.01" name="amount"
-                                               className="form-control mb-4 ingredientAmountInput" onChange={e => this.handleAmountChange(e,index)}/>
-                                    </div>
-                                    <button type="button" id={index} onClick={e => this.removeSelect(e, index)}
-                                            className="bg-transparent text-center delete-ingredient-button delete-btn">
-                                        <FontAwesomeIcon icon={faTrash} className="fa-2x red-ic"/>
-                                    </button>
-                                </div>
-                            ))}
-                            </div>
-
-                            <errors className="form-text text-muted error-text" element="small"/>
-
-                            <div className="form-row mb-4">
-                                <button type="button" name="btnAdd" className="btn btn-green new-ingredient-btn" onClick={this.addSelect}>
-                                    <Trans i18nKey="Recipe.addIngredient"/>
-                                </button>
-                            </div>
+                            <IngredientSelector ingredients={this.state.ingredients} amounts={this.state.amounts} onChange={this.onChange}/>
 
                             <div className="form-row">
                                 <label>
@@ -234,7 +156,7 @@ class RecipeEditor extends React.Component {
                                 isMulti="true"
                                 getOptionLabel={(tag) => t(tag)}
                                 getOptionValue={(tag) => t(tag)}
-                                placeholder = {t('tags.select')}/>
+                                placeholder={t('tags.select')}/>
 
                             <div className="bottom-new-recipe-btn">
                                 <Link to={`/`} className="btn btn-blue-grey">
