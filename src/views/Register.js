@@ -1,7 +1,6 @@
 import React from 'react';
 import {withTranslation, Trans} from 'react-i18next';
 import foodifyImage from '../assets/img/foodify.png';
-import {handleInputChange} from "../helpers";
 import {validateRegisterFields} from "../helpers/validations";
 import {Button, Form} from "react-bootstrap";
 import {Formik} from "formik";
@@ -37,9 +36,6 @@ class Register extends React.Component {
                         repeatPassword: ''
                     }}
                     validate={values => validateRegisterFields(values)}
-
-                    //Por alguna razon si llamo a la funcion this.handleRegisterSubmit no imprime console.log, no se si hace algo
-                    //me fui a dormir
                     onSubmit={(values, { setSubmitting }) => {
                         console.log("asdasddsaSAD");
                         setTimeout(() => {
@@ -48,7 +44,7 @@ class Register extends React.Component {
                         }, 400);
                     }}
                 >
-                    {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) => (
+                    {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
                         <Form onSubmit={handleSubmit} encType="multipart/form-data"
                               className="centered_register text-center border border-light p-5 col-xl-4 col-lg-6 col-md-6 col-sm-8 col-xs-10 container">
                             <img className="logo" src={foodifyImage} alt="LOGO"/>

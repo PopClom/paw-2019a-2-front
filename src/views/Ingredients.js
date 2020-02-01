@@ -1,10 +1,4 @@
 import React from 'react';
-import axios from "axios";
-import {SERVER_ADDR} from '../constants';
-import RecipeCard from '../components/RecipeCard';
-import Filters from '../components/Filters';
-import Spinner from '../components/Spinner';
-import {Link} from "react-router-dom";
 import AddIngredientsModal from "../components/AddIngredientsModal";
 import Button from "react-bootstrap/Button";
 
@@ -29,8 +23,6 @@ class Ingredients extends React.Component {
     };
 
     render() {
-        const {fetching, recipes} = this.state;
-
         return (
             <section>
                 <section className="main_container">

@@ -5,35 +5,23 @@ import Select from 'react-select';
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faInfoCircle, faTrash} from '@fortawesome/free-solid-svg-icons'
+import {faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 import IngredientSelector from "../components/IngredientSelector";
-import {handleInputChange, onChange} from "../helpers";
-import {Form, OverlayTrigger, Button, Tooltip} from "react-bootstrap";
+import {Form, Button} from "react-bootstrap";
 import TooltipHover from "../components/TooltipHover";
+import {Formik} from "formik";
+import {validateRecipe} from "../helpers/validations";
 
 class RecipeEditor extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            description: '',
-            instructions: '',
-            ingredients: [],
-            amounts: ["0"],
-            tags: [],
-            image: '',
-            formErrors: {name: '', description: '', instructions: '', ingredients: '', tags: '', image: ''},
             allTags: [],
             rows: 1
         };
-
-        this.handleInputChange = handleInputChange.bind(this);
     }
 
-    onSelectTagsChange = (values) => {
-        this.setState({tags: values});
-    };
 
     componentDidMount() {
         axios.get(`${SERVER_ADDR}/recipes/get_tags`).then(response => {
@@ -43,7 +31,7 @@ class RecipeEditor extends React.Component {
 
     /*seguro hay una forma mas linda*/
     assignParams = () => {
-        let {name, description, instructions, ingredients, tags, image, formErrors, allTags, amounts} = this.state;
+        let {name, description, instructions, ingredients, tags, image, allTags, amounts} = this.state;
 
         let params = this.props.location.state;
         if (params !== undefined) {
@@ -62,23 +50,18 @@ class RecipeEditor extends React.Component {
             if (params.amounts !== undefined)
                 amounts = params.amounts;
         }
-        return {name, description, instructions, ingredients, tags, image, formErrors, allTags, amounts};
+        return {name, description, instructions, ingredients, tags, image, allTags, amounts};
     };
 
     onFormSubmit = (event) =>{
         event.preventDefault();
 
-        let formErrors = this.state.formErrors;
 
         console.log(this.state.name.length);
-        formErrors.name = (this.state.name.length < 5 || this.state.name.length > 100) ? "userNotExist" : '';
-        formErrors.description = (this.state.description.length < 10 || this.state.description.length > 100) ? "userNotExist" : '';
-        formErrors.instructions = (this.state.description.length < 20 || this.state.description.length > 4000) ? "userNotExist" : '';
-
     };
 
     render() {
-        const {name, description, instructions, ingredients, tags, image, formErrors, allTags} = this.assignParams();
+        const {name, description, instructions, ingredients, tags, image, allTags} = this.assignParams();
         const {t} = this.props;
 
         return (
@@ -90,109 +73,123 @@ class RecipeEditor extends React.Component {
                             <Trans i18nKey="addNewRecipe"/>
                         </h3>
 
-                        <Form onSubmit={this.onFormSubmit}>
-                            <Form.Row className="mb-4">
-                                <Form.Label>
-                                    <Trans i18nKey="Recipe.name"/>
-                                </Form.Label>
-                                <TooltipHover placement="right" message={t('recipeName.title')}
-                                              icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
+                        <Formik
+                            initialValues={{
+                                name, description, instructions, ingredients, tags, image, allTags
+                            }}
+                            validate={values => validateRecipe(values)}
+                            onSubmit={(values, { setSubmitting }) => {
+                                console.log("asdasddsaSAD");
+                                setTimeout(() => {
+                                    alert(JSON.stringify(values, null, 2));
+                                    setSubmitting(false);
+                                }, 400);
+                            }}
+                        >
+                            {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
 
-                                <Form.Control value={name} type="text"
-                                              placeholder={t('recipeName.placeholder')} name="name"
-                                              onChange={this.handleInputChange} isInvalid={formErrors.name.length > 0}/>
-                                <Form.Control.Feedback type="invalid">
-                                    <Trans>{formErrors.name}</Trans>
-                                </Form.Control.Feedback>
-                            </Form.Row>
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Row className="mb-4">
+                                        <Form.Label>
+                                            <Trans i18nKey="Recipe.name"/>
+                                        </Form.Label>
+                                        <TooltipHover placement="right" message={t('recipeName.title')}
+                                                      icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
 
-
-                            <Form.Row className="mb-4">
-                                <Form.Label>
-                                    <Trans i18nKey="Recipe.description"/>
-                                </Form.Label>
-                                <TooltipHover placement="right" message={t('description.title')}
-                                              icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
-                                <Form.Control value={description} type="text"
-                                              placeholder={t('description.placeholder')} name="description"
-                                              onChange={this.handleInputChange}
-                                              isInvalid={formErrors.description.length > 0}/>
-
-                                <Form.Control.Feedback type="invalid">
-                                    <Trans>{formErrors.description}</Trans>
-                                </Form.Control.Feedback>
-                            </Form.Row>
-
-                            <Form.Row className="mb-4">
-                                <Form.Label>
-                                    <Trans i18nKey="Recipe.instructions"/>
-                                </Form.Label>
-                                <TooltipHover placement="right" message={t('instructions.title')}
-                                              icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
-
-                                <Form.Control as="textarea" name="instructions" className="comment-textarea"
-                                              value={instructions}
-                                              placeholder={t('instructions.placeholder')}
-                                              isInvalid={formErrors.instructions.length > 0}
-                                              onChange={this.handleInputChange}/>
-
-                                <Form.Control.Feedback type="invalid">
-                                    <Trans>{formErrors.instructions}</Trans>
-                                </Form.Control.Feedback>
-                            </Form.Row>
-
-                            <IngredientSelector ingredients={this.state.ingredients}
-                                                error={this.state.formErrors.ingredients}
-                                                onChange={onChange.bind(this)}/>
-
-                            <div className="form-row">
-                                <label>
-                                    <Trans i18nKey="Recipe.image"/>
-                                </label>
-                            </div>
-
-                            <div className="form-row">
-                                <button type="button" id="btnFile" name="btnAdd" className="btn btn-green">
-                                    <Trans i18nKey="Recipe.addImage"/>
-                                </button>
-                                <input id="fileInput" className="d-none" type="file"/>
-                            </div>
-
-                            <Form.Control.Feedback type="invalid">
-                                <Trans>{formErrors.image}</Trans>
-                            </Form.Control.Feedback>
+                                        <Form.Control value={values.name} type="text"
+                                                      placeholder={t('recipeName.placeholder')} name="name" onChange={handleChange}
+                                                      onBlur={handleBlur} isInvalid={touched.name &&!!errors.name}/>
+                                        <Form.Control.Feedback type="invalid">
+                                            <Trans>{errors.name}</Trans>
+                                        </Form.Control.Feedback>
+                                    </Form.Row>
 
 
-                            <div className="form-row">
-                                <label>
-                                    Agregar tags (TRADUCIR)
-                                </label>
-                            </div>
+                                    <Form.Row className="mb-4">
+                                        <Form.Label>
+                                            <Trans i18nKey="Recipe.description"/>
+                                        </Form.Label>
+                                        <TooltipHover placement="right" message={t('description.title')}
+                                                      icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
+                                        <Form.Control value={values.description} type="text"
+                                                      placeholder={t('description.placeholder')} name="description"
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                      isInvalid={touched.description && !!errors.description}/>
 
-                            <Select
-                                onChange={this.onSelectTagsChange}
-                                options={allTags}
-                                value={tags}
-                                isMulti="true"
-                                getOptionLabel={(tag) => t(tag)}
-                                getOptionValue={(tag) => t(tag)}
-                                placeholder={t('tags.select')}/>
+                                        <Form.Control.Feedback type="invalid">
+                                            <Trans>{errors.description}</Trans>
+                                        </Form.Control.Feedback>
+                                    </Form.Row>
 
-                            <Form.Control.Feedback type="invalid">
-                                <Trans>{formErrors.tags}</Trans>
-                            </Form.Control.Feedback>
+                                    <Form.Row className="mb-4">
+                                        <Form.Label>
+                                            <Trans i18nKey="Recipe.instructions"/>
+                                        </Form.Label>
+                                        <TooltipHover placement="right" message={t('instructions.title')}
+                                                      icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
 
-                            <div className="bottom-new-recipe-btn">
-                                <Link to={`/`}>
-                                    <Button type="submit" className="btn-blue-grey">
-                                        <Trans i18nKey="close"/>
-                                    </Button>
-                                </Link>
-                                <Button type="submit" className="btn-green">
-                                    <Trans i18nKey="saveChangesButton"/>
-                                </Button>
-                            </div>
-                        </Form>
+                                        <Form.Control as="textarea" name="instructions" className="comment-textarea"
+                                                      value={values.instructions}
+                                                      placeholder={t('instructions.placeholder')}
+                                                      isInvalid={touched.instructions && !!errors.instructions}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}/>
+
+                                        <Form.Control.Feedback type="invalid">
+                                            <Trans>{errors.instructions}</Trans>
+                                        </Form.Control.Feedback>
+                                    </Form.Row>
+
+                                    <IngredientSelector name="ingredients" onChange={(ingredients) => setFieldValue("ingredients", ingredients)} error={errors.ingredients}/>
+
+                                    <div className="form-row">
+                                        <label>
+                                            <Trans i18nKey="Recipe.image"/>
+                                        </label>
+                                    </div>
+
+                                    <div className="form-row mb-4">
+                                        <button type="button" id="btnFile" name="btnAdd" className="btn btn-green">
+                                            <Trans i18nKey="Recipe.addImage"/>
+                                        </button>
+                                        <input id="fileInput" className="d-none" type="file"/>
+                                    </div>
+
+                                    <Form.Control.Feedback type="invalid">
+                                        <Trans>{errors.image}</Trans>
+                                    </Form.Control.Feedback>
+
+
+                                    <div className="form-row">
+                                        <label>
+                                            Agregar tags (TRADUCIR)
+                                        </label>
+                                    </div>
+
+                                    <Select
+                                        onChange={(option) => setFieldValue("tags", option)}
+                                        options={allTags}
+                                        value={values.tags}
+                                        isMulti="true"
+                                        getOptionLabel={(tag) => t(tag)}
+                                        getOptionValue={(tag) => t(tag)}
+                                        placeholder={t('tags.select')}/>
+
+                                    <div className="bottom-new-recipe-btn">
+                                        <Link to={`/`}>
+                                            <Button type="submit" className="btn-blue-grey">
+                                                <Trans i18nKey="close"/>
+                                            </Button>
+                                        </Link>
+                                        <Button type="submit" className="btn-green" disabled={isSubmitting}>
+                                            <Trans i18nKey="saveChangesButton"/>
+                                        </Button>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
+
                     </div>
                 </div>
             </section>

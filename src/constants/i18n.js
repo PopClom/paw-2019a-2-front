@@ -10,6 +10,7 @@ i18n
         resources: {
             en: {
                 translations: {
+                    "TODO": "TODO: TRADUCIR",
                     "User.name": "Name",
                     "User.surname": "Surname",
                     "User.password": "Password",
@@ -142,7 +143,7 @@ i18n
                     "AverageRate": "Average rating: {{0}}",
 
                     "ingredient.deleteWarning": "Are you sure you want to delete {{0}}?",
-                    "ingredient.minimum.amount": "The amount must be equal or greater than 0.01",
+                    "ingredient.minimum.amount": "The amount must be greater than 0",
                     "ingredient.maximum.amount": "The amount can't be greater than 1,000,000,000",
                     "ingredient.select": "Select ingredient",
                     "ingredient.selectMulti": "Select ingredients",
@@ -311,6 +312,7 @@ i18n
             },
             es: {
                 translations: {
+                    "TODO": "TODO: TRADUCIR",
                     "User.name": "Nombre",
                     "User.surname": "Apellido",
                     "User.password": "Contraseña",
@@ -442,7 +444,7 @@ i18n
                     "AverageRate": "Calificación promedio: {{{0}}}",
 
                     "ingredient.deleteWarning": "Estas seguro que quieres eliminar {{{0}}}?",
-                    "ingredient.minimum.amount": "La cantidad debe ser mayor o igual a 0.01",
+                    "ingredient.minimum.amount": "La cantidad debe ser mayor a 0",
                     "ingredient.maximum.amount": "La cantidad no puede ser mayor a 1,000,000,000",
                     "ingredient.select": "Seleccionar ingrediente",
                     "ingredient.selecMulti": "Seleccionar ingredientes",

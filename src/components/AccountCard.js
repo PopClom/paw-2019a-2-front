@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {Card, Image} from "react-bootstrap";
+import {Card} from "react-bootstrap";
 
 class AccountCard extends React.Component {
     render() {

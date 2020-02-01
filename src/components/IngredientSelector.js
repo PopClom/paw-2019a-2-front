@@ -28,20 +28,22 @@ class IngredientSelector extends React.Component {
             this.addIngredientToOptions(ingredients[index]);
             ingredients.splice(index, 1);
 
-            this.props.onChange({ingredients});
+            if (ingredients !== undefined)
+                this.props.onChange(ingredients);
         }
     };
 
     handleAmountChange = (event, index) => {
         let ingredients = this.props.ingredients;
         ingredients[index].amount = event.target.value;
-        this.props.onChange({ingredients});
+        if (ingredients !== undefined)
+            this.props.onChange(ingredients);
     };
 
     addIngredientToOptions = (ingredient) => {
-        if(ingredient !== undefined){
+        if (ingredient !== undefined) {
             this.state.allIngredients.push(ingredient);
-            this.state.allIngredients.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+            this.state.allIngredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         }
     };
 
@@ -55,20 +57,22 @@ class IngredientSelector extends React.Component {
         this.addIngredientToOptions(ingredients[index]);
         this.removeIngredientFromOptions(value);
 
-        if(ingredients[index] !== undefined && ingredients[index].amount !== undefined)
+        if (ingredients[index] !== undefined && ingredients[index].amount !== undefined)
             value.amount = ingredients[index].amount;
         else
             value.amount = "0";
 
         ingredients[index] = value;
-        this.props.onChange({ ingredients});
+        if (ingredients !== undefined)
+            this.props.onChange(ingredients);
     };
 
     componentDidMount() {
         axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
-            response.data.ingredients.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+            response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
             this.setState({allIngredients: response.data.ingredients});
         });
+        console.log(this);
     }
 
 
@@ -78,8 +82,8 @@ class IngredientSelector extends React.Component {
         return (
             <div>
                 {Array.from({length: this.state.rows}, (_, index) => (
-                    <div className="form-row" key={index}>
-                        <div className="new-recipe-ingredient-select">
+                    <div className="form-row mt-3" >
+                        <div className="new-recipe-ingredient-select" key={index}>
                             <label>
                                 <Trans i18nKey="addIngredient.select"/>
                             </label>
@@ -94,15 +98,21 @@ class IngredientSelector extends React.Component {
                                 placeholder={t('ingredient.select')}/>
                         </div>
                         <div className="new-recipe-ingredient-amount">
-                            <div className={this.props.ingredients[index] === undefined ? "hidden" : "ingredient-amount-div"}>
+                            <div
+                                className={this.props.ingredients[index] === undefined ? "hidden" : "ingredient-amount-div"}>
                                 <label>
                                     <Trans i18nKey="addIngredient.amount"/>
                                     {this.props.ingredients[index] === undefined ? '' : (" (" + t(this.props.ingredients[index].typeOfServing) + ")")}
                                 </label>
-                                <input type="number" value={this.props.ingredients[index] === undefined ? "" : (
-                                    this.props.ingredients[index].amount === undefined ? "" : this.props.ingredients[index].amount)} step="0.01" name="amount"
-                                       className="form-control mb-4"
-                                       onChange={e => this.handleAmountChange(e, index)}/>
+                                <Form.Control type="number" value={this.props.ingredients[index] === undefined ? "" : (
+                                    this.props.ingredients[index].amount === undefined ? "" : this.props.ingredients[index].amount)}
+                                              step="0.01" name="amount"
+                                              onChange={e => this.handleAmountChange(e, index)}
+                                              isInvalid={!!this.props.error[index]}/>
+
+                                <Form.Control.Feedback type="invalid">
+                                    <Trans>{this.props.error[index]}</Trans>
+                                </Form.Control.Feedback>
                             </div>
                             <button type="button" id={index} onClick={e => this.removeSelect(e, index)}
                                     className="bg-transparent text-center delete-ingredient-button delete-btn">
@@ -111,9 +121,6 @@ class IngredientSelector extends React.Component {
                         </div>
                     </div>
                 ))}
-                <Form.Control.Feedback type="invalid">
-                    {this.props.error}
-                </Form.Control.Feedback>
 
                 <div className="form-row mb-4">
                     <button type="button" name="btnAdd" className="btn btn-green new-ingredient-btn"

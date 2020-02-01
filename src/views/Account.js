@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from "axios";
-import {SERVER_ADDR} from '../constants';
 import RecipesImg from '../assets/img/recipes.jpg';
 import CooklistsImg from '../assets/img/cooklists.jpeg';
 import IngredientsImg from '../assets/img/ingredients.jpg'

@@ -56,3 +56,25 @@ export function validateRegisterFields (values) {
 
     return errors;
 }
+
+export function validateRecipe(values){
+    let errors = {};
+    console.log(values);
+    errors.name = (values.name.length < 5 || values.name.length > 100) ? "TODO" : '';
+    errors.description = (values.description.length < 10 || values.description.length > 100) ? "TODO" : '';
+    errors.instructions = (values.instructions.length < 20 || values.instructions.length > 4000) ? "TODO" : '';
+    errors.ingredients = validateIngredients(values).ingredients;
+    return errors;
+}
+
+export function validateIngredients(values){
+    let errors = {};
+    console.log(values);
+    errors.ingredients = [];
+    values.ingredients.forEach(function (ingredient, index) {
+        if(ingredient !== undefined && ingredient.amount == 0) {
+            errors.ingredients[index] = "ingredient.minimum.amount";
+        }
+    });
+    return errors;
+}
