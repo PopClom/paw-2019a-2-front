@@ -49,6 +49,8 @@ export function validateRegisterFields (values) {
     // 'repeatPassword'
     if (values.repeatPassword !== values.password)
         errors.repeatPassword = 'password.notMatch';
+    else if(values.repeatPassword.length < 1)
+        errors.repeatPassword = 'password.lengthError';
     else
         errors.repeatPassword = '';
 

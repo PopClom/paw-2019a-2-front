@@ -11,16 +11,14 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-
-        this.handleInputChange = handleInputChange.bind(this);
     }
 
     componentDidMount() {
     }
 
-    handleRegisterSubmit = (event) => {
-
-    }
+    handleRegisterSubmit = () => {
+        console.log("ASDOPLAKSDPO");
+    };
 
     render() {
         const {t} = this.props;
@@ -39,9 +37,17 @@ class Register extends React.Component {
                         repeatPassword: ''
                     }}
                     validate={values => validateRegisterFields(values)}
-                    onSubmit={(values, {setSubmitting}) => {
-                        console.log(values.firstName);
-                    }}>
+
+                    //Por alguna razon si llamo a la funcion this.handleRegisterSubmit no imprime console.log, no se si hace algo
+                    //me fui a dormir
+                    onSubmit={(values, { setSubmitting }) => {
+                        console.log("asdasddsaSAD");
+                        setTimeout(() => {
+                            alert(JSON.stringify(values, null, 2));
+                            setSubmitting(false);
+                        }, 400);
+                    }}
+                >
                     {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting}) => (
                         <Form onSubmit={handleSubmit} encType="multipart/form-data"
                               className="centered_register text-center border border-light p-5 col-xl-4 col-lg-6 col-md-6 col-sm-8 col-xs-10 container">
