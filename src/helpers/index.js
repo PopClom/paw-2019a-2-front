@@ -14,5 +14,5 @@ export function handleInputChange(event, validate = null) {
 }
 
 export function onChange(change) {
-    this.setState({change});
+    this.setState(change);
 }

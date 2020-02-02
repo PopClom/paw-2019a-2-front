@@ -59,11 +59,14 @@ export function validateRegisterFields (values) {
 
 export function validateRecipe(values){
     let errors = {};
-    console.log(values);
-    errors.name = (values.name.length < 5 || values.name.length > 100) ? "TODO" : '';
-    errors.description = (values.description.length < 10 || values.description.length > 100) ? "TODO" : '';
-    errors.instructions = (values.instructions.length < 20 || values.instructions.length > 4000) ? "TODO" : '';
-    errors.ingredients = validateIngredients(values).ingredients;
+    if(values.name !== undefined)
+        errors.name = (values.name.length < 5 || values.name.length > 100) ? "TODO" : '';
+    if(values.description !== undefined)
+        errors.description = (values.description.length < 10 || values.description.length > 100) ? "TODO" : '';
+    if(values.instructions !== undefined)
+        errors.instructions = (values.instructions.length < 20 || values.instructions.length > 4000) ? "TODO" : '';
+    if(values.ingredients !== undefined)
+        errors.ingredients = validateIngredients(values).ingredients;
     return errors;
 }
 
@@ -72,9 +75,17 @@ export function validateIngredients(values){
     console.log(values);
     errors.ingredients = [];
     values.ingredients.forEach(function (ingredient, index) {
-        if(ingredient !== undefined && ingredient.amount == 0) {
-            errors.ingredients[index] = "ingredient.minimum.amount";
+        if(ingredient !== undefined) {
+            if(ingredient.amount <= 0)
+                errors.ingredients[index] = "ingredient.minimum.amount";
         }
     });
+    return errors;
+}
+
+export function validateIngredientAmount(values){
+    let errors = {};
+    if(values.amount <= 0)
+        errors.amount = 'ingredient.minimum.amount';
     return errors;
 }

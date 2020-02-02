@@ -72,7 +72,6 @@ class IngredientSelector extends React.Component {
             response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
             this.setState({allIngredients: response.data.ingredients});
         });
-        console.log(this);
     }
 
 

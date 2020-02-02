@@ -4,18 +4,14 @@ import IngredientSelector from "./IngredientSelector";
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
-import {validateIngredients} from "../helpers/validations";
+import {validateIngredientAmount, validateIngredients} from "../helpers/validations";
+import TooltipHover from "./TooltipHover";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
-class AddIngredientsModal extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ingredients: []
-        }
-    }
-
+class EditIngredientAmountModal extends React.Component {
     render() {
-        const {ingredients} = this.state;
+        const {ingredient} = this.props;
 
         if (!this.props.showModal) {
             return null;
@@ -31,9 +27,9 @@ class AddIngredientsModal extends React.Component {
                 </Modal.Header>
                 <Formik
                     initialValues={{
-                        ingredients
+                        amount: ingredient.amount
                     }}
-                    validate={values => validateIngredients(values)}
+                    validate={values => validateIngredientAmount(values)}
                     onSubmit={(values, {setSubmitting}) => {
                         console.log("asdasddsaSAD");
                         setTimeout(() => {
@@ -42,12 +38,20 @@ class AddIngredientsModal extends React.Component {
                         }, 400);
                     }}
                 >
-                    {({errors, handleSubmit, isSubmitting, setFieldValue}) => (
+                    {({values, errors, handleChange, handleBlur, touched, handleSubmit, isSubmitting}) => (
                         <Form onSubmit={handleSubmit}>
                             <Modal.Body>
-                                <IngredientSelector name="ingredients"
-                                                    onChange={(ingredients) => setFieldValue("ingredients", ingredients)}
-                                                    error={errors.ingredients}/>
+                                <Form.Row className="mb-4">
+                                    <Form.Label>
+                                        <Trans i18nKey="addIngredient.amount"/>
+                                    </Form.Label>
+                                    <Form.Control value={values.amount} type="number" step="0.01" name="amount"
+                                                  onChange={handleChange}
+                                                  onBlur={handleBlur} isInvalid={touched.amount &&!!errors.amount}/>
+                                    <Form.Control.Feedback type="invalid">
+                                        <Trans>{errors.amount}</Trans>
+                                    </Form.Control.Feedback>
+                                </Form.Row>
                             </Modal.Body>
 
                             <Modal.Footer>
@@ -66,7 +70,8 @@ class AddIngredientsModal extends React.Component {
     }
 }
 
-const Extended = withTranslation()(AddIngredientsModal);
-Extended.static = AddIngredientsModal.static;
+EditIngredientAmountModal.defaultProps = {
+    ingredient: {}
+};
 
-export default Extended;
+export default EditIngredientAmountModal;
