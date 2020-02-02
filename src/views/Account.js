@@ -6,7 +6,7 @@ import RecentlyCookedImg from '../assets/img/recently_cooked.png'
 import FavouritesRecipesImg from '../assets/img/favourites_recipes.jpg'
 import StatisticsImg from '../assets/img/statistics.jpg'
 import {withTranslation} from "react-i18next";
-import AccountCard from "../components/AccountCard";
+import SimpleCard from "../components/SimpleCard";
 
 class Account extends React.Component {
 
@@ -33,31 +33,31 @@ class Account extends React.Component {
                     <div className="card-deck">
 
                         {/*Recipes*/}
-                        <AccountCard title={t('recipes')}
-                                     description={this.isMyAccount() ? t('myRecipesExplanation') : t('recipesExplanation')}
-                                     image={RecipesImg} link={"userRecipesUrl"}/>
+                        <SimpleCard title={t('recipes')}
+                                    description={this.isMyAccount() ? t('myRecipesExplanation') : t('recipesExplanation')}
+                                    image={RecipesImg} link={"userRecipesUrl"}/>
 
                         {/*Cooklists*/}
-                        <AccountCard title={t('lists')}
-                                     description={this.isMyAccount() ? t('myListsExplanation') : t('listsExplanation')}
-                                     image={CooklistsImg} link={"/user_cooklists"}/>
+                        <SimpleCard title={t('lists')}
+                                    description={this.isMyAccount() ? t('myListsExplanation') : t('listsExplanation')}
+                                    image={CooklistsImg} link={"/user_cooklists"}/>
 
                         {this.isMyAccount() ?
-                            <AccountCard title={t('myIngredients')} description={t('myIngredientsExplanation')}
-                                         image={IngredientsImg} link={"/my_ingredients"}/> : ''}
+                            <SimpleCard title={t('myIngredients')} description={t('myIngredientsExplanation')}
+                                        image={IngredientsImg} link={"/my_ingredients"}/> : ''}
 
 
-                        <AccountCard title={t('recentlyCooked')}
-                                     description={this.isMyAccount() ? t('MyrecentlyCookedExplanation') : t('recentlyCookedExplanation', {0: 'user.username'})}
-                                     image={RecentlyCookedImg} link={"/recently_cooked"}/>
+                        <SimpleCard title={t('recentlyCooked')}
+                                    description={this.isMyAccount() ? t('MyrecentlyCookedExplanation') : t('recentlyCookedExplanation', {0: 'user.username'})}
+                                    image={RecentlyCookedImg} link={"/recently_cooked"}/>
 
-                        <AccountCard title={t('favouriteRecipes')}
-                                     description={this.isMyAccount() ? t('myFavouriteRecipesExplanation') : t('FavouriteRecipesExplanation', {0: 'user.username'})}
-                                     image={FavouritesRecipesImg} link={"/favourites_recipes"}/>
+                        <SimpleCard title={t('favouriteRecipes')}
+                                    description={this.isMyAccount() ? t('myFavouriteRecipesExplanation') : t('FavouriteRecipesExplanation', {0: 'user.username'})}
+                                    image={FavouritesRecipesImg} link={"/favourites_recipes"}/>
 
                         {this.isMyAccount() ?
-                            <AccountCard title={t('myStatistics')} description={t('myStatisticsExplanation')}
-                                         image={StatisticsImg} link={"/statistics"}/> : ''}
+                            <SimpleCard title={t('myStatistics')} description={t('myStatisticsExplanation')}
+                                        image={StatisticsImg} link={"/statistics"}/> : ''}
 
                     </div>
                 </section>

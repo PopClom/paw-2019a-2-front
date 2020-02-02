@@ -12,6 +12,7 @@ import Sidebar from './components/Sidebar';
 import RecipeEditor from "./views/RecipeEditor";
 import Account from "./views/Account";
 import Ingredients from "./views/Ingredients";
+import Cooklists from "./views/Cooklists";
 
 function App() {
     return (
@@ -44,6 +45,8 @@ const DefaultContainer = () => (
             <Route exact path="/account/:userId" component={Account}/>
             <Route exact path="/my_account" component={Account}/>
             <Route exact path="/my_ingredients" component={Ingredients}/>
+            <Route exact path="/my_cooklists" component={Cooklists}/>
+            <Route exact path="/cooklists/:userId" component={Cooklists}/>
         </Switch>
     </div>
 );

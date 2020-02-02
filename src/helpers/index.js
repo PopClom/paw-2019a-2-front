@@ -16,3 +16,12 @@ export function handleInputChange(event, validate = null) {
 export function onChange(change) {
     this.setState(change);
 }
+
+export function getCurrentUserId(){
+    return 0;
+}
+
+
+export function isMyUser(id){
+    return id == getCurrentUserId();
+}

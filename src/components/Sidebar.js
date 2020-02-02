@@ -8,7 +8,7 @@ const options = [{id: 'home', label: 'Home', path: '/'},
                  {id: 'myAccount', label: 'myAccount', path: '/my_account', subitems:
                          [
                              {id: 'recipes', label: 'recipes', path: '/my_recipes'},
-                             {id: 'cooklists', label: 'myCooklists', path: '/my_cooklists'},
+                             {id: 'cooklists', label: 'lists', path: '/my_cooklists'},
                              {id: 'ingredients', label: 'myIngredients', path: '/my_ingredients'},
                              {id: 'recentlyCooked', label: 'recentlyCooked', path: '/recently_cooked'},
                              {id: 'favouriteRecipes', label: 'yourFavourites', path: '/favourite_recipes'},

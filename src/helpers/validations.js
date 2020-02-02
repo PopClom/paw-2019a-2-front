@@ -89,3 +89,9 @@ export function validateIngredientAmount(values){
         errors.amount = 'ingredient.minimum.amount';
     return errors;
 }
+
+export function validateCooklistName(values) {
+    let errors = {};
+    if(values.name !== undefined && (values.name < 3 || values.name > 100))
+        errors.name = 'TODO'
+}
