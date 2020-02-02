@@ -22,7 +22,7 @@ class ConfirmationModal extends React.Component {
 
         return (
             <Modal show={showModal} onHide={this.props.toggleModal}>
-                <Modal.Header>
+                <Modal.Header closeButton>
                     <Modal.Title>
                         <Trans>{title}</Trans>
                     </Modal.Title>
@@ -35,7 +35,7 @@ class ConfirmationModal extends React.Component {
                     <Button variant="secondary" className="btn-blue-grey" onClick={this.props.toggleModal}>
                         <Trans i18nKey="close"/>
                     </Button>
-                    <Button variant={variant} type="submit" onClick={() => {this.props.toggleModal(); this.props.onConfirmation();}} className="btn-green">
+                    <Button variant="danger" type="submit" onClick={() => {this.props.toggleModal(); this.props.onConfirmation();}}>
                         <Trans i18nKey="confirm"/>
                     </Button>
                 </Modal.Footer>

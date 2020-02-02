@@ -47,7 +47,7 @@ class Ingredients extends React.Component {
     };
 
     toggleAddModal = () => {
-        this.setState({showModal: !this.state.showModal});
+        this.setState({showAddModal: !this.state.showAddModal});
     };
 
     toggleEditModal = () => {
@@ -62,6 +62,7 @@ class Ingredients extends React.Component {
     render() {
         const {t} = this.props;
         const {fetching, ingredients, selectedIngredient} = this.state;
+        console.log(ingredients);
 
         return (
             <section>
@@ -108,7 +109,7 @@ class Ingredients extends React.Component {
                                    variant="danger" showModal={this.state.showDeleteModal}
                                    toggleModal={this.toggleDeleteModal} onConfirmation={() => this.removeIngredient(selectedIngredient)}/>
 
-                <Button className="btn-green add" onClick={this.toggleModal}>
+                <Button className="btn-green add" onClick={this.toggleAddModal}>
                     +
                 </Button>
             </section>
