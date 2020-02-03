@@ -122,11 +122,11 @@ class Filters extends React.Component {
                             <Select
                                 onChange = {this.onSelectChange}
                                 options = {allIngredients}
-                                getOptionLabel = {(ingredient) => <Trans>ingredient.name</Trans>}
-                                getOptionValue = {(ingredient) => ingredient.id}
+                                getOptionLabel = {(ingredient) => <Trans>{ingredient.name}</Trans>}
+                                getOptionValue = {(ingredient) => <Trans>{ingredient.id}</Trans>}
                                 isMulti = "true"
                                 menuPlacement = "top"
-                                placeholder = {<Trans>'</Trans>}/>
+                                placeholder = {<Trans>ingredient.selectMulti</Trans>}/>
                         </div>
                     </div>
 

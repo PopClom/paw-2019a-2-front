@@ -77,6 +77,8 @@ class IngredientSelector extends React.Component {
 
     render() {
 
+        const{ingredients, error} = this.props;
+
         return (
             <div>
                 {Array.from({length: this.state.rows}, (_, index) => (
@@ -88,7 +90,7 @@ class IngredientSelector extends React.Component {
 
                             <Select
                                 className="ingredient-select"
-                                value={this.props.ingredients[index] === undefined ? '' : this.props.ingredients[index]}
+                                value={ingredients[index] === undefined ? '' : ingredients[index]}
                                 onChange={value => this.onSelectChange(value, index)}
                                 options={this.state.allIngredients}
                                 getOptionLabel={(ingredient) => <Trans>{ingredient.name}</Trans>}
@@ -97,19 +99,19 @@ class IngredientSelector extends React.Component {
                         </div>
                         <div className="new-recipe-ingredient-amount">
                             <div
-                                className={this.props.ingredients[index] === undefined ? "hidden" : "ingredient-amount-div"}>
+                                className={ingredients[index] === undefined ? "hidden" : "ingredient-amount-div"}>
                                 <label>
                                     <Trans i18nKey="addIngredient.amount"/>
-                                    {this.props.ingredients[index] === undefined ? '' : (" (" + <Trans>this.props.ingredients[index].typeOfServing</Trans> + ")")}
+                                    &ensp;({ingredients[index] === undefined ? '' : <Trans>{ingredients[index].typeOfServing}</Trans>})
                                 </label>
-                                <Form.Control type="number" value={this.props.ingredients[index] === undefined ? "" : (
-                                    this.props.ingredients[index].amount === undefined ? "" : this.props.ingredients[index].amount)}
+                                <Form.Control type="number" value={ingredients[index] === undefined ? "" : (
+                                    ingredients[index].amount === undefined ? "" : ingredients[index].amount)}
                                               step="0.01" name="amount"
                                               onChange={e => this.handleAmountChange(e, index)}
-                                              isInvalid={!!this.props.error[index]}/>
+                                              isInvalid={!!error[index]}/>
 
                                 <Form.Control.Feedback type="invalid">
-                                    <Trans>{this.props.error[index]}</Trans>
+                                    <Trans>{error[index]}</Trans>
                                 </Form.Control.Feedback>
                             </div>
                             <button type="button" id={index} onClick={e => this.removeSelect(e, index)}
@@ -133,7 +135,7 @@ class IngredientSelector extends React.Component {
 
 IngredientSelector.defaultProps = {
     ingredients: [],
-    error: ""
+    error: [],
 };
 
 export default IngredientSelector;

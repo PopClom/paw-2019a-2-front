@@ -174,7 +174,7 @@ class RecipeEditor extends React.Component {
                                         isMulti="true"
                                         getOptionLabel={(tag) => <Trans>{tag}</Trans>}
                                         getOptionValue={(tag) => <Trans>{tag}</Trans>}
-                                        placeholder={<Trans>tags.select</Trans>}/>
+                                        placeholder={t('tags.select')}/>
 
                                     <div className="bottom-new-recipe-btn">
                                         <Link to={`/`}>
