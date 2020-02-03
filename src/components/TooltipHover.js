@@ -1,5 +1,5 @@
 import React from 'react';
-import {OverlayTrigger} from "react-bootstrap";
+import {OverlayTrigger, Popover, PopoverContent, PopoverTitle} from "react-bootstrap";
 import Tooltip from "react-bootstrap/Tooltip";
 
 class TooltipHover extends React.Component {
@@ -10,14 +10,20 @@ class TooltipHover extends React.Component {
                 <OverlayTrigger
                     placement={placement}
                     overlay={
-                        <Tooltip>
-                            {message}
-                        </Tooltip>
+                        <Popover className={"popover-" + placement}>
+                            <PopoverContent className="text-white-smoke">
+                                {message}
+                            </PopoverContent>
+                        </Popover>
                     }>
                     {icon}
                 </OverlayTrigger>
         );
     }
 }
+
+TooltipHover.defaultProps = {
+    placement: "right"
+};
 
 export default TooltipHover;

@@ -1,10 +1,16 @@
 import React from 'react';
-import { formatNumber } from '../helpers';
-import { Trans } from 'react-i18next';
+import {formatNumber, isMyUser} from '../helpers';
+import {Trans} from 'react-i18next';
 import RatingRecipe from "./RatingRecipe";
 import noRecipeImg from "../assets/img/no_recipe_image.png";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit, faPlusCircle, faTrash} from "@fortawesome/free-solid-svg-icons";
+import TooltipHover from "./TooltipHover";
+import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 class RecipeContent extends React.Component {
+
     render() {
         const {recipe} = this.props;
         const isGuest = false;
@@ -31,7 +37,7 @@ class RecipeContent extends React.Component {
                                         <p className="ingredients-title">
                                             <Trans>rating.user</Trans>
                                         </p>
-                                        <RatingRecipe />
+                                        <RatingRecipe/>
                                     </div>}
                                 </div>
                                 <br/>
@@ -54,7 +60,8 @@ class RecipeContent extends React.Component {
                                     {Object.keys(recipe.nutritionalInfo).map(idx =>
                                         <div key={idx} className={parseInt(idx) === 0 ?
                                             "recipe-nutritional-item-no-border" : "recipe-nutritional-item"}>
-                                            <p className="recipe-nutritional-type"><Trans>{recipe.nutritionalInfo[idx].type}</Trans></p>
+                                            <p className="recipe-nutritional-type">
+                                                <Trans>{recipe.nutritionalInfo[idx].type}</Trans></p>
                                             <p className="recipe-nutritional-amount">
                                                 {`${formatNumber(recipe.nutritionalInfo[idx].amount, 2)}${
                                                     recipe.nutritionalInfo[idx].type === 'Calorie' ? '' : ' gr.'
@@ -85,7 +92,8 @@ class RecipeContent extends React.Component {
                                     "ingredients-recipe-no-border" : "ingredients-recipe"}>
                                     <p className="ingredients-item"><Trans>{recipe.ingredients[idx].name}</Trans></p>
                                     <div className="float-right">
-                                        <p className="ingredients-serving"><Trans>{recipe.ingredients[idx].typeOfServing}</Trans></p>
+                                        <p className="ingredients-serving">
+                                            <Trans>{recipe.ingredients[idx].typeOfServing}</Trans></p>
                                         <p className="ingredients-amount">{formatNumber(recipe.ingredients[idx].amount)}&nbsp;</p>
                                     </div>
                                 </div>
@@ -99,9 +107,47 @@ class RecipeContent extends React.Component {
                             <p className="recipe-instructions">{instructionLine}<br/></p>
                         ))}
                     </div>
+
+
+                    <div className="recipe-body-bottom">
+                        <div className="recipe-bottom-icon">
+
+                            {isMyUser(recipe.userId) ? (
+                                <div className="float-right">
+                                    <div className="float-right">
+                                        <TooltipHover placement="top" message={<Trans>deleteRecipe</Trans>} icon={
+                                            <button className="bg-transparent">
+                                                <FontAwesomeIcon icon={faTrash} className="delete-ingredient-icon"
+                                                                 size="2x"/>
+                                            </button>}
+                                        />
+                                    </div>
+                                    <div className="float-right">
+                                        <TooltipHover placement="top" message={<Trans>editRecipe</Trans>} icon={
+                                            <button className="bg-transparent">
+                                                <Link to={`/edit_recipe/${recipe.id}`} className="">
+                                                        <FontAwesomeIcon icon={faEdit} className="edit-ingredient-icon"
+                                                                         size="2x"/>
+                                                </Link>
+                                            </button>}
+                                        />
+                                    </div>
+                                </div>) : ''
+                            }
+                            <div className="float-right">
+                                <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
+                                    <button className="bg-transparent">
+                                        <FontAwesomeIcon icon={faPlusCircle} className="green-ic" size="2x"/>
+                                    </button>}
+                                />
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-        );
+        )
+            ;
     }
 }
 

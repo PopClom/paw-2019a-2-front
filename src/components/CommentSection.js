@@ -35,6 +35,10 @@ class CommentSection extends React.Component {
     }
 }
 
+CommentSection.defaultProps = {
+    comments: []
+}
+
 const Extended = withTranslation()(CommentSection);
 Extended.static = CommentSection.static;
 

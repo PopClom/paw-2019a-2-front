@@ -9,10 +9,30 @@ html{
     height: 100%;
 }
 
-.tooltip-inner {
+
+.popover-right .arrow:after{
+    border-right-color: #282828;
+}
+
+.popover-left .arrow:after{
+    border-left-color: #282828;
+}
+
+.popover-top .arrow:after{
+    border-top-color: #282828;
+}
+
+.popover-bottom .arrow:after{
+    border-bottom-color: #282828;
+}
+
+.popover {
+    background: #282828;
     max-width: 450px;
-    /* If max-width does not work, try using width instead */
-    width: 450px;
+}
+
+.text-white-smoke {
+    color: whitesmoke;
 }
 
 html, body, #app, #app>div {
@@ -637,6 +657,7 @@ a.custom-card{
     left: 0;
     margin: 20px 20px 30px 20px;
 }
+
 
 .delete-ingredient-icon{
     color: #d32f2f;

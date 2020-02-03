@@ -5,7 +5,7 @@ import IngredientsImg from '../assets/img/ingredients.jpg'
 import RecentlyCookedImg from '../assets/img/recently_cooked.png'
 import FavouritesRecipesImg from '../assets/img/favourites_recipes.jpg'
 import StatisticsImg from '../assets/img/statistics.jpg'
-import {withTranslation} from "react-i18next";
+import {Trans, withTranslation} from "react-i18next";
 import SimpleCard from "../components/SimpleCard";
 
 class Account extends React.Component {
@@ -26,7 +26,7 @@ class Account extends React.Component {
 
             <section className="main_container">
                 <h4 className="navigation-title pt-3">
-                    {this.isMyAccount() ? t('myAccount') : t('otherUserAccount', {0: 'Traducir'})}
+                    {this.isMyAccount() ? <Trans>myAccount</Trans> : t('otherUserAccount', {0: 'Traducir'})}
                 </h4>
 
                 <section className="browse">
