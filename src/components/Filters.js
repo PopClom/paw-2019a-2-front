@@ -8,9 +8,9 @@ class Filters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tags: {},
-            tagsCheckboxes: {},
-            orderSelected: {},
+            tags: [],
+            tagsCheckboxes: [],
+            orderSelected: '',
             orders: {},
             allIngredients: {},
             selectedIngredients: {}
@@ -29,11 +29,12 @@ class Filters extends React.Component {
         axios.get(`${SERVER_ADDR}/recipes/get_orders`).then(response => {
             this.setState({
                 orders: response.data.orders,
-                orderSelected: response.data.orders[0]
+                orderSelected: response.data.orders[2]
             });
         });
 
         axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
+            response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
             this.setState({ allIngredients: response.data.ingredients});
         })
     }
@@ -42,19 +43,18 @@ class Filters extends React.Component {
       this.setState({selectedIngredients: values});
     };
 
-    onOrdersChange(event) {
+    onOrdersChange = (event) => {
         const id = event.target.id;
-
         this.setState({orderSelected: id});
-    }
+    };
 
-    onTagsChange(event) {
+    onTagsChange = (event) => {
         const val = event.target.checked;
         const id = event.target.id;
 
         let tagsCheckboxes = Object.assign({}, this.state.tagsCheckboxes, {[id]: val});
         this.setState({tagsCheckboxes});
-    }
+    };
 
     render() {
         const {tags, orders, tagsCheckboxes, orderSelected, allIngredients} = this.state;
@@ -77,8 +77,8 @@ class Filters extends React.Component {
                             <div className="custom-control custom-radio" key={idx}>
                                 <input type="radio" value={orders[idx]} className="custom-control-input"
                                        id={orders[idx]} name="groupOrderFilter"
-                                       checked={this.state.orderSelected === orders[idx]}
-                                       onChange={this.onOrdersChange.bind(this)}/>
+                                       checked={orderSelected === orders[idx]}
+                                       onChange={this.onOrdersChange}/>
                                 <label className="custom-control-label" htmlFor={orders[idx]}>
                                     <Trans i18nKey={orders[idx]}/>
                                 </label>
@@ -92,10 +92,10 @@ class Filters extends React.Component {
                     <div className="filter-items">
                         {Object.keys(tags).map(idx =>
                             <div className="custom-control custom-checkbox" key={idx}>
-                                <input value={tags[idx]} className="custom-control-input" id={tags[idx]}
-                                       name="groupTagFilter" type='checkbox'
-                                       checked={this.state.tagsCheckboxes[tags[idx]]}
-                                       onChange={this.onTagsChange.bind(this)}/>
+                                <input type="checkbox" value={tags[idx]} className="custom-control-input" id={tags[idx]}
+                                       name="groupTagFilter"
+                                       checked={tagsCheckboxes[idx]}
+                                       onChange={this.onTagsChange}/>
                                 <label className="custom-control-label" htmlFor={tags[idx]}>
                                     <Trans i18nKey={tags[idx]}/>
                                 </label>
@@ -123,7 +123,7 @@ class Filters extends React.Component {
                                 onChange = {this.onSelectChange}
                                 options = {allIngredients}
                                 getOptionLabel = {(ingredient) => <Trans>{ingredient.name}</Trans>}
-                                getOptionValue = {(ingredient) => <Trans>{ingredient.id}</Trans>}
+                                getOptionValue = {(ingredient) => ingredient.id}
                                 isMulti = "true"
                                 menuPlacement = "top"
                                 placeholder = {<Trans>ingredient.selectMulti</Trans>}/>

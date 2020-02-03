@@ -82,8 +82,8 @@ class IngredientSelector extends React.Component {
         return (
             <div>
                 {Array.from({length: this.state.rows}, (_, index) => (
-                    <div className="form-row mt-3" >
-                        <div className="new-recipe-ingredient-select" key={index}>
+                    <div className="form-row mt-3" key={index}>
+                        <div className="new-recipe-ingredient-select">
                             <label>
                                 <Trans i18nKey="addIngredient.select"/>
                             </label>
@@ -94,7 +94,7 @@ class IngredientSelector extends React.Component {
                                 onChange={value => this.onSelectChange(value, index)}
                                 options={this.state.allIngredients}
                                 getOptionLabel={(ingredient) => <Trans>{ingredient.name}</Trans>}
-                                getOptionValue={(ingredient) => <Trans>{ingredient.name}</Trans>}
+                                getOptionValue={(ingredient) => ingredient.id}
                                 placeholder={<Trans>ingredient.select</Trans>}/>
                         </div>
                         <div className="new-recipe-ingredient-amount">
