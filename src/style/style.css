@@ -378,7 +378,7 @@ a.custom-card{
     font-size: medium;
     padding-left: 8px;
     font-weight: 300;
-    margin-bottom: 60px;
+    margin-bottom: 0;
 }
 
 .ingredients-tags-div {

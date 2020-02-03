@@ -6,7 +6,6 @@ const canEdit = false;
 
 class Comment extends React.Component {
     render() {
-        console.log(this.props.comment);
         const {user, date, message} = this.props.comment;
 
         return(

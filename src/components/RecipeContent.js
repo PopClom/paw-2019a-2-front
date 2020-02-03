@@ -95,7 +95,9 @@ class RecipeContent extends React.Component {
                         <p className="ingredients-title">
                             <Trans>instructions</Trans>
                         </p>
-                        <p className="recipe-instructions">{recipe.instructions}</p>
+                        {recipe.instructions.split('\n').map(instructionLine => (
+                            <p className="recipe-instructions">{instructionLine}<br/></p>
+                        ))}
                     </div>
                 </div>
             </div>
