@@ -1,5 +1,5 @@
 import React from 'react';
-import {withTranslation, Trans} from 'react-i18next';
+import {Trans} from 'react-i18next';
 import foodifyImage from '../assets/img/foodify.png';
 import {Link} from "react-router-dom";
 import {handleInputChange} from "../helpers";
@@ -40,10 +40,10 @@ class Login extends React.Component {
                     <img className="logo" src={foodifyImage} alt="LOGO"/>
 
                     <input type="text" name="username" className="form-control mb-4"
-                           placeholder={t('User.username')} onChange={this.handleInputChange}/>
+                           placeholder={<Trans>User.username</Trans>} onChange={this.handleInputChange}/>
 
                     <input type="password" name="password" className="form-control mb-4"
-                           placeholder={t('User.password')} onChange={this.handleInputChange}/>
+                           placeholder={<Trans>User.password</Trans>} onChange={this.handleInputChange}/>
 
                     {this.state.loginError === true &&
                     <p className="form-text text-muted mb-4 error-text" element="small"><Trans>signInError</Trans></p>}
@@ -75,7 +75,4 @@ class Login extends React.Component {
     }
 }
 
-const Extended = withTranslation()(Login);
-Extended.static = Login.static;
-
-export default Extended;
+export default Login;

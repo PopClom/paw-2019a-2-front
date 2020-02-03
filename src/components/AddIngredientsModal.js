@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import {Trans} from 'react-i18next';
 import IngredientSelector from "./IngredientSelector";
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -66,7 +66,4 @@ class AddIngredientsModal extends React.Component {
     }
 }
 
-const Extended = withTranslation()(AddIngredientsModal);
-Extended.static = AddIngredientsModal.static;
-
-export default Extended;
+export default AddIngredientsModal;

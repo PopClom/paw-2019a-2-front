@@ -1,7 +1,7 @@
 import React from 'react';
 import AddIngredientsModal from "../components/AddIngredientsModal";
 import Button from "react-bootstrap/Button";
-import {Trans, withTranslation} from "react-i18next";
+import {Trans} from "react-i18next";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import Spinner from "../components/Spinner";
@@ -105,7 +105,7 @@ class Ingredients extends React.Component {
 
                 <AddIngredientsModal showModal={this.state.showAddModal} toggleModal={this.toggleAddModal}/>
                 <EditIngredientAmountModal ingredient={selectedIngredient} showModal={this.state.showEditModal} toggleModal={this.toggleEditModal}/>
-                <ConfirmationModal title={t("ingredient.deleteWarning", {0: selectedIngredient.name})} description={t("cantUndone")}
+                <ConfirmationModal title={<Trans i18nKey="ingredient.deleteWarning" values={{0: selectedIngredient.name}}/>} description={<Trans>cantUndone</Trans>}
                                    variant="danger" showModal={this.state.showDeleteModal}
                                    toggleModal={this.toggleDeleteModal} onConfirmation={() => this.removeIngredient(selectedIngredient)}/>
 
@@ -116,7 +116,5 @@ class Ingredients extends React.Component {
         );
     }
 }
-const Extended = withTranslation()(Ingredients);
-Extended.static = Ingredients.static;
 
-export default Extended;
+export default Ingredients;

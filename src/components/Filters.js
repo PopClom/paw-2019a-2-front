@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import {Trans} from 'react-i18next';
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import Select from 'react-select';
@@ -58,7 +58,6 @@ class Filters extends React.Component {
 
     render() {
         const {tags, orders, tagsCheckboxes, orderSelected, allIngredients} = this.state;
-        const {t} = this.props;
 
         return (
             <div id="filters-card">
@@ -123,11 +122,11 @@ class Filters extends React.Component {
                             <Select
                                 onChange = {this.onSelectChange}
                                 options = {allIngredients}
-                                getOptionLabel = {(ingredient) => t(ingredient.name)}
+                                getOptionLabel = {(ingredient) => <Trans>ingredient.name</Trans>}
                                 getOptionValue = {(ingredient) => ingredient.id}
                                 isMulti = "true"
                                 menuPlacement = "top"
-                                placeholder = {t('ingredient.selectMulti')}/>
+                                placeholder = {<Trans>'</Trans>}/>
                         </div>
                     </div>
 
@@ -141,7 +140,4 @@ class Filters extends React.Component {
     }
 }
 
-const Extended = withTranslation()(Filters);
-Extended.static = Filters.static;
-
-export default Extended;
+export default Filters;

@@ -5,7 +5,7 @@ import IngredientsImg from '../assets/img/ingredients.jpg'
 import RecentlyCookedImg from '../assets/img/recently_cooked.png'
 import FavouritesRecipesImg from '../assets/img/favourites_recipes.jpg'
 import StatisticsImg from '../assets/img/statistics.jpg'
-import {Trans, withTranslation} from "react-i18next";
+import {Trans} from "react-i18next";
 import SimpleCard from "../components/SimpleCard";
 
 class Account extends React.Component {
@@ -20,43 +20,42 @@ class Account extends React.Component {
     };
 
     render() {
-        const {t} = this.props;
 
         return (
 
             <section className="main_container">
                 <h4 className="navigation-title pt-3">
-                    {this.isMyAccount() ? <Trans>myAccount</Trans> : t('otherUserAccount', {0: 'Traducir'})}
+                    {this.isMyAccount() ? <Trans>myAccount</Trans> : <Trans i18nKey='otherUserAccount' values={{0: 'TODO'}}/>}
                 </h4>
 
                 <section className="browse">
                     <div className="card-deck">
 
                         {/*Recipes*/}
-                        <SimpleCard title={t('recipes')}
-                                    description={this.isMyAccount() ? t('myRecipesExplanation') : t('recipesExplanation')}
+                        <SimpleCard title={<Trans>recipes</Trans>}
+                                    description={this.isMyAccount() ? <Trans>myRecipesExplanation</Trans> : <Trans>recipesExplanation</Trans>}
                                     image={RecipesImg} link={"userRecipesUrl"}/>
 
                         {/*Cooklists*/}
-                        <SimpleCard title={t('lists')}
-                                    description={this.isMyAccount() ? t('myListsExplanation') : t('listsExplanation')}
+                        <SimpleCard title={<Trans>lists</Trans>}
+                                    description={this.isMyAccount() ? <Trans>myListsExplanation</Trans> : <Trans>listsExplanation</Trans>}
                                     image={CooklistsImg} link={"/user_cooklists"}/>
 
                         {this.isMyAccount() ?
-                            <SimpleCard title={t('myIngredients')} description={t('myIngredientsExplanation')}
+                            <SimpleCard title={<Trans>myIngredients</Trans>} description={<Trans>myIngredientsExplanation</Trans>}
                                         image={IngredientsImg} link={"/my_ingredients"}/> : ''}
 
 
-                        <SimpleCard title={t('recentlyCooked')}
-                                    description={this.isMyAccount() ? t('MyrecentlyCookedExplanation') : t('recentlyCookedExplanation', {0: 'user.username'})}
+                        <SimpleCard title={<Trans>recentlyCooked</Trans>}
+                                    description={this.isMyAccount() ? <Trans>MyrecentlyCookedExplanation</Trans> : <Trans i18nKey='recentlyCookedExplanation' values={{0: 'user.username'}}/>}
                                     image={RecentlyCookedImg} link={"/recently_cooked"}/>
 
-                        <SimpleCard title={t('favouriteRecipes')}
-                                    description={this.isMyAccount() ? t('myFavouriteRecipesExplanation') : t('FavouriteRecipesExplanation', {0: 'user.username'})}
+                        <SimpleCard title={<Trans>favouriteRecipes</Trans>}
+                                    description={this.isMyAccount() ? <Trans>myFavouriteRecipesExplanation</Trans> : <Trans i18nKey='FavouriteRecipesExplanation' values={{0: 'user.username'}}/>}
                                     image={FavouritesRecipesImg} link={"/favourites_recipes"}/>
 
                         {this.isMyAccount() ?
-                            <SimpleCard title={t('myStatistics')} description={t('myStatisticsExplanation')}
+                            <SimpleCard title={<Trans>myStatistics</Trans>} description={<Trans>myStatisticsExplanation</Trans>}
                                         image={StatisticsImg} link={"/statistics"}/> : ''}
 
                     </div>
@@ -75,8 +74,4 @@ class Account extends React.Component {
     }
 }
 
-
-const Extended = withTranslation()(Account);
-Extended.static = Account.static;
-
-export default Extended;
+export default Account;

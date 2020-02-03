@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import {Trans} from 'react-i18next';
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import Select from 'react-select';
@@ -76,7 +76,6 @@ class IngredientSelector extends React.Component {
 
 
     render() {
-        const {t} = this.props;
 
         return (
             <div>
@@ -92,16 +91,16 @@ class IngredientSelector extends React.Component {
                                 value={this.props.ingredients[index] === undefined ? '' : this.props.ingredients[index]}
                                 onChange={value => this.onSelectChange(value, index)}
                                 options={this.state.allIngredients}
-                                getOptionLabel={(ingredient) => t(ingredient.name)}
+                                getOptionLabel={(ingredient) => <Trans>ingredient.name</Trans>}
                                 getOptionValue={(ingredient) => ingredient.name}
-                                placeholder={t('ingredient.select')}/>
+                                placeholder={<Trans>ingredient.select</Trans>}/>
                         </div>
                         <div className="new-recipe-ingredient-amount">
                             <div
                                 className={this.props.ingredients[index] === undefined ? "hidden" : "ingredient-amount-div"}>
                                 <label>
                                     <Trans i18nKey="addIngredient.amount"/>
-                                    {this.props.ingredients[index] === undefined ? '' : (" (" + t(this.props.ingredients[index].typeOfServing) + ")")}
+                                    {this.props.ingredients[index] === undefined ? '' : (" (" + <Trans>this.props.ingredients[index].typeOfServing</Trans> + ")")}
                                 </label>
                                 <Form.Control type="number" value={this.props.ingredients[index] === undefined ? "" : (
                                     this.props.ingredients[index].amount === undefined ? "" : this.props.ingredients[index].amount)}
@@ -137,7 +136,4 @@ IngredientSelector.defaultProps = {
     error: ""
 };
 
-const Extended = withTranslation()(IngredientSelector);
-Extended.static = IngredientSelector.static;
-
-export default Extended;
+export default IngredientSelector;

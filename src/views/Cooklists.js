@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from "react-bootstrap/Button";
-import {Trans, withTranslation} from "react-i18next";
+import {Trans} from "react-i18next";
 import SimpleCard from "../components/SimpleCard";
 import {isMyUser} from "../helpers";
 import AddCooklistModal from "../components/AddCooklistModal";
@@ -80,7 +80,4 @@ class Cooklists extends React.Component {
     }
 }
 
-const Extended = withTranslation()(Cooklists);
-Extended.static = Cooklists.static;
-
-export default Extended;
+export default Cooklists;

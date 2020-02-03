@@ -1,14 +1,13 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import Comment from "../components/Comment"
-import {withTranslation} from "react-i18next";
+import {Trans} from "react-i18next";
 
 const canEdit = true;
 
 class CommentSection extends React.Component {
     render() {
         const comments = this.props.comments;
-        const {t} = this.props;
 
         return (
             <div className="card card-comments">
@@ -16,16 +15,16 @@ class CommentSection extends React.Component {
                     {canEdit ?
                         <div>
                             <label className="comment-add-label">
-                                {t('comment.Add')}
+                                {<Trans>comment.Add</Trans>}
                             </label>
-                            <span className="float-right">{t('comment.Max')}</span>
+                            <span className="float-right">{<Trans>comment.Max</Trans>}</span>
                             <textarea className="comment-textarea" type="text" maxLength="500"/>
                             <errors className="form-text text-muted" element="small"/>
-                            <button className="btn btn-green">{t('comment.Send')}</button>
+                            <button className="btn btn-green">{<Trans>comment.Send</Trans>}</button>
                         </div> : <div>
-                            <h4>{t('comment.login')}</h4>
+                            <h4>{<Trans>comment.login</Trans>}</h4>
                             <Link to="/logIn">
-                                <button className="btn btn-green">{t('logIn')}</button>
+                                <button className="btn btn-green">{<Trans>logIn</Trans>}</button>
                             </Link>
                         </div>}
                     {comments.map(comment => <Comment comment={comment} />)}
@@ -37,9 +36,6 @@ class CommentSection extends React.Component {
 
 CommentSection.defaultProps = {
     comments: []
-}
+};
 
-const Extended = withTranslation()(CommentSection);
-Extended.static = CommentSection.static;
-
-export default Extended;
+export default CommentSection;

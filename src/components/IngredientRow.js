@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {Button, Card} from "react-bootstrap";
-import {Trans, withTranslation} from "react-i18next";
+import {Trans} from "react-i18next";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import EditIngredientAmountModal from "./EditIngredientAmountModal";
@@ -15,7 +15,7 @@ class IngredientRow extends React.Component {
     }
 
     render() {
-        const {ingredient, t} = this.props;
+        const {ingredient} = this.props;
 
         return (
             <li className="cookListRecipes-group-item list-group-item">
@@ -47,8 +47,4 @@ class IngredientRow extends React.Component {
     }
 }
 
-
-const Extended = withTranslation()(IngredientRow);
-Extended.static = IngredientRow.static;
-
-export default Extended;
+export default IngredientRow;
