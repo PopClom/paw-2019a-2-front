@@ -148,6 +148,8 @@ i18n
                     "ingredient.maximum.amount": "The amount can't be greater than 1,000,000,000",
                     "ingredient.select": "Select ingredient",
                     "ingredient.selectMulti": "Select ingredients",
+                    "ingredient.editAmount": "Edit amount",
+                    "ingredient.delete": "Delete ingredient",
 
                     "expiration.error": "The confirmation mail has expired",
 
@@ -450,6 +452,8 @@ i18n
                     "ingredient.maximum.amount": "La cantidad no puede ser mayor a 1,000,000,000",
                     "ingredient.select": "Seleccionar ingrediente",
                     "ingredient.selecMulti": "Seleccionar ingredientes",
+                    "ingredient.editAmount": "Editar la cantidad",
+                    "ingredient.delete": "Eliminar ingrediente",
 
                     "expiration.error": "El mail de confirmacion ha expirado",
 

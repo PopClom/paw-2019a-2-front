@@ -3,9 +3,10 @@ import {Link} from "react-router-dom";
 import {Button, Card} from "react-bootstrap";
 import {Trans} from "react-i18next";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faPlusCircle, faTrash} from "@fortawesome/free-solid-svg-icons";
 import EditIngredientAmountModal from "./EditIngredientAmountModal";
 import ConfirmationModal from "./ConfirmationModal";
+import TooltipHover from "./TooltipHover";
 
 class IngredientRow extends React.Component {
     constructor(props) {
@@ -26,14 +27,18 @@ class IngredientRow extends React.Component {
                 </div>
                 <div className="float-right">
                     <div className="float-right">
-                        <button className="bg-transparent delete-btn" onClick={() => {this.props.toggleDeleteModal(); this.props.setSelectedIngredient(ingredient);}}>
-                            <FontAwesomeIcon icon={faTrash} className="delete-ingredient-icon" size="2x"/>
-                        </button>
+                        <TooltipHover placement="top" message={<Trans>ingredient.delete</Trans>} icon={
+                            <button className="bg-transparent delete-btn" onClick={() => {this.props.toggleDeleteModal(); this.props.setSelectedIngredient(ingredient);}}>
+                                <FontAwesomeIcon icon={faTrash} className="delete-ingredient-icon" size="2x"/>
+                            </button>}
+                        />
                     </div>
                     <div className="float-right">
-                        <button className="bg-transparent delete-btn" onClick={() => {this.props.toggleEditModal(); this.props.setSelectedIngredient(ingredient);}}>
-                            <FontAwesomeIcon icon={faEdit} className="edit-ingredient-icon" size="2x"/>
-                        </button>
+                        <TooltipHover placement="top" message={<Trans>ingredient.editAmount</Trans>} icon={
+                            <button className="bg-transparent delete-btn" onClick={() => {this.props.toggleEditModal(); this.props.setSelectedIngredient(ingredient);}}>
+                                <FontAwesomeIcon icon={faEdit} className="edit-ingredient-icon" size="2x"/>
+                            </button>}
+                        />
                     </div>
                 </div>
                 <div className="float-right">

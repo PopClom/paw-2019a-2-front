@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans} from 'react-i18next';
+import {Trans, withTranslation} from 'react-i18next';
 import {Link} from "react-router-dom";
 import Select from 'react-select';
 import axios from "axios";
@@ -97,7 +97,7 @@ class RecipeEditor extends React.Component {
                                                       icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
 
                                         <Form.Control value={values.name} type="text"
-                                                      placeholder={<Trans>recipeName.placeholder</Trans>} name="name" onChange={handleChange}
+                                                      placeholder={t("recipeName.placeholder")} name="name" onChange={handleChange}
                                                       onBlur={handleBlur} isInvalid={touched.name &&!!errors.name}/>
                                         <Form.Control.Feedback type="invalid">
                                             <Trans>{errors.name}</Trans>
@@ -112,7 +112,7 @@ class RecipeEditor extends React.Component {
                                         <TooltipHover placement="right" message={<Trans>description.title</Trans>}
                                                       icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
                                         <Form.Control value={values.description} type="text"
-                                                      placeholder={<Trans>description.placeholder</Trans>} name="description"
+                                                      placeholder={t("description.placeholder")} name="description"
                                                       onChange={handleChange}
                                                       onBlur={handleBlur}
                                                       isInvalid={touched.description && !!errors.description}/>
@@ -131,7 +131,7 @@ class RecipeEditor extends React.Component {
 
                                         <Form.Control as="textarea" name="instructions" className="comment-textarea"
                                                       value={values.instructions}
-                                                      placeholder={<Trans>instructions.placeholder</Trans>}
+                                                      placeholder={t('instructions.placeholder')}
                                                       isInvalid={touched.instructions && !!errors.instructions}
                                                       onChange={handleChange}
                                                       onBlur={handleBlur}/>
@@ -172,8 +172,8 @@ class RecipeEditor extends React.Component {
                                         options={allTags}
                                         value={values.tags}
                                         isMulti="true"
-                                        getOptionLabel={(tag) => t(tag)}
-                                        getOptionValue={(tag) => t(tag)}
+                                        getOptionLabel={(tag) => <Trans>{tag}</Trans>}
+                                        getOptionValue={(tag) => <Trans>{tag}</Trans>}
                                         placeholder={<Trans>tags.select</Trans>}/>
 
                                     <div className="bottom-new-recipe-btn">
@@ -196,5 +196,7 @@ class RecipeEditor extends React.Component {
         );
     }
 }
+const Extended = withTranslation()(RecipeEditor);
+Extended.static = RecipeEditor.static;
 
-export default RecipeEditor;
+export default Extended;

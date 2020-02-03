@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans} from 'react-i18next';
+import {withTranslation, Trans} from 'react-i18next';
 import foodifyImage from '../assets/img/foodify.png';
 import {validateRegisterFields} from "../helpers/validations";
 import {Button, Form} from "react-bootstrap";
@@ -51,7 +51,7 @@ class Register extends React.Component {
 
                             {/*First name*/}
                             <Form.Row >
-                                <Form.Control placeholder={<Trans>User.name</Trans>}
+                                <Form.Control placeholder={t('User.name')}
                                               type="text" name="firstName" maxLength="100"
                                               className="form-control mb-4 register-login-input"
                                               onChange={handleChange}
@@ -66,7 +66,7 @@ class Register extends React.Component {
 
                             {/*Last name*/}
                             <Form.Row >
-                                <Form.Control placeholder={<Trans>User.surname</Trans>}
+                                <Form.Control placeholder={t('User.surname')}
                                               type="text" name="lastName" maxLength="100"
                                               className="form-control mb-4 register-login-input"
                                               onChange={handleChange}
@@ -81,7 +81,7 @@ class Register extends React.Component {
 
                             {/*E-mail*/}
                             <Form.Row >
-                                <Form.Control placeholder={<Trans>User.email</Trans>}
+                                <Form.Control placeholder={t('User.email')}
                                               type="text" name="email" maxLength="100"
                                               className="form-control mb-4 register-login-input"
                                               onChange={handleChange}
@@ -96,7 +96,7 @@ class Register extends React.Component {
 
                             {/*username*/}
                             <Form.Row >
-                                <Form.Control placeholder={<Trans>User.username</Trans>}
+                                <Form.Control placeholder={t('User.username')}
                                               type="text" name="username" maxLength="40"
                                               className="form-control mb-4 register-login-input"
                                               onChange={handleChange}
@@ -111,7 +111,7 @@ class Register extends React.Component {
 
                             {/*Password*/}
                             <Form.Row>
-                                <Form.Control placeholder={<Trans>User.password</Trans>}
+                                <Form.Control placeholder={t('User.password')}
                                               type="password" name="password" maxLength="100"
                                               className="form-control mb-4 register-login-input"
                                               onChange={handleChange}
@@ -126,7 +126,7 @@ class Register extends React.Component {
 
                             {/*Repeat password*/}
                             <Form.Row>
-                                <Form.Control placeholder={<Trans>User.repeatPassword</Trans>}
+                                <Form.Control placeholder={t('User.repeatPassword')}
                                               type="password" name="repeatPassword" maxLength="100"
                                               className="form-control mb-4 register-login-input"
                                               onChange={handleChange}
@@ -154,4 +154,7 @@ class Register extends React.Component {
     }
 }
 
-export default Register;
+const Extended = withTranslation()(Register);
+Extended.static = Register.static;
+
+export default Extended;

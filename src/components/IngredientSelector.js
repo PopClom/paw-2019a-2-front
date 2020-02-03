@@ -91,8 +91,8 @@ class IngredientSelector extends React.Component {
                                 value={this.props.ingredients[index] === undefined ? '' : this.props.ingredients[index]}
                                 onChange={value => this.onSelectChange(value, index)}
                                 options={this.state.allIngredients}
-                                getOptionLabel={(ingredient) => <Trans>ingredient.name</Trans>}
-                                getOptionValue={(ingredient) => ingredient.name}
+                                getOptionLabel={(ingredient) => <Trans>{ingredient.name}</Trans>}
+                                getOptionValue={(ingredient) => <Trans>{ingredient.name}</Trans>}
                                 placeholder={<Trans>ingredient.select</Trans>}/>
                         </div>
                         <div className="new-recipe-ingredient-amount">
