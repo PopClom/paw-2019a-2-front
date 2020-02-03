@@ -43,7 +43,7 @@ class RecipeContent extends React.Component {
                                     </p>
                                     {recipe.tags.map(tag =>
                                         <p key={tag} className="categories-names">
-                                            {tag}
+                                            <Trans>{tag}</Trans>
                                         </p>)}
                                 </div>}
 
@@ -83,7 +83,7 @@ class RecipeContent extends React.Component {
                             {Object.keys(recipe.ingredients).map(idx =>
                                 <div key={idx} className={parseInt(idx) === 0 ?
                                     "ingredients-recipe-no-border" : "ingredients-recipe"}>
-                                    <p className="ingredients-item">{recipe.ingredients[idx].name}</p>
+                                    <p className="ingredients-item"><Trans>{recipe.ingredients[idx].name}</Trans></p>
                                     <div className="float-right">
                                         <p className="ingredients-serving"><Trans>{recipe.ingredients[idx].typeOfServing}</Trans></p>
                                         <p className="ingredients-amount">{formatNumber(recipe.ingredients[idx].amount)}&nbsp;</p>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import {SERVER_ADDR} from "../constants";
 import RecipeContent from "../components/RecipeContent";
 import Spinner from "../components/Spinner";
+import CommentSection from "../components/CommentSection";
 
 class Recipe extends React.Component {
     constructor(props) {
@@ -24,10 +25,14 @@ class Recipe extends React.Component {
 
         return (
             <section className="main_container">
-                <section className="browse">
-                    {fetching ? <Spinner /> :
-                    <RecipeContent recipe={recipe}/>}
-                </section>
+                {fetching ?
+                    <section className="browse">
+                        <Spinner />
+                    </section> :
+                    <section className="browse">
+                        <RecipeContent recipe={recipe}/>
+                        <CommentSection comments={recipe.comments}/>
+                    </section>}
             </section>
         )
     }
