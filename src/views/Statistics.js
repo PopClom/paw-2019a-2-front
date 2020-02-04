@@ -13,35 +13,33 @@ import DateFnsUtils from "@date-io/date-fns";
 import enLocale from "date-fns/locale/en-US";
 import esLocale from "date-fns/locale/es";
 import i18next from "i18next";
-import {Bar, Doughnut} from 'react-chartjs-2';
+import {Doughnut, HorizontalBar} from 'react-chartjs-2';
 
 const localeMap = {
     en: enLocale,
     es: esLocale,
 };
 
+
+const colors = ["#2196F3", "#00BCD4", "#4CAF50", "#CDDC39", "#FFC107",
+    "#FF5722", "#795548", "#9E9E9E", "#607D8B", "#9C27B0", "#3F51B5",
+    '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
+    '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+    '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
+    '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+    '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC',
+    '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+    '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680',
+    '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+    '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
+    '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+
 const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
         {
-            label: 'My First dataset',
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
+            backgroundColor: colors,
+            hoverBackgroundColor: colors,
             data: [65, 59, 80, 81, 56, 55, 40]
         }
     ]
@@ -94,10 +92,14 @@ class Statistics extends React.Component {
                         </Card.Title>
                         <Card.Body>
                             <Tabs defaultActiveKey="general" id="uncontrolled-tab-example" className="tab-border">
-                                <Tab eventKey="general" title={<Trans i18nKey="statistics.general"/>} >
+                                <Tab eventKey="general" title={<Trans i18nKey="statistics.general"/>}>
                                     <Tab.Content>
                                         <div className="tab-charts-content">
-                                            <Bar ref="chart" data={data}/>
+                                            <HorizontalBar ref="chart" data={data} options={{
+                                                legend: {
+                                                    display: false
+                                                }
+                                            }}/>
                                             <Doughnut data={data}/>
                                         </div>
                                     </Tab.Content>
@@ -105,7 +107,11 @@ class Statistics extends React.Component {
                                 <Tab eventKey="user" title={<Trans i18nKey="statistics.my"/>}>
                                     <Tab.Content>
                                         <div className="tab-charts-content">
-                                            <Bar ref="chart" data={data}/>
+                                            <HorizontalBar ref="chart" data={data} options={{
+                                                legend: {
+                                                    display: false
+                                                }
+                                            }}/>
                                             <Doughnut data={data}/>
                                         </div>
                                     </Tab.Content>
