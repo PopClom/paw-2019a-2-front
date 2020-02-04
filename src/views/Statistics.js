@@ -5,7 +5,7 @@ import RecipeCard from '../components/RecipeCard';
 import Filters from '../components/Filters';
 import Spinner from '../components/Spinner';
 import {Link} from "react-router-dom";
-import {Button, Card, Tab, Tabs} from "react-bootstrap";
+import {Button, Card, Tab, Tabs, ThemeProvider} from "react-bootstrap";
 import {Trans, withTranslation} from "react-i18next";
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateRangePicker from "../components/DateRangePicker";
@@ -14,12 +14,18 @@ import enLocale from "date-fns/locale/en-US";
 import esLocale from "date-fns/locale/es";
 import i18next from "i18next";
 import {Doughnut, HorizontalBar} from 'react-chartjs-2';
+import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 
 const localeMap = {
     en: enLocale,
     es: esLocale,
 };
 
+const muiTheme = createMuiTheme({
+    palette: {
+        primary: {500: '#1ed75f'}
+    },
+});
 
 const colors = ["#2196F3", "#00BCD4", "#4CAF50", "#CDDC39", "#FFC107",
     "#FF5722", "#795548", "#9E9E9E", "#607D8B", "#9C27B0", "#3F51B5",
@@ -72,64 +78,66 @@ class Statistics extends React.Component {
         const {t} = this.props;
 
         return (
-            <section className="main_container">
+            <MuiThemeProvider theme={muiTheme}>
+                <section className="main_container">
 
-                <h4 className="navigation-title pt-3"><Trans i18nKey="myStatistics"/></h4>
+                    <h4 className="navigation-title pt-3"><Trans i18nKey="myStatistics"/></h4>
 
-                <section className="browse">
+                    <section className="browse">
 
-                    <Card>
-                        <Card.Title>
-                            <div className="date-form">
-                                <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
-                                    <div className="date-range-picker">
-                                        <DateRangePicker value={selectedDates} className="fullWidth"
-                                                         placeholder={t('date.range')}
-                                                         onChange={values => this.handleDateChange(values)}/>
-                                    </div>
-                                </MuiPickersUtilsProvider>
+                        <Card>
+                            <Card.Title>
+                                <div className="date-form">
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
+                                        <div className="date-range-picker">
+                                            <DateRangePicker value={selectedDates} className="fullWidth"
+                                                             placeholder={t('date.range')}
+                                                             onChange={values => this.handleDateChange(values)}/>
+                                        </div>
+                                    </MuiPickersUtilsProvider>
+                                </div>
+                            </Card.Title>
+                            <Card.Body>
+                                <Tabs defaultActiveKey="general" id="uncontrolled-tab-example" className="tab-border">
+                                    <Tab eventKey="general" title={<Trans i18nKey="statistics.general"/>}>
+                                        <Tab.Content>
+                                            <div className="tab-charts-content">
+                                                <HorizontalBar ref="chart" data={data} options={{
+                                                    legend: {
+                                                        display: false
+                                                    }
+                                                }}/>
+                                                <Doughnut data={data}/>
+                                            </div>
+                                        </Tab.Content>
+                                    </Tab>
+                                    <Tab eventKey="user" title={<Trans i18nKey="statistics.my"/>}>
+                                        <Tab.Content>
+                                            <div className="tab-charts-content">
+                                                <HorizontalBar ref="chart" data={data} options={{
+                                                    legend: {
+                                                        display: false
+                                                    }
+                                                }}/>
+                                                <Doughnut data={data}/>
+                                            </div>
+                                        </Tab.Content>
+                                    </Tab>
+                                </Tabs>
+                            </Card.Body>
+                        </Card>
+
+                    </section>
+
+                    <section className="side-card-container">
+                        <div className="card">
+                            <div className="card-body card-body-user-bar">
+                                <p>dsadsa</p>
                             </div>
-                        </Card.Title>
-                        <Card.Body>
-                            <Tabs defaultActiveKey="general" id="uncontrolled-tab-example" className="tab-border">
-                                <Tab eventKey="general" title={<Trans i18nKey="statistics.general"/>}>
-                                    <Tab.Content>
-                                        <div className="tab-charts-content">
-                                            <HorizontalBar ref="chart" data={data} options={{
-                                                legend: {
-                                                    display: false
-                                                }
-                                            }}/>
-                                            <Doughnut data={data}/>
-                                        </div>
-                                    </Tab.Content>
-                                </Tab>
-                                <Tab eventKey="user" title={<Trans i18nKey="statistics.my"/>}>
-                                    <Tab.Content>
-                                        <div className="tab-charts-content">
-                                            <HorizontalBar ref="chart" data={data} options={{
-                                                legend: {
-                                                    display: false
-                                                }
-                                            }}/>
-                                            <Doughnut data={data}/>
-                                        </div>
-                                    </Tab.Content>
-                                </Tab>
-                            </Tabs>
-                        </Card.Body>
-                    </Card>
-
-                </section>
-
-                <section className="side-card-container">
-                    <div className="card">
-                        <div className="card-body card-body-user-bar">
-                            <p>dsadsa</p>
                         </div>
-                    </div>
+                    </section>
                 </section>
-            </section>
+            </MuiThemeProvider>
         );
     }
 }
