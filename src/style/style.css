@@ -43,6 +43,10 @@ html, body, #app, #app>div {
     height: 100% !important;
 }
 
+.fullWidth{
+    width: 100% !important;
+}
+
 .show{
     display: block !important;
 }
@@ -52,7 +56,7 @@ body {
     overflow-y: scroll;
     height: 100% !important;
     width: 100% !important;
-    overflow-x: hidden !important;
+    overflow: scroll !important;
 }
 
 body.modal-open {
@@ -817,6 +821,14 @@ a.custom-card{
     float: left;
 }
 
+.tab-border{
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.tab-charts-content {
+    margin-top: 20px;
+}
+
 .statistics-nav-tabs-title.active{
     color: black;
     font-weight: bold;
@@ -1074,6 +1086,11 @@ a.custom-card{
     /*when navigating through the items using the arrow keys:*/
     background-color: DodgerBlue !important;
     color: #ffffff;
+}
+
+.date-range-picker{
+    width: 90%;
+    margin: 0 5%;
 }
 
 .split {

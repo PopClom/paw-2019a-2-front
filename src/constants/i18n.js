@@ -207,6 +207,7 @@ i18n
 
                     "date.from": "Since",
                     "date.to": "To",
+                    "date.range": "Select a date range",
 
                     "tagChart": "Tag chart",
                     "nutritionalChart": "Nutritional charts",
@@ -511,6 +512,7 @@ i18n
 
                     "date.from": "Desde",
                     "date.to": "Hasta",
+                    "date.range": "Seleccione un rango de fechas",
 
                     "tagChart": "Gráfico de tags",
                     "nutritionalChart": "Gráficos nutricionales",
