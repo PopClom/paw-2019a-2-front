@@ -105,7 +105,7 @@ function DateRangePicker({
         });
     }
 
-    const formatDate = date => utils.format(date, format || utils.dateFormat);
+    const formatDate = date => utils.format(date, "d MMM yyyy");
 
     return (
         <DatePicker
