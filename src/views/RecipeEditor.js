@@ -22,7 +22,6 @@ class RecipeEditor extends React.Component {
         };
     }
 
-
     componentDidMount() {
 
         let recipeId = this.props.match.params.recipeId;
@@ -45,10 +44,6 @@ class RecipeEditor extends React.Component {
 
     onFormSubmit = (event) => {
         event.preventDefault();
-    };
-
-    print = (values) => {
-        console.log(values);
     };
 
     render() {
@@ -88,8 +83,6 @@ class RecipeEditor extends React.Component {
                             {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue, validateForm}) => (
 
                                 <Form onSubmit={handleSubmit}>
-                                    <Button onClick={() => this.print(values)}/>
-
                                     <Form.Row className="mb-4">
                                         <Form.Label>
                                             <Trans i18nKey="Recipe.name"/>
