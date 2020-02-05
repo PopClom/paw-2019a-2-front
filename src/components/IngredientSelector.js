@@ -24,20 +24,29 @@ class IngredientSelector extends React.Component {
         if (this.state.rows > 1) {
             this.setState(({rows}) => ({rows: rows - 1}));
 
-            let ingredients = this.props.ingredients;
-            this.addIngredientToOptions(ingredients[index]);
-            ingredients.splice(index, 1);
-
-            if (ingredients !== undefined)
-                this.props.onChange(ingredients);
+            this.addIngredientToOptions(this.props.ingredients[index]);
+            this.props.ingredients.splice(index, 1);
+            this.props.onChange();
         }
     };
 
+
+    onSelectChange = (value, index) => {
+        this.addIngredientToOptions(this.props.ingredients[index]);
+        this.removeIngredientFromOptions(value);
+
+        if (this.props.ingredients[index] !== undefined && this.props.ingredients[index].amount !== undefined)
+            value.amount = this.props.ingredients[index].amount;
+        else
+            value.amount = "0";
+
+        this.props.ingredients[index] = value;
+        this.props.onChange();
+    };
+
     handleAmountChange = (event, index) => {
-        let ingredients = this.props.ingredients;
-        ingredients[index].amount = event.target.value;
-        if (ingredients !== undefined)
-            this.props.onChange(ingredients);
+        this.props.ingredients[index].amount = event.target.value;
+        this.props.onChange();
     };
 
     addIngredientToOptions = (ingredient) => {
@@ -51,27 +60,14 @@ class IngredientSelector extends React.Component {
         this.setState({allIngredients: this.state.allIngredients.filter(item => item.id !== ingredient.id)});
     };
 
-    onSelectChange = (value, index) => {
-        let ingredients = this.props.ingredients;
-
-        this.addIngredientToOptions(ingredients[index]);
-        this.removeIngredientFromOptions(value);
-
-        if (ingredients[index] !== undefined && ingredients[index].amount !== undefined)
-            value.amount = ingredients[index].amount;
-        else
-            value.amount = "0";
-
-        ingredients[index] = value;
-        if (ingredients !== undefined)
-            this.props.onChange(ingredients);
-    };
 
     componentDidMount() {
         axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
             response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
             this.setState({allIngredients: response.data.ingredients});
         });
+
+        this.setState({rows: this.props.ingredients.length});
     }
 
 

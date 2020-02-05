@@ -125,7 +125,7 @@ class RecipeContent extends React.Component {
                                     <div className="float-right">
                                         <TooltipHover placement="top" message={<Trans>editRecipe</Trans>} icon={
                                             <button className="bg-transparent">
-                                                <Link to={`/edit_recipe/${recipe.id}`} className="">
+                                                <Link to={{pathname: `/edit_recipe/${recipe.id}`, recipe: recipe}}>
                                                         <FontAwesomeIcon icon={faEdit} className="edit-ingredient-icon"
                                                                          size="2x"/>
                                                 </Link>
@@ -150,53 +150,5 @@ class RecipeContent extends React.Component {
             ;
     }
 }
-
-/*
-<c:if test="${!guest}">
-                            <div className="recipe-body-bottom">
-                                <div className="recipe-bottom-icon">
-
-                                    <c:if test="${editable}">
-                                        <div className="float-right">
-                                            <button data-toggle="modal" id="delete-recipe-modal"
-                                                    data-target="#delete-recipe" className="bg-transparent delete-btn">
-                                                <i className="fas fa-trash fa-2x red-ic"></i>
-                                            </button>
-                                        </div>
-                                        <div className="float-right">
-                                            <c:url value="/edit_recipe" var="editRecipeUrl">
-                                                <c:param name="recipeId" value="${recipe.id}"/>
-                                            </c:url>
-                                            <a href="${editRecipeUrl}">
-                                                <button className="bg-transparent">
-                                                    <i className="fas fa-edit fa-2x grey-ic"></i>
-                                                </button>
-                                            </a>
-                                        </div>
-                                    </c:if>
-
-                                    <div className="float-right">
-                                        <spring:message code="cooklist.add" var="addToCooklist"/>
-                                        <span className="tooltip-test" title="${addToCooklist}">
-                                        <c:choose>
-                                            <c:when test="${empty cookLists}">
-                                                <button data-toggle="modal" id="add-recipe-cooklist-modal"
-                                                        data-target="#new-cooklist" className="bg-transparent">
-                                                <i className="fas fa-plus-circle fa-2x green-ic"></i>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <button data-toggle="modal" id="add-recipe-cooklist-modal"
-                                                        data-target="#add-recipe-cooklist" className="bg-transparent">
-                                                <i className="fas fa-plus-circle fa-2x green-ic"></i>
-                                            </button>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </c:if>
- */
 
 export default RecipeContent;

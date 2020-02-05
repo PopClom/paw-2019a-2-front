@@ -24,6 +24,14 @@ class RecipeEditor extends React.Component {
 
 
     componentDidMount() {
+
+        let recipeId = this.props.match.params.recipeId;
+        if(this.props.location.recipe === undefined)
+            console.log("NO ESTA");
+            //pedirle la receta a la api con el id
+        else
+            console.log("SI ESTA");
+
         axios.get(`${SERVER_ADDR}/recipes/get_tags`).then(response => {
             this.setState({allTags: response.data.tags});
         });
@@ -31,37 +39,21 @@ class RecipeEditor extends React.Component {
 
     /*seguro hay una forma mas linda*/
     assignParams = () => {
-        let {name, description, instructions, ingredients, tags, image, allTags, amounts} = this.state;
-
-        let params = this.props.location.state;
-        if (params !== undefined) {
-            if (params.name !== undefined)
-                name = params.name;
-            if (params.description !== undefined)
-                description = params.description;
-            if (params.instructions !== undefined)
-                instructions = params.instructions;
-            if (params.ingredients !== undefined)
-                ingredients = params.ingredients;
-            if (params.tags !== undefined)
-                tags = params.tags;
-            if (params.image !== undefined)
-                image = params.image;
-            if (params.amounts !== undefined)
-                amounts = params.amounts;
-        }
-        return {name, description, instructions, ingredients, tags, image, allTags, amounts};
+        let recipe = this.props.location.recipe;
+        return recipe === undefined ? this.props.recipe : recipe;
     };
 
-    onFormSubmit = (event) =>{
+    onFormSubmit = (event) => {
         event.preventDefault();
+    };
 
-
-        console.log(this.state.name.length);
+    print = (values) => {
+        console.log(values);
     };
 
     render() {
-        const {name, description, instructions, ingredients, tags, image, allTags} = this.assignParams();
+        const recipe = this.assignParams();
+        const {allTags} = this.state;
         const {t} = this.props;
 
         return (
@@ -75,30 +67,41 @@ class RecipeEditor extends React.Component {
 
                         <Formik
                             initialValues={{
-                                name, description, instructions, ingredients, tags, image, allTags
+                                name: recipe.name,
+                                description: recipe.description,
+                                instructions: recipe.instructions,
+                                ingredients: recipe.ingredients,
+                                tags: recipe.tags,
+                                image: recipe.image,
+                                allTags
                             }}
                             validate={values => validateRecipe(values)}
-                            onSubmit={(values, { setSubmitting }) => {
+                            onSubmit={(values, {setSubmitting}) => {
                                 console.log("asdasddsaSAD");
                                 setTimeout(() => {
                                     alert(JSON.stringify(values, null, 2));
                                     setSubmitting(false);
                                 }, 400);
                             }}
+                            validateOnChange={true}
                         >
-                            {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
+                            {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue, validateForm}) => (
 
                                 <Form onSubmit={handleSubmit}>
+                                    <Button onClick={() => this.print(values)}/>
+
                                     <Form.Row className="mb-4">
                                         <Form.Label>
                                             <Trans i18nKey="Recipe.name"/>
                                         </Form.Label>
                                         <TooltipHover placement="right" message={<Trans>recipeName.title</Trans>}
-                                                      icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
+                                                      icon={<FontAwesomeIcon className="tooltip-recipe"
+                                                                             icon={faInfoCircle}/>}/>
 
                                         <Form.Control value={values.name} type="text"
-                                                      placeholder={t("recipeName.placeholder")} name="name" onChange={handleChange}
-                                                      onBlur={handleBlur} isInvalid={touched.name &&!!errors.name}/>
+                                                      placeholder={t("recipeName.placeholder")} name="name"
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur} isInvalid={touched.name && !!errors.name}/>
                                         <Form.Control.Feedback type="invalid">
                                             <Trans>{errors.name}</Trans>
                                         </Form.Control.Feedback>
@@ -110,7 +113,8 @@ class RecipeEditor extends React.Component {
                                             <Trans i18nKey="Recipe.description"/>
                                         </Form.Label>
                                         <TooltipHover placement="right" message={<Trans>description.title</Trans>}
-                                                      icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
+                                                      icon={<FontAwesomeIcon className="tooltip-recipe"
+                                                                             icon={faInfoCircle}/>}/>
                                         <Form.Control value={values.description} type="text"
                                                       placeholder={t("description.placeholder")} name="description"
                                                       onChange={handleChange}
@@ -127,7 +131,8 @@ class RecipeEditor extends React.Component {
                                             <Trans i18nKey="Recipe.instructions"/>
                                         </Form.Label>
                                         <TooltipHover placement="right" message={<Trans>instructions.title</Trans>}
-                                                      icon={<FontAwesomeIcon className="tooltip-recipe" icon={faInfoCircle}/>}/>
+                                                      icon={<FontAwesomeIcon className="tooltip-recipe"
+                                                                             icon={faInfoCircle}/>}/>
 
                                         <Form.Control as="textarea" name="instructions" className="comment-textarea"
                                                       value={values.instructions}
@@ -141,7 +146,9 @@ class RecipeEditor extends React.Component {
                                         </Form.Control.Feedback>
                                     </Form.Row>
 
-                                    <IngredientSelector name="ingredients" onChange={(ingredients) => setFieldValue("ingredients", ingredients)} error={errors.ingredients}/>
+                                    <IngredientSelector name="ingredients" ingredients={values.ingredients}
+                                                        onChange={() => validateForm()}
+                                                        error={errors.ingredients}/>
 
                                     <div className="form-row">
                                         <label>
@@ -173,7 +180,7 @@ class RecipeEditor extends React.Component {
                                         value={values.tags}
                                         isMulti="true"
                                         getOptionLabel={(tag) => <Trans>{tag}</Trans>}
-                                        getOptionValue={(tag) => <Trans>{tag}</Trans>}
+                                        getOptionValue={(tag) => tag}
                                         placeholder={t('tags.select')}/>
 
                                     <div className="bottom-new-recipe-btn">
@@ -196,6 +203,18 @@ class RecipeEditor extends React.Component {
         );
     }
 }
+
+RecipeEditor.defaultProps = {
+    recipe: {
+        name: '',
+        description: '',
+        instructions: '',
+        ingredients: [],
+        tags: [],
+        image: []
+    }
+};
+
 const Extended = withTranslation()(RecipeEditor);
 Extended.static = RecipeEditor.static;
 

@@ -181,7 +181,7 @@ body.modal-open {
 .main_container{
     margin-left: calc(15% + 10px);
     float: left;
-    width: 85%;
+    width: calc(85% - 10px);
     margin-top: 10px;
     margin-bottom: 10px;
 }

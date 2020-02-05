@@ -42,7 +42,7 @@ const DefaultContainer = () => (
             <Route exact path="/" component={Home}/>
             <Route exact path="/recipe/:id" component={Recipe}/>
             <Route exact path="/create_recipe" component={RecipeEditor}/>
-            <Route exact path="/edit_recipe" component={RecipeEditor}/>
+            <Route exact path="/edit_recipe/:recipeId" component={RecipeEditor}/>
             <Route exact path="/account/:userId" component={Account}/>
             <Route exact path="/my_account" component={Account}/>
             <Route exact path="/my_ingredients" component={Ingredients}/>
