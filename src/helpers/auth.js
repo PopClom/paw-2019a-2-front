@@ -13,8 +13,8 @@ export const login = async (username, password) => {
 };
 
 export const logout = () => {
-    localStorage.setItem("token", null);
-    localStorage.setItem("user", null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setAuthorizationToken();
 };
 

@@ -6,7 +6,6 @@ import {handleInputChange} from "../helpers";
 import {login} from "../helpers/auth";
 
 class Login extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -16,11 +15,6 @@ class Login extends React.Component {
         };
 
         this.handleInputChange = handleInputChange.bind(this);
-
-    }
-
-    componentDidMount() {
-
     }
 
     handleLoginSubmit = (event) => {

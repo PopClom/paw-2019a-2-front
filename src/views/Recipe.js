@@ -31,7 +31,7 @@ class Recipe extends React.Component {
                     </section> :
                     <section className="browse">
                         <RecipeContent recipe={recipe}/>
-                        <CommentSection comments={recipe.comments}/>
+                        <CommentSection comments={recipe.comments} recipeId={recipe.id}/>
                     </section>}
             </section>
         )
