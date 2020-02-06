@@ -1,3 +1,5 @@
+import {getUser} from "./auth";
+
 export const formatNumber = (value, decimals = 0) => {
     return value.toFixed(decimals);
 };
@@ -18,11 +20,12 @@ export function onChange(change) {
 }
 
 export function getCurrentUserId(){
-    return 0;
+    const user = getUser();
+    if (user)
+        return user.id;
+    return null;
 }
 
-
 export function isMyUser(id){
-    return true;
-    return id == getCurrentUserId();
+    return id != null && id === getCurrentUserId();
 }

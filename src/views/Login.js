@@ -3,6 +3,7 @@ import {withTranslation, Trans} from 'react-i18next';
 import foodifyImage from '../assets/img/foodify.png';
 import {Link} from "react-router-dom";
 import {handleInputChange} from "../helpers";
+import {login} from "../helpers/auth";
 
 class Login extends React.Component {
 
@@ -24,8 +25,12 @@ class Login extends React.Component {
 
     handleLoginSubmit = (event) => {
         event.preventDefault();
-        /*validar si las credenciales son correctas, si no loginError = true*/
-        this.setState({loginError: true});
+        login(this.state.username, this.state.password).then(() => {
+            this.props.history.push(`/`);
+        }).catch(() => {
+            /*validar si las credenciales son correctas, si no loginError = true*/
+            this.setState({loginError: true});
+        });
     };
 
     render() {

@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import Comment from "../components/Comment"
 import {Trans} from "react-i18next";
+import {getUser} from "../helpers/auth";
 
 const canEdit = true;
 
@@ -20,7 +21,8 @@ class CommentSection extends React.Component {
                             <span className="float-right">{<Trans>comment.Max</Trans>}</span>
                             <textarea className="comment-textarea" type="text" maxLength="500"/>
                             <errors className="form-text text-muted" element="small"/>
-                            <button className="btn btn-green">{<Trans>comment.Send</Trans>}</button>
+                            <button className="btn btn-green">
+                                {<Trans>comment.Send</Trans>}</button>
                         </div> : <div>
                             <h4>{<Trans>comment.login</Trans>}</h4>
                             <Link to="/logIn">

@@ -12,7 +12,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import './style/index.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import {refresh} from "./helpers/auth";
+
+const run = async () => {
+    await refresh();
+    ReactDOM.render(<App />, document.getElementById('root'));
+};
+
+run();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

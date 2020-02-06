@@ -6,18 +6,18 @@ const canEdit = false;
 
 class Comment extends React.Component {
     render() {
-        const {user, date, message} = this.props.comment;
+        const {username, userId,date, message} = this.props.comment;
 
         return(
             <div className="card-body-comment">
                 <div className="card-body-inside">
-                    <Link className="bg-transparent" to={`/account/${user.id}`}>
+                    <Link className="bg-transparent" to={`/account/${userId}`}>
                         <img className="user-image-commentary" alt="user" src={userImg}/>
                     </Link>
                     <div className="user-date-comment">
                         <Link className="bg-transparent" to="/user_recipes">
                             <h5 className="user-title-commentary">
-                                {user}
+                                {username}
                             </h5>
                         </Link>
                         <p className="card-comments-date">

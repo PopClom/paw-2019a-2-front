@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { Trans } from 'react-i18next';
 import foodifyInlineImg from '../assets/img/foodify_inline.png';
+import {isLoggedIn, logout} from "../helpers/auth";
 
 const options = [{id: 'home', label: 'Home', path: '/'},
                  {id: 'users', label: 'Users', path: '/users'},
@@ -15,10 +16,10 @@ const options = [{id: 'home', label: 'Home', path: '/'},
                              {id: 'statistics', label: 'myStatistics', path: '/statistics'}
                          ]
                  }];
-const loggedIn = false;
 
 class Sidebar extends React.Component {
     render() {
+        const loggedIn = isLoggedIn();
         const path = this.props.match.params.id ? '/' + this.props.match.params.id : '/';
 
         return (
@@ -49,7 +50,7 @@ class Sidebar extends React.Component {
                 <div className="navigation__list">
                     <div className="main-item-sidebar log-out-sidebar">
                         {loggedIn ?
-                            <Link className="float-left" to={`/login`}>
+                            <Link className="float-left" onClick={logout} to={`/login`}>
                                 <Trans i18nKey="logOut"/>
                             </Link>
                              :
