@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans} from 'react-i18next';
+import {Trans, withTranslation} from 'react-i18next';
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import Select from 'react-select';
@@ -73,7 +73,7 @@ class IngredientSelector extends React.Component {
 
     render() {
 
-        const{ingredients, error} = this.props;
+        const{ingredients, error, t} = this.props;
 
         return (
             <div>
@@ -90,7 +90,7 @@ class IngredientSelector extends React.Component {
                                 onChange={value => this.onSelectChange(value, index)}
                                 options={this.state.allIngredients}
                                 getOptionLabel={(ingredient) => <Trans>{ingredient.name}</Trans>}
-                                getOptionValue={(ingredient) => ingredient.id}
+                                getOptionValue={(ingredient) => t(ingredient.name)}
                                 placeholder={<Trans>ingredient.select</Trans>}/>
                         </div>
                         <div className="new-recipe-ingredient-amount">
@@ -134,4 +134,8 @@ IngredientSelector.defaultProps = {
     error: [],
 };
 
-export default IngredientSelector;
+
+const Extended = withTranslation()(IngredientSelector);
+Extended.static = IngredientSelector.static;
+
+export default Extended;
