@@ -4,8 +4,6 @@ import Comment from "../components/Comment"
 import {Trans} from "react-i18next";
 import {handleInputChange} from "../helpers";
 import {isLoggedIn} from "../helpers/auth";
-import axios from "axios";
-import {SERVER_ADDR} from "../constants";
 
 class CommentSection extends React.Component {
     constructor(props) {
@@ -55,7 +53,7 @@ class CommentSection extends React.Component {
                         </div>}
                     {comments.sort((comment1, comment2) => {
                         return comment2.date.localeCompare(comment1.date);
-                    }).map(comment => <Comment comment={comment} onDelete={this.props.onDelete}/>)}
+                    }).map(comment => <Comment key={comment.id} comment={comment} onDelete={this.props.onDelete}/>)}
                 </div>
             </div>
         );

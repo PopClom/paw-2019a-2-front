@@ -13,6 +13,7 @@ class RecipeContent extends React.Component {
 
     render() {
         const {recipe} = this.props;
+        const instructionLines = recipe.instructions.split('/n');
         const isGuest = false;
 
         return (
@@ -31,13 +32,13 @@ class RecipeContent extends React.Component {
                                     <p className="ingredients-title">
                                         <Trans>rating.general</Trans>
                                     </p>
-                                    <RatingRecipe rating={recipe.rating}/>
+                                    <RatingRecipe rating={recipe.rating} disabled={true}/>
                                     <br/>
                                     {!isGuest && <div>
                                         <p className="ingredients-title">
                                             <Trans>rating.user</Trans>
                                         </p>
-                                        <RatingRecipe/>
+                                        <RatingRecipe disabled={false}/>
                                     </div>}
                                 </div>
                                 <br/>
@@ -103,11 +104,10 @@ class RecipeContent extends React.Component {
                         <p className="ingredients-title">
                             <Trans>instructions</Trans>
                         </p>
-                        {recipe.instructions.split('\n').map(instructionLine => (
-                            <p className="recipe-instructions">{instructionLine}<br/></p>
+                        {Object.keys(instructionLines).map(idx => (
+                            <p key={idx} className="recipe-instructions">{instructionLines[idx]}<br/></p>
                         ))}
                     </div>
-
 
                     <div className="recipe-body-bottom">
                         <div className="recipe-bottom-icon">
