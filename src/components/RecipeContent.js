@@ -7,14 +7,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faPlusCircle, faTrash} from "@fortawesome/free-solid-svg-icons";
 import TooltipHover from "./TooltipHover";
 import {Link} from "react-router-dom";
-import {Button} from "react-bootstrap";
+import {isLoggedIn} from "../helpers/auth";
 
 class RecipeContent extends React.Component {
 
     render() {
         const {recipe} = this.props;
-        const instructionLines = recipe.instructions.split('/n');
-        const isGuest = false;
+        const instructionLines = recipe.instructions.split('\n');
+        const loggedIn = isLoggedIn();
 
         return (
             <div className="card">
@@ -34,7 +34,7 @@ class RecipeContent extends React.Component {
                                     </p>
                                     <RatingRecipe rating={recipe.rating} disabled={true}/>
                                     <br/>
-                                    {!isGuest && <div>
+                                    {loggedIn && <div>
                                         <p className="ingredients-title">
                                             <Trans>rating.user</Trans>
                                         </p>
@@ -105,7 +105,7 @@ class RecipeContent extends React.Component {
                             <Trans>instructions</Trans>
                         </p>
                         {Object.keys(instructionLines).map(idx => (
-                            <p key={idx} className="recipe-instructions">{instructionLines[idx]}<br/></p>
+                            <p className="recipe-instructions">{instructionLines[idx]}<br/></p>
                         ))}
                     </div>
 

@@ -431,7 +431,7 @@ i18n
                     "comment.Add": "Comentar",
                     "comment.Size": "Entre 4 y 500 caracteres",
                     "comment.Send": "Enviar",
-                    "comment.login": "Debes estar registrado para agregar un comentario!",
+                    "comment.login": "¡Debes estar registrado para agregar un comentario!",
                     "comment.delete": "Borrar comentario",
                     "comment.deleteWarning": "Estas seguro que quieres borrar este comentario?",
 
