@@ -26,6 +26,13 @@ class Recipe extends React.Component {
             });
     };
 
+    handleCommentDelete = (commentId) => {
+        axios.delete(`${SERVER_ADDR}/recipes/${this.state.id}/comments/${commentId}`).then(() => {
+                const comments = this.state.comments.filter(comment => comment.id !== commentId);
+                this.setState({comments: comments});
+            });
+    };
+
     render() {
         const recipe = this.state;
 
@@ -37,7 +44,10 @@ class Recipe extends React.Component {
                     </section> :
                     <section className="browse">
                         <RecipeContent recipe={recipe}/>
-                        <CommentSection comments={recipe.comments} recipeId={recipe.id} onSubmit={this.handleCommentSubmit}/>
+                        <CommentSection comments={recipe.comments}
+                                        recipeId={recipe.id}
+                                        onSubmit={this.handleCommentSubmit}
+                                        onDelete={this.handleCommentDelete}/>
                     </section>}
             </section>
         )

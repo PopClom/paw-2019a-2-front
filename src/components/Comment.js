@@ -1,12 +1,16 @@
 import React from 'react';
 import userImg from '../assets/img/user.png';
 import {Link} from "react-router-dom";
-
-const canEdit = false;
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {Trans} from "react-i18next";
+import TooltipHover from "./TooltipHover";
+import {isMyUser} from "../helpers";
 
 class Comment extends React.Component {
     render() {
-        const {username, userId,date, message} = this.props.comment;
+        const {username, userId, id, date, message} = this.props.comment;
+        const canEdit = isMyUser(userId);
 
         return(
             <div className="card-body-comment">
@@ -25,10 +29,12 @@ class Comment extends React.Component {
                         </p>
                     </div>
                     {canEdit && <div className="float-right">
-                        <button type="submit" className="bg-transparent text-center delete-btn">
-                            {/*onClick={show_delete_comment(${comment.id})}>*/}
-                            <i className="fas fa-trash fa-2x red-ic"/>
-                        </button>
+                        <TooltipHover placement="top" message={<Trans>comment.delete</Trans>} icon={
+                            <button type="submit" className="bg-transparent" onClick={() => this.props.onDelete(id)}>
+                                {/*onClick={show_delete_comment(${comment.id})}>*/}
+                                <FontAwesomeIcon icon={faTrash} className="delete-btn red-ic" size="2x"/>
+                            </button>}
+                        />
                     </div>}
                 </div>
                 <div className="card-comments-text">

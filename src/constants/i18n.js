@@ -126,6 +126,7 @@ i18n
                     "comment.Size": "Between 4 and 500 characters",
                     "comment.Send": "Send your comment",
                     "comment.login": "You need to be logged to add a comment!",
+                    "comment.delete": "Delete comment",
                     "comment.deleteWarning": "Are you sure you want to delete this comment?",
 
                     "rating.general": "General rating",
@@ -431,6 +432,7 @@ i18n
                     "comment.Size": "Entre 4 y 500 caracteres",
                     "comment.Send": "Enviar",
                     "comment.login": "Debes estar registrado para agregar un comentario!",
+                    "comment.delete": "Borrar comentario",
                     "comment.deleteWarning": "Estas seguro que quieres borrar este comentario?",
 
                     "rating.general": "Calificación general",
