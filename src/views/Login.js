@@ -44,7 +44,7 @@ class Login extends React.Component {
                     <input type="password" name="password" className="form-control mb-4"
                            placeholder={t('User.password')} onChange={this.handleInputChange}/>
 
-                    {this.state.loginError === true &&
+                    {this.state.loginError &&
                     <p className="form-text text-muted mb-4 error-text" element="small"><Trans>signInError</Trans></p>}
 
                     <div className="d-flex justify-content-around">

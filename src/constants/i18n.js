@@ -123,7 +123,7 @@ i18n
                     "withMyIngredients": "Only show recipes I can cook with my ingredients",
 
                     "comment.Add": "Add your comment",
-                    "comment.Max": "500 characters max",
+                    "comment.Size": "Between 4 and 500 characters",
                     "comment.Send": "Send your comment",
                     "comment.login": "You need to be logged to add a comment!",
                     "comment.deleteWarning": "Are you sure you want to delete this comment?",
@@ -350,7 +350,7 @@ i18n
                     "recipe.title": "Recetas de {{{0}}}",
                     "addNewRecipe": "Agregar nueva receta",
                     "Recipe.name": "Nombre de la Receta",
-                    "recipeName.title": "Sea descriptivo - pero de forma sucinta. Títulos cortos con los ingredientes más importantes e ingredientes nos agarra la atención.",
+                    "recipeName.title": "Sea descriptivo - pero de forma sucinta. Títulos cortos con adjetivos y los ingredientes más importantes llamará nuestra atención.",
                     "recipeName.placeholder": "¿Cuál es el nombre de tu receta?",
                     "Recipe.description": "Descripción de la receta",
                     "description.title": "¡Esta es la descripción de tu receta! Describí en pocas palabras todo lo que quieras acerca de la misma.",
@@ -428,7 +428,7 @@ i18n
                     "withMyIngredients": "Solo mostrar recetas que pueda cocinar con mis ingredientes",
 
                     "comment.Add": "Comentar",
-                    "comment.Max": "Máximo 500 caracteres",
+                    "comment.Size": "Entre 4 y 500 caracteres",
                     "comment.Send": "Enviar",
                     "comment.login": "Debes estar registrado para agregar un comentario!",
                     "comment.deleteWarning": "Estas seguro que quieres borrar este comentario?",

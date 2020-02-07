@@ -11,23 +11,25 @@ class CommentSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: ''
+            message: '',
+            submitError: false
         };
 
         this.handleInputChange = handleInputChange.bind(this);
     }
 
-    handleCommentSubmit = () => {
-        axios.post(`${SERVER_ADDR}/recipes/${this.props.recipeId}/comments`,{message: this.state.message})
-            .then(() => {
-                console.log("Ok");
-            }).catch(() => {
-                console.log(":(");
+    handleCommentSubmit = (message) => {
+        const onSubmit = this.props.onSubmit;
+        onSubmit(message).then(() => {
+            this.setState({submitError: false, message: ''});
+        }).catch(() => {
+            this.setState({submitError: true});
         })
     };
 
     render() {
         const comments = this.props.comments;
+        const message = this.state.message;
         const loggedIn = isLoggedIn();
 
         return (
@@ -38,11 +40,12 @@ class CommentSection extends React.Component {
                             <label className="comment-add-label">
                                 {<Trans>comment.Add</Trans>}
                             </label>
-                            <span className="float-right">{<Trans>comment.Max</Trans>}</span>
-                            <textarea className="comment-textarea" type="text" maxLength="500"
+                            <span className="float-right">{<Trans>comment.Size</Trans>}</span>
+                            <textarea className="comment-textarea" maxLength="500" value={message}
                                       name="message" onChange={this.handleInputChange}/>
-                            <errors className="form-text text-muted" element="small"/>
-                            <button className="btn btn-green" onClick={this.handleCommentSubmit}>
+                            {this.state.submitError &&
+                            <p className="form-text text-muted mb-4 error-text" element="small"><Trans>comment.Size</Trans></p>}
+                            <button className="btn btn-green" onClick={() => this.handleCommentSubmit(message)}>
                                 {<Trans>comment.Send</Trans>}</button>
                         </div> : <div>
                             <h4>{<Trans>comment.login</Trans>}</h4>
@@ -50,7 +53,9 @@ class CommentSection extends React.Component {
                                 <button className="btn btn-green">{<Trans>logIn</Trans>}</button>
                             </Link>
                         </div>}
-                    {comments.map(comment => <Comment comment={comment} />)}
+                    {comments.sort((comment1, comment2) => {
+                        return comment2.date.localeCompare(comment1.date);
+                    }).map(comment => <Comment comment={comment} />)}
                 </div>
             </div>
         );
