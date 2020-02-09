@@ -229,10 +229,65 @@ a.custom-card{
     max-height: calc(100% - 10px);
 }
 
+.example-enter {
+    opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+    opacity: 1;
+}
+
+.example-leave.example-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}
+
+.slick-slide, .slick-slide *{ outline: none !important; }
+
+.step-buttons{
+    width: 100%;
+    margin-top: 30px;
+}
+
+.step-number-indicator {
+    position: absolute;
+    right: 15px;
+    top: 8px;
+    font-size: 18px;
+}
+
+.step-title{
+    margin-top: 10px;
+}
+
 .log-out-sidebar{
     position: absolute;
     bottom: 0;
 }
+
+.step-container{
+    margin-bottom: 60px;
+}
+
+.timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timer-text {
+    color: #aaa;
+}
+
+.timer-value {
+    font-size: 25px;
+}
+
 
 .filter-ingredients-item{
     margin-bottom: 20px;

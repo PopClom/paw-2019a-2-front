@@ -14,6 +14,7 @@ import Account from "./views/Account";
 import Ingredients from "./views/Ingredients";
 import Cooklists from "./views/Cooklists";
 import Statistics from "./views/Statistics";
+import RecipeSteps from "./views/RecipeSteps";
 
 function App() {
     return (
@@ -49,6 +50,7 @@ const DefaultContainer = () => (
             <Route exact path="/my_cooklists" component={Cooklists}/>
             <Route exact path="/cooklists/:userId" component={Cooklists}/>
             <Route exact path="/statistics" component={Statistics}/>
+            <Route exact path="/recipestep" component={RecipeSteps}/>
         </Switch>
     </div>
 );

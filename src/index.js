@@ -10,6 +10,8 @@ import "./constants/i18n";
 /* CSS */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import './style/index.css';
 
 import {refresh} from "./helpers/auth";
