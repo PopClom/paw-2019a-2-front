@@ -1,12 +1,8 @@
 import React from 'react';
-import {Link} from "react-router-dom";
-import {Button, Card} from "react-bootstrap";
 import {Trans} from "react-i18next";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faPlusCircle, faTrash} from "@fortawesome/free-solid-svg-icons";
-import EditIngredientAmountModal from "./EditIngredientAmountModal";
-import ConfirmationModal from "./ConfirmationModal";
 import TooltipHover from "./TooltipHover";
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 class IngredientRow extends React.Component {
     constructor(props) {
@@ -29,14 +25,14 @@ class IngredientRow extends React.Component {
                     <div className="float-right">
                         <TooltipHover placement="top" message={<Trans>ingredient.delete</Trans>} icon={
                             <button className="bg-transparent delete-btn" onClick={() => {this.props.toggleDeleteModal(); this.props.setSelectedIngredient(ingredient);}}>
-                                <FontAwesomeIcon icon={faTrash} className="delete-ingredient-icon" size="2x"/>
+                                <DeleteIcon className="delete-ingredient-icon"/>
                             </button>}
                         />
                     </div>
                     <div className="float-right">
                         <TooltipHover placement="top" message={<Trans>ingredient.editAmount</Trans>} icon={
                             <button className="bg-transparent delete-btn" onClick={() => {this.props.toggleEditModal(); this.props.setSelectedIngredient(ingredient);}}>
-                                <FontAwesomeIcon icon={faEdit} className="edit-ingredient-icon" size="2x"/>
+                                <EditIcon className="edit-ingredient-icon"/>
                             </button>}
                         />
                     </div>

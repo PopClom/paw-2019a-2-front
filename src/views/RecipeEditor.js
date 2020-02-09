@@ -11,6 +11,8 @@ import {Form, Button} from "react-bootstrap";
 import TooltipHover from "../components/TooltipHover";
 import {Formik} from "formik";
 import {validateRecipe} from "../helpers/validations";
+import StepsEditor from "../components/StepsEditor";
+import ImageIcon from '@material-ui/icons/Image';
 
 class RecipeEditor extends React.Component {
 
@@ -50,6 +52,7 @@ class RecipeEditor extends React.Component {
         const recipe = this.assignParams();
         const {allTags} = this.state;
         const {t} = this.props;
+        console.log(recipe);
 
         return (
             <section className="main_container">
@@ -65,6 +68,7 @@ class RecipeEditor extends React.Component {
                                 name: recipe.name,
                                 description: recipe.description,
                                 instructions: recipe.instructions,
+                                steps: recipe.steps,
                                 ingredients: recipe.ingredients,
                                 tags: recipe.tags,
                                 image: recipe.image,
@@ -119,25 +123,7 @@ class RecipeEditor extends React.Component {
                                         </Form.Control.Feedback>
                                     </Form.Row>
 
-                                    <Form.Row className="mb-4">
-                                        <Form.Label>
-                                            <Trans i18nKey="Recipe.instructions"/>
-                                        </Form.Label>
-                                        <TooltipHover placement="right" message={<Trans>instructions.title</Trans>}
-                                                      icon={<FontAwesomeIcon className="tooltip-recipe"
-                                                                             icon={faInfoCircle}/>}/>
-
-                                        <Form.Control as="textarea" name="instructions" className="comment-textarea"
-                                                      value={values.instructions}
-                                                      placeholder={t('instructions.placeholder')}
-                                                      isInvalid={touched.instructions && !!errors.instructions}
-                                                      onChange={handleChange}
-                                                      onBlur={handleBlur}/>
-
-                                        <Form.Control.Feedback type="invalid">
-                                            <Trans>{errors.instructions}</Trans>
-                                        </Form.Control.Feedback>
-                                    </Form.Row>
+                                    <StepsEditor steps={values.steps} error={errors.steps} onChange={() => validateForm()}/>
 
                                     <IngredientSelector name="ingredients" ingredients={values.ingredients}
                                                         onChange={() => validateForm()}
@@ -151,6 +137,7 @@ class RecipeEditor extends React.Component {
 
                                     <div className="form-row mb-4">
                                         <button type="button" id="btnFile" name="btnAdd" className="btn btn-green">
+                                            <ImageIcon/>
                                             <Trans i18nKey="Recipe.addImage"/>
                                         </button>
                                         <input id="fileInput" className="d-none" type="file"/>
@@ -202,6 +189,7 @@ RecipeEditor.defaultProps = {
         name: '',
         description: '',
         instructions: '',
+        steps: [],
         ingredients: [],
         tags: [],
         image: []

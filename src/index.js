@@ -15,10 +15,24 @@ import "slick-carousel/slick/slick-theme.css";
 import './style/index.css';
 
 import {refresh} from "./helpers/auth";
+import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
+
+
+const muiTheme = createMuiTheme({
+    palette: {
+        primary: {500: '#1ed75f'}
+    },
+    input: {
+        color: "primary"
+    }
+});
+
 
 const run = async () => {
+
     await refresh();
-    ReactDOM.render(<App />, document.getElementById('root'));
+    ReactDOM.render(
+        <MuiThemeProvider theme={muiTheme}><App/></MuiThemeProvider>, document.getElementById('root'));
 };
 
 run();

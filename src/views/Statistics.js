@@ -21,12 +21,6 @@ const localeMap = {
     es: esLocale,
 };
 
-const muiTheme = createMuiTheme({
-    palette: {
-        primary: {500: '#1ed75f'}
-    },
-});
-
 const colors = ["#2196F3", "#00BCD4", "#4CAF50", "#CDDC39", "#FFC107",
     "#FF5722", "#795548", "#9E9E9E", "#607D8B", "#9C27B0", "#3F51B5",
     '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
@@ -78,7 +72,6 @@ class Statistics extends React.Component {
         const {t} = this.props;
 
         return (
-            <MuiThemeProvider theme={muiTheme}>
                 <section className="main_container">
 
                     <h4 className="navigation-title pt-3"><Trans i18nKey="myStatistics"/></h4>
@@ -137,7 +130,6 @@ class Statistics extends React.Component {
                         </div>
                     </section>
                 </section>
-            </MuiThemeProvider>
         );
     }
 }

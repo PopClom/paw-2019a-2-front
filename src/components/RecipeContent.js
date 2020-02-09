@@ -8,6 +8,9 @@ import {faEdit, faPlusCircle, faTrash} from "@fortawesome/free-solid-svg-icons";
 import TooltipHover from "./TooltipHover";
 import {Link} from "react-router-dom";
 import {isLoggedIn} from "../helpers/auth";
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 class RecipeContent extends React.Component {
 
@@ -112,34 +115,39 @@ class RecipeContent extends React.Component {
                     <div className="recipe-body-bottom">
                         <div className="recipe-bottom-icon">
 
-                            {isMyUser(recipe.userId) ? (
-                                <div className="float-right">
-                                    <div className="float-right">
-                                        <TooltipHover placement="top" message={<Trans>deleteRecipe</Trans>} icon={
-                                            <button className="bg-transparent">
-                                                <FontAwesomeIcon icon={faTrash} className="delete-ingredient-icon"
-                                                                 size="2x"/>
-                                            </button>}
-                                        />
-                                    </div>
-                                    <div className="float-right">
-                                        <TooltipHover placement="top" message={<Trans>editRecipe</Trans>} icon={
-                                            <button className="bg-transparent">
-                                                <Link to={{pathname: `/edit_recipe/${recipe.id}`, recipe: recipe}}>
-                                                        <FontAwesomeIcon icon={faEdit} className="edit-ingredient-icon"
-                                                                         size="2x"/>
-                                                </Link>
-                                            </button>}
-                                        />
-                                    </div>
-                                </div>) : ''
-                            }
-                            <div className="float-right">
-                                <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
-                                    <button className="bg-transparent">
-                                        <FontAwesomeIcon icon={faPlusCircle} className="green-ic" size="2x"/>
-                                    </button>}
-                                />
+                            <div className="recipe-body-bottom">
+                                <div className="recipe-bottom-icon">
+                                    {isMyUser(recipe.userId) ? (
+                                        <div className="float-right">
+                                            <div className="float-right">
+                                                <TooltipHover placement="top" message={<Trans>deleteRecipe</Trans>}
+                                                              icon={
+                                                                  <button className="bg-transparent">
+                                                                      <DeleteIcon className="delete-ingredient-icon"/>
+                                                                  </button>}
+                                                />
+                                            </div>
+                                            <div className="float-right">
+                                                <TooltipHover placement="top" message={<Trans>editRecipe</Trans>} icon={
+                                                    <button className="bg-transparent">
+                                                        <Link to={{
+                                                            pathname: `/edit_recipe/${recipe.id}`,
+                                                            recipe: recipe
+                                                        }}>
+                                                            <EditIcon className="edit-ingredient-icon"/>
+                                                        </Link>
+                                                    </button>}
+                                                />
+                                            </div>
+                                        </div>) : ''
+                                    }
+
+                                    <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
+                                        <button className="bg-transparent">
+                                            <AddCircleIcon className="add-icon-cooklist"/>
+                                        </button>}
+                                    />
+                                </div>
                             </div>
 
                         </div>

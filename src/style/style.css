@@ -114,6 +114,10 @@ body.modal-open {
     margin-bottom: 20%;
 }
 
+.btn {
+    padding: .8rem 1.6rem;
+}
+
 .btn-nav {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
@@ -247,7 +251,7 @@ a.custom-card{
     transition: opacity 300ms ease-in;
 }
 
-.slick-slide, .slick-slide *{ outline: none !important; }
+.no-outline, .slick-slide, .slick-slide *{ outline: none !important; }
 
 .step-buttons{
     width: 100%;
@@ -321,6 +325,7 @@ a.custom-card{
 }
 
 .delete-ingredient-button{
+    margin-left: 5px !important;
     float: left;
     position: relative;
     top: 50%;
@@ -457,7 +462,7 @@ a.custom-card{
     font-size: medium;
     padding-left: 8px;
     font-weight: 300;
-    margin-bottom: 0;
+    margin-bottom: 70px;
 }
 
 .ingredients-tags-div {
@@ -564,6 +569,18 @@ a.custom-card{
 .comment-vote{
     margin-right: 15px;
     float: left;
+}
+
+.step-timepicker {
+    width: 170px;
+    margin: 0 20px !important;
+}
+
+.step-textarea{
+    float: left;
+    height: 140px;
+    width: calc(100% - 210px);
+    min-height: 70px;
 }
 
 .no-margin{
@@ -720,10 +737,17 @@ a.custom-card{
 
 .delete-ingredient-icon{
     color: #d32f2f;
+    font-size: 26px !important;
 }
 
 .edit-ingredient-icon{
     color: #1976d2;
+    font-size: 26px !important;
+}
+
+.add-icon-cooklist{
+    color: #1ed75f;
+    font-size: 26px !important;
 }
 
 .rating-container{
@@ -934,6 +958,17 @@ a.custom-card{
 
 @media (max-width: 790px) {
 
+    .step-timepicker {
+        width: 85%;
+        margin: 7.5% !important;
+    }
+
+    .step-textarea{
+        height: 140px;
+        width: 100%;
+        min-height: 70px;
+    }
+
     .new-recipe-ingredient-amount{
         float: left;
         width: 100%;
@@ -1072,6 +1107,7 @@ a.custom-card{
     z-index: 1;
     bottom: 5%;
     right: 350px;
+    padding: .84rem 2.14rem !important;
 }
 
 .label-name {

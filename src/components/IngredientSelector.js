@@ -6,17 +6,20 @@ import Select from 'react-select';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Form} from "react-bootstrap";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from "@material-ui/core/IconButton";
 
 class IngredientSelector extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             allIngredients: [],
-            rows: 1
+            rows: 0
         }
     }
 
-    addSelect = (event) => {
+    addSelect = () => {
         this.setState(({rows}) => ({rows: rows + 1}));
     };
 
@@ -68,6 +71,8 @@ class IngredientSelector extends React.Component {
         });
 
         this.setState({rows: this.props.ingredients.length});
+        if(this.state.rows < 1)
+            this.addSelect();
     }
 
 
@@ -110,10 +115,10 @@ class IngredientSelector extends React.Component {
                                     <Trans>{error[index]}</Trans>
                                 </Form.Control.Feedback>
                             </div>
-                            <button type="button" id={index} onClick={e => this.removeSelect(e, index)}
-                                    className="bg-transparent text-center delete-ingredient-button delete-btn">
-                                <FontAwesomeIcon icon={faTrash} className="fa-2x red-ic"/>
-                            </button>
+                            <IconButton id={index} onClick={e => this.removeSelect(e, index)}
+                                    className="delete-ingredient-button delete-btn">
+                                <DeleteIcon className="delete-ingredient-icon"/>
+                            </IconButton>
                         </div>
                     </div>
                 ))}
@@ -121,6 +126,7 @@ class IngredientSelector extends React.Component {
                 <div className="form-row mb-4">
                     <button type="button" name="btnAdd" className="btn btn-green new-ingredient-btn"
                             onClick={this.addSelect}>
+                        <AddCircleIcon/>
                         <Trans i18nKey="Recipe.addIngredient"/>
                     </button>
                 </div>

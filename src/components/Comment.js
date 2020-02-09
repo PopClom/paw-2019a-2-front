@@ -6,6 +6,7 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Trans} from "react-i18next";
 import TooltipHover from "./TooltipHover";
 import {isMyUser} from "../helpers";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class Comment extends React.Component {
     render() {
@@ -32,7 +33,7 @@ class Comment extends React.Component {
                         <TooltipHover placement="top" message={<Trans>comment.delete</Trans>} icon={
                             <button type="submit" className="bg-transparent" onClick={() => this.props.onDelete(id)}>
                                 {/*onClick={show_delete_comment(${comment.id})}>*/}
-                                <FontAwesomeIcon icon={faTrash} className="delete-btn red-ic" size="2x"/>
+                                <DeleteIcon className="delete-ingredient-icon"/>
                             </button>}
                         />
                     </div>}

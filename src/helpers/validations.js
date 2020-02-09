@@ -68,6 +68,8 @@ export function validateRecipe(values){
         errors.instructions = (values.instructions.length < 20 || values.instructions.length > 4000) ? "TODO" : '';
     if(values.ingredients !== undefined)
         errors.ingredients = validateIngredients(values.ingredients);
+    if(values.steps !== undefined)
+        errors.steps = validateSteps(values.steps);
     return errors;
 }
 
@@ -76,6 +78,17 @@ export function validateIngredients(value){
     value.forEach(function (ingredient, index) {
         if(ingredient !== undefined) {
             if(ingredient.amount <= 0)
+                error[index] = "ingredient.minimum.amount";
+        }
+    });
+    return error;
+}
+
+export function validateSteps(value){
+    let error = [];
+    value.forEach(function (step, index) {
+        if(step !== undefined) {
+            if(step.description <= 0)
                 error[index] = "ingredient.minimum.amount";
         }
     });
