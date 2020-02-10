@@ -26,13 +26,16 @@ class Home extends React.Component {
             this.setState({recipes: response.data.recipes, fetching: false}));
     };
 
-    onSearch = (tags, order) => {
+    onSearch = (searchString, tags, order, ingredients, cookable) => {
         let searchTags = [];
         Object.keys(tags).forEach(tag => {
             if (tags[tag])
                 searchTags.push(tag);
         });
-        this.setState({filters: {tags: searchTags, order: order}}, this.applyFilters);
+        let ingredientsList = [];
+        ingredients.forEach(ingredient => ingredientsList.push(ingredient.id));
+        this.setState({filters: {search: searchString, tags: searchTags, order: order,
+                cookable: cookable, ingredients: ingredientsList}, fetching: true}, this.applyFilters);
     };
 
     render() {

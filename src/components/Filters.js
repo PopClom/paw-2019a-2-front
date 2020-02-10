@@ -8,12 +8,14 @@ class Filters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchString: '',
             tags: [],
             tagsCheckboxes: [],
             orderSelected: '',
             orders: {},
             allIngredients: {},
-            selectedIngredients: {}
+            selectedIngredients: {},
+            withMyIngredients: false
         }
     }
 
@@ -23,7 +25,6 @@ class Filters extends React.Component {
             let tagsCheckboxes = {};
             Object.keys(this.state.tags).map(idx => tagsCheckboxes[this.state.tags[idx]] = false);
             this.setState({tagsCheckboxes});
-            console.log(tagsCheckboxes);
         });
 
         axios.get(`${SERVER_ADDR}/recipes/get_orders`).then(response => {
@@ -56,8 +57,19 @@ class Filters extends React.Component {
         this.setState({tagsCheckboxes});
     };
 
+    onWithMyIngredientsChange = (event) => {
+        const val = event.target.checked;
+        this.setState({withMyIngredients: val});
+    };
+
+    onChangeSearchString = (event) => {
+        const val = event.target.value;
+        this.setState({searchString: val});
+    };
+
     render() {
-        const {tags, orders, tagsCheckboxes, orderSelected, allIngredients} = this.state;
+        const {searchString, tags, orders, tagsCheckboxes, orderSelected, allIngredients,
+            selectedIngredients, withMyIngredients} = this.state;
         const{t} = this.props;
 
         return (
@@ -68,7 +80,8 @@ class Filters extends React.Component {
 
                 <div>
 
-                    <input className="form-control" placeholder="Search"/>
+                    <input className="form-control" placeholder="Search"
+                           value={searchString} onChange={this.onChangeSearchString}/>
 
                     <label className="text-filter">
                         <Trans>sortBy</Trans>
@@ -110,7 +123,8 @@ class Filters extends React.Component {
                     <div className="filter-items">
                         <div className="custom-control custom-checkbox filter-ingredients-item">
                             <input type="checkbox"  value="false" className="custom-control-input"
-                                           id="withMyIngredients" name="groupIngredientsFilter"/>
+                                   id="withMyIngredients" name="groupIngredientsFilter"
+                                   checked={withMyIngredients} onChange={this.onWithMyIngredientsChange}/>
                             <label className="custom-control-label"
                                         htmlFor="withMyIngredients">
                                 <Trans>withMyIngredients</Trans>
@@ -132,7 +146,8 @@ class Filters extends React.Component {
                     </div>
 
                     <button className="btn btn-green btn-apply-filters"
-                            onClick={() => this.props.onSearch(tagsCheckboxes, orderSelected)}>
+                            onClick={() => this.props.onSearch(searchString, tagsCheckboxes, orderSelected,
+                                selectedIngredients, withMyIngredients)}>
                         <Trans>confirm</Trans>
                     </button>
                 </div>
