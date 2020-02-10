@@ -53,10 +53,10 @@ html, body, #app, #app>div {
 
 body {
     z-index: 1000;
-    overflow-y: scroll;
+    overflow-y: scroll !important;
     height: 100% !important;
     width: 100% !important;
-    overflow: scroll !important;
+    overflow-x: hidden !important;
 }
 
 body.modal-open {
