@@ -179,7 +179,7 @@ body.modal-open {
 
 .browse {
     float: left;
-    width: calc(100% - 320px) ;
+    width: calc(100% - 310px) ;
 }
 
 .main_container{
@@ -902,6 +902,10 @@ a.custom-card{
 
 .tab-border{
     border-bottom: 1px solid #dee2e6 !important;
+}
+
+.tab-users-content {
+    margin-top: 20px;
 }
 
 .tab-charts-content {

@@ -29,3 +29,7 @@ export function getCurrentUserId(){
 export function isMyUser(id){
     return id != null && id === getCurrentUserId();
 }
+//TODO
+export function followsUser(id) {
+    return true;
+}
