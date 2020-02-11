@@ -33,6 +33,13 @@ class Recipe extends React.Component {
             });
     };
 
+    handleRating = (value) => {
+        axios.post(`${SERVER_ADDR}/recipes/${this.state.id}/rating`, {rating: value})
+            .then(() => {
+                this.setState({yourRating: value});
+            });
+    };
+
     render() {
         const recipe = this.state;
 
@@ -43,7 +50,8 @@ class Recipe extends React.Component {
                         <Spinner />
                     </section> :
                     <section className="browse">
-                        <RecipeContent recipe={recipe}/>
+                        <RecipeContent recipe={recipe}
+                                       onRate={this.handleRating}/>
                         <CommentSection comments={recipe.comments}
                                         recipeId={recipe.id}
                                         onSubmit={this.handleCommentSubmit}

@@ -15,7 +15,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 class RecipeContent extends React.Component {
 
     render() {
-        const {recipe} = this.props;
+        const {recipe, onRate} = this.props;
         const instructionLines = recipe.instructions.split('\n');
         const loggedIn = isLoggedIn();
 
@@ -35,13 +35,13 @@ class RecipeContent extends React.Component {
                                     <p className="ingredients-title">
                                         <Trans>rating.general</Trans>
                                     </p>
-                                    <RatingRecipe rating={recipe.rating} disabled={true}/>
+                                    <RatingRecipe rating={recipe.rating}/>
                                     <br/>
                                     {loggedIn && <div>
                                         <p className="ingredients-title">
                                             <Trans>rating.user</Trans>
                                         </p>
-                                        <RatingRecipe disabled={false}/>
+                                        <RatingRecipe rating={recipe.yourRating} onClick={onRate}/>
                                     </div>}
                                 </div>
                                 <br/>
@@ -108,7 +108,7 @@ class RecipeContent extends React.Component {
                             <Trans>instructions</Trans>
                         </p>
                         {Object.keys(instructionLines).map(idx => (
-                            <p className="recipe-instructions">{instructionLines[idx]}<br/></p>
+                            <span className="recipe-instructions" key={idx}>{instructionLines[idx]}<br/></span>
                         ))}
                     </div>
 
