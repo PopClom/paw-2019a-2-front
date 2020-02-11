@@ -33,7 +33,7 @@ class StepsEditor extends React.Component {
     };
 
     removeStep = () => {
-        if(this.state.rows > 1) {
+        if (this.state.rows > 1) {
             this.props.steps[this.state.rows - 1] = {};
             this.setState(({rows}) => ({rows: rows - 1}));
         }
@@ -55,7 +55,7 @@ class StepsEditor extends React.Component {
     componentDidMount() {
         this.setState({rows: this.props.steps.length});
         console.log(this.props.steps);
-        if(this.state.rows < 1)
+        if (this.state.rows < 1)
             this.addStep();
     }
 
@@ -76,11 +76,17 @@ class StepsEditor extends React.Component {
                                                              icon={faInfoCircle}/>}/>
 
                         <div className="fullWidth">
-                            <Form.Control as="textarea" name="instructions" className="step-textarea"
-                                          value={steps[index] === undefined ? '' : steps[index].description}
-                                          placeholder={t('recipe.stepPlaceholder', {stepNumber: index + 1})}
-                                          onChange={event => this.handleDescriptionChange(event, index)}
-                            />
+                            <div className="div-textarea float-left">
+                                <Form.Control as="textarea" name="instructions" className="step-textarea"
+                                              value={steps[index] === undefined ? '' : steps[index].description}
+                                              placeholder={t('recipe.stepPlaceholder', {stepNumber: index + 1})}
+                                              onChange={event => this.handleDescriptionChange(event, index)}
+                                              isInvalid={error !== undefined && !!error[index]}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    <Trans>{error !== undefined ? error[index] : ''}</Trans>
+                                </Form.Control.Feedback>
+                            </div>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <TimePicker
                                     value={(steps[index] === undefined || steps[index].timer === undefined) ? defaultDate : steps[index].timer}

@@ -577,10 +577,14 @@ a.custom-card{
 }
 
 .step-textarea{
-    float: left;
     height: 140px;
-    width: calc(100% - 210px);
+    width: 100%;
     min-height: 70px;
+}
+
+.div-textarea{
+    float: left;
+    width: calc(100% - 210px);
 }
 
 .no-margin{

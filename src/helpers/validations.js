@@ -1,16 +1,12 @@
 export function validateRegisterFields (values) {
-    const errors = {};
+    let errors = {};
 
     // case 'firstName'
     if (values.firstName.length < 2 || values.firstName.length > 100)
         errors.firstName = 'name.lengthError';
-    else
-        errors.firstName = '';
     // case 'lastName'
     if (values.lastName.length < 2 || values.lastName.length > 100)
         errors.lastName = 'name.lengthError';
-    else
-        errors.lastName = '';
     // case 'email'
     if (values.email.length < 6 || values.email.length > 100)
         errors.email = 'email.lengthError';
@@ -19,8 +15,6 @@ export function validateRegisterFields (values) {
     else if (false)
         errors.email = 'email.notAvailable';
 
-    else
-        errors.email = '';
     // case 'username'
     if (values.username.length < 1 || values.username.length > 40)
         errors.username = 'username.lengthError';
@@ -29,8 +23,6 @@ export function validateRegisterFields (values) {
     else if (false)
         errors.username = 'username.notAvailable';
 
-    else
-        errors.username = '';
     // case 'password'
     let error = false;
     if (values.password.length < 6 || values.password.length > 100) {
@@ -40,41 +32,41 @@ export function validateRegisterFields (values) {
     if (values.password !== values.repeatPassword) {
         errors.repeatPassword = 'password.notMatch';
         error = true;
-    } else {
-        errors.repeatPassword = '';
     }
 
-    if (!error)
-        errors.password = '';
     // 'repeatPassword'
     if (values.repeatPassword !== values.password)
         errors.repeatPassword = 'password.notMatch';
     else if(values.repeatPassword.length < 1)
         errors.repeatPassword = 'password.lengthError';
-    else
-        errors.repeatPassword = '';
 
+    console.log(errors);
     return errors;
 }
 
 export function validateRecipe(values){
     let errors = {};
-    console.log(values);
-    if(values.name !== undefined)
-        errors.name = (values.name.length < 5 || values.name.length > 100) ? "TODO" : '';
-    if(values.description !== undefined)
-        errors.description = (values.description.length < 10 || values.description.length > 100) ? "TODO" : '';
-    if(values.instructions !== undefined)
-        errors.instructions = (values.instructions.length < 20 || values.instructions.length > 4000) ? "TODO" : '';
-    if(values.ingredients !== undefined)
-        errors.ingredients = validateIngredients(values.ingredients);
-    if(values.steps !== undefined)
-        errors.steps = validateSteps(values.steps);
+    if(values.name.length < 5 || values.name.length > 100)
+        errors.name = "TODO";
+    if(values.description.length < 10 || values.description.length > 100)
+        errors.description = "TODO";
+    if(values.ingredients !== undefined) {
+        let ingredientsError = validateIngredients(values.ingredients);
+        if(ingredientsError.length > 0)
+            errors.ingredients = ingredientsError;
+    }
+    if(values.steps !== undefined) {
+        let stepsError = validateSteps(values.steps);
+        if(stepsError.length > 0)
+            errors.steps = stepsError;
+    }
+    console.log(errors);
     return errors;
 }
 
 export function validateIngredients(value){
     let error = [];
+
     value.forEach(function (ingredient, index) {
         if(ingredient !== undefined) {
             if(ingredient.amount <= 0)
@@ -88,8 +80,8 @@ export function validateSteps(value){
     let error = [];
     value.forEach(function (step, index) {
         if(step !== undefined) {
-            if(step.description <= 0)
-                error[index] = "ingredient.minimum.amount";
+            if(step.description === undefined || step.description.length <= 10)
+                error[index] = "TODO";
         }
     });
     return error;

@@ -36,13 +36,7 @@ class Register extends React.Component {
                         repeatPassword: ''
                     }}
                     validate={values => validateRegisterFields(values)}
-                    onSubmit={(values, { setSubmitting }) => {
-                        console.log("asdasddsaSAD");
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                        }, 400);
-                    }}
+                    onSubmit= {this.handleRegisterSubmit.bind(this)}
                 >
                     {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
                         <Form onSubmit={handleSubmit} encType="multipart/form-data"
