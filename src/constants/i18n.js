@@ -63,8 +63,8 @@ i18n
                     "Recipe.selectedFile": "Selected file:",
                     "Recipe.image": "Choose an image for your recipe",
                     "recipe.deleteWarning": "Do you really want to delete this recipe?",
+                    "recipe.login": "You need to be logged to add a recipe!",
                     "userNotExist": "The user that created this recipe does not exist anymore",
-
                     "goMainPage": "Return to main page",
                     "pageNotExists": "Oops, it look's like the page you are trying to access does not exists.",
                     "close": "close",
@@ -302,7 +302,7 @@ i18n
                     "consumed.mas": "consumed",
                     "and": "and",
                     "percentagesCalculation": "Percentages calculated according to daily values ​​based on a diet of",
-                    "percentagesVariation": "Your daily values ​​may be higher or lower depending on your energy needs.",
+                    "percentagesVariation": "Your daily values may be higher or lower depending on your energy needs.",
                     "Strings.not.match": "The strings do not match",
 
                     "fat": "Fats",
@@ -374,6 +374,7 @@ i18n
                     "Recipe.selectedFile": "Archivo seleccionado:",
                     "Recipe.image": "Puedes elegir una foto para tu receta",
                     "recipe.deleteWarning": "¿Está seguro que desea eliminar esta receta?",
+                    "recipe.login": "¡Debes estar registrado para agregar una receta!",
                     "userNotExist": "El usuario que creó esta receta no existe actualmente",
 
                     "goMainPage": "Retorna a la página principal",

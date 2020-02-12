@@ -7,12 +7,14 @@ import CommentSection from "../components/CommentSection";
 import {Trans} from "react-i18next";
 import ConfirmationModal from "../components/ConfirmationModal";
 import UserBar from "../components/UserBar";
+import {Link} from "react-router-dom";
 
 class Recipe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             fetching: true,
+            error: false,
             showDeleteModal: false,
             user: {}
         }
@@ -25,7 +27,7 @@ class Recipe extends React.Component {
                 const userId = this.state.userId;
                 axios.get(`${SERVER_ADDR}/users/${userId}`).then(response =>
                     this.setState({user: response.data, fetching: false}));
-            }));
+            })).catch(() => this.setState({fetching: false, error: true}));
     }
 
     handleCommentSubmit = (message) => {
@@ -44,8 +46,8 @@ class Recipe extends React.Component {
 
     handleRating = (value) => {
         axios.post(`${SERVER_ADDR}/recipes/${this.state.id}/rating`, {rating: value})
-            .then(() => {
-                this.setState({yourRating: value});
+            .then((response) => {
+                this.setState({yourRating: value, rating: response.data.rating});
             });
     };
 
@@ -68,19 +70,27 @@ class Recipe extends React.Component {
                 {recipe.fetching ?
                     <section className="browse">
                         <Spinner/>
-                    </section> :
-                    <section>
-                        <section className="browse">
-                            <RecipeContent recipe={recipe}
-                                           onRate={this.handleRating}
-                                           toggleDeleteModal={this.toggleDeleteModal}/>
-                            <CommentSection comments={recipe.comments}
-                                            recipeId={recipe.id}
-                                            onSubmit={this.handleCommentSubmit}
-                                            onDelete={this.handleCommentDelete}/>
-                        </section>
-                        <UserBar user={this.state.user}/>
-                    </section>}
+                    </section> : (recipe.error ?
+                            <section>
+                                <section className="browse">
+                                    <div>
+                                        <h4>{<Trans>pageNotExists</Trans>}</h4>
+                                    </div>
+                                </section>
+                            </section> :
+                            <section>
+                                <section className="browse">
+                                    <RecipeContent recipe={recipe}
+                                                   onRate={this.handleRating}
+                                                   toggleDeleteModal={this.toggleDeleteModal}/>
+                                    <CommentSection comments={recipe.comments}
+                                                    recipeId={recipe.id}
+                                                    onSubmit={this.handleCommentSubmit}
+                                                    onDelete={this.handleCommentDelete}/>
+                                </section>
+                                <UserBar user={this.state.user}/>
+                            </section>
+                    )}
                 <ConfirmationModal title={<Trans i18nKey="recipe.deleteWarning"/>}
                                    description={<Trans>cantUndone</Trans>}
                                    variant="danger" showModal={this.state.showDeleteModal}
