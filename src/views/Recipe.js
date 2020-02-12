@@ -4,12 +4,15 @@ import {SERVER_ADDR} from "../constants";
 import RecipeContent from "../components/RecipeContent";
 import Spinner from "../components/Spinner";
 import CommentSection from "../components/CommentSection";
+import {Trans} from "react-i18next";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 class Recipe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fetching: true
+            fetching: true,
+            showDeleteModal: false
         }
     }
 
@@ -40,6 +43,17 @@ class Recipe extends React.Component {
             });
     };
 
+    handleRecipeDelete = () => {
+        axios.delete(`${SERVER_ADDR}/recipes/${this.state.id}/`)
+            .then(() => {
+                this.props.history.push(`/`);
+            });
+    };
+
+    toggleDeleteModal = () => {
+        this.setState({showDeleteModal: !this.state.showDeleteModal});
+    };
+
     render() {
         const recipe = this.state;
 
@@ -51,12 +65,16 @@ class Recipe extends React.Component {
                     </section> :
                     <section className="browse">
                         <RecipeContent recipe={recipe}
-                                       onRate={this.handleRating}/>
+                                       onRate={this.handleRating}
+                                       toggleDeleteModal={this.toggleDeleteModal}/>
                         <CommentSection comments={recipe.comments}
                                         recipeId={recipe.id}
                                         onSubmit={this.handleCommentSubmit}
                                         onDelete={this.handleCommentDelete}/>
                     </section>}
+                <ConfirmationModal title={<Trans i18nKey="recipe.deleteWarning" />} description={<Trans>cantUndone</Trans>}
+                                   variant="danger" showModal={this.state.showDeleteModal}
+                                   toggleModal={this.toggleDeleteModal} onConfirmation={this.handleRecipeDelete}/>
             </section>
         )
     }

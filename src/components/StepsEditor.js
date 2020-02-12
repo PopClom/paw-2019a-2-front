@@ -116,7 +116,7 @@ class StepsEditor extends React.Component {
                 ))}
 
                 <div className="form-row mb-4">
-                    <Button variant="danger" className="new-ingredient-btn"
+                    <Button className="new-ingredient-btn"
                             onClick={this.removeStep}>
                         <DeleteIcon/>
                         <Trans i18nKey="Recipe.removeStep"/>

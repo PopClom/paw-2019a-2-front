@@ -1,10 +1,8 @@
 import React from 'react';
-import {formatNumber, isMyUser} from '../helpers';
+import {formatNumber, isMyUser, userIsAdmin} from '../helpers';
 import {Trans} from 'react-i18next';
 import RatingRecipe from "./RatingRecipe";
 import noRecipeImg from "../assets/img/no_recipe_image.png";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faPlusCircle, faTrash} from "@fortawesome/free-solid-svg-icons";
 import TooltipHover from "./TooltipHover";
 import {Link} from "react-router-dom";
 import {isLoggedIn} from "../helpers/auth";
@@ -16,8 +14,9 @@ class RecipeContent extends React.Component {
 
     render() {
         const {recipe, onRate} = this.props;
-        const instructionLines = recipe.instructions.split('\n');
+        const instructionLines = recipe.instructions ? recipe.instructions.split('\n') : [];
         const loggedIn = isLoggedIn();
+        const canEdit = isMyUser(recipe.userId) || userIsAdmin();
 
         return (
             <div className="card">
@@ -117,12 +116,13 @@ class RecipeContent extends React.Component {
 
                             <div className="recipe-body-bottom">
                                 <div className="recipe-bottom-icon">
-                                    {isMyUser(recipe.userId) ? (
+                                    {canEdit ? (
                                         <div className="float-right">
                                             <div className="float-right">
                                                 <TooltipHover placement="top" message={<Trans>deleteRecipe</Trans>}
                                                               icon={
-                                                                  <button className="bg-transparent">
+                                                                  <button className="bg-transparent"
+                                                                          onClick={this.props.toggleDeleteModal}>
                                                                       <DeleteIcon className="delete-ingredient-icon"/>
                                                                   </button>}
                                                 />
