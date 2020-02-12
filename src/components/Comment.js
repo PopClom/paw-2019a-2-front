@@ -1,17 +1,15 @@
 import React from 'react';
 import userImg from '../assets/img/user.png';
 import {Link} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Trans} from "react-i18next";
 import TooltipHover from "./TooltipHover";
-import {isMyUser} from "../helpers";
+import {isMyUser, userIsAdmin} from "../helpers";
 import DeleteIcon from '@material-ui/icons/Delete';
 
 class Comment extends React.Component {
     render() {
         const {username, userId, id, date, message} = this.props.comment;
-        const canEdit = isMyUser(userId);
+        const canEdit = isMyUser(userId) || userIsAdmin();
 
         return(
             <div className="card-body-comment">

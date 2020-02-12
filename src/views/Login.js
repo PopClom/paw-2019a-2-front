@@ -3,7 +3,7 @@ import {withTranslation, Trans} from 'react-i18next';
 import foodifyImage from '../assets/img/foodify.png';
 import {Link} from "react-router-dom";
 import {handleInputChange} from "../helpers";
-import {getUser, login} from "../helpers/auth";
+import {login, logout} from "../helpers/auth";
 
 class Login extends React.Component {
     constructor(props) {
@@ -21,13 +21,11 @@ class Login extends React.Component {
         event.preventDefault();
         login(this.state.username, this.state.password).then(() => {
             this.props.history.push(`/`);
-            console.log(getUser());
         }).catch(() => {
             /*validar si las credenciales son correctas, si no loginError = true*/
+            logout();
             this.setState({loginError: true});
         });
-
-        console.log(localStorage.getItem("token"));
     };
 
     render() {

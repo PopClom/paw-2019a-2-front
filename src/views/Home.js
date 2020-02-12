@@ -6,6 +6,8 @@ import Filters from '../components/Filters';
 import Spinner from '../components/Spinner';
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
+import {Trans} from "react-i18next";
+import TooltipHover from "../components/TooltipHover";
 
 class Home extends React.Component {
     constructor(props) {
@@ -53,7 +55,9 @@ class Home extends React.Component {
                     <Filters onSearch={this.onSearch}/>
                 </section>
                 <Link to={`/create_recipe`}>
-                    <Button className="btn-green add">+</Button>
+                    <TooltipHover placement="top" message={<Trans>addNewRecipe</Trans>} icon={
+                        <Button className="btn-green add">+</Button>
+                    }/>
                 </Link>
             </section>
         );

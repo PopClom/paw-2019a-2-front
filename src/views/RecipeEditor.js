@@ -52,7 +52,6 @@ class RecipeEditor extends React.Component {
         const recipe = this.assignParams();
         const {allTags} = this.state;
         const {t} = this.props;
-        console.log(recipe);
 
         return (
             <section className="main_container">
@@ -76,7 +75,13 @@ class RecipeEditor extends React.Component {
                             }}
                             validate={values => validateRecipe(values)}
                             onSubmit={(values, {setSubmitting}) => {
-                                console.log("asdasddsaSAD");
+                                axios.post(`${SERVER_ADDR}/recipes/`, values)
+                                    .then(response => {
+                                        this.props.history.push(`/recipe/${response.data.id}`);
+                                    })
+                                    .catch(err => {
+                                        console.log(":(");
+                                    });
                             }}
                             validateOnChange={true}
                         >

@@ -1,4 +1,4 @@
-import {getUser} from "./auth";
+import {getUser, isLoggedIn} from "./auth";
 
 export const formatNumber = (value, decimals = 0) => {
     return value.toFixed(decimals);
@@ -29,6 +29,11 @@ export function getCurrentUserId(){
 export function isMyUser(id){
     return id != null && id === getCurrentUserId();
 }
+
+export function userIsAdmin() {
+    return isLoggedIn() && getUser().admin;
+}
+
 //TODO
 export function followsUser(id) {
     return true;
