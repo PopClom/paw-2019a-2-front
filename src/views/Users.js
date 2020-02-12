@@ -9,6 +9,8 @@ import {Button, Card, Tab, Tabs} from "react-bootstrap";
 import {Trans} from "react-i18next";
 import {Doughnut, HorizontalBar} from "react-chartjs-2";
 import UserCards from "../components/UserCards";
+import UserFilters from "../components/UserFilters";
+import {getUser} from "../helpers/auth";
 
 class Users extends React.Component {
     constructor(props) {
@@ -28,8 +30,8 @@ class Users extends React.Component {
     }
 
     render() {
-        const {fetching, recipes} = this.state;
 
+        console.log(getUser());
         return (
             <section className="main_container">
                 <h4 className="navigation-title pt-3">
@@ -49,28 +51,21 @@ class Users extends React.Component {
                         <Tab eventKey="Followers" title={<Trans i18nKey="followers"/>}>
                             <Tab.Content>
                                 <div className="tab-users-content">
-                                    <UserCards users={this.state.users}/>
+                                    <UserCards users={getUser().followers.users}/>
                                 </div>
                             </Tab.Content>
                         </Tab>
                         <Tab eventKey="Following" title={<Trans i18nKey="following"/>}>
                             <Tab.Content>
                                 <div className="tab-users-content">
-                                    <UserCards users={this.state.users}/>
+                                    <UserCards users={getUser().following.users}/>
                                 </div>
                             </Tab.Content>
                         </Tab>
                     </Tabs>
                 </section>
 
-                <section className="side-card-container">
-                    <div className="card">
-                        {/*<div className="card-body" id="filters-big-card">
-                            <
-                            %@include file="user_filters_card.jsp" %>
-                        </div>*/}
-                    </div>
-                </section>
+                <UserFilters/>
             </section>
         );
     }

@@ -36,12 +36,12 @@ class Filters extends React.Component {
 
         axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
             response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-            this.setState({ allIngredients: response.data.ingredients});
+            this.setState({allIngredients: response.data.ingredients});
         })
     }
 
     onSelectChange = (values) => {
-      this.setState({selectedIngredients: values});
+        this.setState({selectedIngredients: values});
     };
 
     onOrdersChange = (event) => {
@@ -68,90 +68,100 @@ class Filters extends React.Component {
     };
 
     render() {
-        const {searchString, tags, orders, tagsCheckboxes, orderSelected, allIngredients,
-            selectedIngredients, withMyIngredients} = this.state;
-        const{t} = this.props;
+        const {
+            searchString, tags, orders, tagsCheckboxes, orderSelected, allIngredients,
+            selectedIngredients, withMyIngredients
+        } = this.state;
+        const {t} = this.props;
 
         return (
-            <div id="filters-card">
-                <h4>
-                    <Trans>Filters</Trans>
-                </h4>
 
-                <div>
+            <section className="side-card-container">
+                <div className="card">
+                    <div className="card-body" id="filters-big-card">
+                        <div id="filters-card">
+                            <h4>
+                                <Trans>Filters</Trans>
+                            </h4>
 
-                    <input className="form-control" placeholder="Search"
-                           value={searchString} onChange={this.onChangeSearchString}/>
+                            <div>
 
-                    <label className="text-filter">
-                        <Trans>sortBy</Trans>
-                    </label>
-                    <div className="filter-items">
-                        {Object.keys(orders).map(idx =>
-                            <div className="custom-control custom-radio" key={idx}>
-                                <input type="radio" value={orders[idx]} className="custom-control-input"
-                                       id={orders[idx]} name="groupOrderFilter"
-                                       checked={orderSelected === orders[idx]}
-                                       onChange={this.onOrdersChange}/>
-                                <label className="custom-control-label" htmlFor={orders[idx]}>
-                                    <Trans i18nKey={orders[idx]}/>
+                                <input className="form-control" placeholder="Search"
+                                       value={searchString} onChange={this.onChangeSearchString}/>
+
+                                <label className="text-filter">
+                                    <Trans>sortBy</Trans>
                                 </label>
-                            </div>
-                        )}
-                    </div>
+                                <div className="filter-items">
+                                    {Object.keys(orders).map(idx =>
+                                        <div className="custom-control custom-radio" key={idx}>
+                                            <input type="radio" value={orders[idx]} className="custom-control-input"
+                                                   id={orders[idx]} name="groupOrderFilter"
+                                                   checked={orderSelected === orders[idx]}
+                                                   onChange={this.onOrdersChange}/>
+                                            <label className="custom-control-label" htmlFor={orders[idx]}>
+                                                <Trans i18nKey={orders[idx]}/>
+                                            </label>
+                                        </div>
+                                    )}
+                                </div>
 
-                    <label className="text-filter">
-                        <Trans i18nKey="cuisineType"/>
-                    </label>
-                    <div className="filter-items">
-                        {Object.keys(tags).map(idx =>
-                            <div className="custom-control custom-checkbox" key={idx}>
-                                <input type="checkbox" value={tags[idx]} className="custom-control-input" id={tags[idx]}
-                                       name="groupTagFilter"
-                                       checked={tagsCheckboxes[idx]}
-                                       onChange={this.onTagsChange}/>
-                                <label className="custom-control-label" htmlFor={tags[idx]}>
-                                    <Trans i18nKey={tags[idx]}/>
+                                <label className="text-filter">
+                                    <Trans i18nKey="cuisineType"/>
                                 </label>
+                                <div className="filter-items">
+                                    {Object.keys(tags).map(idx =>
+                                        <div className="custom-control custom-checkbox" key={idx}>
+                                            <input type="checkbox" value={tags[idx]} className="custom-control-input"
+                                                   id={tags[idx]}
+                                                   name="groupTagFilter"
+                                                   checked={tagsCheckboxes[idx]}
+                                                   onChange={this.onTagsChange}/>
+                                            <label className="custom-control-label" htmlFor={tags[idx]}>
+                                                <Trans i18nKey={tags[idx]}/>
+                                            </label>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <label className="text-filter">
+                                    <Trans>ingredientsFilter</Trans>
+                                </label>
+                                <div className="filter-items">
+                                    <div className="custom-control custom-checkbox filter-ingredients-item">
+                                        <input type="checkbox" value="false" className="custom-control-input"
+                                               id="withMyIngredients" name="groupIngredientsFilter"
+                                               checked={withMyIngredients} onChange={this.onWithMyIngredientsChange}/>
+                                        <label className="custom-control-label"
+                                               htmlFor="withMyIngredients">
+                                            <Trans>withMyIngredients</Trans>
+                                        </label>
+                                    </div>
+                                    <div className="filter-ingredients-group-label filter-ingredients-item">
+                                        <label className="ingredientLabel">
+                                            <Trans>ingredients.Filter.Group</Trans>
+                                        </label>
+                                        <Select
+                                            onChange={this.onSelectChange}
+                                            options={allIngredients}
+                                            getOptionLabel={(ingredient) => <Trans>{ingredient.name}</Trans>}
+                                            getOptionValue={(ingredient) => t(ingredient.name)}
+                                            isMulti="true"
+                                            menuPlacement="top"
+                                            placeholder={<Trans>ingredient.selectMulti</Trans>}/>
+                                    </div>
+                                </div>
+
+                                <button className="btn btn-green btn-apply-filters"
+                                        onClick={() => this.props.onSearch(searchString, tagsCheckboxes, orderSelected,
+                                            selectedIngredients, withMyIngredients)}>
+                                    <Trans>confirm</Trans>
+                                </button>
                             </div>
-                        )}
-                    </div>
-
-                    <label className="text-filter">
-                        <Trans>ingredientsFilter</Trans>
-                    </label>
-                    <div className="filter-items">
-                        <div className="custom-control custom-checkbox filter-ingredients-item">
-                            <input type="checkbox"  value="false" className="custom-control-input"
-                                   id="withMyIngredients" name="groupIngredientsFilter"
-                                   checked={withMyIngredients} onChange={this.onWithMyIngredientsChange}/>
-                            <label className="custom-control-label"
-                                        htmlFor="withMyIngredients">
-                                <Trans>withMyIngredients</Trans>
-                            </label>
-                        </div>
-                        <div className="filter-ingredients-group-label filter-ingredients-item">
-                            <label  className="ingredientLabel">
-                                <Trans>ingredients.Filter.Group</Trans>
-                            </label>
-                            <Select
-                                onChange = {this.onSelectChange}
-                                options = {allIngredients}
-                                getOptionLabel = {(ingredient) => <Trans>{ingredient.name}</Trans>}
-                                getOptionValue = {(ingredient) => t(ingredient.name)}
-                                isMulti = "true"
-                                menuPlacement = "top"
-                                placeholder = {<Trans>ingredient.selectMulti</Trans>}/>
                         </div>
                     </div>
-
-                    <button className="btn btn-green btn-apply-filters"
-                            onClick={() => this.props.onSearch(searchString, tagsCheckboxes, orderSelected,
-                                selectedIngredients, withMyIngredients)}>
-                        <Trans>confirm</Trans>
-                    </button>
                 </div>
-            </div>
+            </section>
         )
     }
 }

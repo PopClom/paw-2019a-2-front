@@ -50,13 +50,7 @@ class Home extends React.Component {
                                 {Object.keys(recipes).map(idx => <RecipeCard key={idx} recipe={recipes[idx]}/>)}
                             </div>}
                     </section>
-                    <section className="side-card-container">
-                        <div className="card">
-                            <div className="card-body" id="filters-big-card">
-                                <Filters onSearch={this.onSearch}/>
-                            </div>
-                        </div>
-                    </section>
+                    <Filters onSearch={this.onSearch}/>
                 </section>
                 <Link to={`/create_recipe`}>
                     <Button className="btn-green add">+</Button>

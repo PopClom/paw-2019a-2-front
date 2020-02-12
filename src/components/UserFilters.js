@@ -22,58 +22,64 @@ class UserFilters extends React.Component {
         const {users, t} = this.props;
 
         return (
-            <div id="filters-card">
-                <h4>
-                    <Trans i18nKey="searchFilters"/>
-                </h4>
 
-                <Form autocomplete="off" modelAttribute="userFilterForm" action="${filter}" method="get"
-                      enctype="multipart/form-data">
+            <section className="side-card-container">
+                <div className="card">
+                    <div className="card-body" id="filters-big-card">
+                        <div id="filters-card">
+                            <h4>
+                                <Trans i18nKey="searchFilters"/>
+                            </h4>
 
-                    <Trans i18nKey="search" var="search"/>
-                    <Form.Control path="searchBar" placeholder={t('search')}/>
+                            <Form>
 
-                    <Form.Label className="text-filter">
-                        <Trans i18nKey="sortBy"/>
-                    </Form.Label>
+                                <Trans i18nKey="search" var="search"/>
+                                <Form.Control path="searchBar" placeholder={t('search')}/>
 
-                    <div className="filter-items">
-                        {Object.keys(allOrders).map(idx =>
-                            <div className="custom-control custom-radio">
-                                <Form.Control type="radio" value={allOrders[idx]}
-                                       id={allOrders[idx]} name="groupOrderFilter"
-                                       checked={orderSelected === allOrders[idx]}
-                                       onChange={this.onOrdersChange}/>
-                                <Form.Label path="order">
-                                    <Trans i18nKey="${order}"/>
+                                <Form.Label className="text-filter">
+                                    <Trans i18nKey="sortBy"/>
                                 </Form.Label>
-                            </div>)}
 
+                                <div className="filter-items">
+                                    {Object.keys(allOrders).map(idx =>
+                                        <div className="custom-control custom-radio">
+                                            <Form.Control type="radio" value={allOrders[idx]}
+                                                          id={allOrders[idx]} name="groupOrderFilter"
+                                                          checked={orderSelected === allOrders[idx]}
+                                                          onChange={this.onOrdersChange}/>
+                                            <Form.Label path="order">
+                                                <Trans i18nKey="${order}"/>
+                                            </Form.Label>
+                                        </div>)}
+
+                                </div>
+
+                                {/*<c:if test="${isAdmin}">*/}
+                                {/*    <label className="text-filter">*/}
+                                {/*        <Trans i18nKey="status"/>*/}
+                                {/*    </label>*/}
+                                {/*    <div className="filter-items">*/}
+                                {/*        <c:forEach var="status" items="${allStatus}">*/}
+                                {/*            <div className="custom-control custom-radio">*/}
+                                {/*                <form:radiobutton path="status" value="${status}" className="custom-control-input"*/}
+                                {/*                                  id="${status}"*/}
+                                {/*                                  name="groupOrderFilter"/>*/}
+                                {/*                <form:label className="custom-control-label" path="status" htmlFor="${status}">*/}
+                                {/*                    <Trans i18nKey="${status}"/>*/}
+                                {/*                </form:label>*/}
+                                {/*            </div>*/}
+                                {/*        </c:forEach>*/}
+                                {/*    </div>*/}
+                                {/*</c:if>*/}
+
+                                <button className="btn btn-green btn-apply-filters" type="submit">
+                                    <Trans i18nKey="confirm"/>
+                                </button>
+                            </Form>
+                        </div>
                     </div>
-
-                    {/*<c:if test="${isAdmin}">*/}
-                    {/*    <label className="text-filter">*/}
-                    {/*        <Trans i18nKey="status"/>*/}
-                    {/*    </label>*/}
-                    {/*    <div className="filter-items">*/}
-                    {/*        <c:forEach var="status" items="${allStatus}">*/}
-                    {/*            <div className="custom-control custom-radio">*/}
-                    {/*                <form:radiobutton path="status" value="${status}" className="custom-control-input"*/}
-                    {/*                                  id="${status}"*/}
-                    {/*                                  name="groupOrderFilter"/>*/}
-                    {/*                <form:label className="custom-control-label" path="status" htmlFor="${status}">*/}
-                    {/*                    <Trans i18nKey="${status}"/>*/}
-                    {/*                </form:label>*/}
-                    {/*            </div>*/}
-                    {/*        </c:forEach>*/}
-                    {/*    </div>*/}
-                    {/*</c:if>*/}
-
-                    <button className="btn btn-green btn-apply-filters" type="submit">
-                        <Trans i18nKey="confirm"/>
-                    </button>
-                </Form>
-            </div>
+                </div>
+            </section>
         );
     }
 }
