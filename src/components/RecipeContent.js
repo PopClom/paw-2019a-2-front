@@ -9,6 +9,7 @@ import {isLoggedIn} from "../helpers/auth";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import IconButton from "@material-ui/core/IconButton";
 
 class RecipeContent extends React.Component {
 
@@ -111,47 +112,43 @@ class RecipeContent extends React.Component {
                         ))}
                     </div>
 
+
                     <div className="recipe-body-bottom">
                         <div className="recipe-bottom-icon">
+                            {canEdit ? (
+                                <div className="float-right">
+                                    <div className="float-right">
+                                        <TooltipHover placement="top" message={<Trans>deleteRecipe</Trans>}
+                                                      icon={
+                                                          <IconButton onClick={this.props.toggleDeleteModal}>
+                                                              <DeleteIcon className="delete-ingredient-icon"/>
+                                                          </IconButton>}
+                                        />
+                                    </div>
+                                    <div className="float-right">
+                                        <TooltipHover placement="top" message={<Trans>editRecipe</Trans>} icon={
 
-                            <div className="recipe-body-bottom">
-                                <div className="recipe-bottom-icon">
-                                    {canEdit ? (
-                                        <div className="float-right">
-                                            <div className="float-right">
-                                                <TooltipHover placement="top" message={<Trans>deleteRecipe</Trans>}
-                                                              icon={
-                                                                  <button className="bg-transparent"
-                                                                          onClick={this.props.toggleDeleteModal}>
-                                                                      <DeleteIcon className="delete-ingredient-icon"/>
-                                                                  </button>}
-                                                />
-                                            </div>
-                                            <div className="float-right">
-                                                <TooltipHover placement="top" message={<Trans>editRecipe</Trans>} icon={
-                                                    <button className="bg-transparent">
-                                                        <Link to={{
-                                                            pathname: `/edit_recipe/${recipe.id}`,
-                                                            recipe: recipe
-                                                        }}>
-                                                            <EditIcon className="edit-ingredient-icon"/>
-                                                        </Link>
-                                                    </button>}
-                                                />
-                                            </div>
-                                        </div>) : ''
-                                    }
+                                                <IconButton>
+                                                    <Link className="link-material-ui-btn" to={{
+                                                        pathname: `/edit_recipe/${recipe.id}`,
+                                                        recipe: recipe
+                                                    }}>
+                                                    <EditIcon className="edit-ingredient-icon"/>
+                                                    </Link>
+                                                </IconButton>}
+                                        />
+                                    </div>
+                                </div>) : ''
+                            }
 
-                                    <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
-                                        <button className="bg-transparent">
-                                            <AddCircleIcon className="add-icon-cooklist"/>
-                                        </button>}
-                                    />
-                                </div>
-                            </div>
-
+                            <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
+                                <IconButton>
+                                    <AddCircleIcon className="add-icon-cooklist"/>
+                                </IconButton>}
+                            />
                         </div>
                     </div>
+
                 </div>
             </div>
         )

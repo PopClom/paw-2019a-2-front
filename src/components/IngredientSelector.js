@@ -70,9 +70,10 @@ class IngredientSelector extends React.Component {
             this.setState({allIngredients: response.data.ingredients});
         });
 
-        this.setState({rows: this.props.ingredients.length});
-        if(this.state.rows < 1)
-            this.addSelect();
+        this.setState({rows: this.props.ingredients.length}, () => {
+            if(this.state.rows < 1)
+                this.addSelect();
+        });
     }
 
 

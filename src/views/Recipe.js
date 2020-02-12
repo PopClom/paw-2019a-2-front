@@ -13,7 +13,8 @@ class Recipe extends React.Component {
         super(props);
         this.state = {
             fetching: true,
-            showDeleteModal: false
+            showDeleteModal: false,
+            user: {}
         }
     }
 
@@ -68,16 +69,20 @@ class Recipe extends React.Component {
                     <section className="browse">
                         <Spinner/>
                     </section> :
-                    <section className="browse">
-                        <RecipeContent recipe={recipe}
-                                       onRate={this.handleRating}
-                                       toggleDeleteModal={this.toggleDeleteModal}/>
-                        <CommentSection comments={recipe.comments}
-                                        recipeId={recipe.id}
-                                        onSubmit={this.handleCommentSubmit}
-                                        onDelete={this.handleCommentDelete}/>
+                    <section>
+                        <section className="browse">
+                            <RecipeContent recipe={recipe}
+                                           onRate={this.handleRating}
+                                           toggleDeleteModal={this.toggleDeleteModal}/>
+                            <CommentSection comments={recipe.comments}
+                                            recipeId={recipe.id}
+                                            onSubmit={this.handleCommentSubmit}
+                                            onDelete={this.handleCommentDelete}/>
+                        </section>
+                        <UserBar user={this.state.user}/>
                     </section>}
-                <ConfirmationModal title={<Trans i18nKey="recipe.deleteWarning" />} description={<Trans>cantUndone</Trans>}
+                <ConfirmationModal title={<Trans i18nKey="recipe.deleteWarning"/>}
+                                   description={<Trans>cantUndone</Trans>}
                                    variant="danger" showModal={this.state.showDeleteModal}
                                    toggleModal={this.toggleDeleteModal} onConfirmation={this.handleRecipeDelete}/>
             </section>

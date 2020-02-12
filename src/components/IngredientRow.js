@@ -3,6 +3,8 @@ import {Trans} from "react-i18next";
 import TooltipHover from "./TooltipHover";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import AddCircleIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import IconButton from "@material-ui/core/IconButton";
 
 class IngredientRow extends React.Component {
     constructor(props) {
@@ -24,16 +26,16 @@ class IngredientRow extends React.Component {
                 <div className="float-right">
                     <div className="float-right">
                         <TooltipHover placement="top" message={<Trans>ingredient.delete</Trans>} icon={
-                            <button className="bg-transparent delete-btn" onClick={() => {this.props.toggleDeleteModal(); this.props.setSelectedIngredient(ingredient);}}>
+                            <IconButton className="myingredient-btn" onClick={() => {this.props.toggleDeleteModal(); this.props.setSelectedIngredient(ingredient);}}>
                                 <DeleteIcon className="delete-ingredient-icon"/>
-                            </button>}
+                            </IconButton>}
                         />
                     </div>
                     <div className="float-right">
                         <TooltipHover placement="top" message={<Trans>ingredient.editAmount</Trans>} icon={
-                            <button className="bg-transparent delete-btn" onClick={() => {this.props.toggleEditModal(); this.props.setSelectedIngredient(ingredient);}}>
+                            <IconButton className="myingredient-btn" onClick={() => {this.props.toggleEditModal(); this.props.setSelectedIngredient(ingredient);}}>
                                 <EditIcon className="edit-ingredient-icon"/>
-                            </button>}
+                            </IconButton>}
                         />
                     </div>
                 </div>

@@ -53,10 +53,10 @@ class StepsEditor extends React.Component {
     };
 
     componentDidMount() {
-        this.setState({rows: this.props.steps.length});
-        console.log(this.props.steps);
-        if (this.state.rows < 1)
-            this.addStep();
+        this.setState({rows: this.props.steps.length}, ()  => {
+            if (this.state.rows < 1)
+                this.addStep();
+        });
     }
 
 

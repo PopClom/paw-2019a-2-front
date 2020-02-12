@@ -721,6 +721,20 @@ a.custom-card{
     clear: both;
 }
 
+.link-material-ui-btn{
+    font-size: 0 !important;
+}
+
+.MuiIconButton-root:active,
+.MuiIconButton-root:focus {
+    outline: none;
+}
+
+.myingredient-btn{
+    padding: 5px !important;
+    margin: 0 8px !important;
+}
+
 .delete-btn:active,
 .delete-btn:focus{
     outline: none;
@@ -737,7 +751,6 @@ a.custom-card{
     left: 0;
     margin: 20px 20px 30px 20px;
 }
-
 
 .delete-ingredient-icon{
     color: #d32f2f;
