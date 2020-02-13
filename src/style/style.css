@@ -127,6 +127,10 @@ body.modal-open {
     margin-bottom: 5%;
 }
 
+.error-div {
+    margin-top: 2%;
+}
+
 .btn {
     padding: .8rem 1.6rem;
 }

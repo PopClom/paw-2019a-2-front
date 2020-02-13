@@ -18,7 +18,7 @@ class Error extends React.Component {
 
         return (
             <section className="horizontal-centered-wrapper">
-                <div className="horizontal-centered">
+                <div className="horizontal-centered error-div">
                     <img className="logo_error_new" src={FoodifyImg} alt="LOGO"/>
                     <h2 className="font-weight-light align-content-center">
                         <Trans i18nKey="apology"/>

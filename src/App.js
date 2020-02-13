@@ -55,7 +55,10 @@ const DefaultContainer = () => (
             <Route exact path="/recipestep" component={RecipeSteps}/>
             <Route exact path="/users" component={Users}/>
 
-            <Route render={ () => <Error error="404"/>}/>
+            <Route render={() =>
+                <section className="main_container">
+                    <Error error="404"/>
+                </section>}/>
         </Switch>
     </div>
 );
