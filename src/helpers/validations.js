@@ -80,7 +80,7 @@ export function validateSteps(value){
     let error = [];
     value.forEach(function (step, index) {
         if(step !== undefined) {
-            if(step.description === undefined || step.description.length < 5 || step.description.length > 2000)
+            if(step.description === undefined || step.description.length < 10 || step.description.length > 2000)
                 error[index] = "TODO";
         }
     });

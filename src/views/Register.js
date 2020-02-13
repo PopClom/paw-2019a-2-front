@@ -4,20 +4,20 @@ import foodifyImage from '../assets/img/foodify.png';
 import {validateRegisterFields} from "../helpers/validations";
 import {Button, Form} from "react-bootstrap";
 import {Formik} from "formik";
+import axios from "axios";
+import {SERVER_ADDR} from "../constants";
 
 class Register extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            success: false
+        };
     }
 
     componentDidMount() {
     }
-
-    handleRegisterSubmit = () => {
-        console.log("ASDOPLAKSDPO");
-    };
 
     render() {
         const {t} = this.props;
@@ -36,7 +36,17 @@ class Register extends React.Component {
                         repeatPassword: ''
                     }}
                     validate={values => validateRegisterFields(values)}
-                    onSubmit= {this.handleRegisterSubmit.bind(this)}
+                    onSubmit={(values, {setSubmitting}) => {
+                        axios.post(`${SERVER_ADDR}/users/`, {...values, name: values.firstName,
+                            surname: values.lastName})
+                            .then(response => {
+                                setSubmitting(false);
+                                this.setState({success: true});
+                            })
+                            .catch(err => {
+                                console.log(":(");
+                            });
+                    }}
                 >
                     {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
                         <Form onSubmit={handleSubmit} encType="multipart/form-data"
@@ -132,6 +142,7 @@ class Register extends React.Component {
                                     <Trans>{errors.repeatPassword}</Trans>
                                 </Form.Control.Feedback>
                             </Form.Row>
+                            {this.state.success && <Trans>mail.Sent</Trans>}
 
                             {/*Sign up button*/}
                             <Button className="btn-info my-4 btn-block" type="submit" disabled={isSubmitting}>

@@ -8,6 +8,7 @@ import {Trans} from "react-i18next";
 import ConfirmationModal from "../components/ConfirmationModal";
 import UserBar from "../components/UserBar";
 import {Link} from "react-router-dom";
+import PageNotFound from "../components/PageNotFound";
 
 class Recipe extends React.Component {
     constructor(props) {
@@ -65,20 +66,12 @@ class Recipe extends React.Component {
     render() {
         const recipe = this.state;
 
-        return (
-            <section className="main_container">
-                {recipe.fetching ?
-                    <section className="browse">
-                        <Spinner/>
-                    </section> : (recipe.error ?
-                            <section>
-                                <section className="browse">
-                                    <div>
-                                        <h4>{<Trans>pageNotExists</Trans>}</h4>
-                                    </div>
-                                </section>
-                            </section> :
-                            <section>
+        return (recipe.error ? <PageNotFound/> :
+                    <section className="main_container">
+                        {recipe.fetching ?
+                            <section className="browse">
+                                <Spinner/>
+                            </section> : <section>
                                 <section className="browse">
                                     <RecipeContent recipe={recipe}
                                                    onRate={this.handleRating}
@@ -89,13 +82,12 @@ class Recipe extends React.Component {
                                                     onDelete={this.handleCommentDelete}/>
                                 </section>
                                 <UserBar user={this.state.user}/>
-                            </section>
-                    )}
-                <ConfirmationModal title={<Trans i18nKey="recipe.deleteWarning"/>}
-                                   description={<Trans>cantUndone</Trans>}
-                                   variant="danger" showModal={this.state.showDeleteModal}
-                                   toggleModal={this.toggleDeleteModal} onConfirmation={this.handleRecipeDelete}/>
-            </section>
+                            </section>}
+                        <ConfirmationModal title={<Trans i18nKey="recipe.deleteWarning"/>}
+                                           description={<Trans>cantUndone</Trans>}
+                                           variant="danger" showModal={this.state.showDeleteModal}
+                                           toggleModal={this.toggleDeleteModal} onConfirmation={this.handleRecipeDelete}/>
+                    </section>
         )
     }
 }

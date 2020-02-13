@@ -3,8 +3,8 @@ import {Card, CardDeck} from "react-bootstrap";
 import {Trans} from "react-i18next";
 import RecipeCard from "./RecipeCard";
 import {Link} from "react-router-dom";
-import {getUser} from "../helpers/auth";
-import {followsUser, isMyUser} from "../helpers";
+import {getUser, isLoggedIn} from "../helpers/auth";
+import {followsUser, isMyUser, userIsAdmin} from "../helpers";
 import UserImg from '../assets/img/user.png';
 
 class UserBar extends React.Component {
@@ -47,7 +47,7 @@ class UserBar extends React.Component {
                                         </p>
 
                                         {!isMyUser(user.id) ?
-                                            getUser().following.users.includes(user.id) ?
+                                            isLoggedIn() && getUser().following.users.includes(user.id) ?
                                                 <button
                                                     className="btn-sm btn-outline-light-blue circle-button-user-bar">
                                                     <Trans i18nKey="unfollow"/>
@@ -57,7 +57,7 @@ class UserBar extends React.Component {
                                                 </button> : ''
                                         }
 
-                                        {getUser().admin && accountPage && !isMyUser(user.id) ?
+                                        {userIsAdmin() && accountPage && !isMyUser(user.id) ?
                                             <div>
                                                 <button type="button"
                                                         className="btn-sm btn-danger form-user-bar circle-button-user-bar"

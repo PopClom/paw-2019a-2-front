@@ -16,6 +16,7 @@ import Cooklists from "./views/Cooklists";
 import Statistics from "./views/Statistics";
 import RecipeSteps from "./views/RecipeSteps";
 import Users from "./views/Users";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
     return (
@@ -53,6 +54,7 @@ const DefaultContainer = () => (
             <Route exact path="/statistics" component={Statistics}/>
             <Route exact path="/recipestep" component={RecipeSteps}/>
             <Route exact path="/users" component={Users}/>
+            <Route exact path='*' component={PageNotFound} />
         </Switch>
     </div>
 );
