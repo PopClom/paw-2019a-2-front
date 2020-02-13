@@ -11,6 +11,9 @@ export function validateRegisterFields (values) {
     if (values.email.length < 6 || values.email.length > 100)
         errors.email = 'email.lengthError';
 
+    if(!/\S+@\S+\.\S+/.test(values.email))
+        errors.email = 'email.notValid';
+
     // preguntar a la api si esta disponible
     else if (false)
         errors.email = 'email.notAvailable';
@@ -80,7 +83,7 @@ export function validateSteps(value){
     let error = [];
     value.forEach(function (step, index) {
         if(step !== undefined) {
-            if(step.description === undefined || step.description.length < 5 || step.description.length > 2000)
+            if(step.description === undefined || step.description.length < 10 || step.description.length > 1000)
                 error[index] = "TODO";
         }
     });

@@ -7,7 +7,6 @@ import CommentSection from "../components/CommentSection";
 import {Trans} from "react-i18next";
 import ConfirmationModal from "../components/ConfirmationModal";
 import UserBar from "../components/UserBar";
-import {Link} from "react-router-dom";
 import Error from "../components/Error";
 
 class Recipe extends React.Component {

@@ -320,6 +320,7 @@ i18n
                     "username.lengthError": "The field must have between 1 and 40 characters",
                     "email.notAvailable": "The email is not available",
                     "email.lengthError": "The field must have between 6 and 100 characters",
+                    "email.notValid": "The email is not valid",
                     "name.lengthError": "The field must have between 2 and 100 characters",
                     "cantUndone": "This cannot be undone!"
                 }
@@ -636,6 +637,7 @@ i18n
                     "username.lengthError": "El campo debe tener entre 1 y 40 caracteres",
                     "email.notAvailable": "El email no esta disponible",
                     "email.lengthError": "El campo debe tener entre 6 y 100 caracteres",
+                    "email.notValid": "El email no es válido",
                     "name.lengthError": "El campo debe tener entre 2 y 100 caracteres",
                     "cantUndone": "Esta acción no puede deshacerse"
                 }
