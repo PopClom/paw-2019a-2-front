@@ -6,20 +6,49 @@ import {Link} from "react-router-dom";
 import UserImg from "../assets/img/user.png"
 import {getUser} from "../helpers/auth";
 import {followsUser, isMyUser} from "../helpers";
+import axios from "axios";
+import {SERVER_ADDR} from "../constants";
 
 class UserFilters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             allOrders: [],
-
+            allStatus: [],
+            statusSelected: '',
+            orderSelected: ''
         }
     }
 
+    componentDidMount() {
+        axios.get(`${SERVER_ADDR}/users/get_orders`).then(response => {
+            this.setState({
+                allOrders: response.data.list,
+                orderSelected: response.data.list[0]
+            })
+        });
+
+        axios.get(`${SERVER_ADDR}/users/get_status`).then(response => {
+            this.setState({
+                allStatus: response.data.list,
+                statusSelected: response.data.list[0]
+            })
+        });
+    }
+
+    onOrdersChange = (event) => {
+        const id = event.target.id;
+        this.setState({orderSelected: id});
+    };
+
+    onStatusChange = (event) => {
+        const id = event.target.id;
+        this.setState({statusSelected: id});
+    };
 
     render() {
-        const {allOrders, orderSelected} = this.state;
-        const {users, t} = this.props;
+        const {allOrders, allStatus, statusSelected, orderSelected} = this.state;
+        const {t} = this.props;
 
         return (
 
@@ -42,35 +71,38 @@ class UserFilters extends React.Component {
 
                                 <div className="filter-items">
                                     {Object.keys(allOrders).map(idx =>
-                                        <div className="custom-control custom-radio">
-                                            <Form.Control type="radio" value={allOrders[idx]}
-                                                          id={allOrders[idx]} name="groupOrderFilter"
-                                                          checked={orderSelected === allOrders[idx]}
-                                                          onChange={this.onOrdersChange}/>
-                                            <Form.Label path="order">
-                                                <Trans i18nKey="${order}"/>
-                                            </Form.Label>
+                                        <div className="custom-control custom-radio" key={idx}>
+                                            <input type="radio" value={allOrders[idx]} className="custom-control-input"
+                                                   id={allOrders[idx]} name="groupOrderFilter"
+                                                   checked={orderSelected === allOrders[idx]}
+                                                   onChange={this.onOrdersChange}/>
+                                            <label className="custom-control-label" htmlFor={allOrders[idx]}>
+                                                <Trans i18nKey={allOrders[idx]}/>
+                                            </label>
                                         </div>)}
-
                                 </div>
 
-                                {/*<c:if test="${isAdmin}">*/}
-                                {/*    <label className="text-filter">*/}
-                                {/*        <Trans i18nKey="status"/>*/}
-                                {/*    </label>*/}
-                                {/*    <div className="filter-items">*/}
-                                {/*        <c:forEach var="status" items="${allStatus}">*/}
-                                {/*            <div className="custom-control custom-radio">*/}
-                                {/*                <form:radiobutton path="status" value="${status}" className="custom-control-input"*/}
-                                {/*                                  id="${status}"*/}
-                                {/*                                  name="groupOrderFilter"/>*/}
-                                {/*                <form:label className="custom-control-label" path="status" htmlFor="${status}">*/}
-                                {/*                    <Trans i18nKey="${status}"/>*/}
-                                {/*                </form:label>*/}
-                                {/*            </div>*/}
-                                {/*        </c:forEach>*/}
-                                {/*    </div>*/}
-                                {/*</c:if>*/}
+                                {getUser().admin ?
+                                    <div>
+                                        <label className="text-filter">
+                                            <Trans i18nKey="status"/>
+                                        </label>
+                                        <div className="filter-items">
+                                            {Object.keys(allStatus).map(idx =>
+                                                <div className="custom-control custom-radio" key={idx}>
+                                                    <input type="radio" value={allStatus[idx]}
+                                                           className="custom-control-input"
+                                                           id={allStatus[idx]} name="groupStatusFilter"
+                                                           checked={statusSelected === allStatus[idx]}
+                                                           onChange={this.onStatusChange}/>
+                                                    <label className="custom-control-label" htmlFor={allStatus[idx]}>
+                                                        <Trans i18nKey={allStatus[idx]}/>
+                                                    </label>
+                                                </div>)}
+                                        </div>
+                                    </div>
+                                    : ''
+                                }
 
                                 <button className="btn btn-green btn-apply-filters" type="submit">
                                     <Trans i18nKey="confirm"/>

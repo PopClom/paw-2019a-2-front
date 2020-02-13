@@ -9,6 +9,8 @@ import IngredientRow from "../components/IngredientRow";
 import EditIngredientAmountModal from "../components/EditIngredientAmountModal";
 import ConfirmationModal from "../components/ConfirmationModal";
 import {onChange} from "../helpers/index"
+import UserBar from "../components/UserBar";
+import {getUser} from "../helpers/auth";
 
 class Ingredients extends React.Component {
     constructor(props) {
@@ -71,16 +73,7 @@ class Ingredients extends React.Component {
                     <h4 className="navigation-title pt-3">
                         <Trans i18nKey="myIngredients"/>
                     </h4>
-
-                    <section className="side-card-container">
-                        <div className="card">
-                            <div className="card-body card-body-user-bar" id="user-big-card">
-                                <p>Barrita</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <div className="browse">
+                    <section className="browse">
 
                         {!ingredients || !ingredients.length ?
                             <h3 className="navigation-subtitle">
@@ -99,7 +92,9 @@ class Ingredients extends React.Component {
                                 </ul>
                             }
                         </div>
-                    </div>
+                    </section>
+
+                    <UserBar user={getUser()}/>
 
                 </section>
 

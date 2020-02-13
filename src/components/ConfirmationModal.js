@@ -12,16 +12,14 @@ import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 class ConfirmationModal extends React.Component {
 
     render() {
-        const {title, description, variant, showModal} = this.props;
-
-        console.log(variant);
+        const {title, description, variant, showModal, toggleModal, onConfirmation} = this.props;
 
         if (!showModal) {
             return null;
         }
 
         return (
-            <Modal show={showModal} onHide={this.props.toggleModal}>
+            <Modal show={showModal} onHide={toggleModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <Trans>{title}</Trans>
@@ -32,10 +30,10 @@ class ConfirmationModal extends React.Component {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" className="btn-blue-grey" onClick={this.props.toggleModal}>
+                    <Button variant="secondary" className="btn-blue-grey" onClick={toggleModal}>
                         <Trans i18nKey="close"/>
                     </Button>
-                    <Button variant="danger" type="submit" onClick={() => {this.props.toggleModal(); this.props.onConfirmation();}}>
+                    <Button variant={variant} type="submit" onClick={() => {toggleModal(); onConfirmation();}}>
                         <Trans i18nKey="confirm"/>
                     </Button>
                 </Modal.Footer>
@@ -47,7 +45,7 @@ class ConfirmationModal extends React.Component {
 ConfirmationModal.defaultProps = {
     title: '',
     description: '',
-    variant: ''
+    variant: "danger"
 };
 
 export default ConfirmationModal;

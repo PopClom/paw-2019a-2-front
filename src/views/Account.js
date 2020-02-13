@@ -93,7 +93,7 @@ class Account extends React.Component {
                             </div>
                         </section>
 
-                        <UserBar user={user}/>
+                        <UserBar user={user} accountPage={true}/>
                     </section>
                 }
             </section>

@@ -1,6 +1,5 @@
 import React from 'react';
 import {OverlayTrigger, Popover, PopoverContent, PopoverTitle} from "react-bootstrap";
-import Tooltip from "react-bootstrap/Tooltip";
 
 class TooltipHover extends React.Component {
     render() {

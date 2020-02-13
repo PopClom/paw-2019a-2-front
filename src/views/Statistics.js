@@ -15,6 +15,8 @@ import esLocale from "date-fns/locale/es";
 import i18next from "i18next";
 import {Doughnut, HorizontalBar} from 'react-chartjs-2';
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
+import UserBar from "../components/UserBar";
+import {getUser} from "../helpers/auth";
 
 const localeMap = {
     en: enLocale,
@@ -122,13 +124,7 @@ class Statistics extends React.Component {
 
                     </section>
 
-                    <section className="side-card-container">
-                        <div className="card">
-                            <div className="card-body card-body-user-bar">
-                                <p>dsadsa</p>
-                            </div>
-                        </div>
-                    </section>
+                    <UserBar user={getUser()}/>
                 </section>
         );
     }

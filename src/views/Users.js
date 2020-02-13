@@ -26,7 +26,6 @@ class Users extends React.Component {
     }
 
     componentDidMount() {
-
     }
 
     render() {

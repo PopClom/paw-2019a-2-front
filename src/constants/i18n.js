@@ -17,8 +17,10 @@ i18n
                     "User.repeatPassword": "Repeat password",
                     "User.email": "E-mail",
                     "User.username": "Username",
-                    "user.ban": "Ban this user",
+                    "user.ban": "Ban user",
                     "user.banWarning": "Are you sure you want to ban {{0}}?",
+                    "user.unban": "Unban user",
+                    "user.unbanWarning": "Are you sure you want to unban {{0}}?",
 
                     "logOut": "Log Out",
                     "logIn": "Log In",
@@ -32,7 +34,9 @@ i18n
                     "notAmember": "Not a member?",
                     "rememberMe": "Remember me",
                     "admin.Remove": "Remove admin permissions",
+                    "admin.RemoveWarning": "Are you sure you want to remove administrative permissions from {{0}}?",
                     "admin.Grant": "Grant admin permissions",
+                    "admin.GrantWarning": "Are you sure you want to give administrative permissions to {{0}}?",
 
                     "Register.signUp": "Sign up",
 
@@ -331,6 +335,8 @@ i18n
                     "User.username": "Nombre de usuario",
                     "user.ban": "Deshabilitar usuario",
                     "user.banWarning": "¿Está seguro que quiere deshabilitar a {{0}}? ",
+                    "user.unban": "Rehabilitar usuario",
+                    "user.unbanWarning": "¿Está seguro que quiere rehabilitar a {{0}}? ",
                     "logOut": "Cerrar sesión",
                     "logIn": "Iniciar sesión",
 
@@ -343,7 +349,9 @@ i18n
                     "notAmember": "¿No sos miembro?",
                     "rememberMe": "Recordarme",
                     "admin.Remove": "Remover permisos administrativos",
+                    "admin.RemoveWarning": "¿Está seguro que quiere quitar los permisos administrativos a {{0}}?",
                     "admin.Grant": "Brindar permisos administrativos",
+                    "admin.GrantWarning": "¿Está seguro que quiere otorgar permisos administrativos a {{0}}?",
 
                     "Register.signUp": "Registrarse",
 

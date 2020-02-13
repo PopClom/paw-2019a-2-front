@@ -34,6 +34,10 @@ export function userIsAdmin() {
     return isLoggedIn() && getUser().admin;
 }
 
+export function isUserBanned(user) {
+    return user.status !== "REGULAR";
+}
+
 //TODO
 export function followsUser(id) {
     return true;
