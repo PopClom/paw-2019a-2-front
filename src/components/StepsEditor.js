@@ -40,11 +40,8 @@ class StepsEditor extends React.Component {
     };
 
     handleDateChange = (selectedTime, index) => {
-        console.log(index);
-        console.log(this.props.steps);
         this.props.steps[index].timer = selectedTime;
         this.props.steps[index].seconds = selectedTime.getMinutes() * 60 + selectedTime.getSeconds();
-        console.log(selectedTime);
         this.props.onChange();
     };
 

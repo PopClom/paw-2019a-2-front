@@ -12,7 +12,8 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            success: false
+            success: false,
+            error: false
         };
     }
 
@@ -40,11 +41,11 @@ class Register extends React.Component {
                         axios.post(`${SERVER_ADDR}/users/`, {...values, name: values.firstName,
                             surname: values.lastName})
                             .then(response => {
-                                setSubmitting(false);
-                                this.setState({success: true});
+                                this.setState({error: false, success: true});
                             })
                             .catch(err => {
-                                console.log(":(");
+                                setSubmitting(false);
+                                this.setState({error: true});
                             });
                     }}
                 >
@@ -142,7 +143,8 @@ class Register extends React.Component {
                                     <Trans>{errors.repeatPassword}</Trans>
                                 </Form.Control.Feedback>
                             </Form.Row>
-                            {this.state.success && <Trans>mail.Sent</Trans>}
+                            {this.state.success && <><br/><Trans>mail.Sent</Trans></>}
+                            {this.state.error && <><br/><Trans>username.notAvailable</Trans></>}
 
                             {/*Sign up button*/}
                             <Button className="btn-info my-4 btn-block" type="submit" disabled={isSubmitting}>
