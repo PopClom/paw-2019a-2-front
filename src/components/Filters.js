@@ -12,9 +12,9 @@ class Filters extends React.Component {
             tags: [],
             tagsCheckboxes: [],
             orderSelected: '',
-            orders: {},
-            allIngredients: {},
-            selectedIngredients: {},
+            orders: [],
+            allIngredients: [],
+            selectedIngredients: [],
             withMyIngredients: false
         }
     }
