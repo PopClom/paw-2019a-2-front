@@ -8,6 +8,7 @@ import {Trans} from "react-i18next";
 import ConfirmationModal from "../components/ConfirmationModal";
 import UserBar from "../components/UserBar";
 import {Link} from "react-router-dom";
+import Error from "../components/Error";
 
 class Recipe extends React.Component {
     constructor(props) {
@@ -71,13 +72,7 @@ class Recipe extends React.Component {
                     <section className="browse">
                         <Spinner/>
                     </section> : (recipe.error ?
-                            <section>
-                                <section className="browse">
-                                    <div>
-                                        <h4>{<Trans>pageNotExists</Trans>}</h4>
-                                    </div>
-                                </section>
-                            </section> :
+                            <Error error="404"/> :
                             <section>
                                 <section className="browse">
                                     <RecipeContent recipe={recipe}

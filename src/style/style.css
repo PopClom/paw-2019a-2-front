@@ -76,6 +76,14 @@ body.modal-open {
     width: 100%;
 }
 
+.horizontal-centered-wrapper{
+    text-align: center;
+}
+
+.horizontal-centered {
+    display: inline-block;
+}
+
 .login, .error {
     z-index: 1000;
     overflow-y: scroll;
@@ -112,6 +120,11 @@ body.modal-open {
     height: 40%;
     min-height: 200px;
     margin-bottom: 20%;
+}
+
+.logo_error_new {
+    height: 300px;
+    margin-bottom: 5%;
 }
 
 .btn {

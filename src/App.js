@@ -16,6 +16,7 @@ import Cooklists from "./views/Cooklists";
 import Statistics from "./views/Statistics";
 import RecipeSteps from "./views/RecipeSteps";
 import Users from "./views/Users";
+import Error from "./components/Error";
 
 function App() {
     return (
@@ -53,6 +54,8 @@ const DefaultContainer = () => (
             <Route exact path="/statistics" component={Statistics}/>
             <Route exact path="/recipestep" component={RecipeSteps}/>
             <Route exact path="/users" component={Users}/>
+
+            <Route render={ () => <Error error="404"/>}/>
         </Switch>
     </div>
 );
