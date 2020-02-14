@@ -39,14 +39,21 @@ class RecipeEditor extends React.Component {
         });
     };
 
-    /*seguro hay una forma mas linda*/
     assignParams = () => {
         let recipe = this.props.location.recipe;
         return recipe === undefined ? this.props.recipe : recipe;
     };
 
-    onFormSubmit = (event) => {
-        event.preventDefault();
+    onFormSubmit = (values, setSubmitting, reader) => {
+        console.log(values.file);
+        axios.post(`${SERVER_ADDR}/recipes/`,
+            {...values, image: reader ? reader.result.split(',')[1] : null})
+            .then(response => {
+                this.props.history.push(`/recipe/${response.data.id}`);
+            })
+            .catch(err => {
+                console.log(":(");
+            });
     };
 
     render() {
@@ -79,13 +86,14 @@ class RecipeEditor extends React.Component {
                                     }}
                                     validate={values => validateRecipe(values)}
                                     onSubmit={(values, {setSubmitting}) => {
-                                        axios.post(`${SERVER_ADDR}/recipes/`, values)
-                                            .then(response => {
-                                                this.props.history.push(`/recipe/${response.data.id}`);
-                                            })
-                                            .catch(err => {
-                                                console.log(":(");
-                                            });
+                                        if (values.file) {
+                                            const reader = new FileReader();
+                                            reader.addEventListener("load",
+                                                () => this.onFormSubmit(values, setSubmitting, reader), false);
+                                            reader.readAsDataURL(values.file);
+                                        } else {
+                                            this.onFormSubmit(values, setSubmitting);
+                                        }
                                     }}
                                     validateOnChange={true}
                                 >
@@ -105,7 +113,7 @@ class RecipeEditor extends React.Component {
                                                               onChange={handleChange}
                                                               onBlur={handleBlur} isInvalid={touched.name && !!errors.name}/>
                                                 <Form.Control.Feedback type="invalid">
-                                                    <Trans>{errors.name}</Trans>
+                                                    <Trans i18nKey={errors.name} values={{0: "5", 1: "100"}}/>
                                                 </Form.Control.Feedback>
                                             </Form.Row>
 
@@ -124,7 +132,7 @@ class RecipeEditor extends React.Component {
                                                               isInvalid={touched.description && !!errors.description}/>
 
                                                 <Form.Control.Feedback type="invalid">
-                                                    <Trans>{errors.description}</Trans>
+                                                    <Trans i18nKey={errors.description} values={{0: "10", 1: "100"}}/>
                                                 </Form.Control.Feedback>
                                             </Form.Row>
 
@@ -134,24 +142,28 @@ class RecipeEditor extends React.Component {
                                                                 onChange={() => validateForm()}
                                                                 error={errors.ingredients}/>
 
-                                            <div className="form-row">
-                                                <label>
+                                            <Form.Row>
+                                                <Form.Label>
                                                     <Trans i18nKey="Recipe.image"/>
-                                                </label>
-                                            </div>
-
-                                            <div className="form-row mb-4">
-                                                <button type="button" id="btnFile" name="btnAdd" className="btn btn-green">
+                                                </Form.Label>
+                                            </Form.Row>
+                                            <Form.Row className="mb-4">
+                                                <Form.Label id="btnFile" className="btn btn-green">
                                                     <ImageIcon/>
                                                     <Trans i18nKey="Recipe.addImage"/>
-                                                </button>
-                                                <input id="fileInput" className="d-none" type="file"/>
-                                            </div>
-
-                                            <Form.Control.Feedback type="invalid">
-                                                <Trans>{errors.image}</Trans>
-                                            </Form.Control.Feedback>
-
+                                                    {values.file ? ': ' + values.file.name : ''}
+                                                    <Form.Control type="file" className="d-none"
+                                                                  name="file"
+                                                                  onChange={(event) => {
+                                                                      setFieldValue("file", event.currentTarget.files[0]);
+                                                                  }}
+                                                                  onBlur={handleBlur}
+                                                                  isInvalid={touched.file && !!errors.file}/>
+                                                </Form.Label>
+                                                <Form.Control.Feedback style={{display: "block"}} type="invalid">
+                                                    <Trans i18nKey={errors.file}/>
+                                                </Form.Control.Feedback>
+                                            </Form.Row>
 
                                             <div className="form-row">
                                                 <label>

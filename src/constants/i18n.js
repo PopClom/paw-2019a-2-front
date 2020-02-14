@@ -506,7 +506,7 @@ i18n
                     "Error.Ingredient.Repeated": "No puede agregar el mismo ingrediente dos veces",
                     "Error.Ingredient.Invalid": "Cantidad invalida o ingrediente agregado mas de una vez",
                     "Email": "El email no es válido",
-                    "Size": "El campo debe tener entre {{2}} y {{1}} caractéres",
+                    "Size": "El campo debe tener entre {{0}} y {{1}} caractéres",
                     "ImageSize": "El tamaño de la imagen supera el límite (1MB)",
                     "ImageFormat": "El archivo seleccionado no es una imagen",
                     "PasswordMatch": "Las contraseñas no coinciden",

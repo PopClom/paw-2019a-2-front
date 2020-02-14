@@ -50,9 +50,9 @@ export function validateRegisterFields (values) {
 export function validateRecipe(values){
     let errors = {};
     if(values.name.length < 5 || values.name.length > 100)
-        errors.name = "TODO";
+        errors.name = "Size";
     if(values.description.length < 10 || values.description.length > 100)
-        errors.description = "TODO";
+        errors.description = "Size";
     if(values.ingredients !== undefined) {
         let ingredientsError = validateIngredients(values.ingredients);
         if(ingredientsError.length > 0)
@@ -63,6 +63,11 @@ export function validateRecipe(values){
         if(stepsError.length > 0)
             errors.steps = stepsError;
     }
+    if(values.file && values.file.size > 1024 * 1024)
+        errors.file = 'ImageSize';
+    if(values.file && values.file.type.split('/')[0] !== 'image')
+        errors.file = 'ImageFormat';
+
     console.log(errors);
     return errors;
 }
@@ -84,7 +89,7 @@ export function validateSteps(value){
     value.forEach(function (step, index) {
         if(step !== undefined) {
             if(step.description === undefined || step.description.length < 10 || step.description.length > 1000)
-                error[index] = "TODO";
+                error[index] = "Size";
         }
     });
     return error;

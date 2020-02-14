@@ -82,7 +82,7 @@ class StepsEditor extends React.Component {
                                               isInvalid={error !== undefined && !!error[index]}
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    <Trans>{error !== undefined ? error[index] : ''}</Trans>
+                                    <Trans i18nKey={error !== undefined ? error[index] : ''} values={{0: "10", 1: "1000"}}/>
                                 </Form.Control.Feedback>
                             </div>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
