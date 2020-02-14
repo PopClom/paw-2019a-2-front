@@ -10,7 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from "@material-ui/core/IconButton";
-import RecipeToCooklistModal from "./RecipeToCooklistModal";
+import AddRecipeToCooklistModal from "./AddRecipeToCooklistModal";
 import ConfirmationModal from "./ConfirmationModal";
 
 class RecipeContent extends React.Component {
@@ -161,7 +161,7 @@ class RecipeContent extends React.Component {
                         </div>
                     </div>
                 </div>
-                <RecipeToCooklistModal recipeId={recipe.id} showModal={this.state.showAddModal} toggleModal={this.toggleAddModal}/>
+                <AddRecipeToCooklistModal recipeId={recipe.id} showModal={this.state.showAddModal} toggleModal={this.toggleAddModal}/>
             </div>
         )
             ;

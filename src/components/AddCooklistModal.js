@@ -10,7 +10,7 @@ import * as querystring from "qs";
 
 class AddCooklistModal extends React.Component {
     render() {
-        const {ingredient} = this.props;
+        const {showModal, toggleModal, addCooklist} = this.props;
 
         if (!this.props.showModal) {
             return null;
@@ -18,7 +18,7 @@ class AddCooklistModal extends React.Component {
 
         return (
 
-            <Modal show={this.props.showModal} onHide={this.props.toggleModal}>
+            <Modal show={showModal} onHide={toggleModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <Trans i18nKey="cooklist.addTitle"/>
@@ -29,10 +29,13 @@ class AddCooklistModal extends React.Component {
                         name: ''
                     }}
                     validate={values => validateCooklistName(values)}
-                    onSubmit={(values, errors, {setSubmitting}) => {
+                    onSubmit={(values, {setSubmitting}) => {
                         let params = {name: values.name};
-                        axios.post(`${SERVER_ADDR}/cooklists/create`, params);
-                        errors.name = "asd";
+                        axios.post(`${SERVER_ADDR}/cooklists/create`, params).then(response =>
+                            addCooklist(response.data)
+                        );
+                        setSubmitting(false);
+                        toggleModal();
                     }}
                 >
                     {({values, errors, handleChange, handleBlur, touched, handleSubmit, isSubmitting}) => (
@@ -52,7 +55,7 @@ class AddCooklistModal extends React.Component {
                             </Modal.Body>
 
                             <Modal.Footer>
-                                <Button variant="secondary" className="btn-blue-grey" onClick={this.props.toggleModal}>
+                                <Button variant="secondary" className="btn-blue-grey" onClick={toggleModal}>
                                     <Trans i18nKey="close"/>
                                 </Button>
                                 <Button variant="primary" type="submit" disabled={isSubmitting} className="btn-green">

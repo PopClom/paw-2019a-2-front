@@ -9,7 +9,7 @@ import {SERVER_ADDR} from "../constants";
 import Select from "react-select";
 import {getUser} from "../helpers/auth";
 
-class RecipeToCooklistModal extends React.Component {
+class AddRecipeToCooklistModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -150,4 +150,4 @@ class RecipeToCooklistModal extends React.Component {
     }
 }
 
-export default RecipeToCooklistModal;
+export default AddRecipeToCooklistModal;

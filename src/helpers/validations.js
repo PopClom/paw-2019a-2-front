@@ -106,8 +106,6 @@ export function validateCooklistName(values) {
     let errors = {};
     if(values.name === undefined || (values.name.length < 3 || values.name.length > 100))
         errors.name = 'TODO';
-    console.log(errors);
-    console.log(values);
     return errors;
 }
 
