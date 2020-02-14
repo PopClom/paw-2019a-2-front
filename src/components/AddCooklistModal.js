@@ -4,6 +4,9 @@ import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
 import {validateCooklistName} from "../helpers/validations";
+import axios from "axios";
+import {SERVER_ADDR} from "../constants";
+import * as querystring from "qs";
 
 class AddCooklistModal extends React.Component {
     render() {
@@ -26,12 +29,10 @@ class AddCooklistModal extends React.Component {
                         name: ''
                     }}
                     validate={values => validateCooklistName(values)}
-                    onSubmit={(values, {setSubmitting}) => {
-                        console.log("asdasddsaSAD");
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                        }, 400);
+                    onSubmit={(values, errors, {setSubmitting}) => {
+                        let params = {name: values.name};
+                        axios.post(`${SERVER_ADDR}/cooklists/create`, params);
+                        errors.name = "asd";
                     }}
                 >
                     {({values, errors, handleChange, handleBlur, touched, handleSubmit, isSubmitting}) => (
@@ -43,7 +44,7 @@ class AddCooklistModal extends React.Component {
                                     </Form.Label>
                                     <Form.Control value={values.name} name="name"
                                                   onChange={handleChange}
-                                                  onBlur={handleBlur} isInvalid={touched.name &&!!errors.name}/>
+                                                  onBlur={handleBlur} isInvalid={touched.name && !!errors.name}/>
                                     <Form.Control.Feedback type="invalid">
                                         <Trans>{errors.name}</Trans>
                                     </Form.Control.Feedback>

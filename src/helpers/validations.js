@@ -99,6 +99,22 @@ export function validateIngredientAmount(values){
 
 export function validateCooklistName(values) {
     let errors = {};
-    if(values.name !== undefined && (values.name < 3 || values.name > 100))
-        errors.name = 'TODO'
+    if(values.name === undefined || (values.name.length < 3 || values.name.length > 100))
+        errors.name = 'TODO';
+    console.log(errors);
+    console.log(values);
+    return errors;
+}
+
+export function validateRecipeToCooklist(values, createNewCooklist){
+    let errors = {};
+    if(createNewCooklist)
+        return validateCooklistName(values);
+
+    console.log(values);
+
+    if(values.selectedCooklist === '')
+        errors.selectedCooklist = "TODO";
+
+    return errors;
 }

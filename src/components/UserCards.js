@@ -45,20 +45,23 @@ class UserCards extends React.Component {
                                         <p className="card-text">
                                             <Trans code="AverageRate" values={{0: "TODO"}}/>
                                         </p>
-
-                                        {!isMyUser(user.id) ?
-                                            followsUser(user.id) ?
-                                                <button className="btn-sm btn-outline-light-blue float-right circle-button-user-cards" onClick={(event)=> this.changeFollowState(event, user.id)}>
-                                                    <Trans i18nKey="unfollow"/>
-                                                </button> :
-                                                <button className="btn-sm btn-light-blue float-right circle-button-user-cards" onClick={(event)=> this.changeFollowState(event, user.id)}>
-                                                    <Trans i18nKey="follow"/>
-                                                </button> : ''
-                                        }
-
                                     </div>
                                 </Card.Body>
                             </Link>
+                            <div>
+                                {!isMyUser(user.id) ?
+                                    followsUser(user.id) ?
+                                        <button
+                                            className="btn-sm btn-outline-light-blue float-right circle-button-user-cards"
+                                            onClick={(event) => this.changeFollowState(event, user.id)}>
+                                            <Trans i18nKey="unfollow"/>
+                                        </button> :
+                                        <button className="btn-sm btn-light-blue float-right circle-button-user-cards"
+                                                onClick={(event) => this.changeFollowState(event, user.id)}>
+                                            <Trans i18nKey="follow"/>
+                                        </button> : ''
+                                }
+                            </div>
                         </Card>)}
 
                 </CardDeck>

@@ -17,6 +17,8 @@ import Statistics from "./views/Statistics";
 import RecipeSteps from "./views/RecipeSteps";
 import Users from "./views/Users";
 import Error from "./components/Error";
+import CooklistRecipes from "./views/CooklistRecipes";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
     return (
@@ -44,16 +46,17 @@ const DefaultContainer = () => (
         <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/recipe/:id" component={Recipe}/>
-            <Route exact path="/create_recipe" component={RecipeEditor}/>
-            <Route exact path="/edit_recipe/:recipeId" component={RecipeEditor}/>
-            <Route exact path="/account/:userId" component={Account}/>
-            <Route exact path="/my_account" component={Account}/>
-            <Route exact path="/my_ingredients" component={Ingredients}/>
-            <Route exact path="/my_cooklists" component={Cooklists}/>
-            <Route exact path="/cooklists/:userId" component={Cooklists}/>
-            <Route exact path="/statistics" component={Statistics}/>
+            <PrivateRoute exact path="/create_recipe" component={RecipeEditor}/>
+            <PrivateRoute exact path="/edit_recipe/:recipeId" component={RecipeEditor}/>
+            <PrivateRoute exact path="/account/:userId" component={Account}/>
+            <PrivateRoute exact path="/my_account" component={Account}/>
+            <PrivateRoute exact path="/my_ingredients" component={Ingredients}/>
+            <PrivateRoute exact path="/my_cooklists" component={Cooklists}/>
+            <PrivateRoute exact path="/cooklists/:userId" component={Cooklists}/>
+            <PrivateRoute exact path="/cooklist/:cooklistId" component={CooklistRecipes}/>
+            <PrivateRoute exact path="/statistics" component={Statistics}/>
             <Route exact path="/recipestep" component={RecipeSteps}/>
-            <Route exact path="/users" component={Users}/>
+            <PrivateRoute exact path="/users" component={Users}/>
 
             <Route render={() =>
                 <section className="main_container">

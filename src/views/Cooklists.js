@@ -22,12 +22,16 @@ class Cooklists extends React.Component {
     }
 
     componentDidMount() {
-        const userId = this.props.match.params.userId;
-        if (userId !== undefined)
+        let userId = this.props.match.params.userId;
+        if (userId === undefined) {
+            userId = getUser().id;
+            this.setState({user: getUser()})
+        } else {
             axios.get(`${SERVER_ADDR}/users/${userId}`).then(response =>
-                this.setState({user: response.data, fetching: false}));
-        else
-            this.setState({user: getUser(), fetching: false})
+                this.setState({user: response.data}));
+        }
+        axios.get(`${SERVER_ADDR}/cooklists/user/${userId}`).then(response =>
+            this.setState({cooklists: response.data.cooklists, fetching: false}, () => console.log(this.state.cooklists)));
     }
 
     toggleAddModal = () => {
@@ -35,7 +39,7 @@ class Cooklists extends React.Component {
     };
 
     render() {
-        const {fetching, cooklists, userId, showAddModal, user} = this.state;
+        const {fetching, cooklists, showAddModal, user} = this.state;
 
         return (
 
@@ -46,30 +50,31 @@ class Cooklists extends React.Component {
                             <Spinner/>
                         </section> :
                         <section>
-                            {isMyUser(userId) ?
+                            {isMyUser(user.id) ?
                                 <h4 className="navigation-title pt-3"><Trans i18nKey="myCooklists"/></h4>
                                 :
                                 /*TODO*/
-                                <h4 className="navigation-title pt-3"><Trans i18nKey="cooklist.title" values={{0:  "NOMBRE DE USUARIO"}}/></h4>
+                                <h4 className="navigation-title pt-3"><Trans i18nKey="cooklist.title"
+                                                                             values={{0: user.username}}/></h4>
                             }
                             <section className="browse">
 
-                                {Array.isArray(cooklists) && cooklists.length ?
+                                {cooklists.length === 0 ?
                                     (
-                                        isMyUser(userId) ?
+                                        isMyUser(user.id) ?
                                             <h3 className="navigation-subtitle">
                                                 <Trans i18nKey="noCookListsMy"/>
                                             </h3>
                                             :
                                             <h3 className="navigation-subtitle">
-                                                <Trans i18nKey="noCookLists" arguments="${user.username}"/>
+                                                <Trans i18nKey="noCookLists" values={{0: user.username}}/>
                                             </h3>
                                     ) : ''
                                 }
 
                                 <div className="card-deck">
                                     {Object.keys(cooklists).map(idx => <SimpleCard key={idx} title={cooklists[idx].name}
-                                                                                   link={`/recipe/${cooklists[idx].id}`}/>)}
+                                                                                   link={`/cooklist/${cooklists[idx].id}`}/>)}
                                 </div>
                             </section>
                             <UserBar user={user}/>

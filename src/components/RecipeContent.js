@@ -10,8 +10,20 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from "@material-ui/core/IconButton";
+import RecipeToCooklistModal from "./RecipeToCooklistModal";
+import ConfirmationModal from "./ConfirmationModal";
 
 class RecipeContent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showAddModal: false,
+        }
+    }
+
+    toggleAddModal = () => {
+        this.setState({showAddModal: !this.state.showAddModal});
+    };
 
     render() {
         const {recipe, onRate} = this.props;
@@ -142,13 +154,14 @@ class RecipeContent extends React.Component {
                             }
 
                             <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
-                                <IconButton>
+                                <IconButton onClick={this.toggleAddModal}>
                                     <AddCircleIcon className="add-icon-cooklist"/>
                                 </IconButton>}
                             />
                         </div>
                     </div>
                 </div>
+                <RecipeToCooklistModal recipeId={recipe.id} showModal={this.state.showAddModal} toggleModal={this.toggleAddModal}/>
             </div>
         )
             ;
