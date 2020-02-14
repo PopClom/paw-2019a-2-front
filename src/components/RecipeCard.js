@@ -32,7 +32,7 @@ class RecipeCard extends React.Component {
             <Card className="card-recipe">
                 <Link className="custom-card" to={`/recipe/${recipe.id}`}>
                     <Card.Img variant="top"
-                              src={recipe.encodedImage ? `data:image/png;base64,${recipe.encodedImage}` : noRecipeImg}
+                              src={recipe.image ? `data:image/png;base64,${recipe.image}` : noRecipeImg}
                               alt={recipe.name}/>
                     <Card.Body>
                         <h4 className="card-title recipe-card-title"><strong>
