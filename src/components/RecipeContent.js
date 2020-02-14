@@ -25,7 +25,7 @@ class RecipeContent extends React.Component {
                     <div className="recipe-image-container">
                         <div className="recipe-image-container-sub">
                             <img className="card-img-top"
-                                 src={recipe.encodedImage ? `data:image/png;base64,${recipe.encodedImage}` :
+                                 src={recipe.image ? `data:image/png;base64,${recipe.image}` :
                                      noRecipeImg}
                                  alt={recipe.name}/>
                             <div className="ingredients-tags-div">
