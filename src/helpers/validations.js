@@ -84,6 +84,14 @@ export function validateIngredients(value){
     return error;
 }
 
+export function validateIngredientsAdd(values){
+    let errors = {};
+    let ingredientsError = validateIngredients(values.ingredients);
+    if(ingredientsError.length > 0)
+        errors.ingredients = ingredientsError;
+    return errors;
+}
+
 export function validateSteps(value){
     let error = [];
     value.forEach(function (step, index) {

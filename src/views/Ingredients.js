@@ -26,22 +26,25 @@ class Ingredients extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
-            response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-            response.data.ingredients.forEach(function (ingredient) {
-                ingredient.amount = 5;
-            });
-            this.setState({ingredients: response.data.ingredients});
+        axios.get(`${SERVER_ADDR}/ingredient`).then(response => {
+            this.setState({ingredients: response.data.ingredients.sort(
+                (a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)), fetching: false})
         });
-
-        this.setState({fetching: false});
     }
 
+    editIngredient = (ingredient, amount) => {
+        let newIngredient = ingredient;
+        newIngredient.amount = amount;
+        axios.post(`${SERVER_ADDR}/ingredient/edit`, newIngredient).then(() => ingredient.amount = amount);
+    };
+
     removeIngredient = (ingredientToRemove) => {
-        let ingredients = this.state.ingredients.filter(function(ingredient){
-            return ingredient.id != ingredientToRemove.id;
+        axios.delete(`${SERVER_ADDR}/ingredient/delete/${ingredientToRemove.id}`).then(() => {
+            let ingredients = this.state.ingredients.filter(function (ingredient) {
+                return ingredient.id != ingredientToRemove.id;
+            });
+            this.setState({ingredients});
         });
-        this.setState({ingredients});
     };
 
     setSelectedIngredient = (ingredient) => {
@@ -61,10 +64,25 @@ class Ingredients extends React.Component {
         this.setState({showDeleteModal: !this.state.showDeleteModal});
     };
 
+    addIngredients = (ingredients) => {
+        let stateIngredients = this.state.ingredients;
+        ingredients.forEach((newIngredient) => {
+            let isPresent = false;
+            stateIngredients.forEach((oldIngredient) => {
+                if (oldIngredient.id === newIngredient.id) {
+                    isPresent = true;
+                    oldIngredient.amount = (+oldIngredient.amount) + +(newIngredient.amount);
+                }
+            });
+            if (!isPresent)
+                stateIngredients.push(newIngredient);
+        });
+        this.setState({ingredients: stateIngredients});
+    };
+
     render() {
         const {t} = this.props;
         const {fetching, ingredients, selectedIngredient} = this.state;
-        console.log(ingredients);
 
         return (
             <section>
@@ -73,36 +91,43 @@ class Ingredients extends React.Component {
                     <h4 className="navigation-title pt-3">
                         <Trans i18nKey="myIngredients"/>
                     </h4>
-                    <section className="browse">
+                    {fetching ? <Spinner/> :
+                        <section className="browse">
 
-                        {!ingredients || !ingredients.length ?
-                            <h3 className="navigation-subtitle">
-                                <Trans i18nKey="noIngredients"/>
-                            </h3> : ''}
+                            {!ingredients || !ingredients.length ?
+                                <h3 className="navigation-subtitle">
+                                    <Trans i18nKey="noIngredients"/>
+                                </h3> : ''}
 
-                        <div className="card">
+                            <div className="card">
 
-                            {fetching ? <Spinner/> :
 
                                 <ul className="cookListRecipes-group list-group">
                                     {Object.keys(ingredients).map(index =>
-                                        <IngredientRow key={index} ingredient={ingredients[index]} removeIngredient={this.removeIngredient}
-                                                       setSelectedIngredient={this.setSelectedIngredient} toggleEditModal={this.toggleEditModal} toggleDeleteModal={this.toggleDeleteModal}/>
+                                        <IngredientRow key={index} ingredient={ingredients[index]}
+                                                       setSelectedIngredient={this.setSelectedIngredient}
+                                                       toggleEditModal={this.toggleEditModal}
+                                                       toggleDeleteModal={this.toggleDeleteModal}/>
                                     )}
                                 </ul>
-                            }
-                        </div>
-                    </section>
+                            </div>
+                        </section>
+                    }
 
                     <UserBar user={getUser()}/>
 
                 </section>
 
-                <AddIngredientsModal showModal={this.state.showAddModal} toggleModal={this.toggleAddModal}/>
-                <EditIngredientAmountModal ingredient={selectedIngredient} showModal={this.state.showEditModal} toggleModal={this.toggleEditModal}/>
-                <ConfirmationModal title={<Trans i18nKey="ingredient.deleteWarning" values={{0: selectedIngredient.name}}/>} description={<Trans>cantUndone</Trans>}
-                                   variant="danger" showModal={this.state.showDeleteModal}
-                                   toggleModal={this.toggleDeleteModal} onConfirmation={() => this.removeIngredient(selectedIngredient)}/>
+                <AddIngredientsModal showModal={this.state.showAddModal} toggleModal={this.toggleAddModal}
+                                     addIngredients={this.addIngredients}/>
+                <EditIngredientAmountModal ingredient={selectedIngredient} showModal={this.state.showEditModal}
+                                           toggleModal={this.toggleEditModal} onEditIngredient={this.editIngredient}/>
+                <ConfirmationModal
+                    title={<Trans i18nKey="ingredient.deleteWarning" values={{0: selectedIngredient.name}}/>}
+                    description={<Trans>cantUndone</Trans>}
+                    variant="danger" showModal={this.state.showDeleteModal}
+                    toggleModal={this.toggleDeleteModal}
+                    onConfirmation={() => this.removeIngredient(selectedIngredient)}/>
 
                 <Button className="btn-green add" onClick={this.toggleAddModal}>
                     +

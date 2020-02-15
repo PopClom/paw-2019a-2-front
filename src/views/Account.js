@@ -47,7 +47,7 @@ class Account extends React.Component {
                     <section>
                         <h4 className="navigation-title pt-3">
                             {isMyUser(user.id) ? <Trans>myAccount</Trans> :
-                                <Trans i18nKey='otherUserAccount' values={{0: 'TODO'}}/>}
+                                <Trans i18nKey='otherUserAccount' values={{0: user.username}}/>}
                         </h4>
 
                         <section className="browse">
@@ -56,13 +56,13 @@ class Account extends React.Component {
                                 {/*Recipes*/}
                                 <SimpleCard title={<Trans>recipes</Trans>}
                                             description={isMyUser(user.id) ? <Trans>myRecipesExplanation</Trans> :
-                                                <Trans>recipesExplanation</Trans>}
+                                                <Trans i18nKey="recipesExplanation" values={{0: user.username}}/>}
                                             image={RecipesImg} link={`/user/${user.id}/recipes`}/>
 
                                 {/*Cooklists*/}
                                 <SimpleCard title={<Trans>lists</Trans>}
                                             description={isMyUser(user.id) ? <Trans>myListsExplanation</Trans> :
-                                                <Trans>listsExplanation</Trans>}
+                                                <Trans i18nKey="listsExplanation" values={{0: user.username}}/>}
                                             image={CooklistsImg} link={`/cooklists/${user.id}`}/>
 
                                 {isMyUser(user.id) ?
@@ -74,15 +74,14 @@ class Account extends React.Component {
                                 <SimpleCard title={<Trans>recentlyCooked</Trans>}
                                             description={isMyUser(user.id) ?
                                                 <Trans>MyrecentlyCookedExplanation</Trans> :
-                                                <Trans i18nKey='recentlyCookedExplanation'
-                                                       values={{0: 'user.username'}}/>}
+                                                <Trans i18nKey='recentlyCookedExplanation' values={{0: user.username}}/>}
                                             image={RecentlyCookedImg} link={`/recently_cooked/${user.id}`}/>
 
                                 <SimpleCard title={<Trans>favouriteRecipes</Trans>}
                                             description={isMyUser(user.id) ?
                                                 <Trans>myFavouriteRecipesExplanation</Trans> :
                                                 <Trans i18nKey='FavouriteRecipesExplanation'
-                                                       values={{0: 'user.username'}}/>}
+                                                       values={{0: user.username}}/>}
                                             image={FavouritesRecipesImg} link={`/favourites_recipes/${user.id}`}/>
 
                                 {isMyUser(user.id) ?

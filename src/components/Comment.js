@@ -5,8 +5,21 @@ import {Trans} from "react-i18next";
 import TooltipHover from "./TooltipHover";
 import {isMyUser, userIsAdmin} from "../helpers";
 import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from "@material-ui/core/IconButton";
+import ConfirmationModal from "./ConfirmationModal";
 
 class Comment extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            showDeleteModal: false,
+        };
+    };
+
+    toggleDeleteModal = () => {
+        this.setState({showDeleteModal: !this.state.showDeleteModal});
+    };
+
     render() {
         const {username, userId, id, date, message} = this.props.comment;
         const canEdit = isMyUser(userId) || userIsAdmin();
@@ -29,10 +42,9 @@ class Comment extends React.Component {
                     </div>
                     {canEdit && <div className="float-right">
                         <TooltipHover placement="top" message={<Trans>comment.delete</Trans>} icon={
-                            <button type="submit" className="bg-transparent" onClick={() => this.props.onDelete(id)}>
-                                {/*onClick={show_delete_comment(${comment.id})}>*/}
+                            <IconButton className="myingredient-btn" onClick={this.toggleDeleteModal}>
                                 <DeleteIcon className="delete-ingredient-icon"/>
-                            </button>}
+                            </IconButton>}
                         />
                     </div>}
                 </div>
@@ -41,6 +53,12 @@ class Comment extends React.Component {
                         {message}
                     </p>
                 </div>
+                <ConfirmationModal
+                    title={<Trans i18nKey="comment.delete"/>}
+                    description={<Trans>comment.deleteWarning</Trans>}
+                    variant="danger" showModal={this.state.showDeleteModal}
+                    toggleModal={this.toggleDeleteModal}
+                    onConfirmation={() => this.props.onDelete(id)}/>
             </div>);
     }
 }

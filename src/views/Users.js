@@ -11,17 +11,18 @@ import {Doughnut, HorizontalBar} from "react-chartjs-2";
 import UserCards from "../components/UserCards";
 import UserFilters from "../components/UserFilters";
 import {getUser} from "../helpers/auth";
+import {onChange} from "../helpers";
 
 class Users extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             fetching: true,
-            users: [{id: 0, username: "miguel"}, {id: 1, username: 'miguel'}, {id: 2, username: 'miguel'}, {
+            myUser: getUser(),
+            users: [{id: 1, username: 'miguel'}, {id: 2, username: 'miguel'}, {
                 id: 3,
                 username: 'miguel'
-            }, {id: 4, username: 'miguel'}]
-
+            }]
         };
     }
 
@@ -29,8 +30,8 @@ class Users extends React.Component {
     }
 
     render() {
+        const {myUser} = this.state;
 
-        console.log(getUser());
         return (
             <section className="main_container">
                 <h4 className="navigation-title pt-3">
@@ -43,21 +44,21 @@ class Users extends React.Component {
                         <Tab eventKey="All" title={<Trans i18nKey="allUsers"/>}>
                             <Tab.Content>
                                 <div className="tab-users-content">
-                                    <UserCards users={this.state.users}/>
+                                    <UserCards users={this.state.users} myUser={myUser} onChange={onChange.bind(this)}/>
                                 </div>
                             </Tab.Content>
                         </Tab>
                         <Tab eventKey="Followers" title={<Trans i18nKey="followers"/>}>
                             <Tab.Content>
                                 <div className="tab-users-content">
-                                    <UserCards users={getUser().followers.users}/>
+                                    <UserCards users={myUser.followers.users} myUser={myUser} onChange={onChange.bind(this)}/>
                                 </div>
                             </Tab.Content>
                         </Tab>
                         <Tab eventKey="Following" title={<Trans i18nKey="following"/>}>
                             <Tab.Content>
                                 <div className="tab-users-content">
-                                    <UserCards users={getUser().following.users}/>
+                                    <UserCards users={myUser.following.users} myUser={myUser} onChange={onChange.bind(this)}/>
                                 </div>
                             </Tab.Content>
                         </Tab>

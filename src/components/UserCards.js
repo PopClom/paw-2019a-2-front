@@ -5,23 +5,37 @@ import RecipeCard from "./RecipeCard";
 import {Link} from "react-router-dom";
 import UserImg from "../assets/img/user.png"
 import {getUser} from "../helpers/auth";
-import {followsUser, isMyUser} from "../helpers";
+import {isFollowingUser, isMyUser} from "../helpers";
+import axios from "axios";
+import {SERVER_ADDR} from "../constants";
 
 class UserCards extends React.Component {
 
-    changeFollowState = (event, userId) => {
-        event.preventDefault();
+    followUser = (user) => {
+        axios.post(`${SERVER_ADDR}/users/follow/${user.id}`).then(() => {
+            let updateUser = this.props.myUser;
+            updateUser.following.users.push(user);
+            this.props.onChange({myUser: updateUser});
+        });
+    };
+
+    unfollowUser = (user) => {
+        axios.post(`${SERVER_ADDR}/users/unfollow/${user.id}`).then(() => {
+            let updateUser = this.props.myUser;
+            updateUser.following.users = updateUser.following.users.filter(userFollowing => userFollowing.id !== user.id);
+            this.props.onChange({myUser: updateUser});
+        });
     };
 
     render() {
-        const {users} = this.props;
+        const {users, myUser} = this.props;
 
         return (
             <div>
                 {users.length === 0 ?
                     <h3 className="navigation-subtitle">
                         <Trans i18nKey="NoUsersMatchingFilter"/>
-                    </h3> : ''}
+                    </h3> :
 
                 <CardDeck>
 
@@ -50,21 +64,21 @@ class UserCards extends React.Component {
                             </Link>
                             <div>
                                 {!isMyUser(user.id) ?
-                                    followsUser(user.id) ?
+                                    isFollowingUser(myUser, user.id) ?
                                         <button
                                             className="btn-sm btn-outline-light-blue float-right circle-button-user-cards"
-                                            onClick={(event) => this.changeFollowState(event, user.id)}>
+                                            onClick={() => this.unfollowUser(user)}>
                                             <Trans i18nKey="unfollow"/>
                                         </button> :
                                         <button className="btn-sm btn-light-blue float-right circle-button-user-cards"
-                                                onClick={(event) => this.changeFollowState(event, user.id)}>
+                                                onClick={() => this.followUser(user)}>
                                             <Trans i18nKey="follow"/>
                                         </button> : ''
                                 }
                             </div>
                         </Card>)}
 
-                </CardDeck>
+                </CardDeck>}
             </div>
         );
     }

@@ -5,7 +5,7 @@ import RecipeCard from "./RecipeCard";
 import {Link} from "react-router-dom";
 import UserImg from "../assets/img/user.png"
 import {getUser} from "../helpers/auth";
-import {followsUser, isMyUser} from "../helpers";
+import {isFollowingUser, isMyUser} from "../helpers";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 

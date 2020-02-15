@@ -1,4 +1,6 @@
 import {getUser, isLoggedIn} from "./auth";
+import axios from "axios";
+import {SERVER_ADDR} from "../constants";
 
 export const formatNumber = (value, decimals = 0) => {
     return value.toFixed(decimals);
@@ -38,7 +40,8 @@ export function isUserBanned(user) {
     return user.status !== "REGULAR";
 }
 
-//TODO
-export function followsUser(id) {
-    return true;
+export function isFollowingUser(user, userId) {
+    if(user === undefined)
+        return false;
+    return user.following.users.some(user => user.id === userId);
 }

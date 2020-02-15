@@ -97,7 +97,7 @@ i18n
                     "recipesExplanation": "See the recipes created by {{0}}",
                     "myRecipesExplanation": "See the recipes created by you",
                     "myListsExplanation": "Here you can find recipes of your own and from others, all chosen by you",
-                    "listsExplanation": "Here you can find {{0}}''s cookLists",
+                    "listsExplanation": "Here you can find {{0}}'s cookLists",
                     "myIngredientsExplanation": "See and modify the ingredients you have in your fridge",
                     "myFavouriteRecipesExplanation": "Here you find  recipes that you rated with at least 4 stars",
                     "noIngredients": "You don't have any ingredients, add one now with the green button",

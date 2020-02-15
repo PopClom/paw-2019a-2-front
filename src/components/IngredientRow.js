@@ -14,7 +14,7 @@ class IngredientRow extends React.Component {
     }
 
     render() {
-        const {ingredient} = this.props;
+        const {ingredient, toggleDeleteModal, toggleEditModal, setSelectedIngredient} = this.props;
 
         return (
             <li className="cookListRecipes-group-item list-group-item">
@@ -26,14 +26,14 @@ class IngredientRow extends React.Component {
                 <div className="float-right">
                     <div className="float-right">
                         <TooltipHover placement="top" message={<Trans>ingredient.delete</Trans>} icon={
-                            <IconButton className="myingredient-btn" onClick={() => {this.props.toggleDeleteModal(); this.props.setSelectedIngredient(ingredient);}}>
+                            <IconButton className="myingredient-btn" onClick={() => {toggleDeleteModal(); setSelectedIngredient(ingredient);}}>
                                 <DeleteIcon className="delete-ingredient-icon"/>
                             </IconButton>}
                         />
                     </div>
                     <div className="float-right">
                         <TooltipHover placement="top" message={<Trans>ingredient.editAmount</Trans>} icon={
-                            <IconButton className="myingredient-btn" onClick={() => {this.props.toggleEditModal(); this.props.setSelectedIngredient(ingredient);}}>
+                            <IconButton className="myingredient-btn" onClick={() => {toggleEditModal(); setSelectedIngredient(ingredient);}}>
                                 <EditIcon className="edit-ingredient-icon"/>
                             </IconButton>}
                         />

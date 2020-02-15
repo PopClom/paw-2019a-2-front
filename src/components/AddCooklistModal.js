@@ -6,11 +6,11 @@ import {Formik} from "formik";
 import {validateCooklistName} from "../helpers/validations";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
-import * as querystring from "qs";
 
 class AddCooklistModal extends React.Component {
     render() {
-        const {showModal, toggleModal, addCooklist} = this.props;
+        const {showModal, toggleModal, addCooklist, editCooklist, cooklist} = this.props;
+        const isCreating = cooklist === undefined;
 
         if (!this.props.showModal) {
             return null;
@@ -26,14 +26,23 @@ class AddCooklistModal extends React.Component {
                 </Modal.Header>
                 <Formik
                     initialValues={{
-                        name: ''
+                        name: cooklist.name,
                     }}
                     validate={values => validateCooklistName(values)}
                     onSubmit={(values, {setSubmitting}) => {
                         let params = {name: values.name};
-                        axios.post(`${SERVER_ADDR}/cooklists/create`, params).then(response =>
-                            addCooklist(response.data)
-                        );
+                        if(isCreating){
+                            axios.post(`${SERVER_ADDR}/cooklists/create`, params).then(response =>
+                                addCooklist(response.data)
+                            );
+                        }
+                        else {
+                            console.log("Editando");
+                            params.id = cooklist.id;
+                            axios.post(`${SERVER_ADDR}/cooklists/edit`, params).then(response =>
+                                editCooklist(params)
+                            );
+                        }
                         setSubmitting(false);
                         toggleModal();
                     }}

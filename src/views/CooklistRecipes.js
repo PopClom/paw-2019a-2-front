@@ -30,16 +30,25 @@ class CooklistRecipes extends React.Component {
     componentDidMount() {
         let cooklistId = this.props.match.params.cooklistId;
         axios.get(`${SERVER_ADDR}/cooklists/${cooklistId}`).then(response =>
-            this.setState({cooklist: response.data, fetching: false}));
-
+            this.setState({cooklist: response.data, fetching: false}, () => console.log(response.data)));
     }
 
     deleteCooklist = () => {
-        console.log("BORRAR COOKLIST")
+        axios.delete(`${SERVER_ADDR}/cooklists/delete/${this.state.cooklist.id}`).then(() => {
+            this.props.history.push(`/cooklists/${this.state.cooklist.user.id}`);
+        });
     };
 
-    deleteRecipeFromCooklist = () => {
-        console.log("REMOVER RECETA");
+    deleteRecipeFromCooklist = (recipeId) => {
+        axios.delete(`${SERVER_ADDR}/cooklists/${this.state.cooklist.id}/delete/${recipeId}`).then(() => {
+            let newCooklist = this.state.cooklist;
+            newCooklist.recipes = newCooklist.recipes.filter((recipe) => recipe.id !== recipeId);
+            this.setState({cooklist: newCooklist});
+        }).catch(error => {
+            console.log("error");
+            console.log(error.response.status);
+        });
+
     };
 
     toggleEditModal = () => {
@@ -48,6 +57,15 @@ class CooklistRecipes extends React.Component {
 
     toggleDeleteModal = () => {
         this.setState({showDeleteModal: !this.state.showDeleteModal});
+    };
+
+    onEditCooklist = (cooklist) => {
+        this.setState({
+            cooklist: {
+                ...this.state.cooklist,
+                name: cooklist.name,
+            }
+        })
     };
 
     render() {
@@ -105,6 +123,8 @@ class CooklistRecipes extends React.Component {
                         </section>}
                 </section>
 
+                <AddCooklistModal showModal={showEditModal} toggleModal={this.toggleEditModal} cooklist={cooklist}
+                                  editCooklist={this.onEditCooklist}/>
 
                 <ConfirmationModal title={<Trans i18nKey="cooklist.delete"/>}
                                    description={<Trans i18nKey="cooklist.deleteWarning"
