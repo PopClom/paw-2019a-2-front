@@ -8,18 +8,20 @@ import {validateIngredientAmount, validateIngredients} from "../helpers/validati
 import TooltipHover from "./TooltipHover";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import {SERVER_ADDR} from "../constants";
 
 class EditIngredientAmountModal extends React.Component {
     render() {
-        const {ingredient} = this.props;
+        const {showModal, toggleModal, ingredient, onEditIngredient} = this.props;
 
-        if (!this.props.showModal) {
+        if (!showModal) {
             return null;
         }
 
         return (
 
-            <Modal show={this.props.showModal} onHide={this.props.toggleModal}>
+            <Modal show={showModal} onHide={toggleModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <Trans i18nKey="addIngredient.title"/>
@@ -31,11 +33,9 @@ class EditIngredientAmountModal extends React.Component {
                     }}
                     validate={values => validateIngredientAmount(values)}
                     onSubmit={(values, {setSubmitting}) => {
-                        console.log("asdasddsaSAD");
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                        }, 400);
+                        onEditIngredient(ingredient, values.amount);
+                        setSubmitting(false);
+                        toggleModal();
                     }}
                 >
                     {({values, errors, handleChange, handleBlur, touched, handleSubmit, isSubmitting}) => (
@@ -44,6 +44,7 @@ class EditIngredientAmountModal extends React.Component {
                                 <Form.Row className="mb-4">
                                     <Form.Label>
                                         <Trans i18nKey="addIngredient.amount"/>
+                                        &ensp;<Trans>({ingredient.typeOfServing})</Trans>
                                     </Form.Label>
                                     <Form.Control value={values.amount} type="number" step="0.01" name="amount"
                                                   onChange={handleChange}
@@ -55,7 +56,7 @@ class EditIngredientAmountModal extends React.Component {
                             </Modal.Body>
 
                             <Modal.Footer>
-                                <Button variant="secondary" className="btn-blue-grey" onClick={this.props.toggleModal}>
+                                <Button variant="secondary" className="btn-blue-grey" onClick={toggleModal}>
                                     <Trans i18nKey="close"/>
                                 </Button>
                                 <Button variant="primary" type="submit" disabled={isSubmitting} className="btn-green">

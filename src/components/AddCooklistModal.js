@@ -4,10 +4,13 @@ import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
 import {validateCooklistName} from "../helpers/validations";
+import axios from "axios";
+import {SERVER_ADDR} from "../constants";
 
 class AddCooklistModal extends React.Component {
     render() {
-        const {ingredient} = this.props;
+        const {showModal, toggleModal, addCooklist, editCooklist, cooklist} = this.props;
+        const isCreating = cooklist === undefined;
 
         if (!this.props.showModal) {
             return null;
@@ -15,7 +18,7 @@ class AddCooklistModal extends React.Component {
 
         return (
 
-            <Modal show={this.props.showModal} onHide={this.props.toggleModal}>
+            <Modal show={showModal} onHide={toggleModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <Trans i18nKey="cooklist.addTitle"/>
@@ -23,15 +26,25 @@ class AddCooklistModal extends React.Component {
                 </Modal.Header>
                 <Formik
                     initialValues={{
-                        name: ''
+                        name: cooklist.name,
                     }}
                     validate={values => validateCooklistName(values)}
                     onSubmit={(values, {setSubmitting}) => {
-                        console.log("asdasddsaSAD");
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                        }, 400);
+                        let params = {name: values.name};
+                        if(isCreating){
+                            axios.post(`${SERVER_ADDR}/cooklists/create`, params).then(response =>
+                                addCooklist(response.data)
+                            );
+                        }
+                        else {
+                            console.log("Editando");
+                            params.id = cooklist.id;
+                            axios.post(`${SERVER_ADDR}/cooklists/edit`, params).then(response =>
+                                editCooklist(params)
+                            );
+                        }
+                        setSubmitting(false);
+                        toggleModal();
                     }}
                 >
                     {({values, errors, handleChange, handleBlur, touched, handleSubmit, isSubmitting}) => (
@@ -43,7 +56,7 @@ class AddCooklistModal extends React.Component {
                                     </Form.Label>
                                     <Form.Control value={values.name} name="name"
                                                   onChange={handleChange}
-                                                  onBlur={handleBlur} isInvalid={touched.name &&!!errors.name}/>
+                                                  onBlur={handleBlur} isInvalid={touched.name && !!errors.name}/>
                                     <Form.Control.Feedback type="invalid">
                                         <Trans>{errors.name}</Trans>
                                     </Form.Control.Feedback>
@@ -51,7 +64,7 @@ class AddCooklistModal extends React.Component {
                             </Modal.Body>
 
                             <Modal.Footer>
-                                <Button variant="secondary" className="btn-blue-grey" onClick={this.props.toggleModal}>
+                                <Button variant="secondary" className="btn-blue-grey" onClick={toggleModal}>
                                     <Trans i18nKey="close"/>
                                 </Button>
                                 <Button variant="primary" type="submit" disabled={isSubmitting} className="btn-green">

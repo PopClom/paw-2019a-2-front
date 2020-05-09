@@ -9,6 +9,7 @@ import UserCards from "../components/UserCards";
 import UserFilters from "../components/UserFilters";
 import {getUser, refresh} from "../helpers/auth";
 
+
 class Users extends React.Component {
     constructor(props) {
         super(props);

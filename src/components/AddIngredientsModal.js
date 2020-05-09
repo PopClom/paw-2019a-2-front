@@ -4,7 +4,9 @@ import IngredientSelector from "./IngredientSelector";
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
-import {validateIngredients} from "../helpers/validations";
+import {validateIngredients, validateIngredientsAdd} from "../helpers/validations";
+import axios from "axios";
+import {SERVER_ADDR} from "../constants";
 
 class AddIngredientsModal extends React.Component {
     constructor(props) {
@@ -15,7 +17,7 @@ class AddIngredientsModal extends React.Component {
     }
 
     render() {
-        const {ingredients} = this.state;
+        const {toggleModal, showModal, addIngredients} = this.props;
 
         if (!this.props.showModal) {
             return null;
@@ -23,7 +25,7 @@ class AddIngredientsModal extends React.Component {
 
         return (
 
-            <Modal show={this.props.showModal} onHide={this.props.toggleModal}>
+            <Modal show={showModal} onHide={toggleModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <Trans i18nKey="addIngredient.title"/>
@@ -31,27 +33,27 @@ class AddIngredientsModal extends React.Component {
                 </Modal.Header>
                 <Formik
                     initialValues={{
-                        ingredients
+                        ingredients: []
                     }}
-                    validate={values => validateIngredients(values)}
+                    validate={values => validateIngredientsAdd(values)}
                     onSubmit={(values, {setSubmitting}) => {
-                        console.log("asdasddsaSAD");
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                        }, 400);
+                        axios.post(`${SERVER_ADDR}/ingredient/add`, {ingredients: values.ingredients}).then(()=> {
+                            addIngredients(values.ingredients);
+                        });
+                        setSubmitting(false);
+                        toggleModal();
                     }}
                 >
-                    {({errors, handleSubmit, isSubmitting, setFieldValue}) => (
+                    {({errors, handleSubmit, isSubmitting, validateForm, values}) => (
                         <Form onSubmit={handleSubmit}>
                             <Modal.Body>
-                                <IngredientSelector name="ingredients"
-                                                    onChange={(ingredients) => setFieldValue("ingredients", ingredients)}
+                                <IngredientSelector name="ingredients" ingredients={values.ingredients}
+                                                    onChange={() => validateForm()}
                                                     error={errors.ingredients}/>
                             </Modal.Body>
 
                             <Modal.Footer>
-                                <Button variant="secondary" className="btn-blue-grey" onClick={this.props.toggleModal}>
+                                <Button variant="secondary" className="btn-blue-grey" onClick={toggleModal}>
                                     <Trans i18nKey="close"/>
                                 </Button>
                                 <Button variant="primary" type="submit" disabled={isSubmitting} className="btn-green">

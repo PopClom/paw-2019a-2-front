@@ -1,12 +1,31 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import noRecipeImg from '../assets/img/no_recipe_image.png';
 import RatingCard from "./RatingCard";
 import {Card} from "react-bootstrap";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import ConfirmationModal from "./ConfirmationModal";
+import {Trans} from "react-i18next";
 
 class RecipeCard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showDeleteModal: false,
+        }
+    }
+
+    toggleDeleteModal = () => {
+        this.setState({showDeleteModal: !this.state.showDeleteModal});
+    };
+
+    onConfirmation = (recipeId) => {
+        this.props.onDelete(recipeId);
+    };
+
     render() {
-        const {recipe} = this.props;
+        const {recipe, onDelete} = this.props;
 
         return (
             <Card className="card-recipe">
@@ -32,6 +51,17 @@ class RecipeCard extends React.Component {
                         </div>
                     </Card.Body>
                 </Link>
+                {onDelete !== undefined ?
+                    <div className="delete-from-cooklist">
+                        <IconButton onClick={this.toggleDeleteModal}>
+                            <DeleteIcon className="delete-ingredient-icon"/>
+                        </IconButton>
+                        <ConfirmationModal title={<Trans i18nKey="cooklist.removeRecipe"/>} description={<Trans i18nKey="cooklist.removeRecipeWarning" values={{recipeName: recipe.name}}/>}
+                                           variant="danger" showModal={this.state.showDeleteModal}
+                                           toggleModal={this.toggleDeleteModal} onConfirmation={() => this.onConfirmation(recipe.id)}/>
+                    </div>
+                    : ''
+                }
             </Card>
         );
     }

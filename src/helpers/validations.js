@@ -84,6 +84,14 @@ export function validateIngredients(value){
     return error;
 }
 
+export function validateIngredientsAdd(values){
+    let errors = {};
+    let ingredientsError = validateIngredients(values.ingredients);
+    if(ingredientsError.length > 0)
+        errors.ingredients = ingredientsError;
+    return errors;
+}
+
 export function validateSteps(value){
     let error = [];
     value.forEach(function (step, index) {
@@ -104,6 +112,20 @@ export function validateIngredientAmount(values){
 
 export function validateCooklistName(values) {
     let errors = {};
-    if(values.name !== undefined && (values.name < 3 || values.name > 100))
-        errors.name = 'TODO'
+    if(values.name === undefined || (values.name.length < 3 || values.name.length > 100))
+        errors.name = 'TODO';
+    return errors;
+}
+
+export function validateRecipeToCooklist(values, createNewCooklist){
+    let errors = {};
+    if(createNewCooklist)
+        return validateCooklistName(values);
+
+    console.log(values);
+
+    if(values.selectedCooklist === '')
+        errors.selectedCooklist = "TODO";
+
+    return errors;
 }
