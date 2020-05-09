@@ -58,7 +58,6 @@ class RecipeStep extends React.Component {
                     </h4>
                 </div>
 
-
                 <div className="step-description">
                     <p className="recipe-description">
                         {step.description}

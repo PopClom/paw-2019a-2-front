@@ -9,10 +9,9 @@ import {isLoggedIn} from "../helpers/auth";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import RecipeSteps from "../views/RecipeSteps";
+import RecipeSteps from "./RecipeSteps";
 import IconButton from "@material-ui/core/IconButton";
 import AddRecipeToCooklistModal from "./AddRecipeToCooklistModal";
-import ConfirmationModal from "./ConfirmationModal";
 
 class RecipeContent extends React.Component {
     constructor(props) {
@@ -97,12 +96,11 @@ class RecipeContent extends React.Component {
                         <p className="recipe-description">
                             {recipe.description}
                         </p>
-
                         <br/>
+                        <p className="ingredients-title">
+                            <Trans>ingredients</Trans>
+                        </p>
                         <div className="recipe-ingredient-div ">
-                            <p className="ingredients-title">
-                                <Trans>ingredients</Trans>
-                            </p>
                             {Object.keys(recipe.ingredients).map(idx =>
                                 <div key={idx} className={parseInt(idx) === 0 ?
                                     "ingredients-recipe-no-border" : "ingredients-recipe"}>
@@ -119,11 +117,12 @@ class RecipeContent extends React.Component {
                         <p className="ingredients-title">
                             <Trans>instructions</Trans>
                         </p>
-                        {Object.keys(instructionLines).map(idx => (
-                            <span className="recipe-instructions" key={idx}>{instructionLines[idx]}<br/></span>
-                        ))}
-                        {/*<RecipeSteps/>*/}
-
+                        {recipe.steps && recipe.steps.length > 0 ?
+                            <RecipeSteps/> :
+                            Object.keys(instructionLines).map(idx => (
+                                <span className="recipe-instructions" key={idx}>{instructionLines[idx]}<br/></span>
+                            ))
+                        }
                     </div>
 
                     <div className="recipe-body-bottom">

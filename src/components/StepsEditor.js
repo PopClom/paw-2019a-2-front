@@ -94,7 +94,7 @@ class StepsEditor extends React.Component {
                                     openTo="minutes"
                                     views={["minutes", "seconds"]}
                                     format="mm:ss"
-                                    label="Minutes and seconds"
+                                    label=<Trans i18nKey="Recipe.minutesAndSeconds"/>
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
