@@ -1,12 +1,12 @@
 import React from 'react';
 import {Trans} from 'react-i18next';
-import IngredientSelector from "./IngredientSelector";
+import IngredientSelector from "../Ingredient/IngredientSelector";
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
-import {validateIngredients, validateIngredientsAdd} from "../helpers/validations";
+import {validateIngredients, validateIngredientsAdd} from "../../helpers/validations";
 import axios from "axios";
-import {SERVER_ADDR} from "../constants";
+import {SERVER_ADDR} from "../../constants";
 
 class AddIngredientsModal extends React.Component {
     constructor(props) {

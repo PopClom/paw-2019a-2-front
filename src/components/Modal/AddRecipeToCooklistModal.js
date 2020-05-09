@@ -3,11 +3,11 @@ import {Trans} from 'react-i18next';
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
-import {validateCooklistName, validateRecipeToCooklist} from "../helpers/validations";
+import {validateCooklistName, validateRecipeToCooklist} from "../../helpers/validations";
 import axios from "axios";
-import {SERVER_ADDR} from "../constants";
+import {SERVER_ADDR} from "../../constants";
 import Select from "react-select";
-import {getUser} from "../helpers/auth";
+import {getUser} from "../../helpers/auth";
 
 class AddRecipeToCooklistModal extends React.Component {
     constructor(props) {

@@ -3,18 +3,18 @@ import Button from "react-bootstrap/Button";
 import {Trans} from "react-i18next";
 import SimpleCard from "../components/SimpleCard";
 import {isMyUser} from "../helpers";
-import AddCooklistModal from "../components/AddCooklistModal";
-import UserBar from "../components/UserBar";
+import AddCooklistModal from "../components/Modal/AddCooklistModal";
+import UserBar from "../components/User/UserBar";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import {getUser} from "../helpers/auth";
 import Spinner from "../components/Spinner";
 import {Link} from "react-router-dom";
-import RecipeCard from "../components/RecipeCard";
+import RecipeCard from "../components/Recipe/RecipeCard";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from "@material-ui/core/IconButton";
-import ConfirmationModal from "../components/ConfirmationModal";
+import ConfirmationModal from "../components/Modal/ConfirmationModal";
 
 class CooklistRecipes extends React.Component {
     constructor(props) {

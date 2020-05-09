@@ -1,14 +1,14 @@
 import React from 'react';
-import AddIngredientsModal from "../components/AddIngredientsModal";
+import AddIngredientsModal from "../components/Modal/AddIngredientsModal";
 import Button from "react-bootstrap/Button";
 import {Trans} from "react-i18next";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import Spinner from "../components/Spinner";
-import IngredientRow from "../components/IngredientRow";
-import EditIngredientAmountModal from "../components/EditIngredientAmountModal";
-import ConfirmationModal from "../components/ConfirmationModal";
-import UserBar from "../components/UserBar";
+import IngredientRow from "../components/Ingredient/IngredientRow";
+import EditIngredientAmountModal from "../components/Modal/EditIngredientAmountModal";
+import ConfirmationModal from "../components/Modal/ConfirmationModal";
+import UserBar from "../components/User/UserBar";
 import {getUser} from "../helpers/auth";
 
 class Ingredients extends React.Component {

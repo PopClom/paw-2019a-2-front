@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import noRecipeImg from '../assets/img/no_recipe_image.png';
+import noRecipeImg from '../../assets/img/no_recipe_image.png';
 import RatingCard from "./RatingCard";
 import {Card} from "react-bootstrap";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "../Modal/ConfirmationModal";
 import {Trans} from "react-i18next";
 
 class RecipeCard extends React.Component {

@@ -7,13 +7,13 @@ import FavouritesRecipesImg from '../assets/img/favourites_recipes.jpg'
 import StatisticsImg from '../assets/img/statistics.jpg'
 import {Trans} from "react-i18next";
 import SimpleCard from "../components/SimpleCard";
-import UserBar from "../components/UserBar";
+import UserBar from "../components/User/UserBar";
 import {getUser} from "../helpers/auth";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import Spinner from "../components/Spinner";
-import RecipeContent from "../components/RecipeContent";
-import CommentSection from "../components/CommentSection";
+import RecipeContent from "../components/Recipe/RecipeContent";
+import CommentSection from "../components/Recipe/CommentSection";
 import {isMyUser} from "../helpers";
 
 class Account extends React.Component {

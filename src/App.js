@@ -14,7 +14,7 @@ import Account from "./views/Account";
 import Ingredients from "./views/Ingredients";
 import Cooklists from "./views/Cooklists";
 import Statistics from "./views/Statistics";
-import RecipeSteps from "./components/RecipeSteps";
+import RecipeSteps from "./components/Recipe/RecipeSteps";
 import Users from "./views/Users";
 import Error from "./components/Error";
 import CooklistRecipes from "./views/CooklistRecipes";

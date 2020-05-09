@@ -5,8 +5,8 @@ import Spinner from '../components/Spinner';
 import {Tab, Tabs} from "react-bootstrap";
 import {Trans} from "react-i18next";
 import {Doughnut, HorizontalBar} from "react-chartjs-2";
-import UserCards from "../components/UserCards";
-import UserFilters from "../components/UserFilters";
+import UserCards from "../components/User/UserCards";
+import UserFilters from "../components/User/UserFilters";
 import {getUser, refresh} from "../helpers/auth";
 
 

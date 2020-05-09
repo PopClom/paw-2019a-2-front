@@ -1,7 +1,7 @@
 import React, {Fragment, useCallback} from 'react';
 import axios from "axios";
 import {SERVER_ADDR} from '../constants';
-import RecipeCard from '../components/RecipeCard';
+import RecipeCard from '../components/Recipe/RecipeCard';
 import Filters from '../components/Filters';
 import Spinner from '../components/Spinner';
 import {Link} from "react-router-dom";
@@ -15,7 +15,7 @@ import esLocale from "date-fns/locale/es";
 import i18next from "i18next";
 import {Doughnut, HorizontalBar} from 'react-chartjs-2';
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
-import UserBar from "../components/UserBar";
+import UserBar from "../components/User/UserBar";
 import {getUser} from "../helpers/auth";
 
 const localeMap = {

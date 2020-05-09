@@ -1,7 +1,7 @@
 import React from 'react';
 import {Trans, withTranslation} from 'react-i18next';
 import axios from "axios";
-import {SERVER_ADDR} from "../constants";
+import {SERVER_ADDR} from "../../constants";
 import Select from 'react-select';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";

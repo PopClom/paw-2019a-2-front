@@ -2,9 +2,9 @@ import React from 'react';
 import {Card, CardDeck} from "react-bootstrap";
 import {Trans} from "react-i18next";
 import {Link} from "react-router-dom";
-import UserImg from "../assets/img/user.png"
-import {isLoggedIn} from "../helpers/auth";
-import {isMyUser} from "../helpers";
+import UserImg from "../../assets/img/user.png"
+import {isLoggedIn} from "../../helpers/auth";
+import {isMyUser} from "../../helpers";
 
 class UserCards extends React.Component {
 

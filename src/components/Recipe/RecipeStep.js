@@ -1,5 +1,6 @@
 import React from 'react';
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
+import {Trans} from "react-i18next";
 
 class RecipeStep extends React.Component {
     constructor(props) {
@@ -10,10 +11,11 @@ class RecipeStep extends React.Component {
     }
 
     getRemainingTime = value => {
+        const m = Math.floor(value / 60);
+        const s = value % 60;
         return (
             <div>
-                {value / 60 >= 1 ? <div className="timer-value">{Math.floor(value / 60)}m {value % 60}s</div> :
-                    <div className="timer-value">{value % 60}s</div>}
+                <div className="timer-value">{m >= 10 ? m : "0" + m}:{s >= 10 ? s : "0" + s}</div>
             </div>
         )
     };
@@ -23,7 +25,7 @@ class RecipeStep extends React.Component {
             <div>
                 <button className="fullWidth fullHeight bg-transparent"
                         onClick={() => this.setState({isPlaying: true})}>
-                    <div className="timer-text">Press to start</div>
+                    <div className="timer-text"><Trans i18nKey="timer.pressToStart"/></div>
                     {this.getRemainingTime(value)}
                 </button>
             </div>
@@ -32,16 +34,15 @@ class RecipeStep extends React.Component {
 
     renderTime = value => {
         if (value === 0) {
-            return <div className="timer">Time is up</div>;
+            return <div className="timer"><Trans i18nKey="timer.timeUp"/></div>;
         }
 
         return (
             <button className="fullWidth fullHeight bg-transparent"
                     onClick={() => this.setState({isPlaying: !this.state.isPlaying})}>
                 <div className="timer">
-                    <div className="timer-text">Remaining</div>
+                    <div className="timer-text"><Trans i18nKey="timer.remaining"/></div>
                     {this.getRemainingTime(value)}
-                    <div className="timer-text">seconds</div>
                 </div>
             </button>
         );
@@ -64,9 +65,11 @@ class RecipeStep extends React.Component {
                     </p>
                 </div>
 
-                {step.timer > 0 ? <CountdownCircleTimer
+                {step.seconds > 0 ? <CountdownCircleTimer
+                    size={140}
+                    strokeWidth={10}
                     isPlaying={this.state.isPlaying}
-                    durationSeconds={step.timer}
+                    durationSeconds={step.seconds}
                     colors={[["#1ed75f", 0.85], ["#F7B801", 0.1], ["#A30000"]]}
                     renderTime={this.state.isPlaying ? this.renderTime : this.notStartedRender}
                 /> : ''}

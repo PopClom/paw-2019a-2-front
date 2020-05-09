@@ -1,13 +1,13 @@
 import React from 'react';
 import {Card, CardDeck, Form} from "react-bootstrap";
 import {Trans, withTranslation} from "react-i18next";
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "../Recipe/RecipeCard";
 import {Link} from "react-router-dom";
-import UserImg from "../assets/img/user.png"
-import {getUser} from "../helpers/auth";
-import {isFollowingUser, isMyUser} from "../helpers";
+import UserImg from "../../assets/img/user.png"
+import {getUser} from "../../helpers/auth";
+import {isFollowingUser, isMyUser} from "../../helpers";
 import axios from "axios";
-import {SERVER_ADDR} from "../constants";
+import {SERVER_ADDR} from "../../constants";
 
 class UserFilters extends React.Component {
     constructor(props) {

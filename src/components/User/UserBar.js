@@ -1,10 +1,10 @@
 import React from 'react';
 import {Trans} from "react-i18next";
 import {Link} from "react-router-dom";
-import {isLoggedIn} from "../helpers/auth";
-import {followsUser, isMyUser, userIsAdmin, isUserBanned} from "../helpers";
-import UserImg from '../assets/img/user.png';
-import ConfirmationModal from "./ConfirmationModal";
+import {isLoggedIn} from "../../helpers/auth";
+import {followsUser, isMyUser, userIsAdmin, isUserBanned} from "../../helpers";
+import UserImg from '../../assets/img/user.png';
+import ConfirmationModal from "../Modal/ConfirmationModal";
 
 class UserBar extends React.Component {
     constructor(props) {

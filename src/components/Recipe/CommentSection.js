@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import Comment from "../components/Comment"
+import Comment from "./Comment"
 import {Trans} from "react-i18next";
-import {handleInputChange} from "../helpers";
-import {isLoggedIn} from "../helpers/auth";
+import {handleInputChange} from "../../helpers";
+import {isLoggedIn} from "../../helpers/auth";
 
 class CommentSection extends React.Component {
     constructor(props) {

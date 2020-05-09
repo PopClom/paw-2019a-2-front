@@ -1,11 +1,11 @@
 import React from 'react';
 import {Trans} from 'react-i18next';
-import IngredientSelector from "./IngredientSelector";
+import IngredientSelector from "../Ingredient/IngredientSelector";
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
-import {validateIngredientAmount, validateIngredients} from "../helpers/validations";
-import TooltipHover from "./TooltipHover";
+import {validateIngredientAmount, validateIngredients} from "../../helpers/validations";
+import TooltipHover from "../TooltipHover";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 

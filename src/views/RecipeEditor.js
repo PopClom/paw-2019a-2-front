@@ -6,12 +6,12 @@ import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons'
-import IngredientSelector from "../components/IngredientSelector";
+import IngredientSelector from "../components/Ingredient/IngredientSelector";
 import {Form, Button} from "react-bootstrap";
 import TooltipHover from "../components/TooltipHover";
 import {Formik} from "formik";
 import {validateRecipe} from "../helpers/validations";
-import StepsEditor from "../components/StepsEditor";
+import StepsEditor from "../components/Recipe/StepsEditor";
 import ImageIcon from '@material-ui/icons/Image';
 import {isLoggedIn} from "../helpers/auth";
 

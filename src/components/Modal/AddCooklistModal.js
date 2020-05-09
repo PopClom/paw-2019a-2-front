@@ -1,21 +1,18 @@
 import React from 'react';
 import {Trans} from 'react-i18next';
-import IngredientSelector from "./IngredientSelector";
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
-import {validateIngredientAmount, validateIngredients} from "../helpers/validations";
-import TooltipHover from "./TooltipHover";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import {validateCooklistName} from "../../helpers/validations";
 import axios from "axios";
-import {SERVER_ADDR} from "../constants";
+import {SERVER_ADDR} from "../../constants";
 
-class EditIngredientAmountModal extends React.Component {
+class AddCooklistModal extends React.Component {
     render() {
-        const {showModal, toggleModal, ingredient, onEditIngredient} = this.props;
+        const {showModal, toggleModal, addCooklist, editCooklist, cooklist} = this.props;
+        const isCreating = cooklist === undefined;
 
-        if (!showModal) {
+        if (!this.props.showModal) {
             return null;
         }
 
@@ -24,16 +21,27 @@ class EditIngredientAmountModal extends React.Component {
             <Modal show={showModal} onHide={toggleModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <Trans i18nKey="addIngredient.title"/>
+                        <Trans i18nKey="cooklist.addTitle"/>
                     </Modal.Title>
                 </Modal.Header>
                 <Formik
                     initialValues={{
-                        amount: ingredient.amount
+                        name: isCreating ? "" : cooklist.name,
                     }}
-                    validate={values => validateIngredientAmount(values)}
+                    validate={values => validateCooklistName(values)}
                     onSubmit={(values, {setSubmitting}) => {
-                        onEditIngredient(ingredient, values.amount);
+                        let params = {name: values.name};
+                        if(isCreating) {
+                            axios.post(`${SERVER_ADDR}/cooklists/create`, params).then(response =>
+                                addCooklist(response.data)
+                            );
+                        } else {
+                            console.log("Editando");
+                            params.id = cooklist.id;
+                            axios.post(`${SERVER_ADDR}/cooklists/edit`, params).then(response =>
+                                editCooklist(params)
+                            );
+                        }
                         setSubmitting(false);
                         toggleModal();
                     }}
@@ -43,14 +51,13 @@ class EditIngredientAmountModal extends React.Component {
                             <Modal.Body>
                                 <Form.Row className="mb-4">
                                     <Form.Label>
-                                        <Trans i18nKey="addIngredient.amount"/>
-                                        &ensp;<Trans>({ingredient.typeOfServing})</Trans>
+                                        <Trans i18nKey="cooklist.name"/>
                                     </Form.Label>
-                                    <Form.Control value={values.amount} type="number" step="0.01" name="amount"
+                                    <Form.Control value={values.name} name="name"
                                                   onChange={handleChange}
-                                                  onBlur={handleBlur} isInvalid={touched.amount &&!!errors.amount}/>
+                                                  onBlur={handleBlur} isInvalid={touched.name && !!errors.name}/>
                                     <Form.Control.Feedback type="invalid">
-                                        <Trans>{errors.amount}</Trans>
+                                        <Trans>{errors.name}</Trans>
                                     </Form.Control.Feedback>
                                 </Form.Row>
                             </Modal.Body>
@@ -71,8 +78,4 @@ class EditIngredientAmountModal extends React.Component {
     }
 }
 
-EditIngredientAmountModal.defaultProps = {
-    ingredient: {}
-};
-
-export default EditIngredientAmountModal;
+export default AddCooklistModal;
