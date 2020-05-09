@@ -48,9 +48,6 @@ class RecipeSteps extends React.Component {
 
         return (
             <section>
-                <section className="main_container">
-                    <section className="browse">
-
                         <Card>
                             <Card.Body>
                                 <p className="step-number-indicator"><Trans i18nKey="recipe.stepLeft" values={{currentStep: this.state.index+1, totalSteps: this.state.steps.length}}/></p>
@@ -74,7 +71,6 @@ class RecipeSteps extends React.Component {
                                 </div>
                             </Card.Body>
                         </Card>
-                    </section>
                     <section className="side-card-container">
                         <Card>
                             <Card.Body>
@@ -83,7 +79,6 @@ class RecipeSteps extends React.Component {
                         </Card>
                     </section>
                 </section>
-            </section>
         );
     }
 }

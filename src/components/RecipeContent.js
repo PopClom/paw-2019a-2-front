@@ -9,6 +9,7 @@ import {isLoggedIn} from "../helpers/auth";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import RecipeSteps from "../views/RecipeSteps";
 import IconButton from "@material-ui/core/IconButton";
 import AddRecipeToCooklistModal from "./AddRecipeToCooklistModal";
 import ConfirmationModal from "./ConfirmationModal";
@@ -35,14 +36,13 @@ class RecipeContent extends React.Component {
             <div className="card">
                 <div className="flex-recipe">
                     <div className="recipe-image-container">
-                        <div className="recipe-image-container-sub">
+                        <div>
                             <img className="card-img-top"
                                  src={recipe.image ? `data:image/png;base64,${recipe.image}` :
                                      noRecipeImg}
                                  alt={recipe.name}/>
                             <div className="ingredients-tags-div">
                                 <br/>
-
                                 <div className="ratings-recipe">
                                     <p className="ingredients-title">
                                         <Trans>rating.general</Trans>
@@ -122,8 +122,9 @@ class RecipeContent extends React.Component {
                         {Object.keys(instructionLines).map(idx => (
                             <span className="recipe-instructions" key={idx}>{instructionLines[idx]}<br/></span>
                         ))}
-                    </div>
+                        {/*<RecipeSteps/>*/}
 
+                    </div>
 
                     <div className="recipe-body-bottom">
                         <div className="recipe-bottom-icon">

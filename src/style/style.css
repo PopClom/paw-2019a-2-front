@@ -488,7 +488,6 @@ a.custom-card{
     font-size: medium;
     padding-left: 8px;
     font-weight: 300;
-    margin-bottom: 70px;
 }
 
 .ingredients-tags-div {
@@ -719,15 +718,10 @@ a.custom-card{
     padding-left: 0px;
 }
 
-.recipe-image-container-sub{
-    margin-left: 20px;
-}
-
 .recipe-image-container{
     border-right: 1px solid grey;
     display: inline-block;
-    margin: 2% 0 2% 1%;
-    padding-right: 15px;
+    padding: 15px 15px 15px 15px;
     width: 30%;
     min-width: 225px;
 }
@@ -738,7 +732,7 @@ a.custom-card{
 
 .recipe-body{
     text-align: left;
-    margin: 2%;
+    margin: 2% 2% 8% 2%;
     width: 100%;
     min-width: 0;
     position: relative;

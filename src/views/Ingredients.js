@@ -8,7 +8,6 @@ import Spinner from "../components/Spinner";
 import IngredientRow from "../components/IngredientRow";
 import EditIngredientAmountModal from "../components/EditIngredientAmountModal";
 import ConfirmationModal from "../components/ConfirmationModal";
-import {onChange} from "../helpers/index"
 import UserBar from "../components/UserBar";
 import {getUser} from "../helpers/auth";
 
@@ -31,6 +30,24 @@ class Ingredients extends React.Component {
                 (a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)), fetching: false})
         });
     }
+
+    addIngredients = (ingredients) => {
+        axios.post(`${SERVER_ADDR}/ingredient/add`, {ingredients: ingredients}).then(()=> {
+            let stateIngredients = this.state.ingredients;
+            ingredients.forEach((newIngredient) => {
+                let isPresent = false;
+                stateIngredients.forEach((oldIngredient) => {
+                    if (oldIngredient.id === newIngredient.id) {
+                        isPresent = true;
+                        oldIngredient.amount = (+oldIngredient.amount) + +(newIngredient.amount);
+                    }
+                });
+                if (!isPresent)
+                    stateIngredients.push(newIngredient);
+            });
+            this.setState({ingredients: stateIngredients});
+        });
+    };
 
     editIngredient = (ingredient, amount) => {
         let newIngredient = ingredient;
@@ -57,31 +74,13 @@ class Ingredients extends React.Component {
 
     toggleEditModal = () => {
         this.setState({showEditModal: !this.state.showEditModal});
-        console.log(this.state.selectedIngredient);
     };
 
     toggleDeleteModal = () => {
         this.setState({showDeleteModal: !this.state.showDeleteModal});
     };
 
-    addIngredients = (ingredients) => {
-        let stateIngredients = this.state.ingredients;
-        ingredients.forEach((newIngredient) => {
-            let isPresent = false;
-            stateIngredients.forEach((oldIngredient) => {
-                if (oldIngredient.id === newIngredient.id) {
-                    isPresent = true;
-                    oldIngredient.amount = (+oldIngredient.amount) + +(newIngredient.amount);
-                }
-            });
-            if (!isPresent)
-                stateIngredients.push(newIngredient);
-        });
-        this.setState({ingredients: stateIngredients});
-    };
-
     render() {
-        const {t} = this.props;
         const {fetching, ingredients, selectedIngredient} = this.state;
 
         return (

@@ -37,9 +37,7 @@ class AddIngredientsModal extends React.Component {
                     }}
                     validate={values => validateIngredientsAdd(values)}
                     onSubmit={(values, {setSubmitting}) => {
-                        axios.post(`${SERVER_ADDR}/ingredient/add`, {ingredients: values.ingredients}).then(()=> {
-                            addIngredients(values.ingredients);
-                        });
+                        addIngredients(values.ingredients);
                         setSubmitting(false);
                         toggleModal();
                     }}
