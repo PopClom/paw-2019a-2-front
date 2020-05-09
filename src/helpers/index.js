@@ -38,7 +38,6 @@ export function isUserBanned(user) {
     return user.status !== "REGULAR";
 }
 
-//TODO
 export function followsUser(id) {
-    return true;
+    return getUser().following.users.find(user => user.id === id) != null;
 }

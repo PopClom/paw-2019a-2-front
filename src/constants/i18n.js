@@ -457,7 +457,7 @@ i18n
                     "rating.user": "Tu calificación",
 
                     "NoRecipesMatchingFilter": "No se encontraron recetas que cumplan con los filtros seleccionados",
-                    "Recipe.amount": "Número de recetas subidas: {{0}}",
+                    "Recipe.amount": "Recetas subidas: {{0}}",
                     "cookButton": "¡Cocinar!",
 
                     "MyrecentlyCookedExplanation": "Recetas cocinadas recientemente por vos",
@@ -472,7 +472,7 @@ i18n
                     "ingredient.minimum.amount": "La cantidad debe ser mayor a 0",
                     "ingredient.maximum.amount": "La cantidad no puede ser mayor a 1,000,000,000",
                     "ingredient.select": "Seleccionar ingrediente",
-                    "ingredient.selecMulti": "Seleccionar ingredientes",
+                    "ingredient.selectMulti": "Seleccionar ingredientes",
                     "ingredient.editAmount": "Editar la cantidad",
                     "ingredient.delete": "Eliminar ingrediente",
 

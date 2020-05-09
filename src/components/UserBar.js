@@ -1,9 +1,7 @@
 import React from 'react';
-import {Card, CardDeck} from "react-bootstrap";
 import {Trans} from "react-i18next";
-import RecipeCard from "./RecipeCard";
 import {Link} from "react-router-dom";
-import {getUser, isLoggedIn} from "../helpers/auth";
+import {isLoggedIn} from "../helpers/auth";
 import {followsUser, isMyUser, userIsAdmin, isUserBanned} from "../helpers";
 import UserImg from '../assets/img/user.png';
 import ConfirmationModal from "./ConfirmationModal";
@@ -66,17 +64,17 @@ class UserBar extends React.Component {
                                         </p>
 
                                         <p className="card-text">
-                                            <Trans i18nKey="Recipe.amount" values={{0: "TODO!!!"}}/>
+                                            <Trans i18nKey="Recipe.amount" values={{0: user.recipesAmount}}/>
                                         </p>
 
                                         <p className="card-text">
-                                            <Trans i18nKey="AverageRate" values={{0: "TODO!!!"}}/>
+                                            <Trans i18nKey="AverageRate" values={{0: user.rating >= 0 ?
+                                                    (user.rating - user.rating % 0.5).toFixed(1) + "★" : "-"}}/>
                                         </p>
 
                                         {!isMyUser(user.id) ?
-                                            isLoggedIn() && getUser().following.users.includes(user.id) ?
-                                                <button
-                                                    className="btn-sm btn-outline-light-blue form-user-bar circle-button-user-bar">
+                                            isLoggedIn() && followsUser(user.id) ?
+                                                <button className="btn-sm btn-outline-light-blue form-user-bar circle-button-user-bar">
                                                     <Trans i18nKey="unfollow"/>
                                                 </button> :
                                                 <button className="btn-sm btn-light-blue form-user-bar circle-button-user-bar">
