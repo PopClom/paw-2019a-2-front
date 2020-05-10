@@ -8,7 +8,7 @@ import Home from './views/Home';
 import Recipe from './views/Recipe';
 import Login from './views/Login';
 import Register from './views/Register'
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/General/Sidebar';
 import RecipeEditor from "./views/RecipeEditor";
 import Account from "./views/Account";
 import Ingredients from "./views/Ingredients";
@@ -16,7 +16,7 @@ import Cooklists from "./views/Cooklists";
 import Statistics from "./views/Statistics";
 import RecipeSteps from "./components/Recipe/RecipeSteps";
 import Users from "./views/Users";
-import Error from "./components/Error";
+import Error from "./components/General/Error";
 import CooklistRecipes from "./views/CooklistRecipes";
 import PrivateRoute from "./components/PrivateRoute";
 

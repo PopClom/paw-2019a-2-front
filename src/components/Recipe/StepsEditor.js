@@ -6,7 +6,7 @@ import Select from 'react-select';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Form} from "react-bootstrap";
-import TooltipHover from "../TooltipHover";
+import TooltipHover from "../General/TooltipHover";
 import {MuiPickersUtilsProvider, TimePicker} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";

@@ -1,9 +1,8 @@
 import React from 'react';
 import {Trans} from "react-i18next";
-import TooltipHover from "../TooltipHover";
+import TooltipHover from "../General/TooltipHover";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import AddCircleIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import IconButton from "@material-ui/core/IconButton";
 
 class IngredientRow extends React.Component {

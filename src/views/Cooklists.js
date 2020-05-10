@@ -1,14 +1,14 @@
 import React from 'react';
 import Button from "react-bootstrap/Button";
 import {Trans} from "react-i18next";
-import SimpleCard from "../components/SimpleCard";
+import SimpleCard from "../components/General/SimpleCard";
 import {isMyUser} from "../helpers";
 import AddCooklistModal from "../components/Modal/AddCooklistModal";
 import UserBar from "../components/User/UserBar";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import {getUser} from "../helpers/auth";
-import Spinner from "../components/Spinner";
+import Spinner from "../components/General/Spinner";
 
 class Cooklists extends React.Component {
     constructor(props) {

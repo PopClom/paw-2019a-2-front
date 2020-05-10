@@ -60,12 +60,12 @@ class UserBar extends React.Component {
                                             <div className="user-card-info">
                                                 <div className="card-text">
                                                     <Trans i18nKey="Followers"
-                                                           values={{0: user.followers.users.length}}/>
+                                                           values={{0: user.followersAmount}}/>
                                                 </div>
 
                                                 <div className="card-text">
                                                     <Trans i18nKey="Following"
-                                                           values={{0: user.following.users.length}}/>
+                                                           values={{0: user.followingAmount}}/>
                                                 </div>
 
                                                 <div className="card-text">

@@ -4,9 +4,7 @@ import IngredientSelector from "../Ingredient/IngredientSelector";
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
-import {validateIngredients, validateIngredientsAdd} from "../../helpers/validations";
-import axios from "axios";
-import {SERVER_ADDR} from "../../constants";
+import {validateIngredientsAdd} from "../../helpers/validations";
 
 class AddIngredientsModal extends React.Component {
     constructor(props) {

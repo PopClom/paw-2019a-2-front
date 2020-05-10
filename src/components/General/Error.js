@@ -1,5 +1,5 @@
 import React from 'react';
-import FoodifyImg from '../assets/img/foodify.png'
+import FoodifyImg from '../../assets/img/foodify.png'
 import {Trans} from "react-i18next";
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";

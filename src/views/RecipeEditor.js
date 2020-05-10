@@ -8,7 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 import IngredientSelector from "../components/Ingredient/IngredientSelector";
 import {Form, Button} from "react-bootstrap";
-import TooltipHover from "../components/TooltipHover";
+import TooltipHover from "../components/General/TooltipHover";
 import {Formik} from "formik";
 import {validateRecipe} from "../helpers/validations";
 import StepsEditor from "../components/Recipe/StepsEditor";

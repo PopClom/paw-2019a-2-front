@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import {Trans} from "react-i18next";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
-import Spinner from "../components/Spinner";
+import Spinner from "../components/General/Spinner";
 import IngredientRow from "../components/Ingredient/IngredientRow";
 import EditIngredientAmountModal from "../components/Modal/EditIngredientAmountModal";
 import ConfirmationModal from "../components/Modal/ConfirmationModal";
@@ -25,14 +25,14 @@ class Ingredients extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${SERVER_ADDR}/ingredient`).then(response => {
+        axios.get(`${SERVER_ADDR}/ingredient/`).then(response => {
             this.setState({ingredients: response.data.ingredients.sort(
                 (a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)), fetching: false})
         });
     }
 
-    addIngredients = (ingredients) => {
-        axios.post(`${SERVER_ADDR}/ingredient/add`, {ingredients: ingredients}).then(()=> {
+    handleAddIngredients = (ingredients) => {
+        axios.post(`${SERVER_ADDR}/ingredient/`, {ingredients: ingredients}).then(()=> {
             let stateIngredients = this.state.ingredients;
             ingredients.forEach((newIngredient) => {
                 let isPresent = false;
@@ -49,16 +49,16 @@ class Ingredients extends React.Component {
         });
     };
 
-    editIngredient = (ingredient, amount) => {
+    handleEditIngredient = (ingredient, amount) => {
         let newIngredient = ingredient;
         newIngredient.amount = amount;
         axios.post(`${SERVER_ADDR}/ingredient/edit`, newIngredient).then(() => ingredient.amount = amount);
     };
 
-    removeIngredient = (ingredientToRemove) => {
-        axios.delete(`${SERVER_ADDR}/ingredient/delete/${ingredientToRemove.id}`).then(() => {
+    handleRemoveIngredient = (ingredientToRemove) => {
+        axios.delete(`${SERVER_ADDR}/ingredient/${ingredientToRemove.id}`).then(() => {
             let ingredients = this.state.ingredients.filter(function (ingredient) {
-                return ingredient.id != ingredientToRemove.id;
+                return ingredient.id !== ingredientToRemove.id;
             });
             this.setState({ingredients});
         });
@@ -118,15 +118,15 @@ class Ingredients extends React.Component {
                 </section>
 
                 <AddIngredientsModal showModal={this.state.showAddModal} toggleModal={this.toggleAddModal}
-                                     addIngredients={this.addIngredients}/>
+                                     addIngredients={this.handleAddIngredients}/>
                 <EditIngredientAmountModal ingredient={selectedIngredient} showModal={this.state.showEditModal}
-                                           toggleModal={this.toggleEditModal} onEditIngredient={this.editIngredient}/>
+                                           toggleModal={this.toggleEditModal} onEditIngredient={this.handleEditIngredient}/>
                 <ConfirmationModal
                     title={<Trans i18nKey="ingredient.deleteWarning" values={{0: selectedIngredient.name}}/>}
                     description={<Trans>cantUndone</Trans>}
                     variant="danger" showModal={this.state.showDeleteModal}
                     toggleModal={this.toggleDeleteModal}
-                    onConfirmation={() => this.removeIngredient(selectedIngredient)}/>
+                    onConfirmation={() => this.handleRemoveIngredient(selectedIngredient)}/>
 
                 <Button className="btn-green add" onClick={this.toggleAddModal}>
                     +

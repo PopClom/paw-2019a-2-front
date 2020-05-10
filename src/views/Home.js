@@ -2,12 +2,12 @@ import React from 'react';
 import axios from "axios";
 import {SERVER_ADDR} from '../constants';
 import RecipeCard from '../components/Recipe/RecipeCard';
-import Filters from '../components/Filters';
-import Spinner from '../components/Spinner';
+import Filters from '../components/Recipe/RecipeFilters';
+import Spinner from '../components/General/Spinner';
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {Trans} from "react-i18next";
-import TooltipHover from "../components/TooltipHover";
+import TooltipHover from "../components/General/TooltipHover";
 
 class Home extends React.Component {
     constructor(props) {

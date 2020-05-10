@@ -2,12 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import {SERVER_ADDR} from "../constants";
 import RecipeContent from "../components/Recipe/RecipeContent";
-import Spinner from "../components/Spinner";
+import Spinner from "../components/General/Spinner";
 import CommentSection from "../components/Recipe/CommentSection";
 import {Trans} from "react-i18next";
 import ConfirmationModal from "../components/Modal/ConfirmationModal";
 import UserBar from "../components/User/UserBar";
-import Error from "../components/Error";
+import Error from "../components/General/Error";
 
 class Recipe extends React.Component {
     constructor(props) {

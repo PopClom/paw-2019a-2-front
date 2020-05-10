@@ -50,6 +50,7 @@ class RecipeStep extends React.Component {
 
     render() {
         const {step} = this.props;
+        const descriptionLines = step.description ? step.description.split('\n') : [];
 
         return (
             <div className="step-container">
@@ -61,7 +62,9 @@ class RecipeStep extends React.Component {
 
                 <div className="step-description">
                     <p className="recipe-description">
-                        {step.description}
+                        {Object.keys(descriptionLines).map(idx => (
+                            <span key={idx}>{descriptionLines[idx]}<br/></span>
+                        ))}
                     </p>
                 </div>
 

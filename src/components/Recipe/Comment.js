@@ -2,7 +2,7 @@ import React from 'react';
 import userImg from '../../assets/img/user.png';
 import {Link} from "react-router-dom";
 import {Trans} from "react-i18next";
-import TooltipHover from "../TooltipHover";
+import TooltipHover from "../General/TooltipHover";
 import {isMyUser, userIsAdmin} from "../../helpers";
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from "@material-ui/core/IconButton";

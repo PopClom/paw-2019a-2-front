@@ -5,14 +5,14 @@ import AddCooklistModal from "../components/Modal/AddCooklistModal";
 import UserBar from "../components/User/UserBar";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
-import Spinner from "../components/Spinner";
+import Spinner from "../components/General/Spinner";
 import {Link} from "react-router-dom";
 import RecipeCard from "../components/Recipe/RecipeCard";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from "@material-ui/core/IconButton";
 import ConfirmationModal from "../components/Modal/ConfirmationModal";
-import TooltipHover from "../components/TooltipHover";
+import TooltipHover from "../components/General/TooltipHover";
 
 class CooklistRecipes extends React.Component {
     constructor(props) {

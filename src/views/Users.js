@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios";
 import {SERVER_ADDR} from '../constants';
-import Spinner from '../components/Spinner';
+import Spinner from '../components/General/Spinner';
 import {Tab, Tabs} from "react-bootstrap";
 import {Trans} from "react-i18next";
 import UserCards from "../components/User/UserCards";

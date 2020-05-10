@@ -3,8 +3,6 @@ import {Trans, withTranslation} from 'react-i18next';
 import axios from "axios";
 import {SERVER_ADDR} from "../../constants";
 import Select from 'react-select';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Form} from "react-bootstrap";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';

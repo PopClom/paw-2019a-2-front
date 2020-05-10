@@ -3,7 +3,7 @@ import {formatNumber, isMyUser, userIsAdmin} from '../../helpers';
 import {Trans} from 'react-i18next';
 import RatingRecipe from "./RatingRecipe";
 import noRecipeImg from "../../assets/img/no_recipe_image.png";
-import TooltipHover from "../TooltipHover";
+import TooltipHover from "../General/TooltipHover";
 import {Link} from "react-router-dom";
 import {isLoggedIn} from "../../helpers/auth";
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -79,7 +79,7 @@ class RecipeContent extends React.Component {
                                                 <Trans>{recipe.nutritionalInfo[idx].type}</Trans></p>
                                             <p className="recipe-nutritional-amount">
                                                 {`${formatNumber(recipe.nutritionalInfo[idx].amount, 2)}${
-                                                    recipe.nutritionalInfo[idx].type === 'Calorie' ? '' : ' gr.'
+                                                    recipe.nutritionalInfo[idx].type === 'calorie' ? ' kcal.' : ' gr.'
                                                 }`}
                                             </p>
                                         </div>
