@@ -4,7 +4,6 @@ import {SERVER_ADDR} from '../constants';
 import Spinner from '../components/Spinner';
 import {Tab, Tabs} from "react-bootstrap";
 import {Trans} from "react-i18next";
-import {Doughnut, HorizontalBar} from "react-chartjs-2";
 import UserCards from "../components/User/UserCards";
 import UserFilters from "../components/User/UserFilters";
 import {getUser, refresh} from "../helpers/auth";
@@ -33,8 +32,7 @@ class Users extends React.Component {
     handleFollow = (user) => {
         axios.post(`${SERVER_ADDR}/users/${user.id}/follow`)
             .then(() => {
-                const following = this.state.following;
-                this.setState({following: [...following, user]});
+                this.setState({following: [...this.state.following, user]});
             });
     };
 
@@ -69,18 +67,20 @@ class Users extends React.Component {
                         </Tab>
                         <Tab eventKey="Followers" title={<Trans i18nKey="followers"/>}>
                             <Tab.Content>
-                                <div className="tab-users-content">
-                                    <UserCards users={followers} following={following}
-                                               onFollow={this.handleFollow} onUnfollow={this.handleUnfollow}/>
-                                </div>
+                                {fetching ? <Spinner/> :
+                                    <div className="tab-users-content">
+                                        <UserCards users={followers} following={following}
+                                                   onFollow={this.handleFollow} onUnfollow={this.handleUnfollow}/>
+                                    </div>}
                             </Tab.Content>
                         </Tab>
                         <Tab eventKey="Following" title={<Trans i18nKey="following"/>}>
                             <Tab.Content>
-                                <div className="tab-users-content">
-                                    <UserCards users={following} following={following}
-                                               onFollow={this.handleFollow} onUnfollow={this.handleUnfollow}/>
-                                </div>
+                                {fetching ? <Spinner/> :
+                                    <div className="tab-users-content">
+                                        <UserCards users={following} following={following}
+                                                   onFollow={this.handleFollow} onUnfollow={this.handleUnfollow}/>
+                                    </div>}
                             </Tab.Content>
                         </Tab>
                     </Tabs>

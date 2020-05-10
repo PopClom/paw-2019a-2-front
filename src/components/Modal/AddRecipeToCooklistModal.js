@@ -3,7 +3,7 @@ import {Trans} from 'react-i18next';
 import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
-import {validateCooklistName, validateRecipeToCooklist} from "../../helpers/validations";
+import {validateRecipeToCooklist} from "../../helpers/validations";
 import axios from "axios";
 import {SERVER_ADDR} from "../../constants";
 import Select from "react-select";
@@ -13,7 +13,6 @@ class AddRecipeToCooklistModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fetching: false,
             cooklists: [],
             selectedCooklist: '',
             createNewCooklist: false,
@@ -32,22 +31,15 @@ class AddRecipeToCooklistModal extends React.Component {
     }
 
     onSubmit = (values, {setSubmitting}) => {
-        if (this.state.createNewCooklist) {
-            let params1 = {name: values.name};
-            axios.post(`${SERVER_ADDR}/cooklists/create`, params1).then(response => {
-                    console.log(response.data);
-                    let joined = this.state.cooklists.concat(response.data);
-                    this.setState({cooklists: joined});
-                    let params = {recipeId: this.props.recipeId, cooklistId: response.data.id};
-                    axios.post(`${SERVER_ADDR}/cooklists/addRecipe`, null, {params});
+        if (this.state.createNewCooklist || this.state.cooklists.length === 0) {
+            axios.post(`${SERVER_ADDR}/cooklists/`, {name: values.name}).then(response => {
+                this.setState({cooklists: [...this.state.cooklists, response.data]});
+                axios.post(`${SERVER_ADDR}/cooklists/${response.data.id}/recipe/${this.props.recipeId}`);
                 }
             );
         } else {
-            let params = {recipeId: this.props.recipeId, cooklistId: values.selectedCooklist.id};
-            axios.post(`${SERVER_ADDR}/cooklists/addRecipe`, null, {params}).then(response => {
-                    let cooklists = this.state.cooklists.filter(cooklist => {
-                        return cooklist.id !== values.selectedCooklist.id;
-                    });
+            axios.post(`${SERVER_ADDR}/cooklists/${values.selectedCooklist.id}/recipe/${this.props.recipeId}`).then(response => {
+                    let cooklists = this.state.cooklists.filter(cooklist => cooklist.id !== values.selectedCooklist.id);
                     this.setState({cooklists: cooklists});
                 }
             );
@@ -57,7 +49,7 @@ class AddRecipeToCooklistModal extends React.Component {
     };
 
     render() {
-        const {cooklists, fetching, selectedCooklist, createNewCooklist} = this.state;
+        const {cooklists, createNewCooklist} = this.state;
 
         if (!this.props.showModal) {
             return null;
@@ -76,7 +68,7 @@ class AddRecipeToCooklistModal extends React.Component {
                         name: '',
                         selectedCooklist: ''
                     }}
-                    validate={values => validateRecipeToCooklist(values, createNewCooklist)}
+                    validate={values => validateRecipeToCooklist(values, createNewCooklist || cooklists.length === 0)}
                     onSubmit={(values, {setSubmitting}) => {this.onSubmit(values, {setSubmitting})}}
                 >
                     {({values, errors, handleChange, handleBlur, touched, handleSubmit, isSubmitting, setFieldValue}) => (
@@ -98,15 +90,12 @@ class AddRecipeToCooklistModal extends React.Component {
                                                               onBlur={handleBlur}
                                                               isInvalid={touched.name && !!errors.name}/>
                                                 <Form.Control.Feedback type="invalid">
-                                                    <Trans>{errors.name}</Trans>
+                                                    <Trans i18nKey={errors.name} values={{0: "3", 1: "100"}}/>
                                                 </Form.Control.Feedback>
                                             </Form.Row>
                                         </div>
                                         :
                                         <Form.Row className="mb-4">
-                                            <Form.Label>
-                                                <Trans i18nKey="cooklist.addRecipe.title.one"/>
-                                            </Form.Label>
                                             <Select
                                                 className="fullWidth"
                                                 value={values.selectedCooklist}
@@ -118,7 +107,7 @@ class AddRecipeToCooklistModal extends React.Component {
                                                 getOptionValue={(cooklist) => cooklist.id}
                                                 placeholder={<Trans>cooklist.select</Trans>}/>
                                             {!!errors.selectedCooklist ?
-                                                <p className="invalid-feedback display-block no-margin">
+                                                <p className="invalid-feedback d-block no-margin">
                                                     <Trans>{errors.selectedCooklist}</Trans>
                                                 </p> : ''
                                             }

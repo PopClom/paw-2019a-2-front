@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Card} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import Slider from "react-slick";
 import RecipeStep from "./RecipeStep";
 import {Trans} from "react-i18next";

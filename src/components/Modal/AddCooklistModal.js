@@ -4,8 +4,6 @@ import {Form, Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {Formik} from "formik";
 import {validateCooklistName} from "../../helpers/validations";
-import axios from "axios";
-import {SERVER_ADDR} from "../../constants";
 
 class AddCooklistModal extends React.Component {
     render() {
@@ -21,7 +19,7 @@ class AddCooklistModal extends React.Component {
             <Modal show={showModal} onHide={toggleModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <Trans i18nKey="cooklist.addTitle"/>
+                        <Trans i18nKey={isCreating ? "cooklist.addTitle" : "cooklist.editTitle"}/>
                     </Modal.Title>
                 </Modal.Header>
                 <Formik
@@ -30,17 +28,10 @@ class AddCooklistModal extends React.Component {
                     }}
                     validate={values => validateCooklistName(values)}
                     onSubmit={(values, {setSubmitting}) => {
-                        let params = {name: values.name};
                         if(isCreating) {
-                            axios.post(`${SERVER_ADDR}/cooklists/create`, params).then(response =>
-                                addCooklist(response.data)
-                            );
+                            addCooklist(values.name);
                         } else {
-                            console.log("Editando");
-                            params.id = cooklist.id;
-                            axios.post(`${SERVER_ADDR}/cooklists/edit`, params).then(response =>
-                                editCooklist(params)
-                            );
+                            editCooklist(values.name);
                         }
                         setSubmitting(false);
                         toggleModal();
@@ -57,7 +48,7 @@ class AddCooklistModal extends React.Component {
                                                   onChange={handleChange}
                                                   onBlur={handleBlur} isInvalid={touched.name && !!errors.name}/>
                                     <Form.Control.Feedback type="invalid">
-                                        <Trans>{errors.name}</Trans>
+                                        <Trans i18nKey={errors.name} values={{0: "3", 1: "100"}}/>
                                     </Form.Control.Feedback>
                                 </Form.Row>
                             </Modal.Body>

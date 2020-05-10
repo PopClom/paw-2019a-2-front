@@ -21,9 +21,11 @@ class Cooklists extends React.Component {
         }
     }
 
-    addCooklist = (newCooklist) => {
-        let joined = this.state.cooklists.concat(newCooklist);
-        this.setState({cooklists: joined});
+    handleAddCooklist = (name) => {
+        axios.post(`${SERVER_ADDR}/cooklists/`, {name: name}).then(response =>
+            this.setState({cooklists: [...this.state.cooklists, response.data]})
+            //this.props.history.push(`/cooklists/${this.state.cooklist.user.id}`);
+        );
     };
 
     componentDidMount() {
@@ -87,7 +89,7 @@ class Cooklists extends React.Component {
                 </section>
 
 
-                <AddCooklistModal showModal={showAddModal} toggleModal={this.toggleAddModal} addCooklist={this.addCooklist}/>
+                <AddCooklistModal showModal={showAddModal} toggleModal={this.toggleAddModal} addCooklist={this.handleAddCooklist}/>
                 <Button className="btn-green add" onClick={this.toggleAddModal}>
                     +
                 </Button>

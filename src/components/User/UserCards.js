@@ -33,9 +33,10 @@ class UserCards extends React.Component {
                                 </Link>
 
                                 <div className="user-card-info">
-                                    <p className="card-text">
+
+                                    <div className="card-text">
                                         <Trans i18nKey="Recipe.amount" values={{0: user.recipesAmount}}/>
-                                    </p>
+                                    </div>
 
                                     <p className="card-text">
                                         <Trans i18nKey="AverageRate" values={{0: user.rating >= 0 ?

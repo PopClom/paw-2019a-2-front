@@ -1,13 +1,10 @@
 import React from 'react';
-import Button from "react-bootstrap/Button";
 import {Trans} from "react-i18next";
-import SimpleCard from "../components/SimpleCard";
 import {isMyUser} from "../helpers";
 import AddCooklistModal from "../components/Modal/AddCooklistModal";
 import UserBar from "../components/User/UserBar";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
-import {getUser} from "../helpers/auth";
 import Spinner from "../components/Spinner";
 import {Link} from "react-router-dom";
 import RecipeCard from "../components/Recipe/RecipeCard";
@@ -15,6 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from "@material-ui/core/IconButton";
 import ConfirmationModal from "../components/Modal/ConfirmationModal";
+import TooltipHover from "../components/TooltipHover";
 
 class CooklistRecipes extends React.Component {
     constructor(props) {
@@ -33,22 +31,24 @@ class CooklistRecipes extends React.Component {
             this.setState({cooklist: response.data, fetching: false}, () => console.log(response.data)));
     }
 
-    deleteCooklist = () => {
-        axios.delete(`${SERVER_ADDR}/cooklists/delete/${this.state.cooklist.id}`).then(() => {
-            this.props.history.push(`/cooklists/${this.state.cooklist.user.id}`);
+    handleDeleteCooklist = () => {
+        axios.delete(`${SERVER_ADDR}/cooklists/${this.state.cooklist.id}`).then(() => {
+            this.props.history.replace(`/my_cooklists/`);
         });
     };
 
-    deleteRecipeFromCooklist = (recipeId) => {
-        axios.delete(`${SERVER_ADDR}/cooklists/${this.state.cooklist.id}/delete/${recipeId}`).then(() => {
+    handleDeleteRecipeFromCooklist = (recipeId) => {
+        axios.delete(`${SERVER_ADDR}/cooklists/${this.state.cooklist.id}/recipe/${recipeId}`).then(() => {
             let newCooklist = this.state.cooklist;
             newCooklist.recipes = newCooklist.recipes.filter((recipe) => recipe.id !== recipeId);
             this.setState({cooklist: newCooklist});
-        }).catch(error => {
-            console.log("error");
-            console.log(error.response.status);
         });
+    };
 
+    handleEditCooklist = (name) => {
+        axios.post(`${SERVER_ADDR}/cooklists/edit`, {id: this.state.cooklist.id, name: name}).then(response =>
+            this.setState({cooklist: {...this.state.cooklist, name: name,}})
+        );
     };
 
     toggleEditModal = () => {
@@ -57,15 +57,6 @@ class CooklistRecipes extends React.Component {
 
     toggleDeleteModal = () => {
         this.setState({showDeleteModal: !this.state.showDeleteModal});
-    };
-
-    onEditCooklist = (cooklist) => {
-        this.setState({
-            cooklist: {
-                ...this.state.cooklist,
-                name: cooklist.name,
-            }
-        })
     };
 
     render() {
@@ -82,17 +73,21 @@ class CooklistRecipes extends React.Component {
                         <section>
                             {isMyUser(cooklist.user.id) ?
                                 <div>
-                                    <h4 className="navigation-title float-left"> {cooklist.name}</h4>
-                                    <div className="title-cooklist-btn">
-                                        <IconButton onClick={this.toggleDeleteModal}>
-                                            <DeleteIcon className="delete-ingredient-icon"/>
-                                        </IconButton>
-                                        <IconButton onClick={this.toggleEditModal}>
-                                            <EditIcon className="edit-ingredient-icon"/>
-                                        </IconButton>
+                                    <h4 className="navigation-title pt-3 float-left"> {cooklist.name}</h4>
+                                    <div className="navigation-title pt-3 title-cooklist-btn">
+                                        <TooltipHover placement="bottom" message={<Trans>cooklist.delete</Trans>} icon={
+                                            <IconButton onClick={this.toggleDeleteModal}>
+                                                <DeleteIcon className="delete-ingredient-icon"/>
+                                            </IconButton>}
+                                        />
+                                        <TooltipHover placement="bottom" message={<Trans>cooklist.edit</Trans>} icon={
+                                            <IconButton onClick={this.toggleEditModal}>
+                                                <EditIcon className="edit-ingredient-icon"/>
+                                            </IconButton>}
+                                        />
                                     </div>
-                                </div>
-                                : <h4 className="navigation-title"> {cooklist.name}</h4>
+                                </div> :
+                                <h4 className="navigation-title pt-3"> {cooklist.name}</h4>
                             }
                             <section className="browse">
                                 {cooklist.recipes.length === 0 ?
@@ -113,9 +108,11 @@ class CooklistRecipes extends React.Component {
                                         </h3>
                                     :
                                     <div>
-                                        {Object.keys(cooklist.recipes).map(idx => <RecipeCard key={idx}
-                                                                                              recipe={cooklist.recipes[idx]}
-                                                                                              onDelete={this.deleteRecipeFromCooklist}/>)}
+                                        <div className="card-deck">
+                                            {Object.keys(cooklist.recipes).map(idx => <RecipeCard key={idx}
+                                                                                                  recipe={cooklist.recipes[idx]}
+                                                                                                  onDelete={this.handleDeleteRecipeFromCooklist}/>)}
+                                        </div>
                                     </div>
                                 }
                             </section>
@@ -124,13 +121,13 @@ class CooklistRecipes extends React.Component {
                 </section>
 
                 <AddCooklistModal showModal={showEditModal} toggleModal={this.toggleEditModal} cooklist={cooklist}
-                                  editCooklist={this.onEditCooklist}/>
+                                  editCooklist={this.handleEditCooklist}/>
 
                 <ConfirmationModal title={<Trans i18nKey="cooklist.delete"/>}
                                    description={<Trans i18nKey="cooklist.deleteWarning"
                                                        values={{cooklistName: cooklist.name}}/>}
                                    variant="danger" showModal={showDeleteModal}
-                                   toggleModal={this.toggleDeleteModal} onConfirmation={this.deleteCooklist}/>
+                                   toggleModal={this.toggleDeleteModal} onConfirmation={this.handleDeleteCooklist}/>
 
             </section>
         )

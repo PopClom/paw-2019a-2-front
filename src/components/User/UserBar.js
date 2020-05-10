@@ -58,20 +58,19 @@ class UserBar extends React.Component {
                                                 </div>
                                             </Link>
                                             <div className="user-card-info">
-
-                                                <p className="card-text">
+                                                <div className="card-text">
                                                     <Trans i18nKey="Followers"
                                                            values={{0: user.followers.users.length}}/>
-                                                </p>
+                                                </div>
 
-                                                <p className="card-text">
+                                                <div className="card-text">
                                                     <Trans i18nKey="Following"
                                                            values={{0: user.following.users.length}}/>
-                                                </p>
+                                                </div>
 
-                                                <p className="card-text">
+                                                <div className="card-text">
                                                     <Trans i18nKey="Recipe.amount" values={{0: user.recipesAmount}}/>
-                                                </p>
+                                                </div>
 
                                                 <p className="card-text">
                                                     <Trans i18nKey="AverageRate" values={{0: user.rating >= 0 ?

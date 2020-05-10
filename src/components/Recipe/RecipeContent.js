@@ -120,7 +120,8 @@ class RecipeContent extends React.Component {
                         {recipe.steps && recipe.steps.length > 0 ?
                             <RecipeSteps steps={recipe.steps}/> :
                             Object.keys(instructionLines).map(idx => (
-                                <span className="recipe-instructions" key={idx}>{instructionLines[idx]}<br/></span>
+                                <span className={"recipe-instructions" + (parseInt(idx) === (instructionLines.length - 1) ? " recipe-instructions-last" : "")}
+                                      key={idx}>{instructionLines[idx]}<br/></span>
                             ))
                         }
                     </div>

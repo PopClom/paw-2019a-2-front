@@ -17,33 +17,19 @@ export function validateRegisterFields (values) {
     // preguntar a la api si esta disponible
     else if (false)
         errors.email = 'email.notAvailable';
-
     // case 'username'
     if (values.username.length < 1 || values.username.length > 40)
         errors.username = 'username.lengthError';
-
     // preguntar a la api si esta disponible
     else if (false)
         errors.username = 'username.notAvailable';
-
-    // case 'password'
-    let error = false;
-    if (values.password.length < 6 || values.password.length > 100) {
-        errors.password = 'password.lengthError';
-        error = true;
-    }
-    if (values.password !== values.repeatPassword) {
-        errors.repeatPassword = 'password.notMatch';
-        error = true;
-    }
-
-    // 'repeatPassword'
+    // case 'repeatPassword'
     if (values.repeatPassword !== values.password)
         errors.repeatPassword = 'password.notMatch';
-    else if(values.repeatPassword.length < 1)
+
+    else if(values.password.length < 6 || values.password.length > 100)
         errors.repeatPassword = 'password.lengthError';
 
-    console.log(errors);
     return errors;
 }
 
@@ -68,7 +54,6 @@ export function validateRecipe(values){
     if(values.file && values.file.type.split('/')[0] !== 'image')
         errors.file = 'ImageFormat';
 
-    console.log(errors);
     return errors;
 }
 
@@ -113,7 +98,7 @@ export function validateIngredientAmount(values){
 export function validateCooklistName(values) {
     let errors = {};
     if(values.name === undefined || (values.name.length < 3 || values.name.length > 100))
-        errors.name = 'TODO';
+        errors.name = "Size";
     return errors;
 }
 
@@ -122,10 +107,8 @@ export function validateRecipeToCooklist(values, createNewCooklist){
     if(createNewCooklist)
         return validateCooklistName(values);
 
-    console.log(values);
-
     if(values.selectedCooklist === '')
-        errors.selectedCooklist = "TODO";
+        errors.selectedCooklist = "cooklist.selectedCooklistError";
 
     return errors;
 }
