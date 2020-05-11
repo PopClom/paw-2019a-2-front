@@ -23,7 +23,7 @@ class UserCards extends React.Component {
                     {users.map(user =>
                         <Card key={user.id} className="card-recipe">
                             <Card.Body>
-                                <Link to={{pathname:`/account/${user.id}`, user:user}} className="custom-card">
+                                <Link to={{pathname:`/user/${user.id}/account`, user:user}} className="custom-card">
                                     <span>
                                         <img className="user_image" src={UserImg} alt="userImage"/>
                                     </span>

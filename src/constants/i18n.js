@@ -449,7 +449,7 @@ i18n
                     "NoUsersYet": "No hay usuarios todavía",
                     "NoUsersMatchingFilter": "No se encontraron usuarios que cumplan con los filtros seleccionados",
                     "noCookLists": "{{0}} no tiene ninguna lista de cocina",
-                    "noCookListsMy": "No tienes ninguna lista de cocina",
+                    "noCookListsMy": "No tiene ninguna lista de cocina, ¡Apriete el botón + para agregar su primera lista de cocina y verla aquí!",
                     "cooklist.editTitle": "Editar nombre de su lista de cocina",
                     "cooklist.edit": "Editar lista de cocina",
                     "cooklist.delete": "Borrar lista de cocina",

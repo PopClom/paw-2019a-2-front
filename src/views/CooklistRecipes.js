@@ -28,12 +28,12 @@ class CooklistRecipes extends React.Component {
     componentDidMount() {
         let cooklistId = this.props.match.params.cooklistId;
         axios.get(`${SERVER_ADDR}/cooklists/${cooklistId}`).then(response =>
-            this.setState({cooklist: response.data, fetching: false}, () => console.log(response.data)));
+            this.setState({cooklist: response.data, fetching: false}));
     }
 
     handleDeleteCooklist = () => {
         axios.delete(`${SERVER_ADDR}/cooklists/${this.state.cooklist.id}`).then(() => {
-            this.props.history.replace(`/my_cooklists/`);
+            this.props.history.replace(`/user/me/cooklists`);
         });
     };
 
@@ -87,8 +87,8 @@ class CooklistRecipes extends React.Component {
                                         />
                                     </div>
                                 </div> :
-                                <h4 className="navigation-title pt-3"> {cooklist.name}</h4>
-                            }
+                                <h4 className="navigation-title pt-3"> {cooklist.name}</h4>}
+
                             <section className="browse">
                                 {cooklist.recipes.length === 0 ?
                                     isMyUser(cooklist.user.id) ?
@@ -101,21 +101,19 @@ class CooklistRecipes extends React.Component {
                                                     <Trans i18nKey="goToSeeRecipes"/>
                                                 </button>
                                             </Link>
-                                        </div>
-                                        :
+                                        </div> :
                                         <h3 className="navigation-subtitle">
                                             <Trans i18nKey="emptyCooklist"/>
-                                        </h3>
-                                    :
+                                        </h3> :
                                     <div>
                                         <div className="card-deck">
                                             {Object.keys(cooklist.recipes).map(idx => <RecipeCard key={idx}
                                                                                                   recipe={cooklist.recipes[idx]}
                                                                                                   onDelete={this.handleDeleteRecipeFromCooklist}/>)}
                                         </div>
-                                    </div>
-                                }
+                                    </div>}
                             </section>
+
                             <UserBar user={cooklist.user}/>
                         </section>}
                 </section>

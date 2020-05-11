@@ -6,21 +6,21 @@ import {isLoggedIn, logout} from "../../helpers/auth";
 
 const options = [{id: 'home', label: 'Home', path: '/'},
                  {id: 'users', label: 'Users', path: '/users'},
-                 {id: 'myAccount', label: 'myAccount', path: '/my_account', subitems:
+                 {id: 'myAccount', label: 'myAccount', path: '/user/me/account', subitems:
                          [
-                             {id: 'recipes', label: 'recipes', path: '/my_recipes'},
-                             {id: 'cooklists', label: 'lists', path: '/my_cooklists'},
-                             {id: 'ingredients', label: 'myIngredients', path: '/my_ingredients'},
-                             {id: 'recentlyCooked', label: 'recentlyCooked', path: '/recently_cooked'},
-                             {id: 'favouriteRecipes', label: 'yourFavourites', path: '/favourite_recipes'},
-                             {id: 'statistics', label: 'myStatistics', path: '/statistics'}
+                             {id: 'recipes', label: 'recipes', path: '/user/me/recipes'},
+                             {id: 'cooklists', label: 'lists', path: '/user/me/cooklists'},
+                             {id: 'ingredients', label: 'myIngredients', path: '/user/me/ingredients'},
+                             {id: 'recentlyCooked', label: 'recentlyCooked', path: '/user/me/recently_cooked'},
+                             {id: 'favouriteRecipes', label: 'yourFavourites', path: '/user/me/favourite_recipes'},
+                             {id: 'statistics', label: 'myStatistics', path: '/user/me/statistics'}
                          ]
                  }];
 
 class Sidebar extends React.Component {
     render() {
         const loggedIn = isLoggedIn();
-        const path = this.props.match.params.id ? '/' + this.props.match.params.id : '/';
+        const path = this.props.location.pathname;
 
         return (
             <section className="navigation">

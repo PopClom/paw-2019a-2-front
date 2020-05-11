@@ -10,12 +10,8 @@ import Login from './views/Login';
 import Register from './views/Register'
 import Sidebar from './components/General/Sidebar';
 import RecipeEditor from "./views/RecipeEditor";
-import Account from "./views/Account";
-import Ingredients from "./views/Ingredients";
-import Cooklists from "./views/Cooklists";
-import Statistics from "./views/Statistics";
-import RecipeSteps from "./components/Recipe/RecipeSteps";
 import Users from "./views/Users";
+import UserView from "./views/User/UserView";
 import Error from "./components/General/Error";
 import CooklistRecipes from "./views/CooklistRecipes";
 import PrivateRoute from "./components/PrivateRoute";
@@ -49,13 +45,8 @@ const DefaultContainer = () => (
             <PrivateRoute exact path="/users" component={Users}/>
             <PrivateRoute exact path="/create_recipe" component={RecipeEditor}/>
             <PrivateRoute exact path="/edit_recipe/:recipeId" component={RecipeEditor}/>
-            <PrivateRoute exact path="/account/:userId" component={Account}/>
-            <PrivateRoute exact path="/my_account" component={Account}/>
-            <PrivateRoute exact path="/my_ingredients" component={Ingredients}/>
-            <PrivateRoute exact path="/my_cooklists" component={Cooklists}/>
-            <PrivateRoute exact path="/cooklists/:userId" component={Cooklists}/>
             <PrivateRoute exact path="/cooklist/:cooklistId" component={CooklistRecipes}/>
-            <PrivateRoute exact path="/statistics" component={Statistics}/>
+            <PrivateRoute path="/user/:userId/:section" component={UserView}/>
 
             <Route render={() =>
                 <section className="main_container">

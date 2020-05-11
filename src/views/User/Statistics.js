@@ -1,22 +1,22 @@
 import React, {Fragment, useCallback} from 'react';
 import axios from "axios";
-import {SERVER_ADDR} from '../constants';
-import RecipeCard from '../components/Recipe/RecipeCard';
-import Filters from '../components/Recipe/RecipeFilters';
-import Spinner from '../components/General/Spinner';
+import {SERVER_ADDR} from '../../constants';
+import RecipeCard from '../../components/Recipe/RecipeCard';
+import Filters from '../../components/Recipe/RecipeFilters';
+import Spinner from '../../components/General/Spinner';
 import {Link} from "react-router-dom";
 import {Button, Card, Tab, Tabs, ThemeProvider} from "react-bootstrap";
 import {Trans, withTranslation} from "react-i18next";
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
-import DateRangePicker from "../components/General/DateRangePicker";
+import DateRangePicker from "../../components/General/DateRangePicker";
 import DateFnsUtils from "@date-io/date-fns";
 import enLocale from "date-fns/locale/en-US";
 import esLocale from "date-fns/locale/es";
 import i18next from "i18next";
 import {Doughnut, HorizontalBar} from 'react-chartjs-2';
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
-import UserBar from "../components/User/UserBar";
-import {getUser} from "../helpers/auth";
+import UserBar from "../../components/User/UserBar";
+import {getUser} from "../../helpers/auth";
 
 const localeMap = {
     en: enLocale,
@@ -74,12 +74,10 @@ class Statistics extends React.Component {
         const {t} = this.props;
 
         return (
-                <section className="main_container">
-
+                <section>
                     <h4 className="navigation-title pt-3"><Trans i18nKey="myStatistics"/></h4>
 
                     <section className="browse">
-
                         <Card>
                             <Card.Title>
                                 <div className="date-form">
@@ -123,8 +121,6 @@ class Statistics extends React.Component {
                         </Card>
 
                     </section>
-
-                    <UserBar user={getUser()}/>
                 </section>
         );
     }

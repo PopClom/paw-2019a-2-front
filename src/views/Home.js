@@ -14,7 +14,7 @@ class Home extends React.Component {
         super(props);
         this.state = {
             fetching: true,
-            recipes: {},
+            recipes: [],
             filters: {}
         }
     }

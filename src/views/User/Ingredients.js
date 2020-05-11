@@ -1,16 +1,14 @@
 import React from 'react';
-import AddIngredientsModal from "../components/Modal/AddIngredientsModal";
+import AddIngredientsModal from "../../components/Modal/AddIngredientsModal";
 import Button from "react-bootstrap/Button";
 import {Trans} from "react-i18next";
 import axios from "axios";
-import {SERVER_ADDR} from "../constants";
-import Spinner from "../components/General/Spinner";
-import IngredientRow from "../components/Ingredient/IngredientRow";
-import EditIngredientAmountModal from "../components/Modal/EditIngredientAmountModal";
-import ConfirmationModal from "../components/Modal/ConfirmationModal";
-import UserBar from "../components/User/UserBar";
-import {getUser} from "../helpers/auth";
-import TooltipHover from "../components/General/TooltipHover";
+import {SERVER_ADDR} from "../../constants";
+import Spinner from "../../components/General/Spinner";
+import IngredientRow from "../../components/Ingredient/IngredientRow";
+import EditIngredientAmountModal from "../../components/Modal/EditIngredientAmountModal";
+import ConfirmationModal from "../../components/Modal/ConfirmationModal";
+import TooltipHover from "../../components/General/TooltipHover";
 
 class Ingredients extends React.Component {
     constructor(props) {
@@ -86,36 +84,31 @@ class Ingredients extends React.Component {
 
         return (
             <section>
-
-                <section className="main_container">
+                <section>
                     <h4 className="navigation-title pt-3">
                         <Trans i18nKey="myIngredients"/>
                     </h4>
-                    {fetching ? <Spinner/> :
-                        <section className="browse">
 
+                    {fetching ?
+                        <section className="browse">
+                            <Spinner/>
+                        </section> :
+                        <section className="browse">
                             {!ingredients || !ingredients.length ?
                                 <h3 className="navigation-subtitle">
                                     <Trans i18nKey="noIngredients"/>
-                                </h3> : ''}
-
-                            <div className="card">
-
-
-                                <ul className="cookListRecipes-group list-group">
-                                    {Object.keys(ingredients).map(index =>
-                                        <IngredientRow key={index} ingredient={ingredients[index]}
-                                                       setSelectedIngredient={this.setSelectedIngredient}
-                                                       toggleEditModal={this.toggleEditModal}
-                                                       toggleDeleteModal={this.toggleDeleteModal}/>
-                                    )}
-                                </ul>
-                            </div>
-                        </section>
-                    }
-
-                    <UserBar user={getUser()}/>
-
+                                </h3> :
+                                <div className="card">
+                                    <ul className="cookListRecipes-group list-group">
+                                        {Object.keys(ingredients).map(index =>
+                                            <IngredientRow key={index} ingredient={ingredients[index]}
+                                                           setSelectedIngredient={this.setSelectedIngredient}
+                                                           toggleEditModal={this.toggleEditModal}
+                                                           toggleDeleteModal={this.toggleDeleteModal}/>
+                                        )}
+                                    </ul>
+                                </div>}
+                        </section>}
                 </section>
 
                 <AddIngredientsModal showModal={this.state.showAddModal} toggleModal={this.toggleAddModal}

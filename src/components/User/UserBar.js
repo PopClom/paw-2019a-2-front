@@ -60,8 +60,7 @@ class UserBar extends React.Component {
         return (
             <section className="side-card-container">
                 <div className="card">
-                    {user === undefined ? ''
-                        :
+                    {user === undefined ? '' :
                         <div>
                             <div className="card-body card-body-user-bar" id="user-big-card">
                                 <div id="user-card">
@@ -70,7 +69,7 @@ class UserBar extends React.Component {
                                             <Trans i18nKey="userNotExist"/>
                                         </p> :
                                         <div>
-                                            <Link to={{pathname:`/account/${user.id}`, user:user}} className="custom-card">
+                                            <Link to={{pathname:`/user/${user.id}/account`, user:user}} className="custom-card">
                                                 <div>
                                                     <span><img className="user_image" alt="userImage"
                                                                src={UserImg}/></span>
