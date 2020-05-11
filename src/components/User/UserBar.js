@@ -50,7 +50,7 @@ class UserBar extends React.Component {
                                             <Trans i18nKey="userNotExist"/>
                                         </p> :
                                         <div>
-                                            <Link to={`/account/${user.id}`} className="custom-card">
+                                            <Link to={{pathname:`/account/${user.id}`, user:user}} className="custom-card">
                                                 <div>
                                                     <span><img className="user_image" alt="userImage"
                                                                src={UserImg}/></span>

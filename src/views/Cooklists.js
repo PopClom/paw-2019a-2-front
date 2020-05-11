@@ -14,7 +14,8 @@ class Cooklists extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fetching: true,
+            fetchingCooklist: true,
+            fetchingUser: true,
             cooklists: [],
             showAddModal: false,
             user: {}
@@ -29,30 +30,40 @@ class Cooklists extends React.Component {
     };
 
     componentDidMount() {
-        let userId = this.props.match.params.userId;
+        this.loadData(this.props);
+    };
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({fetchingCooklist: true, fetchingUser: true}, () => {
+            this.loadData(nextProps);
+        });
+    }
+
+    loadData(props) {
+        let userId = props.match.params.userId;
         if (userId === undefined) {
             userId = getUser().id;
-            this.setState({user: getUser()})
+            this.setState({user: getUser(), fetchingUser: false});
         } else {
             axios.get(`${SERVER_ADDR}/users/${userId}`).then(response =>
-                this.setState({user: response.data}));
+                this.setState({user: response.data, fetchingUser: false}));
         }
         axios.get(`${SERVER_ADDR}/cooklists/user/${userId}`).then(response =>
-            this.setState({cooklists: response.data.cooklists, fetching: false}, () => console.log(this.state.cooklists)));
-    };
+            this.setState({cooklists: response.data.cooklists, fetchingCooklist: false}));
+    }
 
     toggleAddModal = () => {
         this.setState({showAddModal: !this.state.showAddModal});
     };
 
     render() {
-        const {fetching, cooklists, showAddModal, user} = this.state;
+        const {fetchingCooklist, fetchingUser, cooklists, showAddModal, user} = this.state;
 
         return (
 
             <section>
                 <section className="main_container">
-                    {fetching ?
+                    {fetchingCooklist || fetchingUser ?
                         <section className="browse">
                             <Spinner/>
                         </section> :
@@ -62,7 +73,7 @@ class Cooklists extends React.Component {
                                 :
                                 /*TODO*/
                                 <h4 className="navigation-title pt-3"><Trans i18nKey="cooklist.title"
-                                                                             values={{0: user.username}}/></h4>
+                                values={{0: user.username}}/></h4>
                             }
                             <section className="browse">
 

@@ -26,14 +26,26 @@ class Account extends React.Component {
     }
 
     componentDidMount() {
-        const userId = this.props.match.params.userId;
-        if (userId !== undefined)
-            axios.get(`${SERVER_ADDR}/users/${userId}`).then(response =>
-                this.setState({user: response.data, fetching: false})
-            ).catch(() => this.setState({fetching: false, error: true}));
-        else
-            this.setState({user: getUser(), fetching: false})
+        this.loadData(this.props);
     };
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({fetching: true}, () => {
+            this.loadData(nextProps);
+        });
+    }
+
+    loadData(props) {
+        const userId = props.match.params.userId;
+        if (props.location.user)
+            this.setState({user: props.location.user, fetching: false});
+        else if (userId === undefined)
+            this.setState({user: getUser(), fetching: false});
+        else
+            axios.get(`${SERVER_ADDR}/users/${userId}`)
+                .then(response => this.setState({user: response.data, fetching: false}))
+                .catch(() => this.setState({fetching: false, error: true}));
+    }
 
     render() {
         const {fetching, user, error} = this.state;
