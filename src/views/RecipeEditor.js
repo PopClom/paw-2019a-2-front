@@ -193,7 +193,7 @@ class RecipeEditor extends React.Component {
                                 </Formik>
                             </div> : <div>
                                 <h4>{<Trans>recipe.login</Trans>}</h4>
-                                <Link to="/logIn">
+                                <Link to={{ pathname: '/login', from: window.location.pathname }}>
                                     <button className="btn btn-green">{<Trans>logIn</Trans>}</button>
                                 </Link>
                             </div>

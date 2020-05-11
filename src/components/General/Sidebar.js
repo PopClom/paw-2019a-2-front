@@ -54,7 +54,7 @@ class Sidebar extends React.Component {
                                 <Trans i18nKey="logOut"/>
                             </Link>
                              :
-                            <Link className="float-left" to={`/login`}>
+                            <Link className="float-left" to={{ pathname: '/login', from: window.location.pathname }}>
                                 <Trans i18nKey="logIn"/>
                             </Link>
                         }

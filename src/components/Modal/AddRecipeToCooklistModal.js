@@ -7,7 +7,7 @@ import {validateRecipeToCooklist} from "../../helpers/validations";
 import axios from "axios";
 import {SERVER_ADDR} from "../../constants";
 import Select from "react-select";
-import {getUser} from "../../helpers/auth";
+import {getUser, isLoggedIn} from "../../helpers/auth";
 
 class AddRecipeToCooklistModal extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class AddRecipeToCooklistModal extends React.Component {
     }
 
     componentDidMount() {
-        if (getUser() != null) {
+        if (isLoggedIn()) {
             axios.get(`${SERVER_ADDR}/cooklists/user/${getUser().id}`, {params: {withRecipes: true}}).then(response => {
                 let cooklists = response.data.cooklists.filter(cooklist => {
                     return !cooklist.recipes.some(recipe => recipe.id === this.props.recipeId);

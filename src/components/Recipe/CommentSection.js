@@ -47,7 +47,7 @@ class CommentSection extends React.Component {
                                 {<Trans>comment.Send</Trans>}</button>
                         </div> : <div>
                             <h4>{<Trans>comment.login</Trans>}</h4>
-                            <Link to="/logIn">
+                            <Link to={{ pathname: '/login', from: window.location.pathname }}>
                                 <button className="btn btn-green">{<Trans>logIn</Trans>}</button>
                             </Link>
                         </div>}

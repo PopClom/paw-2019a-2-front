@@ -25,7 +25,10 @@ class Login extends React.Component {
     handleLoginSubmit = (event) => {
         event.preventDefault();
         login(this.state.username, this.state.password).then(() => {
-            this.props.history.push(`/`);
+            if (this.props.location.from)
+                this.props.history.push(this.props.location.from);
+            else
+                this.props.history.push(`/`);
         }).catch(() => {
             /*validar si las credenciales son correctas, si no loginError = true*/
             logout();
