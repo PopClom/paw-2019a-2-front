@@ -10,6 +10,7 @@ import EditIngredientAmountModal from "../components/Modal/EditIngredientAmountM
 import ConfirmationModal from "../components/Modal/ConfirmationModal";
 import UserBar from "../components/User/UserBar";
 import {getUser} from "../helpers/auth";
+import TooltipHover from "../components/General/TooltipHover";
 
 class Ingredients extends React.Component {
     constructor(props) {
@@ -128,9 +129,11 @@ class Ingredients extends React.Component {
                     toggleModal={this.toggleDeleteModal}
                     onConfirmation={() => this.handleRemoveIngredient(selectedIngredient)}/>
 
-                <Button className="btn-green add" onClick={this.toggleAddModal}>
-                    +
-                </Button>
+                <TooltipHover placement="top" message={<Trans>addIngredient.title</Trans>} icon={
+                    <Button className="btn-green add" onClick={this.toggleAddModal}>
+                        <div style={{marginBottom: "25%"}}>+</div>
+                    </Button>
+                }/>
             </section>
         );
     }

@@ -27,7 +27,7 @@ export function getCurrentUserId(){
 }
 
 export function isMyUser(id){
-    return id != null && id === getCurrentUserId();
+    return id != null && parseInt(id) === getCurrentUserId();
 }
 
 export function userIsAdmin() {
@@ -38,6 +38,18 @@ export function isUserBanned(user) {
     return user.status !== "REGULAR";
 }
 
-export function followsUser(id) {
-    return getUser().following.users.find(user => user.id === id) != null;
+export function followUser(user) {
+    const myUser = getUser();
+    if (!myUser.following.users.find(x => x.id === user.id)) {
+        myUser.following.users.push(user);
+        myUser.followingAmount = myUser.following.users.length;
+    }
+    localStorage.setItem("user", JSON.stringify(myUser));
+}
+
+export function unfollowUser(user) {
+    const myUser = getUser();
+    myUser.following.users = myUser.following.users.filter(x => x.id !== user.id);
+    myUser.followingAmount = myUser.following.users.length;
+    localStorage.setItem("user", JSON.stringify(myUser));
 }

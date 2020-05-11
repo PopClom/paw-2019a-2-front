@@ -166,9 +166,7 @@ class RecipeEditor extends React.Component {
                                             </Form.Row>
 
                                             <div className="form-row">
-                                                <label>
-                                                    Agregar tags (TRADUCIR)
-                                                </label>
+                                                <label><Trans i18nKey="Recipe.addTags"/></label>
                                             </div>
 
                                             <Select

@@ -1,17 +1,20 @@
 import React from 'react';
 import {Trans} from "react-i18next";
 import {Link} from "react-router-dom";
-import {isLoggedIn} from "../../helpers/auth";
-import {followsUser, isMyUser, userIsAdmin, isUserBanned} from "../../helpers";
+import {getUser, isLoggedIn} from "../../helpers/auth";
+import {followUser, unfollowUser, isMyUser, userIsAdmin, isUserBanned} from "../../helpers";
 import UserImg from '../../assets/img/user.png';
 import ConfirmationModal from "../Modal/ConfirmationModal";
+import axios from "axios";
+import {SERVER_ADDR} from "../../constants";
 
 class UserBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             showBanModal: false,
-            showAdminModal: false
+            showAdminModal: false,
+            following: isLoggedIn() ? getUser().following.users : []
         }
     }
 
@@ -30,12 +33,29 @@ class UserBar extends React.Component {
             this.props.user.status = "DISABLED"
     };
 
+    handleFollow = (user) => {
+        axios.post(`${SERVER_ADDR}/users/${user.id}/follow`)
+            .then(() => {
+                followUser(user);
+                this.setState({following: getUser().following.users});
+            });
+    };
+
+    handleUnfollow = (user) => {
+        axios.post(`${SERVER_ADDR}/users/${user.id}/unfollow`)
+            .then(() => {
+                unfollowUser(user);
+                this.setState({following: getUser().following.users});
+            });
+    };
+
     changeAdminPermission = () => {
         this.props.user.admin = !this.props.user.admin;
     };
 
     render() {
         const {user, accountPage} = this.props;
+        const {following} = this.state;
 
         return (
             <section className="side-card-container">
@@ -77,13 +97,13 @@ class UserBar extends React.Component {
                                                             (user.rating - user.rating % 0.5).toFixed(1) + "★" : "-"}}/>
                                                 </p>
 
-                                                {!isMyUser(user.id) ?
-                                                    isLoggedIn() && followsUser(user.id) ?
-                                                        <button onClick={this.unfollowUser}
+                                                {!isMyUser(user.id) && isLoggedIn() ?
+                                                    following.find(x => x.id === user.id) ?
+                                                        <button onClick={() => this.handleUnfollow(user)}
                                                             className="btn-sm btn-outline-light-blue form-user-bar circle-button-user-bar">
                                                             <Trans i18nKey="unfollow"/>
                                                         </button> :
-                                                        <button onClick={this.followUser}
+                                                        <button onClick={() => this.handleFollow(user)}
                                                             className="btn-sm btn-light-blue form-user-bar circle-button-user-bar">
                                                             <Trans i18nKey="follow"/>
                                                         </button> : ''

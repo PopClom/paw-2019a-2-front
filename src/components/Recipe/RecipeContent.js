@@ -153,12 +153,11 @@ class RecipeContent extends React.Component {
                                     </div>
                                 </div>) : ''
                             }
-
-                            <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
+                            {isLoggedIn() ? <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
                                 <IconButton onClick={this.toggleAddModal}>
                                     <AddCircleIcon className="add-icon-cooklist"/>
                                 </IconButton>}
-                            />
+                            /> : ''}
                         </div>
                     </div>
                 </div>

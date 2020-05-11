@@ -46,6 +46,7 @@ const DefaultContainer = () => (
         <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/recipe/:id" component={Recipe}/>
+            <PrivateRoute exact path="/users" component={Users}/>
             <PrivateRoute exact path="/create_recipe" component={RecipeEditor}/>
             <PrivateRoute exact path="/edit_recipe/:recipeId" component={RecipeEditor}/>
             <PrivateRoute exact path="/account/:userId" component={Account}/>
@@ -55,8 +56,6 @@ const DefaultContainer = () => (
             <PrivateRoute exact path="/cooklists/:userId" component={Cooklists}/>
             <PrivateRoute exact path="/cooklist/:cooklistId" component={CooklistRecipes}/>
             <PrivateRoute exact path="/statistics" component={Statistics}/>
-            <Route exact path="/recipestep" component={RecipeSteps}/>
-            <PrivateRoute exact path="/users" component={Users}/>
 
             <Route render={() =>
                 <section className="main_container">

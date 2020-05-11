@@ -57,7 +57,7 @@ class Home extends React.Component {
                 </section>
                 <Link to={`/create_recipe`}>
                     <TooltipHover placement="top" message={<Trans>addNewRecipe</Trans>} icon={
-                        <Button className="btn-green add">+</Button>
+                        <Button className="btn-green add"><div style={{marginBottom: "25%"}}>+</div></Button>
                     }/>
                 </Link>
             </section>

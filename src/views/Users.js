@@ -7,6 +7,7 @@ import {Trans} from "react-i18next";
 import UserCards from "../components/User/UserCards";
 import UserFilters from "../components/User/UserFilters";
 import {getUser, refresh} from "../helpers/auth";
+import {followUser, unfollowUser} from "../helpers";
 
 
 class Users extends React.Component {
@@ -32,15 +33,16 @@ class Users extends React.Component {
     handleFollow = (user) => {
         axios.post(`${SERVER_ADDR}/users/${user.id}/follow`)
             .then(() => {
-                this.setState({following: [...this.state.following, user]});
+                followUser(user);
+                this.setState({following: getUser().following.users});
             });
     };
 
     handleUnfollow = (user) => {
         axios.post(`${SERVER_ADDR}/users/${user.id}/unfollow`)
             .then(() => {
-                const following = this.state.following.filter(x => x.id !== user.id);
-                this.setState({following: following});
+                unfollowUser(user);
+                this.setState({following: getUser().following.users});
             });
     };
 

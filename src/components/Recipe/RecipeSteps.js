@@ -15,10 +15,6 @@ class RecipeSteps extends React.Component {
         this.slider = React.createRef();
     }
 
-    addItem = () => {
-        console.log(this.state.index);
-    };
-
     slickPrev = () => {
         this.slider.slickPrev();
         this.setState({index: this.state.index - 1});

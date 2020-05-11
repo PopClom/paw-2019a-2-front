@@ -1,15 +1,11 @@
 import React from 'react';
 import {Trans, withTranslation} from 'react-i18next';
-import axios from "axios";
-import {SERVER_ADDR} from "../../constants";
-import Select from 'react-select';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faInfoCircle, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {Form} from "react-bootstrap";
 import TooltipHover from "../General/TooltipHover";
 import {MuiPickersUtilsProvider, TimePicker} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import {AccessAlarm} from "@material-ui/icons";

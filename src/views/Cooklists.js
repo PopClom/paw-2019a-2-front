@@ -9,6 +9,7 @@ import axios from "axios";
 import {SERVER_ADDR} from "../constants";
 import {getUser} from "../helpers/auth";
 import Spinner from "../components/General/Spinner";
+import TooltipHover from "../components/General/TooltipHover";
 
 class Cooklists extends React.Component {
     constructor(props) {
@@ -101,9 +102,11 @@ class Cooklists extends React.Component {
 
 
                 <AddCooklistModal showModal={showAddModal} toggleModal={this.toggleAddModal} addCooklist={this.handleAddCooklist}/>
-                <Button className="btn-green add" onClick={this.toggleAddModal}>
-                    +
-                </Button>
+                <TooltipHover placement="top" message={<Trans>cooklist.addTitle</Trans>} icon={
+                    <Button className="btn-green add" onClick={this.toggleAddModal}>
+                        <div style={{marginBottom: "25%"}}>+</div>
+                    </Button>
+                }/>
             </section>
         )
             ;

@@ -39,7 +39,7 @@ class Account extends React.Component {
         const userId = props.match.params.userId;
         if (props.location.user)
             this.setState({user: props.location.user, fetching: false});
-        else if (userId === undefined)
+        else if (userId === undefined || isMyUser(userId))
             this.setState({user: getUser(), fetching: false});
         else
             axios.get(`${SERVER_ADDR}/users/${userId}`)
