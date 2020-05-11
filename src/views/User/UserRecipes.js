@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from "axios";
-import {SERVER_ADDR} from "../constants";
-import Spinner from "../components/General/Spinner";
-import RecipeCard from "../components/Recipe/RecipeCard";
+import {SERVER_ADDR} from "../../constants";
+import Spinner from "../../components/General/Spinner";
+import RecipeCard from "../../components/Recipe/RecipeCard";
 import {Link} from "react-router-dom";
-import TooltipHover from "../components/General/TooltipHover";
+import TooltipHover from "../../components/General/TooltipHover";
 import {Trans} from "react-i18next";
 import {Button} from "react-bootstrap";
-import {isMyUser} from "../helpers";
+import {isMyUser} from "../../helpers";
 
 class UserRecipes extends React.Component {
     constructor(props) {

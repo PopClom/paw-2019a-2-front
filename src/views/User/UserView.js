@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import Account from "./Account";
 import Ingredients from "./Ingredients";
-import UserRecipes from "../UserRecipes";
+import UserRecipes from "./UserRecipes";
 import Cooklists from "./Cooklists";
 import Statistics from "./Statistics";
 import Spinner from "../../components/General/Spinner";
