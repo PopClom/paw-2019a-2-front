@@ -103,9 +103,7 @@ class Cooklists extends React.Component {
 
                 <AddCooklistModal showModal={showAddModal} toggleModal={this.toggleAddModal} addCooklist={this.handleAddCooklist}/>
                 <TooltipHover placement="top" message={<Trans>cooklist.addTitle</Trans>} icon={
-                    <Button className="btn-green add" onClick={this.toggleAddModal}>
-                        <div style={{marginBottom: "25%"}}>+</div>
-                    </Button>
+                    <Button className="btn-green add" onClick={this.toggleAddModal}>+</Button>
                 }/>
             </section>
         )

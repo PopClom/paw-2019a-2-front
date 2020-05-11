@@ -130,9 +130,7 @@ class Ingredients extends React.Component {
                     onConfirmation={() => this.handleRemoveIngredient(selectedIngredient)}/>
 
                 <TooltipHover placement="top" message={<Trans>addIngredient.title</Trans>} icon={
-                    <Button className="btn-green add" onClick={this.toggleAddModal}>
-                        <div style={{marginBottom: "25%"}}>+</div>
-                    </Button>
+                    <Button className="btn-green add" onClick={this.toggleAddModal}>+</Button>
                 }/>
             </section>
         );
