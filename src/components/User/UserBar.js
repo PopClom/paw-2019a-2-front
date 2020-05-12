@@ -96,8 +96,8 @@ class UserBar extends React.Component {
                                                             (user.rating - user.rating % 0.5).toFixed(1) + "★" : "-"}}/>
                                                 </p>
 
-                                                {!isMyUser(user.id) && isLoggedIn() ?
-                                                    following.find(x => x.id === user.id) ?
+                                                {isLoggedIn() && !isMyUser(user.id) ?
+                                                    (following.find(x => x.id === user.id) ?
                                                         <button onClick={() => this.handleUnfollow(user)}
                                                             className="btn-sm btn-outline-light-blue form-user-bar circle-button-user-bar">
                                                             <Trans i18nKey="unfollow"/>
@@ -105,10 +105,10 @@ class UserBar extends React.Component {
                                                         <button onClick={() => this.handleFollow(user)}
                                                             className="btn-sm btn-light-blue form-user-bar circle-button-user-bar">
                                                             <Trans i18nKey="follow"/>
-                                                        </button> : ''
+                                                        </button>) : ''
                                                 }
 
-                                                {userIsAdmin() && accountPage && !isMyUser(user.id) ?
+                                                {userIsAdmin() && !isMyUser(user.id) && accountPage ?
                                                     <div>
                                                         {isUserBanned(user) ?
                                                             <button

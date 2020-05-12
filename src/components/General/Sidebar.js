@@ -10,9 +10,9 @@ const options = [{id: 'home', label: 'Home', path: '/'},
                          [
                              {id: 'recipes', label: 'recipes', path: '/user/me/recipes'},
                              {id: 'cooklists', label: 'lists', path: '/user/me/cooklists'},
-                             {id: 'ingredients', label: 'myIngredients', path: '/user/me/ingredients'},
+                             {id: 'ingredients', label: 'ingredients', path: '/user/me/ingredients'},
                              {id: 'recentlyCooked', label: 'recentlyCooked', path: '/user/me/recently_cooked'},
-                             {id: 'favouriteRecipes', label: 'yourFavourites', path: '/user/me/favourite_recipes'},
+                             {id: 'favouriteRecipes', label: 'favouriteRecipes', path: '/user/me/favourite_recipes'},
                              {id: 'statistics', label: 'myStatistics', path: '/user/me/statistics'}
                          ]
                  }];

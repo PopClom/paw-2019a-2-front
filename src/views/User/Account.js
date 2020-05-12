@@ -47,7 +47,7 @@ class Account extends React.Component {
                                     link={`/user/${myUser ? 'me' : user.id}/cooklists`}/>
 
                         {myUser ?
-                            <SimpleCard title={<Trans>myIngredients</Trans>}
+                            <SimpleCard title={<Trans>ingredients</Trans>}
                                         description={<Trans>myIngredientsExplanation</Trans>}
                                         image={IngredientsImg}
                                         link={`/user/me/ingredients`}/> : ''}
@@ -66,7 +66,7 @@ class Account extends React.Component {
                                         <Trans i18nKey='FavouriteRecipesExplanation'
                                                values={{0: user.username}}/>}
                                     image={FavouritesRecipesImg}
-                                    link={`/user/${myUser ? 'me' : user.id}/favourites_recipes`}/>
+                                    link={`/user/${myUser ? 'me' : user.id}/favourite_recipes`}/>
 
                         {myUser ?
                             <SimpleCard title={<Trans>myStatistics</Trans>}

@@ -1,9 +1,9 @@
 import React from 'react';
 import {Form} from "react-bootstrap";
 import {Trans, withTranslation} from "react-i18next";
-import {getUser} from "../../helpers/auth";
 import axios from "axios";
 import {SERVER_ADDR} from "../../constants";
+import {userIsAdmin} from "../../helpers";
 
 class UserFilters extends React.Component {
     constructor(props) {
@@ -78,7 +78,7 @@ class UserFilters extends React.Component {
                                         </div>)}
                                 </div>
 
-                                {getUser().admin ?
+                                {userIsAdmin() ?
                                     <div>
                                         <label className="text-filter">
                                             <Trans i18nKey="status"/>

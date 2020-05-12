@@ -10,6 +10,7 @@ class UserCards extends React.Component {
 
     render() {
         const {users, following, onFollow, onUnfollow} = this.props;
+        const loggedIn = isLoggedIn();
 
         return (
             <div>
@@ -43,15 +44,16 @@ class UserCards extends React.Component {
                                                 (user.rating - user.rating % 0.5).toFixed(1) + "★" : "-"}}/>
                                     </p>
 
-                                    {!isMyUser(user.id) ?
-                                        isLoggedIn() && following.find(x => x.id === user.id) ?
-                                            <button className="btn-sm btn-outline-light-blue float-right circle-button-user-cards" onClick={() => onUnfollow(user)}>
+                                    {loggedIn && !isMyUser(user.id) ?
+                                        (following.find(x => x.id === user.id) ?
+                                            <button className="btn-sm btn-outline-light-blue float-right circle-button-user-cards"
+                                                    onClick={() => onUnfollow(user)}>
                                                 <Trans i18nKey="unfollow"/>
                                             </button> :
-                                            <button className="btn-sm btn-light-blue float-right circle-button-user-cards" onClick={() => onFollow(user)}>
+                                            <button className="btn-sm btn-light-blue float-right circle-button-user-cards"
+                                                    onClick={() => onFollow(user)}>
                                                 <Trans i18nKey="follow"/>
-                                            </button> : ''
-                                    }
+                                            </button>) : ''}
                                 </div>
                             </Card.Body>
                         </Card>)}

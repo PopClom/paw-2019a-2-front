@@ -7,14 +7,16 @@ import Account from "./Account";
 import Ingredients from "./Ingredients";
 import UserRecipes from "./UserRecipes";
 import Cooklists from "./Cooklists";
+import FavouriteRecipes from "./FavouriteRecipes";
 import Statistics from "./Statistics";
 import Spinner from "../../components/General/Spinner";
 import {isMyUser} from "../../helpers";
-import {getUser} from "../../helpers/auth";
+import {getUser, isLoggedIn} from "../../helpers/auth";
 import axios from "axios";
 import {SERVER_ADDR} from "../../constants";
 import UserBar from "../../components/User/UserBar";
 import Error from "../../components/General/Error";
+import PrivateRoute from "../../components/PrivateRoute";
 
 class UserView extends React.Component {
     constructor(props) {
@@ -52,6 +54,8 @@ class UserView extends React.Component {
 
     render() {
         const {fetchingUser, error, user} = this.state;
+        const {userId} = this.props.match.params;
+        const loggedIn = isLoggedIn();
 
         return (
             <section>
@@ -61,26 +65,30 @@ class UserView extends React.Component {
                             <Spinner/>
                         </section> : (error ?
                             <Error error="404"/> :
-                        <section>
-                            <Switch>
-                                <Route exact path="/user/:userId/account"
-                                       render={(props) => <Account {...props} user={user} />}/>
-                                <Route exact path="/user/:userId/recipes"
-                                       render={(props) => <UserRecipes {...props} user={user} />}/>
-                                <Route exact path="/user/:userId/cooklists"
-                                       render={(props) => <Cooklists {...props} user={user} />}/>
-                                <Route exact path="/user/me/ingredients"
-                                       render={(props) => <Ingredients {...props} user={user} />}/>
-                                <Route exact path="/user/me/statistics"
-                                       render={(props) => <Statistics {...props} user={user} />}/>
+                            (userId === 'me' && !loggedIn ?
+                                <PrivateRoute/> :
+                                <section>
+                                    <Switch>
+                                        <Route exact path="/user/:userId/account"
+                                               render={(props) => <Account {...props} user={user} />}/>
+                                        <Route exact path="/user/:userId/recipes"
+                                               render={(props) => <UserRecipes {...props} user={user} />}/>
+                                        <Route exact path="/user/:userId/cooklists"
+                                               render={(props) => <Cooklists {...props} user={user} />}/>
+                                        <Route exact path="/user/me/ingredients"
+                                               render={(props) => <Ingredients {...props} user={user} />}/>
+                                        <Route exact path="/user/:userId/favourite_recipes"
+                                               render={(props) => <FavouriteRecipes {...props} user={user} />}/>
+                                        <Route exact path="/user/me/statistics"
+                                               render={(props) => <Statistics {...props} user={user} />}/>
 
-                                <Route render={() =>
-                                    <section className="browse">
-                                        <Error error="404"/>
-                                    </section>}/>
-                            </Switch>
-                            <UserBar user={user} accountPage={this.props.match.params.section === 'account'}/>
-                        </section>)}
+                                        <Route render={() =>
+                                            <section className="browse">
+                                                <Error error="404"/>
+                                            </section>}/>
+                                    </Switch>
+                                    <UserBar user={user} accountPage={this.props.match.params.section === 'account'}/>
+                                </section>))}
                 </section>
             </section>
         );

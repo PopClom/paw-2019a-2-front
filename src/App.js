@@ -42,11 +42,11 @@ const DefaultContainer = () => (
         <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/recipe/:id" component={Recipe}/>
-            <PrivateRoute exact path="/users" component={Users}/>
-            <PrivateRoute exact path="/create_recipe" component={RecipeEditor}/>
+            <Route exact path="/create_recipe" component={RecipeEditor}/>
             <PrivateRoute exact path="/edit_recipe/:recipeId" component={RecipeEditor}/>
-            <PrivateRoute exact path="/cooklist/:cooklistId" component={CooklistRecipes}/>
-            <PrivateRoute path="/user/:userId/:section" component={UserView}/>
+            <Route exact path="/cooklist/:cooklistId" component={CooklistRecipes}/>
+            <Route exact path="/users" component={Users}/>
+            <Route path="/user/:userId/:section" component={UserView}/>
 
             <Route render={() =>
                 <section className="main_container">
