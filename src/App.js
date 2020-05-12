@@ -15,6 +15,7 @@ import UserView from "./views/User/UserView";
 import Error from "./components/General/Error";
 import CooklistRecipes from "./views/CooklistRecipes";
 import PrivateRoute from "./components/PrivateRoute";
+import Confirm from "./views/Confirm";
 
 function App() {
     return (
@@ -38,7 +39,10 @@ const LoginContainer = () => (
 
 const DefaultContainer = () => (
     <div>
-        <Route path='/:id?' component={Sidebar}/>
+        <Switch>
+            <Route path="/registration-confirm/:token" component={Confirm}/>
+            <Route component={Sidebar}/>
+        </Switch>
         <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/recipe/:id" component={Recipe}/>
@@ -47,6 +51,7 @@ const DefaultContainer = () => (
             <Route exact path="/cooklist/:cooklistId" component={CooklistRecipes}/>
             <Route exact path="/users" component={Users}/>
             <Route path="/user/:userId/:section" component={UserView}/>
+            <Route path="/registration-confirm/:token"/>
 
             <Route render={() =>
                 <section className="main_container">
