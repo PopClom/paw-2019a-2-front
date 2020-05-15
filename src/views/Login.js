@@ -1,9 +1,11 @@
 import React from 'react';
+import axios from "axios";
 import {withTranslation, Trans} from 'react-i18next';
 import foodifyImage from '../assets/img/foodify.png';
 import {Link} from "react-router-dom";
 import {handleInputChange} from "../helpers";
 import {isLoggedIn, login, logout} from "../helpers/auth";
+import {SERVER_ADDR} from "../constants";
 
 class Login extends React.Component {
     constructor(props) {
@@ -11,7 +13,8 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
-            loginError: false
+            loginError: false,
+            loginErrorMessage: ''
         };
 
         this.handleInputChange = handleInputChange.bind(this);
@@ -29,14 +32,20 @@ class Login extends React.Component {
                 this.props.history.push(this.props.location.from);
             else
                 this.props.history.push(`/`);
-        }).catch(() => {
-            /*validar si las credenciales son correctas, si no loginError = true*/
+        }).catch(err => {
             logout();
-            this.setState({loginError: true});
+            const loginErrorMessage = err.response.data === "User is disabled" ? "signInDisabled" : "signInBadCredentials";
+            this.setState({loginError: true, loginErrorMessage: loginErrorMessage});
         });
     };
 
+    handleResendEmail = () => {
+        axios.post(`${SERVER_ADDR}/users/resend-email/${this.state.username}`).then(() =>
+            this.setState({loginErrorMessage: "mail.Sent"}));
+    };
+
     render() {
+        const {loginError, loginErrorMessage} = this.state;
         const {t} = this.props;
 
         return (
@@ -53,8 +62,17 @@ class Login extends React.Component {
                     <input type="password" name="password" className="form-control mb-4"
                            placeholder={t('User.password')} onChange={this.handleInputChange}/>
 
-                    {this.state.loginError &&
-                    <p className="form-text text-muted mb-4 error-text" element="small"><Trans>signInError</Trans></p>}
+                    {loginError &&
+                    <div className="form-text text-muted mb-4 error-text text-center" element="small"><Trans>{loginErrorMessage}</Trans>
+                        <br/>
+                        {loginErrorMessage === "signInDisabled" &&
+                        <div>
+                            <Trans i18nKey="didntReceiveEmail"/>
+                            <button onClick={this.handleResendEmail} className="btn-link register-btn">
+                                <Trans i18nKey="clickToResend"/>
+                            </button>
+                        </div>}
+                    </div>}
 
                     <div className="d-flex justify-content-around">
                         <div>

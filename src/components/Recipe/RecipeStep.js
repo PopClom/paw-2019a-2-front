@@ -68,14 +68,15 @@ class RecipeStep extends React.Component {
                     </p>
                 </div>
 
-                {step.seconds > 0 ? <CountdownCircleTimer
+                {step.seconds > 0 &&
+                <CountdownCircleTimer
                     size={140}
                     strokeWidth={10}
                     isPlaying={this.state.isPlaying}
                     durationSeconds={step.seconds}
                     colors={[["#1ed75f", 0.85], ["#F7B801", 0.1], ["#A30000"]]}
                     renderTime={this.state.isPlaying ? this.renderTime : this.notStartedRender}
-                /> : ''}
+                />}
             </div>
         );
     }

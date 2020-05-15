@@ -128,7 +128,7 @@ class RecipeContent extends React.Component {
 
                     <div className="recipe-body-bottom">
                         <div className="recipe-bottom-icon">
-                            {canEdit ? (
+                            {canEdit &&
                                 <div className="float-right">
                                     <div className="float-right">
                                         <TooltipHover placement="top" message={<Trans>deleteRecipe</Trans>}
@@ -151,13 +151,12 @@ class RecipeContent extends React.Component {
                                                 </IconButton>}
                                         />
                                     </div>
-                                </div>) : ''
-                            }
-                            {isLoggedIn() ? <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
+                                </div>}
+                            {isLoggedIn() && <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>} icon={
                                 <IconButton onClick={this.toggleAddModal}>
                                     <AddCircleIcon className="add-icon-cooklist"/>
                                 </IconButton>}
-                            /> : ''}
+                            />}
                         </div>
                     </div>
                 </div>

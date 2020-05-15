@@ -76,10 +76,8 @@ class AddRecipeToCooklistModal extends React.Component {
                                 <div>
                                     {(createNewCooklist || cooklists.length === 0) ?
                                         <div>
-                                            {cooklists.length === 0 ?
-                                                <p className="cooklist-add-recipe-empty"><Trans i18nKey="cooklist.addRecipe.empty"/></p>
-                                                : ''
-                                            }
+                                            {cooklists.length === 0 &&
+                                                <p className="cooklist-add-recipe-empty"><Trans i18nKey="cooklist.addRecipe.empty"/></p>}
                                             <Form.Row className="mb-4">
                                                 <Form.Label>
                                                     <Trans i18nKey="cooklist.name"/>
@@ -105,20 +103,18 @@ class AddRecipeToCooklistModal extends React.Component {
                                                 getOptionLabel={(cooklist) => cooklist.name}
                                                 getOptionValue={(cooklist) => cooklist.id}
                                                 placeholder={<Trans>cooklist.select</Trans>}/>
-                                            {!!errors.selectedCooklist ?
+                                            {!!errors.selectedCooklist &&
                                                 <p className="invalid-feedback d-block no-margin">
                                                     <Trans>{errors.selectedCooklist}</Trans>
-                                                </p> : ''
-                                            }
+                                                </p>}
                                         </Form.Row>
                                     }
-                                    {cooklists.length > 0 ?
+                                    {cooklists.length > 0 &&
                                         <Button className="btn-green"
                                                 onClick={() => this.setState({createNewCooklist: !createNewCooklist})}>
                                             {createNewCooklist ? <Trans>cooklist.selectExisting</Trans> :
                                                 <Trans>cooklist.selectNew</Trans>}
-                                        </Button> : ''
-                                    }
+                                        </Button>}
                                 </div>
                             </Modal.Body>
 

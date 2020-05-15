@@ -40,7 +40,8 @@ class Comment extends React.Component {
                             {date.substring(0, 16).replace('T', ' ')}
                         </p>
                     </div>
-                    {canEdit && <div className="float-right">
+                    {canEdit &&
+                    <div className="float-right">
                         <TooltipHover placement="top" message={<Trans>comment.delete</Trans>} icon={
                             <IconButton className="myingredient-btn" onClick={this.toggleDeleteModal}>
                                 <DeleteIcon className="delete-ingredient-icon"/>

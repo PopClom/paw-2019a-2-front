@@ -44,6 +44,7 @@ const DefaultContainer = () => (
             <Route component={Sidebar}/>
         </Switch>
         <Switch>
+            <Route path="/registration-confirm/:token"/>
             <Route exact path="/" component={Home}/>
             <Route exact path="/recipe/:id" component={Recipe}/>
             <Route exact path="/create_recipe" component={RecipeEditor}/>
@@ -51,7 +52,6 @@ const DefaultContainer = () => (
             <Route exact path="/cooklist/:cooklistId" component={CooklistRecipes}/>
             <Route exact path="/users" component={Users}/>
             <Route path="/user/:userId/:section" component={UserView}/>
-            <Route path="/registration-confirm/:token"/>
 
             <Route render={() =>
                 <section className="main_container">

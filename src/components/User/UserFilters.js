@@ -86,7 +86,7 @@ class UserFilters extends React.Component {
                                         </div>)}
                                 </div>
 
-                                {isUserAdmin() ?
+                                {isUserAdmin() &&
                                     <div>
                                         <label className="text-filter">
                                             <Trans i18nKey="status"/>
@@ -104,8 +104,7 @@ class UserFilters extends React.Component {
                                                     </label>
                                                 </div>)}
                                         </div>
-                                    </div>
-                                    : ''}
+                                    </div>}
 
                                 <button className="btn btn-green btn-apply-filters"
                                         onClick={onApply}>

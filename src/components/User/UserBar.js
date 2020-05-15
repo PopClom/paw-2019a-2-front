@@ -70,12 +70,12 @@ class UserBar extends React.Component {
                                                 </div>
                                             </Link>
                                             <div className="user-card-info">
-                                                {isUserBanned(user) ?
+                                                {isUserBanned(user) &&
                                                     <div className="error-text">
                                                         <p>
                                                             <i><Trans i18nKey="userNotExist"/></i>
                                                         </p>
-                                                    </div> : ''}
+                                                    </div>}
 
                                                 <div className="card-text">
                                                     <Trans i18nKey="Followers"
@@ -96,7 +96,7 @@ class UserBar extends React.Component {
                                                             (user.rating - user.rating % 0.5).toFixed(1) + "★" : "-"}}/>
                                                 </p>
 
-                                                {isLoggedIn() && !isMyUser(user.id) ?
+                                                {isLoggedIn() && !isMyUser(user.id) &&
                                                     (following.some(x => x.id === user.id) ?
                                                         <button onClick={() => this.handleUnfollow(user)}
                                                             className="btn-sm btn-outline-light-blue form-user-bar circle-button-user-bar">
@@ -105,9 +105,9 @@ class UserBar extends React.Component {
                                                         <button onClick={() => this.handleFollow(user)}
                                                             className="btn-sm btn-light-blue form-user-bar circle-button-user-bar">
                                                             <Trans i18nKey="follow"/>
-                                                        </button>) : ''}
+                                                        </button>)}
 
-                                                {isUserAdmin() && !isMyUser(user.id) && accountPage ?
+                                                {isUserAdmin() && !isMyUser(user.id) && accountPage &&
                                                     <div>
                                                         {isUserBanned(user) ?
                                                             <button
@@ -132,7 +132,7 @@ class UserBar extends React.Component {
                                                                 onClick={this.toggleAdminModal}>
                                                                 <Trans i18nKey="admin.Grant"/>
                                                             </button>}
-                                                    </div> : ''}
+                                                    </div>}
                                             </div>
                                         </div>}
                                 </div>

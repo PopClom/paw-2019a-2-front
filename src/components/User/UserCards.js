@@ -34,12 +34,12 @@ class UserCards extends React.Component {
                                 </Link>
 
                                 <div className="user-card-info">
-                                    {isUserBanned(user) ?
+                                    {isUserBanned(user) &&
                                         <div className="error-text">
                                             <p>
                                                 <i><Trans i18nKey="userNotExist"/></i>
                                             </p>
-                                        </div> : ''}
+                                        </div>}
 
                                     <div className="card-text">
                                         <Trans i18nKey="Recipe.amount" values={{0: user.recipesAmount}}/>
@@ -50,7 +50,7 @@ class UserCards extends React.Component {
                                                 (user.rating - user.rating % 0.5).toFixed(1) + "★" : "-"}}/>
                                     </p>
 
-                                    {loggedIn && !isMyUser(user.id) ?
+                                    {loggedIn && !isMyUser(user.id) &&
                                         (following.some(x => x.id === user.id) ?
                                             <button className="btn-sm btn-outline-light-blue float-right circle-button-user-cards"
                                                     onClick={() => onUnfollow(user)}>
@@ -59,7 +59,7 @@ class UserCards extends React.Component {
                                             <button className="btn-sm btn-light-blue float-right circle-button-user-cards"
                                                     onClick={() => onFollow(user)}>
                                                 <Trans i18nKey="follow"/>
-                                            </button>) : ''}
+                                            </button>)}
                                 </div>
                             </Card.Body>
                         </Card>)}

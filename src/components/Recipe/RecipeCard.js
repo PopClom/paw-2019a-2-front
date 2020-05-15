@@ -51,7 +51,7 @@ class RecipeCard extends React.Component {
                         </div>
                     </Card.Body>
                 </Link>
-                {onDelete !== undefined ?
+                {onDelete !== undefined &&
                     <div className="delete-from-cooklist">
                         <IconButton onClick={this.toggleDeleteModal}>
                             <DeleteIcon className="delete-ingredient-icon"/>
@@ -59,9 +59,7 @@ class RecipeCard extends React.Component {
                         <ConfirmationModal title={<Trans i18nKey="cooklist.removeRecipe"/>} description={<Trans i18nKey="cooklist.removeRecipeWarning" values={{recipeName: recipe.name}}/>}
                                            variant="danger" showModal={this.state.showDeleteModal}
                                            toggleModal={this.toggleDeleteModal} onConfirmation={() => this.onConfirmation(recipe.id)}/>
-                    </div>
-                    : ''
-                }
+                    </div>}
             </Card>
         );
     }

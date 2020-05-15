@@ -47,12 +47,11 @@ class RecipeSteps extends React.Component {
                     <div className="step-buttons">
                         <Button className="btn-green float-left"
                                 onClick={this.slickPrev} disabled={this.state.index === 0}>Previous</Button>
-                        { this.state.index < steps.length - 1 ?
+                        {this.state.index < steps.length - 1 ?
                             <Button className="btn-green float-right"
                                     onClick={this.slickNext}>Next</Button> :
                             <Button className="btn-green float-right"
-                                    onClick={this.endCooking}>Finish</Button>
-                        }
+                                    onClick={this.endCooking}>Finish</Button>}
                     </div>
                 </div>
             </section>

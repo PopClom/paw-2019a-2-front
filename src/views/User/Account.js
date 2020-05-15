@@ -46,13 +46,14 @@ class Account extends React.Component {
                                     image={CooklistsImg}
                                     link={`/user/${myUser ? 'me' : user.id}/cooklists`}/>
 
-                        {myUser ?
+                        {/*Ingredients*/}
+                        {myUser &&
                             <SimpleCard title={<Trans>ingredients</Trans>}
                                         description={<Trans>myIngredientsExplanation</Trans>}
                                         image={IngredientsImg}
-                                        link={`/user/me/ingredients`}/> : ''}
+                                        link={`/user/me/ingredients`}/>}
 
-
+                        {/*Recently cooked*/}
                         <SimpleCard title={<Trans>recentlyCooked</Trans>}
                                     description={myUser ?
                                         <Trans>MyrecentlyCookedExplanation</Trans> :
@@ -60,6 +61,7 @@ class Account extends React.Component {
                                     image={RecentlyCookedImg}
                                     link={`/user/${myUser ? 'me' : user.id}/recently_cooked`}/>
 
+                        {/*Favourite recipes*/}
                         <SimpleCard title={<Trans>favouriteRecipes</Trans>}
                                     description={myUser ?
                                         <Trans>myFavouriteRecipesExplanation</Trans> :
@@ -68,11 +70,12 @@ class Account extends React.Component {
                                     image={FavouritesRecipesImg}
                                     link={`/user/${myUser ? 'me' : user.id}/favourite_recipes`}/>
 
-                        {myUser ?
+                        {/*Statistics*/}
+                        {myUser &&
                             <SimpleCard title={<Trans>myStatistics</Trans>}
                                         description={<Trans>myStatisticsExplanation</Trans>}
                                         image={StatisticsImg}
-                                        link={`/user/me/statistics`}/> : ''}
+                                        link={`/user/me/statistics`}/>}
 
                     </div>
                 </section>

@@ -56,6 +56,7 @@ class Cooklists extends React.Component {
                     <h4 className="navigation-title pt-3"><Trans i18nKey="myCooklists"/></h4> :
                     <h4 className="navigation-title pt-3"><Trans i18nKey="cooklist.title"
                                                                  values={{0: user.username}}/></h4>}
+
                 {fetchingCooklist ?
                     <section className="browse">
                         <Spinner/>
@@ -75,14 +76,15 @@ class Cooklists extends React.Component {
                                                                                    link={`/cooklist/${cooklists[idx].id}`}/>)}
                                 </div>}
                         </section>
-
                     </section>}
 
                 <AddCooklistModal showModal={showAddModal} toggleModal={this.toggleAddModal} addCooklist={this.handleAddCooklist}/>
-                {isMyUser(user.id) ?
+
+                {isMyUser(user.id) &&
                     <TooltipHover placement="top" message={<Trans>cooklist.addTitle</Trans>} icon={
                         <Button className="btn-green add" onClick={this.toggleAddModal}>+</Button>
-                    }/> : ''}
+                    }/>
+                }
             </section>
         );
     }

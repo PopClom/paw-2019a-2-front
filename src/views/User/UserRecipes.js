@@ -66,12 +66,12 @@ class UserRecipes extends React.Component {
                         </section>
                     </section>}
 
-                {isMyUser(user.id) ?
+                {isMyUser(user.id) &&
                     <Link to={`/create_recipe`}>
                         <TooltipHover placement="top" message={<Trans>addNewRecipe</Trans>} icon={
                             <Button className="btn-green add">+</Button>
                         }/>
-                    </Link> : ''}
+                    </Link>}
             </section>
         );
     }
