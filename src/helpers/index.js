@@ -40,7 +40,7 @@ export function isUserBanned(user) {
 
 export function followUser(user) {
     const myUser = getUser();
-    if (!myUser.following.users.find(x => x.id === user.id)) {
+    if (!myUser.following.users.some(x => x.id === user.id)) {
         myUser.following.users.push(user);
         myUser.followingAmount = myUser.following.users.length;
     }

@@ -17,27 +17,33 @@ class Users extends React.Component {
             users: [],
             following: [],
             followers: [],
-            filters: {}
+            filters: {
+                search: "",
+                order: "Asc",
+                status: "REGULAR"
+            }
         };
     }
 
     componentDidMount() {
         if (isLoggedIn()) {
             refresh().then(() => {
-                this.setState({following: getUser().following.users, followers: getUser().followers.users}, this.applyFilters);
+                this.setState({following: getUser().following.users, followers: getUser().followers.users}, this.handleApplyFilters);
             });
         } else {
-            this.applyFilters();
+            this.handleApplyFilters();
         }
     }
 
-    applyFilters() {
-        axios.post(`${SERVER_ADDR}/users/search`, this.state.filters).then(response =>
-            this.setState({users: response.data.users, fetching: false}));
+    handleApplyFilters = () => {
+        this.setState({fetching: true}, () => {
+            axios.post(`${SERVER_ADDR}/users/search`, this.state.filters).then(response =>
+                this.setState({users: response.data.users, fetching: false}));
+        });
     };
 
-    handleSearch = (search, order, status) => {
-        this.setState({filters: {search: search, order: order, status: status}, fetching: true}, this.applyFilters);
+    handleUpdateFilters = (search, order, status) => {
+        this.setState({filters: {search: search, order: order, status: status}});
     };
 
     handleFollow = (user) => {
@@ -57,7 +63,17 @@ class Users extends React.Component {
     };
 
     render() {
-        const {fetching, users, following, followers} = this.state;
+        const {fetching, users, following, followers, filters} = this.state;
+
+        const followersFiltered = followers.filter(x => x.status === filters.status &&
+            x.username.toUpperCase().indexOf(filters.search.toUpperCase()) !== -1).sort();
+        const followingFiltered = following.filter(x => x.status === filters.status &&
+            x.username.toUpperCase().indexOf(filters.search.toUpperCase()) !== -1).sort();
+
+        if (filters.order === "Desc") {
+            followersFiltered.reverse();
+            followingFiltered.reverse();
+        }
 
         return (
             <section className="main_container">
@@ -85,7 +101,7 @@ class Users extends React.Component {
                                             <Trans i18nKey="followers.login"/>
                                         </h3> :
                                         <div className="tab-users-content">
-                                            <UserCards users={followers} following={following}
+                                            <UserCards users={followersFiltered} following={following}
                                                        onFollow={this.handleFollow} onUnfollow={this.handleUnfollow}/>
                                         </div>)}
                             </Tab.Content>
@@ -98,7 +114,7 @@ class Users extends React.Component {
                                             <Trans i18nKey="following.login"/>
                                         </h3> :
                                         <div className="tab-users-content">
-                                            <UserCards users={following} following={following}
+                                            <UserCards users={followingFiltered} following={following}
                                                        onFollow={this.handleFollow} onUnfollow={this.handleUnfollow}/>
                                         </div>)}
                             </Tab.Content>
@@ -106,7 +122,7 @@ class Users extends React.Component {
                     </Tabs>
                 </section>
 
-                <UserFilters onSearch={this.handleSearch}/>
+                <UserFilters onUpdate={this.handleUpdateFilters} onApply={this.handleApplyFilters}/>
             </section>
         );
     }

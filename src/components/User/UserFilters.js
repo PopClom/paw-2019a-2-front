@@ -1,5 +1,4 @@
 import React from 'react';
-import {Form} from "react-bootstrap";
 import {Trans, withTranslation} from "react-i18next";
 import axios from "axios";
 import {SERVER_ADDR} from "../../constants";
@@ -35,22 +34,28 @@ class UserFilters extends React.Component {
 
     onOrdersChange = (event) => {
         const id = event.target.id;
-        this.setState({orderSelected: id});
+        this.setState({orderSelected: id}, () => {
+            this.props.onUpdate(this.state.searchString, this.state.orderSelected, this.state.statusSelected)
+        });
     };
 
     onStatusChange = (event) => {
         const id = event.target.id;
-        this.setState({statusSelected: id});
+        this.setState({statusSelected: id}, () => {
+            this.props.onUpdate(this.state.searchString, this.state.orderSelected, this.state.statusSelected)
+        });
     };
 
     onChangeSearchString = (event) => {
         const val = event.target.value;
-        this.setState({searchString: val});
+        this.setState({searchString: val}, () => {
+            this.props.onUpdate(this.state.searchString, this.state.orderSelected, this.state.statusSelected)
+        });
     };
 
     render() {
         const {searchString, allOrders, allStatus, orderSelected, statusSelected} = this.state;
-        const {t} = this.props;
+        const {t, onApply} = this.props;
 
         return (
             <section className="side-card-container">
@@ -103,7 +108,7 @@ class UserFilters extends React.Component {
                                     : ''}
 
                                 <button className="btn btn-green btn-apply-filters"
-                                        onClick={() => this.props.onSearch(searchString, orderSelected, statusSelected)}>
+                                        onClick={onApply}>
                                     <Trans i18nKey="confirm"/>
                                 </button>
                             </div>

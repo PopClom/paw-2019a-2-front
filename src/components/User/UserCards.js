@@ -51,7 +51,7 @@ class UserCards extends React.Component {
                                     </p>
 
                                     {loggedIn && !isMyUser(user.id) ?
-                                        (following.find(x => x.id === user.id) ?
+                                        (following.some(x => x.id === user.id) ?
                                             <button className="btn-sm btn-outline-light-blue float-right circle-button-user-cards"
                                                     onClick={() => onUnfollow(user)}>
                                                 <Trans i18nKey="unfollow"/>

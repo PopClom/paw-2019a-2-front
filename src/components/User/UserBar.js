@@ -97,7 +97,7 @@ class UserBar extends React.Component {
                                                 </p>
 
                                                 {isLoggedIn() && !isMyUser(user.id) ?
-                                                    (following.find(x => x.id === user.id) ?
+                                                    (following.some(x => x.id === user.id) ?
                                                         <button onClick={() => this.handleUnfollow(user)}
                                                             className="btn-sm btn-outline-light-blue form-user-bar circle-button-user-bar">
                                                             <Trans i18nKey="unfollow"/>

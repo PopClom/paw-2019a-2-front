@@ -22,10 +22,9 @@ class AddRecipeToCooklistModal extends React.Component {
     componentDidMount() {
         if (isLoggedIn()) {
             axios.get(`${SERVER_ADDR}/cooklists/user/${getUser().id}`, {params: {withRecipes: true}}).then(response => {
-                let cooklists = response.data.cooklists.filter(cooklist => {
-                    return !cooklist.recipes.some(recipe => recipe.id === this.props.recipeId);
-                });
-                this.setState({cooklists: cooklists}, () => console.log(response));
+                let cooklists = response.data.cooklists.filter(cooklist =>
+                    !cooklist.recipes.some(recipe => recipe.id === this.props.recipeId));
+                this.setState({cooklists: cooklists});
             });
         }
     }
