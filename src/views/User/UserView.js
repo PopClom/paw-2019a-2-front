@@ -52,6 +52,19 @@ class UserView extends React.Component {
                 .catch(() => this.setState({fetchingUser: false, error: true}));
     }
 
+    handleBanUser = () => {
+        const user = this.state.user;
+        if (user.status === "REGULAR") {
+            axios.post(`${SERVER_ADDR}/users/${user.id}/ban`).then(() => {
+                this.setState({user: {...user, status: "DELETED"}});
+            });
+        } else {
+            axios.post(`${SERVER_ADDR}/users/${user.id}/unban`).then(() => {
+                this.setState({user: {...user, status: "REGULAR"}});
+            });
+        }
+    };
+
     render() {
         const {fetchingUser, error, user} = this.state;
         const {userId} = this.props.match.params;
@@ -87,7 +100,7 @@ class UserView extends React.Component {
                                                 <Error error="404"/>
                                             </section>}/>
                                     </Switch>
-                                    <UserBar user={user} accountPage={this.props.match.params.section === 'account'}/>
+                                    <UserBar accountPage user={user} onBan={this.handleBanUser}/>
                                 </section>))}
                 </section>
             </section>

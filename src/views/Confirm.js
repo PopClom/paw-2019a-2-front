@@ -3,6 +3,7 @@ import axios from "axios";
 import {refresh} from "../helpers/auth";
 import {SERVER_ADDR} from "../constants";
 import Spinner from "../components/General/Spinner";
+import Error from "../components/General/Error";
 
 class Confirm extends React.Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class Confirm extends React.Component {
                     <section className="browse">
                         <Spinner/>
                     </section>
-                </section> : 'Ocurrió un error'
+                </section> : <Error error="400"/>
         );
     }
 }

@@ -75,7 +75,6 @@ class RecipeFilters extends React.Component {
         const {t} = this.props;
 
         return (
-
             <section className="side-card-container">
                 <div className="card">
                     <div className="card-body" id="filters-big-card">
@@ -85,12 +84,11 @@ class RecipeFilters extends React.Component {
                             </h4>
 
                             <div>
-
-                                <input className="form-control" placeholder="Search"
+                                <input className="form-control" placeholder={t('search')}
                                        value={searchString} onChange={this.onChangeSearchString}/>
 
                                 <label className="text-filter">
-                                    <Trans>sortBy</Trans>
+                                    <Trans i18nKey="sortBy"/>
                                 </label>
                                 <div className="filter-items">
                                     {Object.keys(orders).map(idx =>
@@ -155,7 +153,7 @@ class RecipeFilters extends React.Component {
                                 <button className="btn btn-green btn-apply-filters"
                                         onClick={() => this.props.onSearch(searchString, tagsCheckboxes, orderSelected,
                                             selectedIngredients, withMyIngredients)}>
-                                    <Trans>confirm</Trans>
+                                    <Trans i18nKey="confirm"/>
                                 </button>
                             </div>
                         </div>

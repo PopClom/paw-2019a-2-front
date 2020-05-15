@@ -2,7 +2,7 @@ import React from 'react';
 import axios from "axios";
 import {SERVER_ADDR} from '../constants';
 import RecipeCard from '../components/Recipe/RecipeCard';
-import Filters from '../components/Recipe/RecipeFilters';
+import RecipeFilters from '../components/Recipe/RecipeFilters';
 import Spinner from '../components/General/Spinner';
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
@@ -28,7 +28,7 @@ class Home extends React.Component {
             this.setState({recipes: response.data.recipes, fetching: false}));
     };
 
-    onSearch = (searchString, tags, order, ingredients, cookable) => {
+    handleSearch = (searchString, tags, order, ingredients, cookable) => {
         let searchTags = [];
         Object.keys(tags).forEach(tag => {
             if (tags[tag])
@@ -53,7 +53,7 @@ class Home extends React.Component {
                                 {Object.keys(recipes).map(idx => <RecipeCard key={idx} recipe={recipes[idx]}/>)}
                             </div>}
                     </section>
-                    <Filters onSearch={this.onSearch}/>
+                    <RecipeFilters onSearch={this.handleSearch}/>
                 </section>
                 <Link to={`/create_recipe`}>
                     <TooltipHover placement="top" message={<Trans>addNewRecipe</Trans>} icon={

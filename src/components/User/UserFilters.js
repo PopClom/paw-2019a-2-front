@@ -3,12 +3,13 @@ import {Form} from "react-bootstrap";
 import {Trans, withTranslation} from "react-i18next";
 import axios from "axios";
 import {SERVER_ADDR} from "../../constants";
-import {userIsAdmin} from "../../helpers";
+import {isUserAdmin} from "../../helpers";
 
 class UserFilters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchString: '',
             allOrders: [],
             allStatus: [],
             statusSelected: '',
@@ -42,12 +43,16 @@ class UserFilters extends React.Component {
         this.setState({statusSelected: id});
     };
 
+    onChangeSearchString = (event) => {
+        const val = event.target.value;
+        this.setState({searchString: val});
+    };
+
     render() {
-        const {allOrders, allStatus, statusSelected, orderSelected} = this.state;
+        const {searchString, allOrders, allStatus, orderSelected, statusSelected} = this.state;
         const {t} = this.props;
 
         return (
-
             <section className="side-card-container">
                 <div className="card">
                     <div className="card-body" id="filters-big-card">
@@ -56,15 +61,13 @@ class UserFilters extends React.Component {
                                 <Trans i18nKey="searchFilters"/>
                             </h4>
 
-                            <Form>
+                            <div>
+                                <input className="form-control" placeholder={t('search')}
+                                       value={searchString} onChange={this.onChangeSearchString}/>
 
-                                <Trans i18nKey="search" var="search"/>
-                                <Form.Control path="searchBar" placeholder={t('search')}/>
-
-                                <Form.Label className="text-filter">
+                                <label className="text-filter">
                                     <Trans i18nKey="sortBy"/>
-                                </Form.Label>
-
+                                </label>
                                 <div className="filter-items">
                                     {Object.keys(allOrders).map(idx =>
                                         <div className="custom-control custom-radio" key={idx}>
@@ -78,7 +81,7 @@ class UserFilters extends React.Component {
                                         </div>)}
                                 </div>
 
-                                {userIsAdmin() ?
+                                {isUserAdmin() ?
                                     <div>
                                         <label className="text-filter">
                                             <Trans i18nKey="status"/>
@@ -97,13 +100,13 @@ class UserFilters extends React.Component {
                                                 </div>)}
                                         </div>
                                     </div>
-                                    : ''
-                                }
+                                    : ''}
 
-                                <button className="btn btn-green btn-apply-filters" type="submit">
+                                <button className="btn btn-green btn-apply-filters"
+                                        onClick={() => this.props.onSearch(searchString, orderSelected, statusSelected)}>
                                     <Trans i18nKey="confirm"/>
                                 </button>
-                            </Form>
+                            </div>
                         </div>
                     </div>
                 </div>

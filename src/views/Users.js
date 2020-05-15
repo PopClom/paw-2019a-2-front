@@ -8,8 +8,6 @@ import UserCards from "../components/User/UserCards";
 import UserFilters from "../components/User/UserFilters";
 import {getUser, isLoggedIn, refresh} from "../helpers/auth";
 import {followUser, unfollowUser} from "../helpers";
-import {Link} from "react-router-dom";
-
 
 class Users extends React.Component {
     constructor(props) {
@@ -18,23 +16,29 @@ class Users extends React.Component {
             fetching: true,
             users: [],
             following: [],
-            followers: []
+            followers: [],
+            filters: {}
         };
     }
 
     componentDidMount() {
         if (isLoggedIn()) {
             refresh().then(() => {
-                this.setState({following: getUser().following.users, followers: getUser().followers.users}, () => {
-                    axios.post(`${SERVER_ADDR}/users/search`, {}).then(response =>
-                        this.setState({users: response.data.users, fetching: false}));
-                });
+                this.setState({following: getUser().following.users, followers: getUser().followers.users}, this.applyFilters);
             });
         } else {
-            axios.post(`${SERVER_ADDR}/users/search`, {}).then(response =>
-                this.setState({users: response.data.users, fetching: false}));
+            this.applyFilters();
         }
     }
+
+    applyFilters() {
+        axios.post(`${SERVER_ADDR}/users/search`, this.state.filters).then(response =>
+            this.setState({users: response.data.users, fetching: false}));
+    };
+
+    handleSearch = (search, order, status) => {
+        this.setState({filters: {search: search, order: order, status: status}, fetching: true}, this.applyFilters);
+    };
 
     handleFollow = (user) => {
         axios.post(`${SERVER_ADDR}/users/${user.id}/follow`)
@@ -102,7 +106,7 @@ class Users extends React.Component {
                     </Tabs>
                 </section>
 
-                <UserFilters/>
+                <UserFilters onSearch={this.handleSearch}/>
             </section>
         );
     }

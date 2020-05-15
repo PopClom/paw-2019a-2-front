@@ -30,7 +30,7 @@ export function isMyUser(id){
     return id != null && parseInt(id) === getCurrentUserId();
 }
 
-export function userIsAdmin() {
+export function isUserAdmin() {
     return isLoggedIn() && getUser().admin;
 }
 

@@ -4,7 +4,7 @@ import {Trans} from "react-i18next";
 import {Link} from "react-router-dom";
 import UserImg from "../../assets/img/user.png"
 import {isLoggedIn} from "../../helpers/auth";
-import {isMyUser} from "../../helpers";
+import {isMyUser, isUserBanned} from "../../helpers";
 
 class UserCards extends React.Component {
 
@@ -34,6 +34,12 @@ class UserCards extends React.Component {
                                 </Link>
 
                                 <div className="user-card-info">
+                                    {isUserBanned(user) ?
+                                        <div className="error-text">
+                                            <p>
+                                                <i><Trans i18nKey="userNotExist"/></i>
+                                            </p>
+                                        </div> : ''}
 
                                     <div className="card-text">
                                         <Trans i18nKey="Recipe.amount" values={{0: user.recipesAmount}}/>

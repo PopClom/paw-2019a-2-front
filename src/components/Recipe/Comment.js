@@ -3,7 +3,7 @@ import userImg from '../../assets/img/user.png';
 import {Link} from "react-router-dom";
 import {Trans} from "react-i18next";
 import TooltipHover from "../General/TooltipHover";
-import {isMyUser, userIsAdmin} from "../../helpers";
+import {isMyUser, isUserAdmin} from "../../helpers";
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from "@material-ui/core/IconButton";
 import ConfirmationModal from "../Modal/ConfirmationModal";
@@ -22,7 +22,7 @@ class Comment extends React.Component {
 
     render() {
         const {username, userId, id, date, message} = this.props.comment;
-        const canEdit = isMyUser(userId) || userIsAdmin();
+        const canEdit = isMyUser(userId) || isUserAdmin();
 
         return(
             <div className="card-body-comment">

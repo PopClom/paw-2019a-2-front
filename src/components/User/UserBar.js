@@ -2,7 +2,7 @@ import React from 'react';
 import {Trans} from "react-i18next";
 import {Link} from "react-router-dom";
 import {getUser, isLoggedIn} from "../../helpers/auth";
-import {followUser, unfollowUser, isMyUser, userIsAdmin, isUserBanned} from "../../helpers";
+import {followUser, unfollowUser, isMyUser, isUserAdmin, isUserBanned} from "../../helpers";
 import UserImg from '../../assets/img/user.png';
 import ConfirmationModal from "../Modal/ConfirmationModal";
 import axios from "axios";
@@ -26,13 +26,6 @@ class UserBar extends React.Component {
         this.setState({showBanModal: !this.state.showBanModal});
     };
 
-    banUser = () => {
-        if (isUserBanned(this.props.user))
-            this.props.user.status = "REGULAR";
-        else
-            this.props.user.status = "DISABLED"
-    };
-
     handleFollow = (user) => {
         axios.post(`${SERVER_ADDR}/users/${user.id}/follow`)
             .then(() => {
@@ -54,7 +47,7 @@ class UserBar extends React.Component {
     };
 
     render() {
-        const {user, accountPage} = this.props;
+        const {user, accountPage, onBan} = this.props;
         const {following} = this.state;
 
         return (
@@ -64,7 +57,7 @@ class UserBar extends React.Component {
                         <div>
                             <div className="card-body card-body-user-bar" id="user-big-card">
                                 <div id="user-card">
-                                    {user.status === "DELETED" ?
+                                    {isUserBanned(user) && !isUserAdmin() ?
                                         <p>
                                             <Trans i18nKey="userNotExist"/>
                                         </p> :
@@ -77,6 +70,13 @@ class UserBar extends React.Component {
                                                 </div>
                                             </Link>
                                             <div className="user-card-info">
+                                                {isUserBanned(user) ?
+                                                    <div className="error-text">
+                                                        <p>
+                                                            <i><Trans i18nKey="userNotExist"/></i>
+                                                        </p>
+                                                    </div> : ''}
+
                                                 <div className="card-text">
                                                     <Trans i18nKey="Followers"
                                                            values={{0: user.followersAmount}}/>
@@ -105,18 +105,16 @@ class UserBar extends React.Component {
                                                         <button onClick={() => this.handleFollow(user)}
                                                             className="btn-sm btn-light-blue form-user-bar circle-button-user-bar">
                                                             <Trans i18nKey="follow"/>
-                                                        </button>) : ''
-                                                }
+                                                        </button>) : ''}
 
-                                                {userIsAdmin() && !isMyUser(user.id) && accountPage ?
+                                                {isUserAdmin() && !isMyUser(user.id) && accountPage ?
                                                     <div>
                                                         {isUserBanned(user) ?
                                                             <button
                                                                 className="btn-sm btn-outline-danger form-user-bar circle-button-user-bar"
                                                                 onClick={this.toggleBanModal}>
                                                                 <Trans i18nKey="user.unban"/>
-                                                            </button>
-                                                            :
+                                                            </button> :
                                                             <button
                                                                 className="btn-sm btn-danger form-user-bar circle-button-user-bar"
                                                                 onClick={this.toggleBanModal}>
@@ -133,14 +131,10 @@ class UserBar extends React.Component {
                                                                 className="btn-sm btn-warning circle-button-user-bar"
                                                                 onClick={this.toggleAdminModal}>
                                                                 <Trans i18nKey="admin.Grant"/>
-                                                            </button>
-                                                        }
-                                                    </div> : ''
-                                                }
-
+                                                            </button>}
+                                                    </div> : ''}
                                             </div>
-                                        </div>
-                                    }
+                                        </div>}
                                 </div>
                             </div>
 
@@ -150,7 +144,7 @@ class UserBar extends React.Component {
                                     <Trans i18nKey="user.unbanWarning" values={{0: user.username}}/> :
                                     <Trans i18nKey="user.banWarning" values={{0: user.username}}/>}
                                 variant="danger" showModal={this.state.showBanModal}
-                                toggleModal={this.toggleBanModal} onConfirmation={this.banUser}/>
+                                toggleModal={this.toggleBanModal} onConfirmation={onBan}/>
 
                             <ConfirmationModal
                                 title={user.admin ? <Trans i18nKey="admin.Remove"/> : <Trans i18nKey="admin.Grant"/>}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {formatNumber, isMyUser, userIsAdmin} from '../../helpers';
+import {formatNumber, isMyUser, isUserAdmin} from '../../helpers';
 import {Trans} from 'react-i18next';
 import RatingRecipe from "./RatingRecipe";
 import noRecipeImg from "../../assets/img/no_recipe_image.png";
@@ -29,7 +29,7 @@ class RecipeContent extends React.Component {
         const {recipe, onRate} = this.props;
         const instructionLines = recipe.instructions ? recipe.instructions.split('\n') : [];
         const loggedIn = isLoggedIn();
-        const canEdit = isMyUser(recipe.userId) || userIsAdmin();
+        const canEdit = isMyUser(recipe.userId) || isUserAdmin();
 
         return (
             <div className="card">
