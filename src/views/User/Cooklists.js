@@ -82,7 +82,7 @@ class Cooklists extends React.Component {
 
                 {isMyUser(user.id) &&
                     <TooltipHover placement="top" message={<Trans>cooklist.addTitle</Trans>} icon={
-                        <Button className="btn-green add" onClick={this.toggleAddModal}>+</Button>
+                        <Button className="btn-green add" onClick={this.toggleAddModal}>＋</Button>
                     }/>
                 }
             </section>

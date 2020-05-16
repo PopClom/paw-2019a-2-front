@@ -27,12 +27,12 @@ class Comment extends React.Component {
         return(
             <div className="card-body-comment">
                 <div className="card-body-inside">
-                    <Link className="bg-transparent" to={`/account/${userId}`}>
+                    <Link className="bg-transparent" to={`/user/${userId}/account`}>
                         <img className="user-image-commentary" alt="user" src={userImg}/>
                     </Link>
                     <div className="user-date-comment">
-                        <Link className="bg-transparent" to="/user_recipes">
-                            <h5 className="user-title-commentary">
+                        <Link className="bg-transparent" to={`/user/${userId}/account`}>
+                            <h5 className="user-title-comment">
                                 {username}
                             </h5>
                         </Link>
