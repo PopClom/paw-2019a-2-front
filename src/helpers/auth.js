@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import {SERVER_ADDR} from "../constants";
+import {NotificationManager} from "react-notifications";
 
 export const login = async (username, password) => {
     return axios.post(`${SERVER_ADDR}/users/authenticate`,
@@ -45,18 +46,4 @@ const setAuthorizationToken = (token) => {
     } else {
         delete axios.defaults.headers.common['Authorization'];
     }
-
-    axios.interceptors.response.use(
-        response => {
-            return response;
-        },
-        error => {
-            if (error.response) {
-                if (error.response.status === 401) {
-                    logout();
-                }
-            }
-            return Promise.reject(error);
-        }
-    );
 };

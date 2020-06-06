@@ -12,10 +12,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import 'react-notifications/lib/notifications.css';
 import './style/index.css';
 
 import {refresh} from "./helpers/auth";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
+import axios from "axios";
+import {NotificationManager} from "react-notifications";
+import {Trans} from "react-i18next";
 
 
 const muiTheme = createMuiTheme({
@@ -27,8 +31,30 @@ const muiTheme = createMuiTheme({
     }
 });
 
+let connectionError = false;
 
 const run = async () => {
+    axios.interceptors.response.use(
+        response => {
+            return response;
+        },
+        error => {
+            if (error.response) {
+                if (error.response.status === 401 || error.response.status === 403 || error.response.status === 405) {
+                    NotificationManager.error(<Trans>notification.failedRequest</Trans>,
+                        <Trans>notification.oops</Trans>, 5000);
+                }
+            } else {
+                if (!connectionError) {
+                    connectionError = true;
+                    NotificationManager.error(<Trans>notification.connectionError</Trans>,
+                        <Trans>notification.oops</Trans>, 5000);
+                    setTimeout(() => {connectionError = false}, 5000);
+                }
+            }
+            return Promise.reject(error);
+        }
+    );
 
     await refresh();
     ReactDOM.render(

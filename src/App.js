@@ -16,6 +16,7 @@ import Error from "./components/General/Error";
 import CooklistRecipes from "./views/CooklistRecipes";
 import PrivateRoute from "./components/PrivateRoute";
 import Confirm from "./views/Confirm";
+import {NotificationContainer} from 'react-notifications';
 
 function App() {
     return (
@@ -58,6 +59,7 @@ const DefaultContainer = () => (
                     <Error error="404"/>
                 </section>}/>
         </Switch>
+        <NotificationContainer/>
     </div>
 );
 

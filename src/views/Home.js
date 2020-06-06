@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {Trans} from "react-i18next";
 import TooltipHover from "../components/General/TooltipHover";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 class Home extends React.Component {
     constructor(props) {
@@ -41,6 +42,11 @@ class Home extends React.Component {
                 cookable: cookable, ingredients: ingredientsList}, fetching: true}, this.applyFilters);
     };
 
+    fetchMoreData = () => {
+        axios.post(`${SERVER_ADDR}/recipes/search`, this.state.filters).then(response =>
+            this.setState({recipes: this.state.recipes.concat(response.data.recipes), fetching: false}));
+    };
+
     render() {
         const {fetching, recipes} = this.state;
 
@@ -49,9 +55,15 @@ class Home extends React.Component {
                 <section className="main_container">
                     <section className="browse">
                         {fetching ? <Spinner/> :
-                            <div className="card-deck">
-                                {Object.keys(recipes).map(idx => <RecipeCard key={idx} recipe={recipes[idx]}/>)}
-                            </div>}
+                            <InfiniteScroll
+                                dataLength={recipes.length}
+                                next={this.fetchMoreData}
+                                hasMore={true}
+                                loader={<Spinner/>}>
+                                <div className="card-deck">
+                                    {Object.keys(recipes).map(idx => <RecipeCard key={idx} recipe={recipes[idx]}/>)}
+                                </div>
+                            </InfiniteScroll>}
                     </section>
                     <RecipeFilters onSearch={this.handleSearch}/>
                 </section>

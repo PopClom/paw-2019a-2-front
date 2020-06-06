@@ -4,6 +4,7 @@ import Comment from "./Comment"
 import {Trans} from "react-i18next";
 import {handleInputChange} from "../../helpers";
 import {isLoggedIn} from "../../helpers/auth";
+import {validateComment} from "../../helpers/validations";
 
 class CommentSection extends React.Component {
     constructor(props) {
@@ -18,11 +19,14 @@ class CommentSection extends React.Component {
 
     handleCommentSubmit = (message) => {
         const onSubmit = this.props.onSubmit;
-        onSubmit(message).then(() => {
-            this.setState({submitError: false, message: ''});
-        }).catch(() => {
+        const errors = validateComment({message});
+        if (!errors.message) {
+            onSubmit(message).then(() => {
+                this.setState({submitError: false, message: ''});
+            });
+        } else {
             this.setState({submitError: true});
-        })
+        }
     };
 
     render() {

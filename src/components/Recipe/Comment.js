@@ -56,7 +56,7 @@ class Comment extends React.Component {
                 </div>
                 <ConfirmationModal
                     title={<Trans i18nKey="comment.delete"/>}
-                    description={<Trans>comment.deleteWarning</Trans>}
+                    description={<Trans i18nKey="comment.deleteWarning"/>}
                     variant="danger" showModal={this.state.showDeleteModal}
                     toggleModal={this.toggleDeleteModal}
                     onConfirmation={() => this.props.onDelete(id)}/>

@@ -900,7 +900,7 @@ a.custom-card{
 }
 
 .card-deck {
-    margin: 0 !important;
+    margin: 5px !important;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 0.5fr));
     grid-gap: 10px;
@@ -1274,7 +1274,7 @@ a.custom-card{
 
 .spinner-container {
     text-align: center;
-    margin-top: 15px;
+    margin: 15px;
 }
 
 .rating > input { display: none; }

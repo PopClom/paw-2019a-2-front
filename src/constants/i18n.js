@@ -82,10 +82,14 @@ i18n
                     "recipe.login": "You need to be logged in to add a recipe!",
                     "userNotExist": "The user was removed",
                     "goMainPage": "Return to main page",
-                    "pageNotExists": "Oops, it look's like the page you are trying to access does not exists.",
+                    "pageNotExists": "Oops, it looks like the page you are trying to access does not exists.",
                     "close": "close",
                     "saveChangesButton": "Save changes",
                     "confirm": "Confirm",
+
+                    "notification.oops": "Oops!",
+                    "notification.connectionError": "It looks like you don't have internet connection",
+                    "notification.failedRequest": "It was not possible to handle this action",
 
                     "recentlyCooked.title": "Recently cooked recipes",
                     "recentlyCookedUser.title": "{{0}}'s recently cooked recipes",
@@ -197,7 +201,7 @@ i18n
                     "Error.Ingredient.Repeated": "You can't add the same ingredient twice",
                     "Error.Ingredient.Invalid": "Invalid amount detected or duplicated ingredient found",
                     "Email": "The email is not valid",
-                    "Size": "The field must have between {{2}} and {{1}} characters",
+                    "Size": "The field must have between {{0}} and {{1}} characters",
                     "ImageSize": "Image size exceeds limit (1MB)",
                     "ImageFormat": "The selected file is not an image",
                     "PasswordMatch": "Passwords don't match",
@@ -423,6 +427,10 @@ i18n
                     "saveChangesButton": "Guardar cambios",
                     "confirm": "Confirmar",
 
+                    "notification.oops": "¡Oops!",
+                    "notification.connectionError": "Parece que no tiene conexión a internet",
+                    "notification.failedRequest": "No fue posible realizar esta acción",
+
                     "recentlyCooked.title": "Recetas recientemente cocinadas",
                     "recentlyCookedUser.title": "Recetas recientemente cocinadas por {{0}}",
 
@@ -492,7 +500,7 @@ i18n
                     "comment.Send": "Enviar",
                     "comment.login": "¡Debes estar registrado para agregar un comentario!",
                     "comment.delete": "Borrar comentario",
-                    "comment.deleteWarning": "Estas seguro que quieres borrar este comentario?",
+                    "comment.deleteWarning": "¿Está seguro que quiere borrar este comentario?",
 
                     "rating.general": "Calificación general",
                     "rating.user": "Tu calificación",

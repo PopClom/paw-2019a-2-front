@@ -57,6 +57,14 @@ export function validateRecipe(values){
     return errors;
 }
 
+export function validateComment(values){
+    let errors = {};
+    if(values.message.length < 4 || values.message.length > 500)
+        errors.message = 'Size';
+
+    return errors;
+}
+
 export function validateIngredients(value){
     let error = [];
 
