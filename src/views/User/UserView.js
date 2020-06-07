@@ -65,6 +65,19 @@ class UserView extends React.Component {
         }
     };
 
+    handleAdminPermission = () => {
+        const user = this.state.user;
+        if (user.admin) {
+            axios.post(`${SERVER_ADDR}/users/${user.id}/remove_user_admin`).then(() => {
+                this.setState({user: {...user, admin: false}});
+            });
+        } else {
+            axios.post(`${SERVER_ADDR}/users/${user.id}/grant_user_admin`).then(() => {
+                this.setState({user: {...user, admin: true}});
+            });
+        }
+    };
+
     render() {
         const {fetchingUser, error, user} = this.state;
         const {userId} = this.props.match.params;
@@ -100,7 +113,8 @@ class UserView extends React.Component {
                                                 <Error error="404"/>
                                             </section>}/>
                                     </Switch>
-                                    <UserBar accountPage user={user} onBan={this.handleBanUser}/>
+                                    <UserBar accountPage user={user} onBan={this.handleBanUser}
+                                             onAdminPermission={this.handleAdminPermission}/>
                                 </section>))}
                 </section>
             </section>

@@ -1,4 +1,35 @@
 import {getUser, isLoggedIn} from "./auth";
+import axios from "axios";
+import {NotificationManager} from "react-notifications";
+import {Trans} from "react-i18next";
+import React from "react";
+
+const TOAST_TIMEOUT = 5000;
+let connectionError = false;
+
+export const setupNotifications = () => {
+    axios.interceptors.response.use(
+        response => {
+            return response;
+        },
+        error => {
+            if (error.response) {
+                if (error.response.status === 401 || error.response.status === 403 || error.response.status === 405) {
+                    NotificationManager.error(<Trans>notification.failedRequest</Trans>,
+                        <Trans>notification.oops</Trans>, TOAST_TIMEOUT);
+                }
+            } else {
+                if (!connectionError) {
+                    connectionError = true;
+                    NotificationManager.error(<Trans>notification.connectionError</Trans>,
+                        <Trans>notification.oops</Trans>, TOAST_TIMEOUT);
+                    setTimeout(() => {connectionError = false}, TOAST_TIMEOUT);
+                }
+            }
+            return Promise.reject(error);
+        }
+    );
+};
 
 export const formatNumber = (value, decimals = 0) => {
     return value.toFixed(decimals);

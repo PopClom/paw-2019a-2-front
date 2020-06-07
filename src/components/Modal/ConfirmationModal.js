@@ -16,11 +16,11 @@ class ConfirmationModal extends React.Component {
             <Modal show={showModal} onHide={toggleModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        <Trans>{title}</Trans>
+                        {title}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Trans>{description}</Trans>
+                    {description}
                 </Modal.Body>
 
                 <Modal.Footer>

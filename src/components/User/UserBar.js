@@ -42,12 +42,8 @@ class UserBar extends React.Component {
             });
     };
 
-    changeAdminPermission = () => {
-        this.props.user.admin = !this.props.user.admin;
-    };
-
     render() {
-        const {user, accountPage, onBan} = this.props;
+        const {user, accountPage, onBan, onAdminPermission} = this.props;
         const {following} = this.state;
 
         return (
@@ -152,7 +148,7 @@ class UserBar extends React.Component {
                                     <Trans i18nKey="admin.RemoveWarning" values={{0: user.username}}/> :
                                     <Trans i18nKey="admin.GrantWarning" values={{0: user.username}}/>}
                                 variant="danger" showModal={this.state.showAdminModal}
-                                toggleModal={this.toggleAdminModal} onConfirmation={this.changeAdminPermission}/>
+                                toggleModal={this.toggleAdminModal} onConfirmation={onAdminPermission}/>
                         </div>
                     }
                 </div>

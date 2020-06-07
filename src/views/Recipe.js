@@ -86,7 +86,7 @@ class Recipe extends React.Component {
                             </section>
                     )}
                 <ConfirmationModal title={<Trans i18nKey="recipe.deleteWarning"/>}
-                                   description={<Trans>cantUndone</Trans>}
+                                   description={<Trans i18nKey="cantUndone"/>}
                                    variant="danger" showModal={this.state.showDeleteModal}
                                    toggleModal={this.toggleDeleteModal} onConfirmation={this.handleRecipeDelete}/>
             </section>

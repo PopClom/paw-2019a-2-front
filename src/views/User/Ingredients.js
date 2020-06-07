@@ -117,7 +117,7 @@ class Ingredients extends React.Component {
                                            toggleModal={this.toggleEditModal} onEditIngredient={this.handleEditIngredient}/>
                 <ConfirmationModal
                     title={<Trans i18nKey="ingredient.deleteWarning" values={{0: selectedIngredient.name}}/>}
-                    description={<Trans>cantUndone</Trans>}
+                    description={<Trans i18nKey="cantUndone"/>}
                     variant="danger" showModal={this.state.showDeleteModal}
                     toggleModal={this.toggleDeleteModal}
                     onConfirmation={() => this.handleRemoveIngredient(selectedIngredient)}/>

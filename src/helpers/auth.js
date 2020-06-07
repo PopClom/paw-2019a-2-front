@@ -1,7 +1,6 @@
 import axios from "axios";
 import qs from "qs";
 import {SERVER_ADDR} from "../constants";
-import {NotificationManager} from "react-notifications";
 
 export const login = async (username, password) => {
     return axios.post(`${SERVER_ADDR}/users/authenticate`,
