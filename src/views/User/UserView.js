@@ -4,9 +4,10 @@ import {
     Route
 } from 'react-router-dom';
 import Account from "./Account";
-import Ingredients from "./Ingredients";
 import UserRecipes from "./UserRecipes";
 import Cooklists from "./Cooklists";
+import Ingredients from "./Ingredients";
+import RecentlyCooked from "./RecentlyCooked";
 import FavouriteRecipes from "./FavouriteRecipes";
 import Statistics from "./Statistics";
 import Spinner from "../../components/General/Spinner";
@@ -103,6 +104,8 @@ class UserView extends React.Component {
                                                render={(props) => <Cooklists {...props} user={user} />}/>
                                         <Route exact path="/user/me/ingredients"
                                                render={(props) => <Ingredients {...props} user={user} />}/>
+                                        <Route exact path="/user/:userId/recently_cooked"
+                                               render={(props) => <RecentlyCooked {...props} user={user} />}/>
                                         <Route exact path="/user/:userId/favourite_recipes"
                                                render={(props) => <FavouriteRecipes {...props} user={user} />}/>
                                         <Route exact path="/user/me/statistics"
