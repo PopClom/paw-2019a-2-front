@@ -38,7 +38,7 @@ class Cooklists extends React.Component {
     }
 
     loadData(props) {
-        axios.get(`${SERVER_ADDR}/cooklists/user/${props.user.id}`).then(response =>
+        axios.get(`${SERVER_ADDR}/users/${props.user.id}/cooklists`).then(response =>
             this.setState({cooklists: response.data.cooklists, fetchingCooklist: false}));
     }
 

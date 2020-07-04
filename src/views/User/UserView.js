@@ -56,11 +56,11 @@ class UserView extends React.Component {
     handleBanUser = () => {
         const user = this.state.user;
         if (user.status === "REGULAR") {
-            axios.post(`${SERVER_ADDR}/users/${user.id}/ban`).then(() => {
+            axios.put(`${SERVER_ADDR}/users/${user.id}/ban`).then(() => {
                 this.setState({user: {...user, status: "DELETED"}});
             });
         } else {
-            axios.post(`${SERVER_ADDR}/users/${user.id}/unban`).then(() => {
+            axios.delete(`${SERVER_ADDR}/users/${user.id}/ban`).then(() => {
                 this.setState({user: {...user, status: "REGULAR"}});
             });
         }
@@ -69,11 +69,11 @@ class UserView extends React.Component {
     handleAdminPermission = () => {
         const user = this.state.user;
         if (user.admin) {
-            axios.post(`${SERVER_ADDR}/users/${user.id}/remove_user_admin`).then(() => {
+            axios.delete(`${SERVER_ADDR}/users/${user.id}/admin_access`).then(() => {
                 this.setState({user: {...user, admin: false}});
             });
         } else {
-            axios.post(`${SERVER_ADDR}/users/${user.id}/grant_user_admin`).then(() => {
+            axios.put(`${SERVER_ADDR}/users/${user.id}/admin_access`).then(() => {
                 this.setState({user: {...user, admin: true}});
             });
         }

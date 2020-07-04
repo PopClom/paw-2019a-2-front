@@ -45,18 +45,18 @@ class RecipeEditor extends React.Component {
             this.setState({recipe: this.props.recipe, fetching: false, editing: false});
         }
 
-        axios.get(`${SERVER_ADDR}/recipes/get_tags`).then(response => {
+        axios.get(`${SERVER_ADDR}/recipes/tags`).then(response => {
             this.setState({allTags: response.data.tags});
         });
     };
 
     onFormSubmit = (values, setSubmitting, reader) => {
-        axios.post(values.id ? `${SERVER_ADDR}/recipes/edit` : `${SERVER_ADDR}/recipes/`,
-            {...values, image: reader ? reader.result.split(',')[1] : null})
-            .then(response => {
+        const data = {...values, image: reader ? reader.result.split(',')[1] : null};
+        const recipePromise = values.id ? axios.put(`${SERVER_ADDR}/recipes/${values.id}`, data) :
+            axios.post(`${SERVER_ADDR}/recipes/`, data);
+        recipePromise.then(response => {
                 this.props.history.push(`/recipe/${response.data.id}`);
-            })
-            .catch(() => setSubmitting(false));
+            }).catch(() => setSubmitting(false));
     };
 
     render() {

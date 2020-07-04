@@ -51,7 +51,7 @@ class Ingredients extends React.Component {
     handleEditIngredient = (ingredient, amount) => {
         let newIngredient = ingredient;
         newIngredient.amount = amount;
-        axios.post(`${SERVER_ADDR}/ingredient/edit`, newIngredient).then(() => ingredient.amount = amount);
+        axios.put(`${SERVER_ADDR}/ingredient/${newIngredient.id}`, newIngredient).then(() => ingredient.amount = amount);
     };
 
     handleRemoveIngredient = (ingredientToRemove) => {

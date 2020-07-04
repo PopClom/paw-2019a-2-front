@@ -38,7 +38,7 @@ class EditIngredientAmountModal extends React.Component {
                                 <Form.Row className="mb-4">
                                     <Form.Label>
                                         <Trans i18nKey="addIngredient.amount"/>
-                                        &ensp;<Trans>({ingredient.typeOfServing})</Trans>
+                                        &ensp;(<Trans>{ingredient.typeOfServing}</Trans>)
                                     </Form.Label>
                                     <Form.Control value={values.amount} type="number" step="0.01" name="amount"
                                                   onChange={handleChange}

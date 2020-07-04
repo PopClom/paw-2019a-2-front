@@ -20,21 +20,21 @@ class RecipeFilters extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${SERVER_ADDR}/recipes/get_tags`).then(response => {
+        axios.get(`${SERVER_ADDR}/recipes/tags`).then(response => {
             this.setState({tags: response.data.tags});
             let tagsCheckboxes = {};
             Object.keys(this.state.tags).map(idx => tagsCheckboxes[this.state.tags[idx]] = false);
             this.setState({tagsCheckboxes});
         });
 
-        axios.get(`${SERVER_ADDR}/recipes/get_orders`).then(response => {
+        axios.get(`${SERVER_ADDR}/recipes/orders`).then(response => {
             this.setState({
                 orders: response.data.orders,
                 orderSelected: response.data.orders[2]
             });
         });
 
-        axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
+        axios.get(`${SERVER_ADDR}/recipes/ingredients`).then(response => {
             response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
             this.setState({allIngredients: response.data.ingredients});
         })

@@ -21,7 +21,7 @@ class AddRecipeToCooklistModal extends React.Component {
 
     componentDidMount() {
         if (isLoggedIn()) {
-            axios.get(`${SERVER_ADDR}/cooklists/user/${getUser().id}`, {params: {withRecipes: true}}).then(response => {
+            axios.get(`${SERVER_ADDR}/users/${getUser().id}/cooklists`, {params: {withRecipes: true}}).then(response => {
                 let cooklists = response.data.cooklists.filter(cooklist =>
                     !cooklist.recipes.some(recipe => recipe.id === this.props.recipeId));
                 this.setState({cooklists: cooklists});
@@ -33,11 +33,11 @@ class AddRecipeToCooklistModal extends React.Component {
         if (this.state.createNewCooklist || this.state.cooklists.length === 0) {
             axios.post(`${SERVER_ADDR}/cooklists/`, {name: values.name}).then(response => {
                 this.setState({cooklists: [...this.state.cooklists, response.data]});
-                axios.post(`${SERVER_ADDR}/cooklists/${response.data.id}/recipe/${this.props.recipeId}`);
+                axios.put(`${SERVER_ADDR}/cooklists/${response.data.id}/recipe/${this.props.recipeId}`);
                 }
             );
         } else {
-            axios.post(`${SERVER_ADDR}/cooklists/${values.selectedCooklist.id}/recipe/${this.props.recipeId}`).then(response => {
+            axios.put(`${SERVER_ADDR}/cooklists/${values.selectedCooklist.id}/recipe/${this.props.recipeId}`).then(response => {
                     let cooklists = this.state.cooklists.filter(cooklist => cooklist.id !== values.selectedCooklist.id);
                     this.setState({cooklists: cooklists});
                 }

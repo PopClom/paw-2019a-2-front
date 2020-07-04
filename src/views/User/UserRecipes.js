@@ -31,7 +31,7 @@ class UserRecipes extends React.Component {
     }
 
     loadData(props) {
-        axios.get(`${SERVER_ADDR}/recipes/user/${props.user.id}`).then(response =>
+        axios.get(`${SERVER_ADDR}/users/${props.user.id}/recipes`).then(response =>
             this.setState({recipes: response.data.recipes, fetchingRecipes: false}));
     }
 

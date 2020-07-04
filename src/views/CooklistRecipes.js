@@ -46,7 +46,8 @@ class CooklistRecipes extends React.Component {
     };
 
     handleEditCooklist = (name) => {
-        axios.post(`${SERVER_ADDR}/cooklists/edit`, {id: this.state.cooklist.id, name: name}).then(response =>
+        const id = this.state.cooklist.id;
+        axios.put(`${SERVER_ADDR}/cooklists/${id}`, {id: id, name: name}).then(response =>
             this.setState({cooklist: {...this.state.cooklist, name: name,}})
         );
     };

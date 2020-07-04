@@ -63,7 +63,7 @@ class IngredientSelector extends React.Component {
 
 
     componentDidMount() {
-        axios.get(`${SERVER_ADDR}/recipes/get_all_ingredients`).then(response => {
+        axios.get(`${SERVER_ADDR}/recipes/ingredients`).then(response => {
             response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
             this.setState({allIngredients: response.data.ingredients});
         });

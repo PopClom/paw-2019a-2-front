@@ -17,14 +17,14 @@ class UserFilters extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${SERVER_ADDR}/users/get_orders`).then(response => {
+        axios.get(`${SERVER_ADDR}/users/orders`).then(response => {
             this.setState({
                 allOrders: response.data.list,
                 orderSelected: response.data.list[0]
             })
         });
 
-        axios.get(`${SERVER_ADDR}/users/get_status`).then(response => {
+        axios.get(`${SERVER_ADDR}/users/status`).then(response => {
             this.setState({
                 allStatus: response.data.list,
                 statusSelected: response.data.list[0]

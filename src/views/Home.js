@@ -25,7 +25,7 @@ class Home extends React.Component {
     }
 
     applyFilters() {
-        axios.post(`${SERVER_ADDR}/recipes/search`, this.state.filters).then(response =>
+        axios.get(`${SERVER_ADDR}/recipes`, {params: this.state.filters}).then(response =>
             this.setState({recipes: response.data.recipes, fetching: false}));
     };
 
@@ -43,7 +43,7 @@ class Home extends React.Component {
     };
 
     fetchMoreData = () => {
-        axios.post(`${SERVER_ADDR}/recipes/search`, this.state.filters).then(response =>
+        axios.get(`${SERVER_ADDR}/recipes`, {params: this.state.filters}).then(response =>
             this.setState({recipes: this.state.recipes.concat(response.data.recipes), fetching: false}));
     };
 

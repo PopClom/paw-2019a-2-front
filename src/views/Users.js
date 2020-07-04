@@ -37,7 +37,7 @@ class Users extends React.Component {
 
     handleApplyFilters = () => {
         this.setState({fetching: true}, () => {
-            axios.post(`${SERVER_ADDR}/users/search`, this.state.filters).then(response =>
+            axios.get(`${SERVER_ADDR}/users`, {params: this.state.filters}).then(response =>
                 this.setState({users: response.data.users, fetching: false}));
         });
     };
