@@ -117,7 +117,7 @@ class StepsEditor extends React.Component {
                     </Button>
                     <button type="button" className="btn btn-green new-ingredient-btn"
                             onClick={this.addStep}>
-                        <AddCircleIcon/>
+                        <AddCircleIcon/>&nbsp;
                         <Trans i18nKey="Recipe.addStep"/>
                     </button>
                 </div>

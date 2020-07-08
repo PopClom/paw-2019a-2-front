@@ -28,7 +28,7 @@ class RecentlyCooked extends React.Component {
     }
 
     loadData(props) {
-        axios.get(`${SERVER_ADDR}/users/${props.user.id}/recipes/recently_cooked`).then(response =>
+        axios.get(`${SERVER_ADDR}/users/${props.user.id}/recently_cooked`).then(response =>
             this.setState({recipes: response.data.recipes, fetchingRecipes: false}));
     }
 

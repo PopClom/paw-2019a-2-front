@@ -63,7 +63,7 @@ class IngredientSelector extends React.Component {
 
 
     componentDidMount() {
-        axios.get(`${SERVER_ADDR}/recipes/ingredients`).then(response => {
+        axios.get(`${SERVER_ADDR}/constants/recipes/ingredients`).then(response => {
             response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
             this.setState({allIngredients: response.data.ingredients});
         });
@@ -125,7 +125,7 @@ class IngredientSelector extends React.Component {
                 <div className="form-row mb-4">
                     <button type="button" name="btnAdd" className="btn btn-green new-ingredient-btn"
                             onClick={this.addSelect}>
-                        <AddCircleIcon/>
+                        <AddCircleIcon/>&nbsp;
                         <Trans i18nKey="Recipe.addIngredient"/>
                     </button>
                 </div>

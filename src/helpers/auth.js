@@ -1,9 +1,10 @@
 import axios from "axios";
 import qs from "qs";
 import {SERVER_ADDR} from "../constants";
+import React from "react";
 
 export const login = async (username, password) => {
-    return axios.post(`${SERVER_ADDR}/users/authenticate`,
+    return axios.post(`${SERVER_ADDR}/`,
         qs.stringify({username: username, password: password}),
         {headers: {'content-type': 'application/x-www-form-urlencoded;charset=utf-8'}})
         .then(response => {
@@ -26,7 +27,6 @@ export const refresh = async () => {
             localStorage.setItem("user", JSON.stringify(response.data));
         }).catch(() => {
             logout();
-            throw new Error ("Authentication error");
         });
     }
 };

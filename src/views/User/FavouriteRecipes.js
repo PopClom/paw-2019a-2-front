@@ -28,7 +28,7 @@ class FavouriteRecipes extends React.Component {
     }
 
     loadData(props) {
-        axios.get(`${SERVER_ADDR}/users/${props.user.id}/recipes/favourite`).then(response =>
+        axios.get(`${SERVER_ADDR}/users/${props.user.id}/favourite_recipes`).then(response =>
             this.setState({recipes: response.data.recipes, fetchingRecipes: false}));
     }
 

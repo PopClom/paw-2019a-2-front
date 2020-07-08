@@ -16,6 +16,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import {isLoggedIn} from "../helpers/auth";
 import Spinner from "../components/General/Spinner";
 import Error from "../components/General/Error";
+import noRecipeImg from "../assets/img/no_recipe_image.png";
 
 class RecipeEditor extends React.Component {
 
@@ -45,7 +46,7 @@ class RecipeEditor extends React.Component {
             this.setState({recipe: this.props.recipe, fetching: false, editing: false});
         }
 
-        axios.get(`${SERVER_ADDR}/recipes/tags`).then(response => {
+        axios.get(`${SERVER_ADDR}/constants/recipes/tags`).then(response => {
             this.setState({allTags: response.data.tags});
         });
     };
@@ -155,18 +156,24 @@ class RecipeEditor extends React.Component {
                                                     </Form.Label>
                                                 </Form.Row>
                                                 <Form.Row className="mb-4">
-                                                    <Form.Label id="btnFile" className="btn btn-green">
-                                                        <ImageIcon/>
-                                                        <Trans i18nKey="Recipe.addImage"/>
-                                                        {values.file ? ': ' + values.file.name : ''}
-                                                        <Form.Control type="file" className="d-none"
-                                                                      name="file"
-                                                                      onChange={(event) => {
-                                                                          setFieldValue("file", event.currentTarget.files[0]);
-                                                                      }}
-                                                                      onBlur={handleBlur}
-                                                                      isInvalid={touched.file && !!errors.file}/>
-                                                    </Form.Label>
+                                                    <div style={{display: "grid"}}>
+                                                        <Form.Label id="btnFile" className="btn btn-green">
+                                                            <ImageIcon/>&nbsp;
+                                                            <Trans i18nKey={recipe.image ? "Recipe.changeImage" : "Recipe.addImage"}/>
+                                                            {values.file ? ': ' + values.file.name : ''}
+                                                            <Form.Control type="file" className="d-none"
+                                                                          name="file"
+                                                                          onChange={(event) => {
+                                                                              setFieldValue("file", event.currentTarget.files[0]);
+                                                                          }}
+                                                                          onBlur={handleBlur}
+                                                                          isInvalid={touched.file && !!errors.file}/>
+                                                        </Form.Label>
+                                                        {!values.file && recipe.image &&
+                                                        <img style={{width: "250px", padding: "5px"}}
+                                                             src={`data:image/png;base64,${recipe.image}`}
+                                                             alt={recipe.name}/>}
+                                                    </div>
                                                     <Form.Control.Feedback style={{display: "block"}} type="invalid">
                                                         <Trans i18nKey={errors.file}/>
                                                     </Form.Control.Feedback>

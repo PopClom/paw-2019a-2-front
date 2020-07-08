@@ -3,6 +3,7 @@ import {Trans, withTranslation} from 'react-i18next';
 import axios from "axios";
 import {SERVER_ADDR} from "../../constants";
 import Select from 'react-select';
+import {Accordion, SafeAnchor} from "react-bootstrap";
 
 class RecipeFilters extends React.Component {
     constructor(props) {
@@ -20,21 +21,21 @@ class RecipeFilters extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${SERVER_ADDR}/recipes/tags`).then(response => {
+        axios.get(`${SERVER_ADDR}/constants/recipes/tags`).then(response => {
             this.setState({tags: response.data.tags});
             let tagsCheckboxes = {};
             Object.keys(this.state.tags).map(idx => tagsCheckboxes[this.state.tags[idx]] = false);
             this.setState({tagsCheckboxes});
         });
 
-        axios.get(`${SERVER_ADDR}/recipes/orders`).then(response => {
+        axios.get(`${SERVER_ADDR}/constants/recipes/orders`).then(response => {
             this.setState({
                 orders: response.data.orders,
                 orderSelected: response.data.orders[2]
             });
         });
 
-        axios.get(`${SERVER_ADDR}/recipes/ingredients`).then(response => {
+        axios.get(`${SERVER_ADDR}/constants/recipes/ingredients`).then(response => {
             response.data.ingredients.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
             this.setState({allIngredients: response.data.ingredients});
         })
@@ -87,68 +88,86 @@ class RecipeFilters extends React.Component {
                                 <input className="form-control" placeholder={t('search')}
                                        value={searchString} onChange={this.onChangeSearchString}/>
 
-                                <label className="text-filter">
-                                    <Trans i18nKey="sortBy"/>
-                                </label>
-                                <div className="filter-items">
-                                    {Object.keys(orders).map(idx =>
-                                        <div className="custom-control custom-radio" key={idx}>
-                                            <input type="radio" value={orders[idx]} className="custom-control-input"
-                                                   id={orders[idx]} name="groupOrderFilter"
-                                                   checked={orderSelected === orders[idx]}
-                                                   onChange={this.onOrdersChange}/>
-                                            <label className="custom-control-label" htmlFor={orders[idx]}>
-                                                <Trans i18nKey={orders[idx]}/>
-                                            </label>
-                                        </div>
-                                    )}
-                                </div>
-
-                                <label className="text-filter">
-                                    <Trans i18nKey="cuisineType"/>
-                                </label>
-                                <div className="filter-items">
-                                    {Object.keys(tags).map(idx =>
-                                        <div className="custom-control custom-checkbox" key={idx}>
-                                            <input type="checkbox" value={tags[idx]} className="custom-control-input"
-                                                   id={tags[idx]}
-                                                   name="groupTagFilter"
-                                                   checked={tagsCheckboxes[idx]}
-                                                   onChange={this.onTagsChange}/>
-                                            <label className="custom-control-label" htmlFor={tags[idx]}>
-                                                <Trans i18nKey={tags[idx]}/>
-                                            </label>
-                                        </div>
-                                    )}
-                                </div>
-
-                                <label className="text-filter">
-                                    <Trans>ingredientsFilter</Trans>
-                                </label>
-                                <div className="filter-items">
-                                    <div className="custom-control custom-checkbox filter-ingredients-item">
-                                        <input type="checkbox" value="false" className="custom-control-input"
-                                               id="withMyIngredients" name="groupIngredientsFilter"
-                                               checked={withMyIngredients} onChange={this.onWithMyIngredientsChange}/>
-                                        <label className="custom-control-label"
-                                               htmlFor="withMyIngredients">
-                                            <Trans>withMyIngredients</Trans>
-                                        </label>
+                                <Accordion defaultActiveKey="0">
+                                    <div>
+                                        <Accordion.Toggle as={SafeAnchor} className="custom-card" eventKey="0">
+                                            <div className="text-filter">
+                                                <Trans i18nKey="sortBy"/>
+                                            </div>
+                                        </Accordion.Toggle>
+                                        <Accordion.Collapse eventKey="0">
+                                            <div className="filter-items">
+                                                {Object.keys(orders).map(idx =>
+                                                    <div className="custom-control custom-radio" key={idx}>
+                                                        <input type="radio" value={orders[idx]} className="custom-control-input"
+                                                               id={orders[idx]} name="groupOrderFilter"
+                                                               checked={orderSelected === orders[idx]}
+                                                               onChange={this.onOrdersChange}/>
+                                                        <label className="custom-control-label" htmlFor={orders[idx]}>
+                                                            <Trans i18nKey={orders[idx]}/>
+                                                        </label>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </Accordion.Collapse>
                                     </div>
-                                    <div className="filter-ingredients-group-label filter-ingredients-item">
-                                        <label className="ingredientLabel">
-                                            <Trans>ingredients.Filter.Group</Trans>
-                                        </label>
-                                        <Select
-                                            onChange={this.onSelectChange}
-                                            options={allIngredients}
-                                            getOptionLabel={(ingredient) => <Trans>{ingredient.name}</Trans>}
-                                            getOptionValue={(ingredient) => t(ingredient.name)}
-                                            isMulti="true"
-                                            menuPlacement="top"
-                                            placeholder={<Trans>ingredient.selectMulti</Trans>}/>
+                                    <div>
+                                        <Accordion.Toggle as={SafeAnchor} className="custom-card" eventKey="1">
+                                            <div className="text-filter">
+                                                <Trans i18nKey="cuisineType"/>
+                                            </div>
+                                        </Accordion.Toggle>
+                                        <Accordion.Collapse eventKey="1">
+                                            <div className="filter-items">
+                                                {Object.keys(tags).map(idx =>
+                                                    <div className="custom-control custom-checkbox" key={idx}>
+                                                        <input type="checkbox" value={tags[idx]} className="custom-control-input"
+                                                               id={tags[idx]}
+                                                               name="groupTagFilter"
+                                                               checked={tagsCheckboxes[idx]}
+                                                               onChange={this.onTagsChange}/>
+                                                        <label className="custom-control-label" htmlFor={tags[idx]}>
+                                                            <Trans i18nKey={tags[idx]}/>
+                                                        </label>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </Accordion.Collapse>
                                     </div>
-                                </div>
+                                    <div>
+                                        <Accordion.Toggle as={SafeAnchor} className="custom-card" eventKey="2">
+                                            <div className="text-filter">
+                                                <Trans>ingredientsFilter</Trans>
+                                            </div>
+                                        </Accordion.Toggle>
+                                        <Accordion.Collapse eventKey="2">
+                                            <div className="filter-items">
+                                                <div className="custom-control custom-checkbox filter-ingredients-item">
+                                                    <input type="checkbox" value="false" className="custom-control-input"
+                                                           id="withMyIngredients" name="groupIngredientsFilter"
+                                                           checked={withMyIngredients} onChange={this.onWithMyIngredientsChange}/>
+                                                    <label className="custom-control-label"
+                                                           htmlFor="withMyIngredients">
+                                                        <Trans>withMyIngredients</Trans>
+                                                    </label>
+                                                </div>
+                                                <div className="filter-ingredients-group-label filter-ingredients-item">
+                                                    <label className="ingredientLabel">
+                                                        <Trans>ingredients.Filter.Group</Trans>
+                                                    </label>
+                                                    <Select
+                                                        onChange={this.onSelectChange}
+                                                        options={allIngredients}
+                                                        getOptionLabel={(ingredient) => <Trans>{ingredient.name}</Trans>}
+                                                        getOptionValue={(ingredient) => t(ingredient.name)}
+                                                        isMulti="true"
+                                                        menuPlacement="top"
+                                                        placeholder={<Trans>ingredient.selectMulti</Trans>}/>
+                                                </div>
+                                            </div>
+                                        </Accordion.Collapse>
+                                    </div>
+                                </Accordion>
 
                                 <button className="btn btn-green btn-apply-filters"
                                         onClick={() => this.props.onSearch(searchString, tagsCheckboxes, orderSelected,

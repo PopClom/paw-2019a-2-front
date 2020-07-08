@@ -615,7 +615,7 @@ a.custom-card{
 .step-textarea{
     height: 140px;
     width: 100%;
-    min-height: 70px;
+    min-height: 140px;
 }
 
 .div-textarea{
@@ -1013,12 +1013,6 @@ a.custom-card{
     .step-timepicker {
         width: 85%;
         margin: 7.5% !important;
-    }
-
-    .step-textarea{
-        height: 140px;
-        width: 100%;
-        min-height: 70px;
     }
 
     .new-recipe-ingredient-amount{
