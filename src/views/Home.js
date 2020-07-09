@@ -38,8 +38,8 @@ class Home extends React.Component {
         let ingredientsList = [];
         if (ingredients)
             ingredients.forEach(ingredient => ingredientsList.push(ingredient.id));
-        this.setState({filters: {search: searchString, tags: searchTags, order: order,
-                cookable: cookable, ingredients: ingredientsList}, fetching: true}, this.applyFilters);
+        this.setState({filters: {search: searchString, tags: searchTags.join(" "), order: order,
+                cookable: cookable, ingredients: ingredientsList.join(" ")}, fetching: true}, this.applyFilters);
     };
 
     fetchMoreData = () => {
