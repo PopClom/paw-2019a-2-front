@@ -9,6 +9,8 @@ import UserFilters from "../components/User/UserFilters";
 import {getUser, isLoggedIn, refresh} from "../helpers/auth";
 import {followUser, unfollowUser} from "../helpers";
 
+const PAGE_SIZE = 15;
+
 class Users extends React.Component {
     constructor(props) {
         super(props);
@@ -21,7 +23,9 @@ class Users extends React.Component {
                 search: "",
                 order: "Asc",
                 status: "REGULAR"
-            }
+            },
+            page: 1,
+            hasMore: true
         };
     }
 
@@ -38,12 +42,26 @@ class Users extends React.Component {
     handleApplyFilters = () => {
         this.setState({fetching: true}, () => {
             axios.get(`${SERVER_ADDR}/users`, {params: this.state.filters}).then(response =>
-                this.setState({users: response.data.users, fetching: false}));
+                this.setState({
+                    users: response.data.users,
+                    page: 2,
+                    hasMore: response.data.users.length >= PAGE_SIZE,
+                    fetching: false}));
         });
     };
 
     handleUpdateFilters = (search, order, status) => {
         this.setState({filters: {search: search, order: order, status: status}});
+    };
+
+    fetchMoreData = () => {
+        const page = this.state.page;
+        axios.get(`${SERVER_ADDR}/users`, {params: {...this.state.filters, page: page}}).then(response =>
+            this.setState({
+                users: this.state.users.concat(response.data.users),
+                page: page + 1,
+                hasMore: response.data.users.length >= PAGE_SIZE,
+                fetching: false}));
     };
 
     handleFollow = (user) => {
@@ -63,7 +81,7 @@ class Users extends React.Component {
     };
 
     render() {
-        const {fetching, users, following, followers, filters} = this.state;
+        const {hasMore, fetching, users, following, followers, filters} = this.state;
 
         const followersFiltered = followers.filter(x => x.status === filters.status &&
             x.username.toUpperCase().indexOf(filters.search.toUpperCase()) !== -1).sort();
@@ -88,7 +106,8 @@ class Users extends React.Component {
                             <Tab.Content>
                                 {fetching ? <Spinner/> :
                                     <div className="tab-users-content">
-                                        <UserCards users={users} following={following}
+                                        <UserCards onFetch={this.fetchMoreData} users={users} following={following}
+                                                   hasMore={hasMore}
                                                    onFollow={this.handleFollow} onUnfollow={this.handleUnfollow}/>
                                     </div>}
                             </Tab.Content>
@@ -101,7 +120,7 @@ class Users extends React.Component {
                                             <Trans i18nKey="followers.login"/>
                                         </h3> :
                                         <div className="tab-users-content">
-                                            <UserCards users={followersFiltered} following={following}
+                                            <UserCards hasMore={false} users={followersFiltered} following={following}
                                                        onFollow={this.handleFollow} onUnfollow={this.handleUnfollow}/>
                                         </div>)}
                             </Tab.Content>
@@ -114,7 +133,7 @@ class Users extends React.Component {
                                             <Trans i18nKey="following.login"/>
                                         </h3> :
                                         <div className="tab-users-content">
-                                            <UserCards users={followingFiltered} following={following}
+                                            <UserCards hasMore={false} users={followingFiltered} following={following}
                                                        onFollow={this.handleFollow} onUnfollow={this.handleUnfollow}/>
                                         </div>)}
                             </Tab.Content>

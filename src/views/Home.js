@@ -37,7 +37,7 @@ class Home extends React.Component {
                 fetching: false}));
     };
 
-    handleSearch = (searchString, tags, order, ingredients, cookable) => {
+    handleSearch = (searchString, tags, order, ingredients) => {
         let searchTags = [];
         Object.keys(tags).forEach(tag => {
             if (tags[tag])
@@ -47,7 +47,7 @@ class Home extends React.Component {
         if (ingredients)
             ingredients.forEach(ingredient => ingredientsList.push(ingredient.id));
         this.setState({filters: {search: searchString, tags: searchTags.join(" "), order: order,
-                cookable: cookable, ingredients: ingredientsList.join(" ")}, fetching: true}, this.applyFilters);
+                ingredients: ingredientsList.join(" ")}, fetching: true}, this.applyFilters);
     };
 
     fetchMoreData = () => {

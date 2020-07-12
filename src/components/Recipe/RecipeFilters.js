@@ -15,8 +15,7 @@ class RecipeFilters extends React.Component {
             orderSelected: '',
             orders: [],
             allIngredients: [],
-            selectedIngredients: [],
-            withMyIngredients: false
+            selectedIngredients: []
         }
     }
 
@@ -56,11 +55,6 @@ class RecipeFilters extends React.Component {
 
         let tagsCheckboxes = Object.assign({}, this.state.tagsCheckboxes, {[id]: val});
         this.setState({tagsCheckboxes});
-    };
-
-    onWithMyIngredientsChange = (event) => {
-        const val = event.target.checked;
-        this.setState({withMyIngredients: val});
     };
 
     onChangeSearchString = (event) => {
@@ -141,15 +135,6 @@ class RecipeFilters extends React.Component {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="2">
                                         <div className="filter-items">
-                                            <div className="custom-control custom-checkbox filter-ingredients-item">
-                                                <input type="checkbox" value="false" className="custom-control-input"
-                                                       id="withMyIngredients" name="groupIngredientsFilter"
-                                                       checked={withMyIngredients} onChange={this.onWithMyIngredientsChange}/>
-                                                <label className="custom-control-label"
-                                                       htmlFor="withMyIngredients">
-                                                    <Trans>withMyIngredients</Trans>
-                                                </label>
-                                            </div>
                                             <div className="filter-ingredients-group-label filter-ingredients-item">
                                                 <label className="ingredientLabel">
                                                     <Trans>ingredients.Filter.Group</Trans>
@@ -169,7 +154,7 @@ class RecipeFilters extends React.Component {
 
                                 <button className="btn btn-green btn-apply-filters"
                                         onClick={() => this.props.onSearch(searchString, tagsCheckboxes, orderSelected,
-                                            selectedIngredients, withMyIngredients)}>
+                                            selectedIngredients)}>
                                     <Trans i18nKey="confirm"/>
                                 </button>
                             </div>
