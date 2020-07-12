@@ -18,6 +18,16 @@ const defaultDate = new Date(2020, 1, 1, 0, 0, 0, 0);
 class StepsEditor extends React.Component {
     constructor(props) {
         super(props);
+        this.props.steps.forEach(step => {
+            if (step.seconds) {
+                const m = Math.floor(step.seconds / 60);
+                const s = step.seconds % 60;
+                step.timer = new Date(defaultDate);
+                step.timer.setSeconds(s);
+                step.timer.setMinutes(m);
+                step.timerChecked = true;
+            }
+        });
         this.state = {
             rows: 0
         }
@@ -38,6 +48,17 @@ class StepsEditor extends React.Component {
     handleDateChange = (selectedTime, index) => {
         this.props.steps[index].timer = selectedTime;
         this.props.steps[index].seconds = selectedTime.getMinutes() * 60 + selectedTime.getSeconds();
+        this.props.onChange();
+    };
+
+    handleSwitchChange = (event, index) => {
+        this.props.steps[index].timerChecked = event.target.checked;
+        if (event.target.checked) {
+            if (this.props.steps[index].timer)
+                this.handleDateChange(this.props.steps[index].timer, index);
+        } else {
+            this.props.steps[index].seconds = 0;
+        }
         this.props.onChange();
     };
 
@@ -81,27 +102,38 @@ class StepsEditor extends React.Component {
                                     <Trans i18nKey={error !== undefined ? error[index] : ''} values={{0: "10", 1: "1000"}}/>
                                 </Form.Control.Feedback>
                             </div>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <TimePicker
-                                    value={(steps[index] === undefined || steps[index].timer === undefined) ? defaultDate : steps[index].timer}
-                                    onChange={value => this.handleDateChange(value, index)}
-                                    className="step-timepicker"
-                                    ampm={false}
-                                    openTo="minutes"
-                                    views={["minutes", "seconds"]}
-                                    format="mm:ss"
-                                    label=<Trans i18nKey="Recipe.minutesAndSeconds"/>
+                            <div className="float-right">
+                                <div className="step-timepicker step-timerswitch-text"><Form.Check
+                                    type="switch"
+                                    checked={steps[index].timerChecked ? steps[index].timerChecked : false}
+                                    onChange={value => this.handleSwitchChange(value, index)}
+                                    id={`step-timer-${index}`}
+                                    label={<Trans>timer.timer</Trans>}
+                                /></div>
+                                <br/>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <TimePicker
+                                        disabled={!steps[index].timerChecked}
+                                        value={(steps[index] === undefined || steps[index].timer === undefined) ? defaultDate : steps[index].timer}
+                                        onChange={value => this.handleDateChange(value, index)}
+                                        className="step-timepicker"
+                                        ampm={false}
+                                        openTo="minutes"
+                                        views={["minutes", "seconds"]}
+                                        format="mm:ss"
+                                        label=<Trans i18nKey="Recipe.minutesAndSeconds"/>
                                     InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton className="no-outline">
-                                                    <AccessAlarm/>
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                            </MuiPickersUtilsProvider>
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton className="no-outline">
+                                                <AccessAlarm/>
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </div>
                             <Form.Control.Feedback type="invalid">
                             </Form.Control.Feedback>
                         </div>

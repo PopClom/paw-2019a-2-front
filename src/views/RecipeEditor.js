@@ -16,14 +16,21 @@ import ImageIcon from '@material-ui/icons/Image';
 import {isLoggedIn} from "../helpers/auth";
 import Spinner from "../components/General/Spinner";
 import Error from "../components/General/Error";
-import noRecipeImg from "../assets/img/no_recipe_image.png";
 
 class RecipeEditor extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            recipe: {},
+            recipe: {
+                name: '',
+                description: '',
+                instructions: '',
+                steps: [],
+                ingredients: [],
+                tags: [],
+                image: null
+            },
             editing: true,
             fetching: true,
             error: false,
@@ -43,7 +50,7 @@ class RecipeEditor extends React.Component {
                     .catch(() => this.setState({fetching: false, error: true}));
             }
         } else {
-            this.setState({recipe: this.props.recipe, fetching: false, editing: false});
+            this.setState({fetching: false, editing: false});
         }
 
         axios.get(`${SERVER_ADDR}/constants/recipes/tags`).then(response => {
@@ -86,9 +93,10 @@ class RecipeEditor extends React.Component {
                                             name: recipe.name,
                                             description: recipe.description,
                                             instructions: recipe.instructions,
-                                            steps: recipe.steps,
-                                            ingredients: recipe.ingredients,
-                                            tags: recipe.tags,
+                                            steps: recipe.steps && recipe.steps.length > 0 ? [...recipe.steps] :
+                                            [{description: recipe.instructions, seconds: 0}],
+                                            ingredients: [...recipe.ingredients],
+                                            tags: [...recipe.tags],
                                             image: recipe.image,
                                             allTags
                                         }}
@@ -218,18 +226,6 @@ class RecipeEditor extends React.Component {
         );
     }
 }
-
-RecipeEditor.defaultProps = {
-    recipe: {
-        name: '',
-        description: '',
-        instructions: '',
-        steps: [],
-        ingredients: [],
-        tags: [],
-        image: []
-    }
-};
 
 const Extended = withTranslation()(RecipeEditor);
 Extended.static = RecipeEditor.static;

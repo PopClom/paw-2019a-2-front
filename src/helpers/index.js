@@ -35,11 +35,23 @@ export const formatNumber = (value, decimals = 0) => {
     return value.toFixed(decimals);
 };
 
+export const formatDate = (date) => {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    let year = date.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+};
+
 export function handleInputChange(event, validate = null) {
     let name = event.target.name;
     let value = event.target.value;
 
-    console.log(name);
     this.setState({[name]: value}, () => {
         if(validate !== null)
             validate(name, value)

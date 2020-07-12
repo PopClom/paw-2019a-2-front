@@ -40,7 +40,7 @@ class Login extends React.Component {
     };
 
     handleResendEmail = () => {
-        axios.post(`${SERVER_ADDR}/users/resend-email/${this.state.username}`).then(() =>
+        axios.post(`${SERVER_ADDR}/registration/emails/${this.state.username}`).then(() =>
             this.setState({loginErrorMessage: "mail.Sent"}));
     };
 
@@ -73,18 +73,6 @@ class Login extends React.Component {
                             </button>
                         </div>}
                     </div>}
-
-                    <div className="d-flex justify-content-around">
-                        <div>
-                            <div className="custom-control custom-checkbox">
-                                <input name="j_rememberme" type="checkbox" className="custom-control-input"
-                                       id="defaultLoginFormRemember"/>
-                                <label className="custom-control-label" htmlFor="defaultLoginFormRemember">
-                                    <Trans i18nKey="rememberMe"/>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
                     <button className="btn btn-info btn-block my-4" type="submit">
                         <Trans i18nKey="signIn"/>
                     </button>

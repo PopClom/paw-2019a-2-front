@@ -15,7 +15,7 @@ class Confirm extends React.Component {
 
     componentDidMount() {
         const token = this.props.match.params.token;
-        axios.post(`${SERVER_ADDR}/users/registration-confirm/${token}`,
+        axios.post(`${SERVER_ADDR}/registration/tokens/${token}`,
             {headers: {'content-type': 'application/x-www-form-urlencoded;charset=utf-8'}}).then(response => {
             localStorage.setItem("token", response.data);
             refresh().then(() => this.props.history.replace(`/`));

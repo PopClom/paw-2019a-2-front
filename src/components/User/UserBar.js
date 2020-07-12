@@ -27,7 +27,7 @@ class UserBar extends React.Component {
     };
 
     handleFollow = (user) => {
-        axios.put(`${SERVER_ADDR}/users/me/following/${user.id}/`)
+        axios.put(`${SERVER_ADDR}/user/following/${user.id}/`)
             .then(() => {
                 followUser(user);
                 this.setState({following: getUser().following.users});
@@ -35,7 +35,7 @@ class UserBar extends React.Component {
     };
 
     handleUnfollow = (user) => {
-        axios.delete(`${SERVER_ADDR}/users/me/following/${user.id}/`)
+        axios.delete(`${SERVER_ADDR}/user/following/${user.id}/`)
             .then(() => {
                 unfollowUser(user);
                 this.setState({following: getUser().following.users});

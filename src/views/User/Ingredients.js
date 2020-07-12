@@ -24,14 +24,14 @@ class Ingredients extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${SERVER_ADDR}/ingredient/`).then(response => {
+        axios.get(`${SERVER_ADDR}/user/ingredients/`).then(response => {
             this.setState({ingredients: response.data.ingredients.sort(
                 (a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)), fetching: false})
         });
     }
 
     handleAddIngredients = (ingredients) => {
-        axios.post(`${SERVER_ADDR}/ingredient/`, {ingredients: ingredients}).then(()=> {
+        axios.post(`${SERVER_ADDR}/user/ingredients/`, {ingredients: ingredients}).then(()=> {
             let stateIngredients = this.state.ingredients;
             ingredients.forEach((newIngredient) => {
                 let isPresent = false;
@@ -51,11 +51,11 @@ class Ingredients extends React.Component {
     handleEditIngredient = (ingredient, amount) => {
         let newIngredient = ingredient;
         newIngredient.amount = amount;
-        axios.put(`${SERVER_ADDR}/ingredient/${newIngredient.id}`, newIngredient).then(() => ingredient.amount = amount);
+        axios.put(`${SERVER_ADDR}/user/ingredients/${newIngredient.id}`, newIngredient).then(() => ingredient.amount = amount);
     };
 
     handleRemoveIngredient = (ingredientToRemove) => {
-        axios.delete(`${SERVER_ADDR}/ingredient/${ingredientToRemove.id}`).then(() => {
+        axios.delete(`${SERVER_ADDR}/user/ingredients/${ingredientToRemove.id}`).then(() => {
             let ingredients = this.state.ingredients.filter(function (ingredient) {
                 return ingredient.id !== ingredientToRemove.id;
             });

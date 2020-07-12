@@ -612,10 +612,15 @@ a.custom-card{
     margin: 0 20px !important;
 }
 
+.step-timerswitch-text {
+    text-align: center;
+    font-size: 14px;
+}
+
 .step-textarea{
-    height: 140px;
+    height: 160px;
     width: 100%;
-    min-height: 140px;
+    min-height: 160px;
 }
 
 .div-textarea{
@@ -1009,10 +1014,9 @@ a.custom-card{
 }
 
 @media (max-width: 790px) {
-
     .step-timepicker {
-        width: 85%;
-        margin: 7.5% !important;
+        width: 180px;
+        margin: 0 5px !important;
     }
 
     .new-recipe-ingredient-amount{

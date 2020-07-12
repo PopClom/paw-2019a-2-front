@@ -1,7 +1,6 @@
 import axios from "axios";
 import qs from "qs";
 import {SERVER_ADDR} from "../constants";
-import React from "react";
 
 export const login = async (username, password) => {
     return axios.post(`${SERVER_ADDR}/`,
@@ -23,7 +22,7 @@ export const refresh = async () => {
     const token = localStorage.getItem("token");
     if (token) {
         setAuthorizationToken(token);
-        return axios.get(`${SERVER_ADDR}/users/me`).then(response => {
+        return axios.get(`${SERVER_ADDR}/user`).then(response => {
             localStorage.setItem("user", JSON.stringify(response.data));
         }).catch(() => {
             logout();

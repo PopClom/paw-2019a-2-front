@@ -28,6 +28,7 @@ class Sidebar extends React.Component {
                     <img className="nav_logo" src={foodifyInlineImg} alt="logo"/>
                 </Link>
                 {options.map(option =>
+                    (option.id !== 'myAccount' || loggedIn) &&
                     <div key={option.id} className="navigation__list">
                         <div className={"main-item-sidebar" + (path === option.path ? " item_active" : "")}>
                             <Link className={'float_left'} to={option.path}>
