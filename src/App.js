@@ -2,7 +2,7 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route, Redirect
+    Route
 } from 'react-router-dom';
 import Home from './views/Home';
 import Recipe from './views/Recipe';
@@ -20,23 +20,15 @@ import {NotificationContainer} from 'react-notifications';
 
 function App() {
     return (
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-                <Route exact path="/(login)" component={LoginContainer}/>
-                <Route exact path="/(register)" component={LoginContainer}/>
+                <Route exact path="/register" component={Register}/>
+                <Route exact path="/login" component={Login}/>
                 <Route component={DefaultContainer}/>
             </Switch>
         </Router>
     );
 }
-
-const LoginContainer = () => (
-    <div className="fullHeight">
-        <Route exact path="/" render={() => <Redirect to="/login"/>}/>
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/register" component={Register}/>
-    </div>
-);
 
 const DefaultContainer = () => (
     <div>

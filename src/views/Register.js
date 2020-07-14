@@ -6,7 +6,6 @@ import {Button, Form} from "react-bootstrap";
 import {Formik} from "formik";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
-import {NotificationManager} from "react-notifications";
 
 class Register extends React.Component {
 

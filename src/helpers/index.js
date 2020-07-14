@@ -14,9 +14,9 @@ export const setupNotifications = () => {
         },
         error => {
             if (error.response) {
-                console.log(error.response);
                 if (error.response.status === 400 || error.response.status === 401 ||
-                    error.response.status === 403 || error.response.status === 405) {
+                    error.response.status === 403 || error.response.status === 405 ||
+                    error.response.status === 500) {
                     NotificationManager.error(<Trans>notification.failedRequest</Trans>,
                         <Trans>notification.oops</Trans>, TOAST_TIMEOUT);
                 }

@@ -1,6 +1,7 @@
 {
   "name": "paw-2019a-2",
   "version": "0.1.0",
+  "homepage": "http://pawserver.it.itba.edu.ar/paw-2019a-2",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "1.3.13",

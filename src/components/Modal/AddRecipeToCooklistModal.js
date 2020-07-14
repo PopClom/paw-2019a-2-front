@@ -107,8 +107,7 @@ class AddRecipeToCooklistModal extends React.Component {
                                                 <p className="invalid-feedback d-block no-margin">
                                                     <Trans>{errors.selectedCooklist}</Trans>
                                                 </p>}
-                                        </Form.Row>
-                                    }
+                                        </Form.Row>}
                                     {cooklists.length > 0 &&
                                         <Button className="btn-green"
                                                 onClick={() => this.setState({createNewCooklist: !createNewCooklist})}>
