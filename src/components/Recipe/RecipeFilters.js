@@ -15,7 +15,8 @@ class RecipeFilters extends React.Component {
             orderSelected: '',
             orders: [],
             allIngredients: [],
-            selectedIngredients: []
+            selectedIngredients: [],
+            withMyIngredients: false
         }
     }
 
@@ -57,6 +58,11 @@ class RecipeFilters extends React.Component {
         this.setState({tagsCheckboxes});
     };
 
+    onWithMyIngredientsChange = (event) => {
+        const val = event.target.checked;
+        this.setState({withMyIngredients: val});
+    };
+
     onChangeSearchString = (event) => {
         const val = event.target.value;
         this.setState({searchString: val});
@@ -80,7 +86,8 @@ class RecipeFilters extends React.Component {
 
                             <form onSubmit={(event) => {
                                 event.preventDefault();
-                                this.props.onSearch(searchString, tagsCheckboxes, orderSelected, selectedIngredients);
+                                this.props.onSearch(searchString, tagsCheckboxes,
+                                    orderSelected, selectedIngredients, withMyIngredients);
                             }}>
                                 <input className="form-control" placeholder={t('search')}
                                        value={searchString} onChange={this.onChangeSearchString}/>
@@ -138,6 +145,15 @@ class RecipeFilters extends React.Component {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="2">
                                         <div className="filter-items">
+                                            <div className="custom-control custom-checkbox filter-ingredients-item">
+                                                <input type="checkbox" value="false" className="custom-control-input"
+                                                       id="withMyIngredients" name="groupIngredientsFilter"
+                                                       checked={withMyIngredients} onChange={this.onWithMyIngredientsChange}/>
+                                                <label className="custom-control-label"
+                                                       htmlFor="withMyIngredients">
+                                                    <Trans>withMyIngredients</Trans>
+                                                </label>
+                                            </div>
                                             <div className="filter-ingredients-group-label filter-ingredients-item">
                                                 <label className="ingredientLabel">
                                                     <Trans>ingredients.Filter.Group</Trans>
