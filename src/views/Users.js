@@ -9,7 +9,7 @@ import UserFilters from "../components/User/UserFilters";
 import {getUser, isLoggedIn, refresh} from "../helpers/auth";
 import {followUser, unfollowUser} from "../helpers";
 
-const PAGE_SIZE = 15;
+const PAGE_SIZE = 12;
 
 class Users extends React.Component {
     constructor(props) {

@@ -177,7 +177,7 @@ class Statistics extends React.Component {
                             </Card.Title>
                             {show &&
                             <Card.Body>
-                                <Tabs defaultActiveKey="general" id="uncontrolled-tab-example" className="tab-border">
+                                <Tabs defaultActiveKey="user" id="uncontrolled-tab-example" className="tab-border">
                                     <Tab eventKey="user" title={<Trans i18nKey="statistics.my"/>}>
                                         {fetchingMy ? <Spinner/> :
                                             this.renderPlots(dataIngredientsMy, dataTagsMy)}

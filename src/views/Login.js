@@ -14,7 +14,8 @@ class Login extends React.Component {
             username: '',
             password: '',
             loginError: false,
-            loginErrorMessage: ''
+            loginErrorMessage: '',
+            submitting: false
         };
 
         this.handleInputChange = handleInputChange.bind(this);
@@ -27,6 +28,7 @@ class Login extends React.Component {
 
     handleLoginSubmit = (event) => {
         event.preventDefault();
+        this.setState({submitting: true});
         login(this.state.username, this.state.password).then(() => {
             if (this.props.location.from)
                 this.props.history.push(this.props.location.from);
@@ -35,7 +37,7 @@ class Login extends React.Component {
         }).catch(err => {
             logout();
             const loginErrorMessage = err.response.data === "User is disabled" ? "signInDisabled" : "signInBadCredentials";
-            this.setState({loginError: true, loginErrorMessage: loginErrorMessage});
+            this.setState({loginError: true, loginErrorMessage: loginErrorMessage, submitting: false});
         });
     };
 
@@ -45,7 +47,7 @@ class Login extends React.Component {
     };
 
     render() {
-        const {loginError, loginErrorMessage} = this.state;
+        const {loginError, loginErrorMessage, submitting} = this.state;
         const {t} = this.props;
 
         return (
@@ -73,9 +75,14 @@ class Login extends React.Component {
                             </button>
                         </div>}
                     </div>}
-                    <button className="btn btn-info btn-block my-4" type="submit">
+                    <button className="btn btn-info btn-block my-4" type="submit" disabled={submitting}>
                         <Trans i18nKey="signIn"/>
                     </button>
+                    <p className="font-weight-bold" style={{fontSize: "20px"}}>
+                        <Link to={`/`} className="register-btn">
+                            <Trans i18nKey="goToTheSite"/>
+                        </Link>
+                    </p>
                     <p>
                         <Trans i18nKey="notAmember"/>
                         <Link to={`/register`} className="register-btn">

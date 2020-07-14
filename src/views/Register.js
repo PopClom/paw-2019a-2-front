@@ -6,6 +6,7 @@ import {Button, Form} from "react-bootstrap";
 import {Formik} from "formik";
 import axios from "axios";
 import {SERVER_ADDR} from "../constants";
+import {NotificationManager} from "react-notifications";
 
 class Register extends React.Component {
 
@@ -13,7 +14,8 @@ class Register extends React.Component {
         super(props);
         this.state = {
             success: false,
-            error: false
+            error: false,
+            errorMessage: ''
         };
     }
 
@@ -44,6 +46,17 @@ class Register extends React.Component {
                                 this.setState({error: false, success: true});
                             })
                             .catch(err => {
+                                if (err.response) {
+                                    if (err.response.status === 400) {
+                                        this.setState({errorMessage: "badRequest"})
+                                    } else if (err.response.status === 403) {
+                                        this.setState({errorMessage: "username.notAvailable"})
+                                    } else {
+                                        this.setState({errorMessage: "error_explanation"})
+                                    }
+                                } else {
+                                    this.setState({errorMessage: "notification.connectionError"})
+                                }
                                 setSubmitting(false);
                                 this.setState({error: true});
                             });
@@ -144,7 +157,7 @@ class Register extends React.Component {
                                 </Form.Control.Feedback>
                             </Form.Row>
                             {this.state.success && <><br/><Trans>mail.Sent</Trans></>}
-                            {this.state.error && <><br/><Trans>username.notAvailable</Trans></>}
+                            {this.state.error && <><br/><Trans>{this.state.errorMessage}</Trans></>}
 
                             {/*Sign up button*/}
                             <Button className="btn-info my-4 btn-block" type="submit" disabled={isSubmitting}>

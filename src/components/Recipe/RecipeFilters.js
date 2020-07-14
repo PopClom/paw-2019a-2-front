@@ -78,7 +78,10 @@ class RecipeFilters extends React.Component {
                                 <Trans>Filters</Trans>
                             </h4>
 
-                            <div>
+                            <form onSubmit={(event) => {
+                                event.preventDefault();
+                                this.props.onSearch(searchString, tagsCheckboxes, orderSelected, selectedIngredients);
+                            }}>
                                 <input className="form-control" placeholder={t('search')}
                                        value={searchString} onChange={this.onChangeSearchString}/>
 
@@ -152,12 +155,10 @@ class RecipeFilters extends React.Component {
                                     </Accordion.Collapse>
                                 </Accordion>
 
-                                <button className="btn btn-green btn-apply-filters"
-                                        onClick={() => this.props.onSearch(searchString, tagsCheckboxes, orderSelected,
-                                            selectedIngredients)}>
+                                <button className="btn btn-green btn-apply-filters" type="submit">
                                     <Trans i18nKey="confirm"/>
                                 </button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

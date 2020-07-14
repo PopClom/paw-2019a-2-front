@@ -10,7 +10,7 @@ import {Trans} from "react-i18next";
 import TooltipHover from "../components/General/TooltipHover";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-const PAGE_SIZE = 15;
+const PAGE_SIZE = 12;
 
 class Home extends React.Component {
     constructor(props) {
@@ -29,12 +29,13 @@ class Home extends React.Component {
     }
 
     applyFilters() {
-        axios.get(`${SERVER_ADDR}/recipes`, {params: this.state.filters}).then(response =>
+        axios.get(`${SERVER_ADDR}/recipes`, {params: this.state.filters}).then(response => {
             this.setState({
                 recipes: response.data.recipes,
                 page: 2,
                 hasMore: response.data.recipes.length >= PAGE_SIZE,
-                fetching: false}));
+                fetching: false});
+        });
     };
 
     handleSearch = (searchString, tags, order, ingredients) => {

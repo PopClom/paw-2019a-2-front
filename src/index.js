@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Spinner from './components/General/Spinner'
 
 /* i18n */
 import "./constants/i18n";
@@ -31,6 +32,8 @@ const muiTheme = createMuiTheme({
 
 const run = async () => {
     setupNotifications();
+    ReactDOM.render(
+        <MuiThemeProvider theme={muiTheme}><Spinner/></MuiThemeProvider>, document.getElementById('root'));
     await refresh();
     ReactDOM.render(
         <MuiThemeProvider theme={muiTheme}><App/></MuiThemeProvider>, document.getElementById('root'));
