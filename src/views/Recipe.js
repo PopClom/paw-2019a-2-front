@@ -50,28 +50,32 @@ class Recipe extends React.Component {
     }
 
     handleCommentSubmit = (message) => {
-        return axios.post(`${SERVER_ADDR}/recipes/${this.state.id}/comments`, {message: message})
+        const {recipe} = this.state;
+        return axios.post(`${SERVER_ADDR}/recipes/${recipe.id}/comments`, {message: message})
             .then((response) => {
-                this.setState({comments: [...this.state.comments, response.data]});
+                this.setState({recipe: {...recipe, comments: [...recipe.comments, response.data]}});
             });
     };
 
     handleCommentDelete = (commentId) => {
-        axios.delete(`${SERVER_ADDR}/recipes/${this.state.id}/comments/${commentId}`).then(() => {
-            const comments = this.state.comments.filter(comment => comment.id !== commentId);
-            this.setState({comments: comments});
+        const {recipe} = this.state;
+        axios.delete(`${SERVER_ADDR}/recipes/${recipe.id}/comments/${commentId}`).then(() => {
+            const comments = recipe.comments.filter(comment => comment.id !== commentId);
+            this.setState({recipe: {...recipe, comments}});
         });
     };
 
     handleRating = (value) => {
-        axios.put(`${SERVER_ADDR}/recipes/${this.state.id}/rating`, {rating: value})
+        const {recipe} = this.state;
+        axios.put(`${SERVER_ADDR}/recipes/${recipe.id}/rating`, {rating: value})
             .then((response) => {
-                this.setState({yourRating: value, rating: response.data.rating});
+                this.setState({recipe: {...recipe, yourRating: value, rating: response.data.rating}});
             });
     };
 
     handleRecipeDelete = () => {
-        axios.delete(`${SERVER_ADDR}/recipes/${this.state.id}/`)
+        const {recipe} = this.state;
+        axios.delete(`${SERVER_ADDR}/recipes/${recipe.id}/`)
             .then(() => {
                 this.props.history.push(`/`);
             });
