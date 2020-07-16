@@ -349,7 +349,7 @@ i18n
 
                     "password.notMatch": "Passwords do not match",
                     "password.lengthError": "The field must have between 6 and 100 characters",
-                    "username.notAvailable": "The username is not available",
+                    "username.notAvailable": "The username or email is not available",
                     "username.lengthError": "The field must have between 1 and 40 characters",
                     "email.notAvailable": "The email is not available",
                     "email.lengthError": "The field must have between 6 and 100 characters",
@@ -699,7 +699,7 @@ i18n
 
                     "password.notMatch": "Las contraseñas no coinciden",
                     "password.lengthError": "El campo debe tener entre 6 y 100 caracteres",
-                    "username.notAvailable": "El usuario no esta disponible",
+                    "username.notAvailable": "El usuario o email no está disponible",
                     "username.lengthError": "El campo debe tener entre 1 y 40 caracteres",
                     "email.notAvailable": "El email no esta disponible",
                     "email.lengthError": "El campo debe tener entre 6 y 100 caracteres",
@@ -710,7 +710,7 @@ i18n
             }
         },
         fallbackLng: ['en','es'],
-        debug: true,
+        debug: false,
 
         // have a common namespace used around the full app
         ns: ["translations"],

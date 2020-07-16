@@ -6,7 +6,7 @@ import {Tab, Tabs} from "react-bootstrap";
 import {Trans} from "react-i18next";
 import UserCards from "../components/User/UserCards";
 import UserFilters from "../components/User/UserFilters";
-import {getUser, isLoggedIn, refresh} from "../helpers/auth";
+import {getUser, isLoggedIn} from "../helpers/auth";
 import {followUser, unfollowUser} from "../helpers";
 
 const PAGE_SIZE = 15;
@@ -31,9 +31,7 @@ class Users extends React.Component {
 
     componentDidMount() {
         if (isLoggedIn()) {
-            refresh().then(() => {
-                this.setState({following: getUser().following.users, followers: getUser().followers.users}, this.handleApplyFilters);
-            });
+            this.setState({following: getUser().following.users, followers: getUser().followers.users}, this.handleApplyFilters);
         } else {
             this.handleApplyFilters();
         }
@@ -114,7 +112,7 @@ class Users extends React.Component {
                         </Tab>
                         <Tab eventKey="Followers" title={<Trans i18nKey="followers"/>}>
                             <Tab.Content>
-                                {fetching ? <Spinner/> :
+                                {<Spinner/> &&
                                     (!isLoggedIn() ?
                                         <h3 className="navigation-subtitle">
                                             <Trans i18nKey="followers.login"/>
@@ -127,7 +125,7 @@ class Users extends React.Component {
                         </Tab>
                         <Tab eventKey="Following" title={<Trans i18nKey="following"/>}>
                             <Tab.Content>
-                                {fetching ? <Spinner/> :
+                                {<Spinner/> &&
                                     (!isLoggedIn() ?
                                         <h3 className="navigation-subtitle">
                                             <Trans i18nKey="following.login"/>
