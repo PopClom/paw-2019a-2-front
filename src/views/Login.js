@@ -31,12 +31,17 @@ class Login extends React.Component {
         this.setState({submitting: true});
         login(this.state.username, this.state.password).then(() => {
             if (this.props.location.from)
-                this.props.history.push(`..` + this.props.location.from);
+                this.props.history.push(`/..` + this.props.location.from);
             else
                 this.props.history.push(`/`);
         }).catch(err => {
             logout();
-            const loginErrorMessage = err.response.data === "User is disabled" ? "signInDisabled" : "signInBadCredentials";
+            let loginErrorMessage;
+            if (err.response)
+                loginErrorMessage = err.response.data === "User is disabled" ? "signInDisabled" : "signInBadCredentials";
+            else
+                loginErrorMessage = "notification.connectionError";
+
             this.setState({loginError: true, loginErrorMessage: loginErrorMessage, submitting: false});
         });
     };
