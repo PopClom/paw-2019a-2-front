@@ -64,7 +64,7 @@ class Recipe extends React.Component {
     };
 
     handleRating = (value) => {
-        axios.post(`${SERVER_ADDR}/recipes/${this.state.id}/rating`, {rating: value})
+        axios.put(`${SERVER_ADDR}/recipes/${this.state.id}/rating`, {rating: value})
             .then((response) => {
                 this.setState({yourRating: value, rating: response.data.rating});
             });

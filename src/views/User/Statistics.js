@@ -65,7 +65,7 @@ class Statistics extends React.Component {
         }
         const beginDate = new Date();
         beginDate.setMonth(beginDate.getMonth() - 1);
-        this.handleDateChange({begin: beginDate, end: new Date()})
+        this.handleDateChange({begin: beginDate, end: new Date()});
     }
 
     handleDateChange = (selectedDate) => {
@@ -113,6 +113,7 @@ class Statistics extends React.Component {
     };
 
     renderPlots = (dataIngredients, dataTag) => {
+        console.log(dataTag);
         return (
             <Tab.Content>
                 <h3 className="statistics-chart-title">
@@ -147,7 +148,7 @@ class Statistics extends React.Component {
                 <h3 className="statistics-chart-title">
                     <Trans i18nKey="charts.tags.title"/>
                 </h3>
-                {dataTag.labels && dataTag.labels.length > 0 ?
+                {dataTag.labels && dataTag.labels.length > 0 && Math.max(...dataTag.datasets[0].data) > 0 ?
                     <div>
                         <h3 className="statistics-chart-description">
                             <Trans i18nKey="charts.tags.description"/>

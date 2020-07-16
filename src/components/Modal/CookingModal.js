@@ -27,7 +27,7 @@ class CookingModal extends React.Component {
                                         <FontAwesomeIcon
                                             className="missing-ingredient-circle fa-xs"
                                             icon={faCircle}/>
-                                        <p>{missingIngredient.name}</p>
+                                        <p>{t(missingIngredient.name)}</p>
                                     </div>
                                     <div className="missing-ingredient-amount">
                                         <p>{missingIngredient.amount} {t(missingIngredient.typeOfServing)}</p>
