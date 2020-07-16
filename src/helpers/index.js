@@ -37,7 +37,7 @@ export const formatNumber = (value, decimals = 0) => {
     return value.toFixed(decimals);
 };
 
-export const formatDate = (date) => {
+const formatDatePrivate = (date) => {
     let month = '' + (date.getMonth() + 1);
     let day = '' + date.getDate();
     let year = date.getFullYear();
@@ -47,7 +47,17 @@ export const formatDate = (date) => {
     if (day.length < 2)
         day = '0' + day;
 
-    return [year, month, day].join('-');
+    return {day: day, month: month, year: year};
+};
+
+export const formatDateAlternative = (date) => {
+    const dateFormated = formatDatePrivate(date);
+    return [dateFormated.day, dateFormated.month, dateFormated.year].join('-');
+};
+
+export const formatDate = (date) => {
+    const dateFormated = formatDatePrivate(date);
+    return [dateFormated.year, dateFormated.month, dateFormated.day].join('-');
 };
 
 export function handleInputChange(event, validate = null) {

@@ -50,12 +50,13 @@ i18n
                     "emptyRecipes": "{{0}} doesn't have any recipes yet!",
                     "emptyMyRecipes": "You don't have any recipes, use the plus button to add your first recipe!",
                     "recipe.title": "{{0}}'s recipes",
-                    "recipe.step": "Step {{0}}",
+                    "recipe.step": "Step {{0}} of {{1}}",
                     "recipe.stepLeft": "Step {{currentStep}} of {{totalSteps}}",
                     "recipe.stepPlaceholder": "Describe step number {{stepNumber}}",
                     "recipe.nextStep": "Next",
                     "recipe.prevStep": "Previous",
                     "recipe.finishStep": "Finish",
+                    "recipe.cook": "Cook recipe",
                     "timer.timer": "Timer",
                     "timer.pressToStart": "Press to start",
                     "timer.remaining": "Remaining",
@@ -187,6 +188,9 @@ i18n
                     "ingredient.selectMulti": "Select ingredients",
                     "ingredient.editAmount": "Edit amount",
                     "ingredient.delete": "Delete ingredient",
+                    "ingredient.missing": "You are missing {{0}}",
+                    "ingredient.gotIt": "You have the necessary amount!",
+
 
                     "expiration.error": "The confirmation mail has expired",
 
@@ -243,7 +247,7 @@ i18n
 
                     "date.from": "Since",
                     "date.to": "To",
-                    "date.range": "Select a date range",
+                    "date.range": "Select a date range. Default is one month from today",
 
                     "tagChart": "Tag chart",
                     "nutritionalChart": "Nutritional charts",
@@ -259,7 +263,9 @@ i18n
                     "nutritionalValueAprox": "Approximate nutritional value",
 
                     "successFullyCooked": "Successfully cooked!",
-                    "cantCooked": "You don't have enough ingredients to cook this recipe",
+                    "cantCooked": "You are missing this ingredients to cook this recipe",
+                    "cookWithoutIngredients": "If you continue, you will use the ingredients you have for the recipe, the ones you don't have will be ignored.",
+                    "cookWithIngredients": "You have all the ingredients needed to cook this recipe, if you continue, they will be discounted from your ingredients.",
 
                     "editRecipe": "Edit Recipe",
                     "deleteRecipe": "Delete Recipe",
@@ -392,12 +398,13 @@ i18n
                     "emptyRecipes": "¡{{0}} no subió ninguna receta todavía!",
                     "emptyMyRecipes": "No tenés ninguna receta, ¡Apretá el botón + para agregar tu primera receta y verla acá!",
                     "recipe.title": "Recetas de {{0}}",
-                    "recipe.step": "Paso {{0}}",
+                    "recipe.step": "Paso {{0}} de {{1}}",
                     "recipe.stepLeft": "Paso {{currentStep}} de {{totalSteps}}",
                     "recipe.stepPlaceholder": "Describí el paso número {{stepNumber}}",
                     "recipe.nextStep": "Siguiente",
                     "recipe.prevStep": "Anterior",
                     "recipe.finishStep": "Finalizar",
+                    "recipe.cook": "Cocinar receta",
                     "timer.timer": "Temporizador",
                     "timer.pressToStart": "Comenzar",
                     "timer.remaining": "Faltan",
@@ -530,6 +537,8 @@ i18n
                     "ingredient.selectMulti": "Seleccionar ingredientes",
                     "ingredient.editAmount": "Editar la cantidad",
                     "ingredient.delete": "Eliminar ingrediente",
+                    "ingredient.missing": "Te faltan {{0}}",
+                    "ingredient.gotIt": "Tenes la cantidad necesaria!",
 
                     "expiration.error": "El mail de confirmación ha expirado",
 
@@ -602,7 +611,9 @@ i18n
                     "nutritionalValueAprox": "Valor nutricional aproximado",
 
                     "successFullyCooked": "¡Cocinado exitosamente!",
-                    "cantCooked": "No tenés los ingredientes necesarios para cocinar esta receta",
+                    "cantCooked": "Te faltan los siguientes ingredientes para cocinar esta receta",
+                    "cookWithoutIngredients": "Si decide continuar, se le descontarán los ingredientes que posee, los que no, serán ignorados",
+                    "cookWithIngredients": "Usted tiene todos los ingredientes para cocinar la receta, al continuar se le descontaran de sus ingredientes.",
 
                     "editRecipe": "Editar Receta",
                     "deleteRecipe": "Borrar Receta",

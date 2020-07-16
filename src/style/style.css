@@ -181,11 +181,13 @@ body.modal-open {
 }
 
 .ingredients-recipe-no-border{
-    clear: both;
+    display: flex;
+    justify-content: space-between;
 }
 
 .ingredients-recipe{
-    clear: both;
+    display: flex;
+    justify-content: space-between;
     margin-top: 5px;
     border-top: 1px solid grey;
 }
@@ -280,7 +282,6 @@ a.custom-card{
 }
 
 .step-number-indicator {
-    position: absolute;
     right: 15px;
     top: 8px;
     font-size: 18px;
@@ -360,6 +361,27 @@ a.custom-card{
     transform: translateY(-50%);
 }
 
+.ingredient-tooltip {
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+.ic-green {
+    color: rgb(30, 215, 96);
+}
+
+.ic-red {
+    color: var(--danger);
+}
+
+.ic-orange {
+    color: orange;
+}
+
+.ingredient-name-container{
+    display: flex;
+}
+
 .new-recipe-image{
     margin-top: 20px;
 }
@@ -414,6 +436,14 @@ a.custom-card{
     font-weight: bold;
     text-align: left;
     font-size: large;
+}
+
+.steps-title{
+    clear: both;
+    font-weight: 500;
+    text-align: left;
+    margin-left: 5px;
+    font-size: 1.05em;
 }
 
 .ingredients-item{
@@ -634,8 +664,17 @@ a.custom-card{
 
 .tooltip-recipe{
     margin-left: 10px;
-    float: left;
+    margin-right: 0.3rem;
     margin-top: 5px;
+}
+
+.missing-ingredient-circle{
+    margin-left: 10px;
+    align-self: center;
+    margin-bottom: 12px;
+    margin-right: 0.3rem;
+    width: 0.6em !important;
+    color: darkgrey;
 }
 
 .bottom-new-recipe-btn{
@@ -680,6 +719,7 @@ a.custom-card{
 
 
 .card-img-top{
+    max-height: 500px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -717,6 +757,7 @@ a.custom-card{
 .card-comments{
     border-bottom: grey;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .columns-cards-recipe{
@@ -740,6 +781,16 @@ a.custom-card{
 
 .recipe-bottom-icon{
     float: right;
+}
+
+.missing-ingredient-name {
+    display: flex;
+}
+
+.missing-ingredients-container {
+    display: flex;
+    border-bottom: 1px solid;
+    justify-content: space-between;
 }
 
 .recipe-body{
@@ -907,7 +958,7 @@ a.custom-card{
 .card-deck {
     margin: 5px !important;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 0.5fr));
+    grid-template-columns: repeat(auto-fit, minmax(310px, 0.5fr));
     grid-gap: 10px;
 }
 
@@ -1126,8 +1177,12 @@ a.custom-card{
 
 @media (max-width: 1150px) {
     .card-deck{
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
         grid-gap:10px;
+    }
+
+    .card-img-top{
+        max-height: 800px;
     }
 
     .flex-recipe{

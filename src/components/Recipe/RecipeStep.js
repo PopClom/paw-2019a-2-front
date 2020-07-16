@@ -54,12 +54,6 @@ class RecipeStep extends React.Component {
 
         return (
             <div className="step-container">
-                <div className="step-title">
-                    <h4 className="recipe-title">
-                        {step.title}
-                    </h4>
-                </div>
-
                 <div className="step-description">
                     <p className="recipe-description">
                         {Object.keys(descriptionLines).map(idx => (

@@ -23,12 +23,8 @@ class RecipeSteps extends React.Component {
         this.slider.slickNext();
     };
 
-    endCooking = () => {
-
-    };
-
     render() {
-        const {steps} = this.props;
+        const {steps, showCookingModal} = this.props;
         const settings = {
             adaptiveHeight: true,
             dots: false,
@@ -39,13 +35,12 @@ class RecipeSteps extends React.Component {
 
         return (
             <section className="step-section">
-                <p className="step-number-indicator">
-                    <Trans i18nKey="recipe.stepLeft" values={{currentStep: this.state.index+1, totalSteps: steps.length}}/>
-                </p>
                 <div>
+                    <p className="steps-title">
+                        <Trans i18nKey="recipe.step" values={{0: this.state.index+1, 1: steps.length}}/>
+                    </p>
                     <Slider ref={c => (this.slider = c)} {...settings}>
-                        {Object.keys(steps).map(idx => <RecipeStep key={idx} step={{title:
-                                <Trans i18nKey="recipe.step" values={{0: parseInt(idx) + 1}}/>, ...steps[idx]}}/>)}
+                        {Object.keys(steps).map(idx => <RecipeStep key={idx} step={steps[idx]}/>)}
                     </Slider>
                     <div className="step-buttons">
                         <Button className="btn-green float-left" onClick={this.slickPrev}
@@ -54,7 +49,7 @@ class RecipeSteps extends React.Component {
                             <Button className="btn-green float-right"
                                     onClick={this.slickNext}><Trans i18nKey="recipe.nextStep"/></Button> :
                             <Button className="btn-green float-right"
-                                    onClick={this.endCooking}><Trans i18nKey="recipe.finishStep"/></Button>}
+                                    onClick={showCookingModal}><Trans i18nKey="recipe.cook"/></Button>}
                     </div>
                 </div>
             </section>

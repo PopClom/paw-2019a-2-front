@@ -195,13 +195,13 @@ body a:hover {
   .navigation {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
     z-index: 1;
   }
   .navigation__list {
     margin-bottom: 0;
-    width: calc( 100% / 5 );
+    width: calc( 100% / 4 );
     text-align: center;
   }
   .navigation__list__item {

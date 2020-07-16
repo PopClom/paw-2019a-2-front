@@ -16,18 +16,37 @@ class Recipe extends React.Component {
             fetching: true,
             error: false,
             showDeleteModal: false,
-            user: {}
+            recipe: {},
+            user: {},
+            userIngredients: {},
+            missingIngredients: {}
         }
     }
 
-    componentDidMount() {
+    loadData() {
         const id = this.props.match.params.id;
         axios.get(`${SERVER_ADDR}/recipes/${id}`).then(response =>
-            this.setState({...response.data}, () => {
-                const userId = this.state.userId;
-                axios.get(`${SERVER_ADDR}/users/${userId}`).then(response =>
-                    this.setState({user: response.data, fetching: false}));
-            })).catch(() => this.setState({fetching: false, error: true}));
+            this.setState({recipe: response.data}))
+            .then(() => {
+                const userId = this.state.recipe.userId;
+                axios.get(`${SERVER_ADDR}/users/${userId}`).then(response => this.setState({
+                    user: response.data
+                })).then(() => {
+                    axios.get(`${SERVER_ADDR}/user/ingredients/`).then(response => {
+                        const userIngredients = {};
+                        response.data.ingredients.forEach(ingredient => userIngredients[ingredient.id] = ingredient);
+                        this.setState({
+                            userIngredients: userIngredients,
+                            missingIngredients: this.getMissingIngredients(this.state.recipe.ingredients, userIngredients),
+                            fetching: false
+                        })
+                    })
+                })
+            }).catch(() => this.setState({fetching: false, error: true}));
+    }
+
+    componentDidMount() {
+        this.loadData();
     }
 
     handleCommentSubmit = (message) => {
@@ -62,12 +81,26 @@ class Recipe extends React.Component {
         this.setState({showDeleteModal: !this.state.showDeleteModal});
     };
 
+    getMissingIngredients(ingredients, userIngredients) {
+        const missingIngredients = {};
+        ingredients.forEach(recipeIngredient => {
+            if (userIngredients[recipeIngredient.id] === undefined)
+                missingIngredients[recipeIngredient.id] = recipeIngredient;
+            else if (userIngredients[recipeIngredient.id].amount < recipeIngredient.amount) {
+                const ingredient = Object.assign({}, recipeIngredient);
+                ingredient.amount -= userIngredients[recipeIngredient.id].amount;
+                missingIngredients[ingredient.id] = ingredient;
+            }
+        });
+        return missingIngredients;
+    }
+
     render() {
-        const recipe = this.state;
+        const {recipe, missingIngredients, user, fetching} = this.state;
 
         return (
             <section className="main_container">
-                {recipe.fetching ?
+                {fetching ?
                     <section className="browse">
                         <Spinner/>
                     </section> : (recipe.error ?
@@ -76,13 +109,14 @@ class Recipe extends React.Component {
                                 <section className="browse">
                                     <RecipeContent recipe={recipe}
                                                    onRate={this.handleRating}
-                                                   toggleDeleteModal={this.toggleDeleteModal}/>
+                                                   toggleDeleteModal={this.toggleDeleteModal}
+                                                   missingIngredients={missingIngredients}/>
                                     <CommentSection comments={recipe.comments}
                                                     recipeId={recipe.id}
                                                     onSubmit={this.handleCommentSubmit}
                                                     onDelete={this.handleCommentDelete}/>
                                 </section>
-                                <UserBar user={this.state.user}/>
+                                <UserBar user={user}/>
                             </section>
                     )}
                 <ConfirmationModal title={<Trans i18nKey="recipe.deleteWarning"/>}

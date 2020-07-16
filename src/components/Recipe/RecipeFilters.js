@@ -145,15 +145,6 @@ class RecipeFilters extends React.Component {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="2">
                                         <div className="filter-items">
-                                            <div className="custom-control custom-checkbox filter-ingredients-item">
-                                                <input type="checkbox" value="false" className="custom-control-input"
-                                                       id="withMyIngredients" name="groupIngredientsFilter"
-                                                       checked={withMyIngredients} onChange={this.onWithMyIngredientsChange}/>
-                                                <label className="custom-control-label"
-                                                       htmlFor="withMyIngredients">
-                                                    <Trans>withMyIngredients</Trans>
-                                                </label>
-                                            </div>
                                             <div className="filter-ingredients-group-label filter-ingredients-item">
                                                 <label className="ingredientLabel">
                                                     <Trans>ingredients.Filter.Group</Trans>
@@ -166,6 +157,15 @@ class RecipeFilters extends React.Component {
                                                     isMulti="true"
                                                     menuPlacement="top"
                                                     placeholder={<Trans>ingredient.selectMulti</Trans>}/>
+                                            </div>
+                                            <div className="custom-control custom-checkbox filter-ingredients-item">
+                                                <input type="checkbox" value="false" className="custom-control-input"
+                                                       id="withMyIngredients" name="groupIngredientsFilter"
+                                                       checked={withMyIngredients} onChange={this.onWithMyIngredientsChange}/>
+                                                <label className="custom-control-label"
+                                                       htmlFor="withMyIngredients">
+                                                    <Trans>withMyIngredients</Trans>
+                                                </label>
                                             </div>
                                         </div>
                                     </Accordion.Collapse>

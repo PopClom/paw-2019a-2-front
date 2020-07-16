@@ -11,7 +11,7 @@ import enLocale from "date-fns/locale/en-US";
 import esLocale from "date-fns/locale/es";
 import i18next from "i18next";
 import {Doughnut, HorizontalBar} from 'react-chartjs-2';
-import {formatDate} from "../../helpers";
+import {formatDate, formatDateAlternative} from "../../helpers";
 
 const localeMap = {
     en: enLocale,
@@ -19,7 +19,7 @@ const localeMap = {
 };
 
 const colors = ['#33FFCC', "#4CAF50", "#CDDC39", "#FFC107",
-    "#FF5722", '#FF1A66', '#B33300',"#795548",
+    "#FF5722", '#FF1A66', '#B33300', "#795548",
     "#9E9E9E", "#607D8B", '#FFB399', '#99FF99',
     '#FFFF99', '#00B3E6', '#3366E6', '#E6B333',
     '#B34D4D', '#80B300', '#809900', '#E6B3B3',
@@ -63,6 +63,9 @@ class Statistics extends React.Component {
         if (i18next.language.substring(0, 2) === "es") {
             this.setState({locale: localeMap.es});
         }
+        const beginDate = new Date();
+        beginDate.setMonth(beginDate.getMonth() - 1);
+        this.handleDateChange({begin: beginDate, end: new Date()})
     }
 
     handleDateChange = (selectedDate) => {
@@ -76,7 +79,8 @@ class Statistics extends React.Component {
                 this.setState({
                     dataIngredientsMy: dataIngredients,
                     dataTagsMy: dataTags,
-                    fetchingMy: false});
+                    fetchingMy: false
+                });
             });
 
         axios.get(`${SERVER_ADDR}/users/statistics`,
@@ -87,7 +91,8 @@ class Statistics extends React.Component {
                 this.setState({
                     dataIngredientsGeneral: dataIngredients,
                     dataTagsGeneral: dataTags,
-                    fetchingGeneral: false});
+                    fetchingGeneral: false
+                });
             });
     };
 
@@ -122,7 +127,8 @@ class Statistics extends React.Component {
                             <HorizontalBar data={dataIngredients}
                                            options={{
                                                legend: {display: false},
-                                               maintainAspectRatio: false}} />
+                                               maintainAspectRatio: false
+                                           }}/>
                         </div>
                     </div> :
                     <div>
@@ -140,7 +146,7 @@ class Statistics extends React.Component {
                             <Trans i18nKey="charts.tags.description"/>
                         </h3>
                         <div className="tab-charts-content">
-                            <Doughnut data={dataTag} />
+                            <Doughnut data={dataTag}/>
                         </div>
                     </div> :
                     <div>
@@ -153,44 +159,50 @@ class Statistics extends React.Component {
     };
 
     render() {
-        const {fetchingMy, fetchingGeneral, show, selectedDate, locale,
-            dataIngredientsMy, dataTagsMy, dataIngredientsGeneral, dataTagsGeneral} = this.state;
+        const {
+            fetchingMy, fetchingGeneral, show, selectedDate, locale,
+            dataIngredientsMy, dataTagsMy, dataIngredientsGeneral, dataTagsGeneral
+        } = this.state;
         const {t} = this.props;
 
+        console.log(this.state);
         return (
-                <section>
-                    <h4 className="navigation-title pt-3"><Trans i18nKey="myStatistics"/></h4>
+            <section>
+                <h4 className="navigation-title pt-3"><Trans i18nKey="myStatistics"/></h4>
 
-                    <section className="browse">
-                        <Card>
-                            <Card.Title>
-                                <div className="date-form">
-                                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
-                                        <div className="date-range-picker">
-                                            <DateRangePicker value={selectedDate}
-                                                             className="fullWidth"
-                                                             placeholder={t('date.range')}
-                                                             onChange={values => this.handleDateChange(values)}/>
-                                        </div>
-                                    </MuiPickersUtilsProvider>
-                                </div>
-                            </Card.Title>
-                            {show &&
-                            <Card.Body>
-                                <Tabs defaultActiveKey="user" id="uncontrolled-tab-example" className="tab-border">
-                                    <Tab eventKey="user" title={<Trans i18nKey="statistics.my"/>}>
-                                        {fetchingMy ? <Spinner/> :
-                                            this.renderPlots(dataIngredientsMy, dataTagsMy)}
-                                    </Tab>
-                                    <Tab eventKey="general" title={<Trans i18nKey="statistics.general"/>}>
-                                        {fetchingGeneral ? <Spinner/> :
-                                            this.renderPlots(dataIngredientsGeneral, dataTagsGeneral)}
-                                    </Tab>
-                                </Tabs>
-                            </Card.Body>}
-                        </Card>
-                    </section>
+                <section className="browse">
+                    <Card>
+                        <Card.Title>
+                            <div className="date-form">
+                                <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
+                                    <div className="date-range-picker">
+                                        <DateRangePicker
+                                            value={selectedDate}
+                                            className="fullWidth"
+                                            placeholder={selectedDate.begin &&
+                                                (formatDateAlternative(selectedDate.begin) + " - " + formatDateAlternative(selectedDate.end))
+                                            }
+                                            onChange={values => this.handleDateChange(values)}/>
+                                    </div>
+                                </MuiPickersUtilsProvider>
+                            </div>
+                        </Card.Title>
+                        {show &&
+                        <Card.Body>
+                            <Tabs defaultActiveKey="user" id="uncontrolled-tab-example" className="tab-border">
+                                <Tab eventKey="user" title={<Trans i18nKey="statistics.my"/>}>
+                                    {fetchingMy ? <Spinner/> :
+                                        this.renderPlots(dataIngredientsMy, dataTagsMy)}
+                                </Tab>
+                                <Tab eventKey="general" title={<Trans i18nKey="statistics.general"/>}>
+                                    {fetchingGeneral ? <Spinner/> :
+                                        this.renderPlots(dataIngredientsGeneral, dataTagsGeneral)}
+                                </Tab>
+                            </Tabs>
+                        </Card.Body>}
+                    </Card>
                 </section>
+            </section>
         );
     }
 }
