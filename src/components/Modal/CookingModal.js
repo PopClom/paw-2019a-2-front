@@ -7,7 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class CookingModal extends React.Component {
     render() {
-        const {missingIngredients, showModal, toggleModal} = this.props;
+        const {missingIngredients, showModal, toggleModal, onCookRecipe} = this.props;
 
         return (
             <Modal show={showModal} onHide={toggleModal}>
@@ -45,7 +45,7 @@ class CookingModal extends React.Component {
                     <Button variant="secondary" className="btn-blue-grey" onClick={toggleModal}>
                         <Trans i18nKey="close"/>
                     </Button>
-                    <Button type="submit" className="btn-green" onClick={() => {toggleModal();}}>
+                    <Button type="submit" className="btn-green" onClick={() => {toggleModal(); onCookRecipe()}}>
                         <Trans i18nKey="confirm"/>
                     </Button>
                 </Modal.Footer>

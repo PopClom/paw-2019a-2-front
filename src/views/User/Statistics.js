@@ -127,7 +127,14 @@ class Statistics extends React.Component {
                             <HorizontalBar data={dataIngredients}
                                            options={{
                                                legend: {display: false},
-                                               maintainAspectRatio: false
+                                               maintainAspectRatio: false,
+                                               scales: {
+                                                   xAxes: [{
+                                                       ticks: {
+                                                           beginAtZero: true
+                                                       }
+                                                   }]
+                                               }
                                            }}/>
                         </div>
                     </div> :

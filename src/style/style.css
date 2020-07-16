@@ -366,6 +366,10 @@ a.custom-card{
     margin-bottom: 10px;
 }
 
+.ic-blue {
+    color: #82b1ff;
+}
+
 .ic-green {
     color: rgb(30, 215, 96);
 }
@@ -411,6 +415,10 @@ a.custom-card{
 
 .btn-green{
     background-color: rgb(30, 215, 96) !important;
+}
+
+.btn-blue{
+    background-color: #82b1ff !important;
 }
 
 .btnDel_1, .btnDel_2 {
@@ -780,6 +788,7 @@ a.custom-card{
 }
 
 .recipe-bottom-icon{
+    display: flex;
     float: right;
 }
 
@@ -958,7 +967,7 @@ a.custom-card{
 .card-deck {
     margin: 5px !important;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(310px, 0.5fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 0.5fr));
     grid-gap: 10px;
 }
 
@@ -1175,12 +1184,14 @@ a.custom-card{
     }
 }
 
-@media (max-width: 1150px) {
+@media(max-width: 1160px) {
     .card-deck{
-        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         grid-gap:10px;
     }
+}
 
+@media (max-width: 1150px) {
     .card-img-top{
         max-height: 800px;
     }

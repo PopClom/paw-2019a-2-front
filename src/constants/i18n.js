@@ -266,6 +266,7 @@ i18n
                     "cantCooked": "You are missing this ingredients to cook this recipe",
                     "cookWithoutIngredients": "If you continue, you will use the ingredients you have for the recipe, the ones you don't have will be ignored.",
                     "cookWithIngredients": "You have all the ingredients needed to cook this recipe, if you continue, they will be discounted from your ingredients.",
+                    "cook.successfull": "Successfully cooked!",
 
                     "editRecipe": "Edit Recipe",
                     "deleteRecipe": "Delete Recipe",
@@ -614,6 +615,7 @@ i18n
                     "cantCooked": "Te faltan los siguientes ingredientes para cocinar esta receta",
                     "cookWithoutIngredients": "Si decide continuar, se le descontarán los ingredientes que posee, los que no, serán ignorados",
                     "cookWithIngredients": "Usted tiene todos los ingredientes para cocinar la receta, al continuar se le descontaran de sus ingredientes.",
+                    "cook.successfull": "Receta cocinada con éxito!",
 
                     "editRecipe": "Editar Receta",
                     "deleteRecipe": "Borrar Receta",

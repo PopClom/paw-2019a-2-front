@@ -48,7 +48,7 @@ class RecipeSteps extends React.Component {
                         {this.state.index < steps.length - 1 ?
                             <Button className="btn-green float-right"
                                     onClick={this.slickNext}><Trans i18nKey="recipe.nextStep"/></Button> :
-                            <Button className="btn-green float-right"
+                            <Button className="btn-blue float-right"
                                     onClick={showCookingModal}><Trans i18nKey="recipe.cook"/></Button>}
                     </div>
                 </div>
