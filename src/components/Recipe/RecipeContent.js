@@ -131,6 +131,7 @@ class RecipeContent extends React.Component {
                                             return <div key={idx}
                                                         className={parseInt(idx) === 0 ? "ingredients-recipe-no-border" : "ingredients-recipe"}>
                                                 <div className="ingredient-name-container">
+                                                    {loggedIn &&
                                                     <div className="ingredient-tooltip">
                                                         {missingIngredient === undefined ?
                                                             <TooltipHover placement="top"
@@ -161,8 +162,7 @@ class RecipeContent extends React.Component {
                                                                 }
                                                             </>
                                                         }
-
-                                                    </div>
+                                                    </div> }
                                                     <p className="ingredients-item">
                                                         <Trans>{recipe.ingredients[idx].name}</Trans>
                                                     </p>
@@ -191,7 +191,7 @@ class RecipeContent extends React.Component {
 
                                 <div className="recipe-body-bottom">
                                     <div className="recipe-bottom-icon">
-                                        {isLoggedIn() &&
+                                        {loggedIn &&
                                         <>
                                             <TooltipHover placement="top" message={<Trans>recipe.cook</Trans>}
                                                           icon={

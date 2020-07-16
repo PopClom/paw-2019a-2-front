@@ -15,7 +15,6 @@ class Recipe extends React.Component {
         super(props);
         this.state = {
             fetching: true,
-            fetchingIngredients: true,
             error: false,
             showDeleteModal: false,
             recipe: {},
@@ -27,28 +26,29 @@ class Recipe extends React.Component {
 
     loadData() {
         const id = this.props.match.params.id;
-        axios.get(`${SERVER_ADDR}/recipes/${id}`).then(response =>
-            this.setState({recipe: response.data}))
-            .then(() => {
-                const userId = this.state.recipe.userId;
-                axios.get(`${SERVER_ADDR}/users/${userId}`).then(response => this.setState({
-                    user: response.data,
-                    fetching: false
-                }))
-            }).catch(() => this.setState({fetching: false, error: true}));
+        const calls = [axios.get(`${SERVER_ADDR}/recipes/${id}`)];
+        if(isLoggedIn())
+            calls.push(axios.get(`${SERVER_ADDR}/user/ingredients/`));
 
-        if (isLoggedIn()) {
-            axios.get(`${SERVER_ADDR}/user/ingredients/`).then(response => {
+        axios.all(calls).then(responses => {
+            this.setState({recipe: responses[0].data});
+            console.log(responses)
+            if(responses.length > 1) {
                 const userIngredients = {};
-                response.data.ingredients.forEach(ingredient => userIngredients[ingredient.id] = ingredient);
+                responses[1].data.ingredients.forEach(ingredient => userIngredients[ingredient.id] = ingredient);
                 this.setState({
                     userIngredients: userIngredients,
-                    fetchingIngredients: false
-                })
-            });
-        } else {
-            this.setState({fetchingIngredients: false});
-        }
+                    missingIngredients: this.getMissingIngredients(this.state.recipe.ingredients, userIngredients),
+                });
+            }
+            const userId = responses[0].data.userId;
+            axios.get(`${SERVER_ADDR}/users/${userId}`).then(response =>
+                this.setState({user: response.data, fetching: false})
+            );
+        }).catch((e)=> {
+            console.log(e)
+            this.setState({error: true, fetching: false})
+        })
     }
 
     componentDidMount() {
@@ -106,17 +106,15 @@ class Recipe extends React.Component {
     }
 
     render() {
-        const {recipe, userIngredients, user, fetching, fetchingIngredients} = this.state;
+        const {recipe, user, fetching, error} = this.state;
         let {missingIngredients} = this.state;
-        if (!fetching && !fetchingIngredients)
-            missingIngredients = this.getMissingIngredients(this.state.recipe.ingredients, userIngredients);
 
         return (
             <section className="main_container">
-                {fetching || fetchingIngredients ?
+                {fetching ?
                     <section className="browse">
                         <Spinner/>
-                    </section> : (recipe.error ?
+                    </section> : (error ?
                             <Error error="404"/> :
                             <section>
                                 <section className="browse">

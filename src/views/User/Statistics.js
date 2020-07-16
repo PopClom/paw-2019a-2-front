@@ -71,29 +71,27 @@ class Statistics extends React.Component {
     handleDateChange = (selectedDate) => {
         this.setState({selectedDate: selectedDate, fetchingMy: true, fetchingGeneral: true, show: true});
 
-        axios.get(`${SERVER_ADDR}/user/statistics`,
-            {params: {from: formatDate(selectedDate.begin), to: formatDate(selectedDate.end)}})
-            .then(response => {
-                const dataIngredients = this.processData(response.data.ingredientStatistics.entry, barStyle);
-                const dataTags = this.processData(response.data.tagStatistics.entry, doughnutStyle);
-                this.setState({
-                    dataIngredientsMy: dataIngredients,
-                    dataTagsMy: dataTags,
-                    fetchingMy: false
-                });
+        axios.all([
+            axios.get(`${SERVER_ADDR}/user/statistics`,
+                {params: {from: formatDate(selectedDate.begin), to: formatDate(selectedDate.end)}}),
+            axios.get(`${SERVER_ADDR}/users/statistics`,
+                {params: {from: formatDate(selectedDate.begin), to: formatDate(selectedDate.end)}})
+        ]).then(responses => {
+            const dataIngredients = this.processData(responses[0].data.ingredientStatistics.entry, barStyle);
+            const dataTags = this.processData(responses[0].data.tagStatistics.entry, doughnutStyle);
+            this.setState({
+                dataIngredientsMy: dataIngredients,
+                dataTagsMy: dataTags,
+                fetchingMy: false
             });
-
-        axios.get(`${SERVER_ADDR}/users/statistics`,
-            {params: {from: formatDate(selectedDate.begin), to: formatDate(selectedDate.end)}})
-            .then(response => {
-                const dataIngredients = this.processData(response.data.ingredientStatistics.entry, barStyle);
-                const dataTags = this.processData(response.data.tagStatistics.entry, doughnutStyle);
-                this.setState({
-                    dataIngredientsGeneral: dataIngredients,
-                    dataTagsGeneral: dataTags,
-                    fetchingGeneral: false
-                });
+            const dataIngredientsGeneral = this.processData(responses[1].data.ingredientStatistics.entry, barStyle);
+            const dataTagsGeneral = this.processData(responses[1].data.tagStatistics.entry, doughnutStyle);
+            this.setState({
+                dataIngredientsGeneral: dataIngredientsGeneral,
+                dataTagsGeneral: dataTagsGeneral,
+                fetchingGeneral: false
             });
+        })
     };
 
     processData = (entries, style) => {

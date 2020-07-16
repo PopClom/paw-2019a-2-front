@@ -31,7 +31,7 @@ class Login extends React.Component {
         this.setState({submitting: true});
         login(this.state.username, this.state.password).then(() => {
             if (this.props.location.from)
-                this.props.history.push(`/..` + this.props.location.from);
+                this.props.history.push(`/` + this.props.location.from);
             else
                 this.props.history.push(`/`);
         }).catch(err => {
