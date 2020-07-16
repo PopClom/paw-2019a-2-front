@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans} from 'react-i18next';
+import {Trans, withTranslation} from 'react-i18next';
 import {Modal} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {faCircle} from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class CookingModal extends React.Component {
     render() {
-        const {missingIngredients, showModal, toggleModal, onCookRecipe} = this.props;
+        const {missingIngredients, showModal, toggleModal, onCookRecipe, t} = this.props;
 
         return (
             <Modal show={showModal} onHide={toggleModal}>
@@ -30,7 +30,7 @@ class CookingModal extends React.Component {
                                         <p>{missingIngredient.name}</p>
                                     </div>
                                     <div className="missing-ingredient-amount">
-                                        <p>{missingIngredient.amount} {missingIngredient.typeOfServing}</p>
+                                        <p>{missingIngredient.amount} {t(missingIngredient.typeOfServing)}</p>
                                     </div>
                                 </div>
                             })}
@@ -54,4 +54,7 @@ class CookingModal extends React.Component {
     }
 }
 
-export default CookingModal;
+const Extended = withTranslation()(CookingModal);
+Extended.static = CookingModal.static;
+
+export default Extended;

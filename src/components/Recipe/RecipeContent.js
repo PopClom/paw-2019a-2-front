@@ -1,6 +1,6 @@
 import React from 'react';
 import {formatNumber, isMyUser, isUserAdmin} from '../../helpers';
-import {Trans} from 'react-i18next';
+import {Trans, withTranslation} from 'react-i18next';
 import RatingRecipe from "./RatingRecipe";
 import noRecipeImg from "../../assets/img/no_recipe_image.png";
 import TooltipHover from "../General/TooltipHover";
@@ -46,7 +46,7 @@ class RecipeContent extends React.Component {
     };
 
     render() {
-        const {recipe, onRate, missingIngredients} = this.props;
+        const {recipe, onRate, missingIngredients, t} = this.props;
         const instructionLines = recipe.instructions ? recipe.instructions.split('\n') : [];
         const loggedIn = isLoggedIn();
         const canEdit = isMyUser(recipe.userId) || isUserAdmin();
@@ -144,7 +144,8 @@ class RecipeContent extends React.Component {
                                                                     <TooltipHover placement="top"
                                                                                   message={<Trans
                                                                                       i18nKey="ingredient.missing"
-                                                                                      values={{0: missingIngredient.amount + " " + missingIngredient.typeOfServing}}/>}
+                                                                                      values={{0: missingIngredient.amount +
+                                                                                              " " + t(missingIngredient.typeOfServing)}}/>}
                                                                                   icon={<FontAwesomeIcon
                                                                                       className="tooltip-recipe ic-orange"
                                                                                       icon={faExclamationCircle}/>}/>
@@ -152,7 +153,8 @@ class RecipeContent extends React.Component {
                                                                     <TooltipHover placement="top"
                                                                                   message={<Trans
                                                                                       i18nKey="ingredient.missing"
-                                                                                      values={{0: missingIngredient.amount + " " + missingIngredient.typeOfServing}}/>}
+                                                                                      values={{0: missingIngredient.amount +
+                                                                                              " " + t(missingIngredient.typeOfServing)}}/>}
                                                                                   icon={<FontAwesomeIcon
                                                                                       className="tooltip-recipe ic-red"
                                                                                       icon={faTimes}/>}/>
@@ -191,7 +193,7 @@ class RecipeContent extends React.Component {
                                     <div className="recipe-bottom-icon">
                                         {isLoggedIn() &&
                                         <>
-                                            <TooltipHover placement="top" message={<Trans>cooklist.add</Trans>}
+                                            <TooltipHover placement="top" message={<Trans>recipe.cook</Trans>}
                                                           icon={
                                                               <IconButton onClick={this.toggleCookModal}>
                                                                   <FontAwesomeIcon className="ic-blue"
@@ -241,4 +243,7 @@ class RecipeContent extends React.Component {
     }
 }
 
-export default RecipeContent;
+const Extended = withTranslation()(RecipeContent);
+Extended.static = RecipeContent.static;
+
+export default Extended;
