@@ -8,12 +8,14 @@ import {Trans} from "react-i18next";
 import ConfirmationModal from "../components/Modal/ConfirmationModal";
 import UserBar from "../components/User/UserBar";
 import Error from "../components/General/Error";
+import {isLoggedIn} from "../helpers/auth";
 
 class Recipe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             fetching: true,
+            fetchingIngredients: true,
             error: false,
             showDeleteModal: false,
             recipe: {},
@@ -30,19 +32,23 @@ class Recipe extends React.Component {
             .then(() => {
                 const userId = this.state.recipe.userId;
                 axios.get(`${SERVER_ADDR}/users/${userId}`).then(response => this.setState({
-                    user: response.data
-                })).then(() => {
-                    axios.get(`${SERVER_ADDR}/user/ingredients/`).then(response => {
-                        const userIngredients = {};
-                        response.data.ingredients.forEach(ingredient => userIngredients[ingredient.id] = ingredient);
-                        this.setState({
-                            userIngredients: userIngredients,
-                            missingIngredients: this.getMissingIngredients(this.state.recipe.ingredients, userIngredients),
-                            fetching: false
-                        })
-                    })
-                })
+                    user: response.data,
+                    fetching: false
+                }))
             }).catch(() => this.setState({fetching: false, error: true}));
+
+        if (isLoggedIn()) {
+            axios.get(`${SERVER_ADDR}/user/ingredients/`).then(response => {
+                const userIngredients = {};
+                response.data.ingredients.forEach(ingredient => userIngredients[ingredient.id] = ingredient);
+                this.setState({
+                    userIngredients: userIngredients,
+                    fetchingIngredients: false
+                })
+            });
+        } else {
+            this.setState({fetchingIngredients: false});
+        }
     }
 
     componentDidMount() {
@@ -100,11 +106,14 @@ class Recipe extends React.Component {
     }
 
     render() {
-        const {recipe, missingIngredients, user, fetching} = this.state;
+        const {recipe, userIngredients, user, fetching, fetchingIngredients} = this.state;
+        let {missingIngredients} = this.state;
+        if (!fetching && !fetchingIngredients)
+            missingIngredients = this.getMissingIngredients(this.state.recipe.ingredients, userIngredients);
 
         return (
             <section className="main_container">
-                {fetching ?
+                {fetching || fetchingIngredients ?
                     <section className="browse">
                         <Spinner/>
                     </section> : (recipe.error ?

@@ -3,6 +3,7 @@ import {Button} from "react-bootstrap";
 import Slider from "react-slick";
 import RecipeStep from "./RecipeStep";
 import {Trans} from "react-i18next";
+import {isLoggedIn} from "../../helpers/auth";
 
 class RecipeSteps extends React.Component {
     constructor(props) {
@@ -49,6 +50,7 @@ class RecipeSteps extends React.Component {
                             <Button className="btn-green float-right"
                                     onClick={this.slickNext}><Trans i18nKey="recipe.nextStep"/></Button> :
                             <Button className="btn-blue float-right"
+                                    disabled={!isLoggedIn()}
                                     onClick={showCookingModal}><Trans i18nKey="recipe.cook"/></Button>}
                     </div>
                 </div>
