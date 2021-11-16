@@ -1,3 +1,22 @@
+# Foodify (Web Application Project)
+
+## About
+This repository is for the assignments made for the course 'Proyectos de aplicaciones web' (Web application project).
+
+The project is a web application built using React, below you can see the functionalities implemented.
+
+* The application works as an advanced recipe book for the users. 
+* Users can share their own recipes to everyone.
+* Vote and comment recipes.
+* Estimate the nutritional information of the recipe.
+* Keep track of the ingredients the user has. He can insert the ingredients he has at home, and the application recommends him recipes he is able to cook.
+* Visualize statistics such as how much calories did he consume, which type of food does he consumes more often, among others.
+* Create personal cooking lists, similar concept to a spotify playlist.
+* Mark recipes as favorites.
+* Follow and unfollow users.
+* Keep a history of cooked recipes.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
